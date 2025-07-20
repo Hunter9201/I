@@ -1,0 +1,97 @@
+/* Add this to your style.css file */
+.motto {
+  background: linear-gradient(120deg, #0f3057, #2e8bc0);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.motto h2 {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  font-weight: 600;
+  margin: 0;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f4ee;
+  color: #2c2c2c;
+  margin: 0;
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  background-color: #112d4e;
+  padding-bottom: 1rem;
+}
+
+.menu-icon {
+  font-size: 28px;
+  color: #fff;
+  background-color: #3f72af;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  top: 10px;
+  right: 20px;
+  position: absolute;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.nav-container {
+  background-color: #3f72af;
+  font-family: 'Poppins', sans-serif;
+  transition: right 0.4s ease;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #ccc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+.card a {
+  background-color: #112d4e;
+  border-radius: 5px;
+  padding: 0.6rem 1rem;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.motto {
+  background-color: #e8e2d0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem;
+  font-style: italic;
+  text-align: center;
+  color: #112d4e;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-left: 6px solid #3f72af;
+  border-radius: 8px;
+  max-width: 900px;
+}
+
+footer {
+  background-color: #112d4e;
+  color: #ddd;
+  text-align: center;
+  padding: 1.2rem;
+  font-size: 0.95rem;
+}
+background-color: #caa75c; /* gold-ish */
+color: #112d4e;
