@@ -1,19 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>THE LION HUNTER</title>
-  <link rel="stylesheet" href="./style.css">
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>THE LION HUNTER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
   <style>
     body {
@@ -41,19 +31,19 @@
       padding: 8px 12px;
       border-radius: 6px;
       cursor: pointer;
-      z-index: 1000;
+      z-index: 1001;
     }
     .nav-container {
       position: fixed;
       top: 0;
       right: -250px;
-      height: 100%;
       width: 250px;
+      height: 100%;
       background-color: #2e8bc0;
-      padding-top: 60px;
       transition: right 0.3s ease;
-      box-shadow: -4px 0 12px rgba(0,0,0,0.1);
-      z-index: 999;
+      padding-top: 60px;
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
     }
     .nav-container.open {
       right: 0;
@@ -69,6 +59,35 @@
     .nav-container a:hover {
       background-color: #2474a9;
     }
+    #calendar-alert {
+      background: linear-gradient(to right, #283e51, #4b79a1);
+      color: white;
+      border-radius: 8px;
+      margin: 12px auto;
+      width: 95%;
+      max-width: 800px;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: roar 1.6s infinite;
+    }
+    #calendar-alert a {
+      background-color: #ffeb3b;
+      color: #222;
+      padding: 6px 12px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+    @keyframes roar {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
     main {
       padding: 2rem;
       text-align: center;
@@ -83,7 +102,7 @@
       background: white;
       padding: 1rem;
       border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       transition: transform 0.2s;
     }
     .card:hover {
@@ -116,12 +135,33 @@
       font-size: 0.9rem;
     }
   </style>
-</head>
+</head><script>
+  function toggleMenu() {
+    const menu = document.getElementById('navMenu');
+    menu.classList.toggle('open');
+  }
+
+  // Auto-close when link is clicked
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('#navMenu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navMenu').classList.remove('open');
+      });
+    });
+  });
+</script>
+
 <body>
+
+  <!-- 🔔 Calendar Alert Banner -->
+  <div id="calendar-alert">
+    <span id="calendar-message">📅 Scanning for upcoming discussions...</span>
+    <a href="https://cal.com/lion-den-disscussion" target="_blank">View Calendar</a>
+  </div>
 
   <header>
     <div class="menu-icon" onclick="toggleMenu()">☰</div>
-    <img src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" alt="LDC-LEGAL-COMPANION" border="0" />
+    <img src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" alt="LDC LEGAL COMPANION" />
   </header>
 
   <div id="navMenu" class="nav-container">
@@ -132,8 +172,8 @@
     <a href="exams.html">Exams</a>
     <a href="audio.html">Audio</a>
     <a href="category-b.html">Category B</a>
-    <a href="caseslandone.html">case summaries</a>
-   <a href="Discussions.html"> Online Discussions</a> 
+    <a href="caseslandone.html">Case Summaries</a>
+    <a href="Discussions.html">Online Discussions</a> 
     <a href="services.html">Bar Bites</a>
     <a href="services.html">Legal Services</a>
   </div>
@@ -141,67 +181,22 @@
   <main>
     <h2>📂 Explore Sections</h2>
     <div class="grid">
-      <div class="card">
-        <h3>Laws</h3>
-        <p>New Acts, judicial updates, and useful legislation.</p>
-        <a href="laws.html">Open</a>
-      </div>
-      <div class="card">
-        <h3>Trial Advocacy</h3>
-        <p>Evidence rules, litigation guides and role-play prep.</p>
-        <a href="trial-advocacy.html">Open</a>
-      </div>
-      <div class="card">
-        <h3>Workshops</h3>
-        <p>Bootcamps and short courses for rapid learning.</p>
-        <a href="workshop.html">Open</a>
-      </div>
-      <div class="card">
-        <h3>Individual Assessment</h3>
-        <p>Self-review materials and examiner tips.</p>
-        <a href="ia.html">Open</a>
-      </div>
-      <div class="card">
-        <h3>Exams</h3>
-        <p>Mock papers, past exams, answer outlines.</p>
-        <a href="exams.html">Open</a>
-      </div>
-      <div class="card">
-        <h3>Audio Lessons</h3>
-        <p>Voice recaps for revision on the go.</p>
-        <a href="audio.html">Open</a>
-      </div>
-      <div class="card">
-        <h3>Category B</h3>
-        <p>Extra content and bonus support sections.</p>
-        <a href="category-b.html">Open</a>
-      </div>
-      <div class="card">
-        <h3>Bar Bites</h3>
-        <p>Motivational Content and War stories</p>
-        <a href="services.html">Open</a>
-      </div>
-    
-      <div class="card">
-        <h3>Online Discussions </h3>
-        <p> workshop Case Summaries </p>
-        <a href="Discussions.html">Open</a>     
-      </div> 
-      <div class="card">
-        <h3>Case Summaries</h3>
-        <p> workshop Case Summaries </p>
-        <a href="caseslandone.html">Open</a>
-      </div>
-      <div class="card">
-        <h3>Legal Services</h3>
-        <p>Let Arthur register companies, prepare contracts, and advise you.</p>
-        <a href="services.html">Hire Me</a>
-      </div>
+      <div class="card"><h3>Laws</h3><p>New Acts, judicial updates, and useful legislation.</p><a href="laws.html">Open</a></div>
+      <div class="card"><h3>Trial Advocacy</h3><p>Evidence rules, litigation guides and role-play prep.</p><a href="trial-advocacy.html">Open</a></div>
+      <div class="card"><h3>Workshops</h3><p>Bootcamps and short courses for rapid learning.</p><a href="workshop.html">Open</a></div>
+      <div class="card"><h3>Individual Assessment</h3><p>Self-review materials and examiner tips.</p><a href="ia.html">Open</a></div>
+      <div class="card"><h3>Exams</h3><p>Mock papers, past exams, answer outlines.</p><a href="exams.html">Open</a></div>
+      <div class="card"><h3>Audio Lessons</h3><p>Voice recaps for revision on the go.</p><a href="audio.html">Open</a></div>
+      <div class="card"><h3>Category B</h3><p>Extra content and bonus support sections.</p><a href="category-b.html">Open</a></div>
+      <div class="card"><h3>Bar Bites</h3><p>Motivational Content and War stories</p><a href="services.html">Open</a></div>
+      <div class="card"><h3>Online Discussions</h3><p>Workshop Case Summaries</p><a href="Discussions.html">Open</a></div> 
+      <div class="card"><h3>Case Summaries</h3><p>Workshop Case Summaries</p><a href="caseslandone.html">Open</a></div>
+      <div class="card"><h3>Legal Services</h3><p>Let Arthur register companies, prepare contracts, and advise you.</p><a href="services.html">Hire Me</a></div>
     </div>
   </main>
 
   <div class="motto">
-    <h2>If others can, then with God, I must.<br/>This pen is my tool, this paper my battle — and I won’t stop until the law bows to clarity.</h2>
+    <h2>If others can, then with God, I must.<br>This pen is my tool, this paper my battle — and I won’t stop until the law bows to clarity.</h2>
   </div>
 
   <footer>
@@ -211,24 +206,3 @@
   <script>
     function toggleMenu() {
       const menu = document.getElementById('navMenu');
-      menu.classList.toggle('open');
-    }
-  </script>
-<div style="position: absolute; top: 10px; left: 20px;">
-  <a href="login.html" style="
-    background-color: #0f3057;
-    color: white;
-    padding: 8px 14px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  ">Log In</a>
-</div>
-
-</body>
-</html>
-<!-- partial -->
-  
-</body>
-</html>
