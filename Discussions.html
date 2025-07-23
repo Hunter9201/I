@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>DISCUSSIONS</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!-- 🦁 Lion Den Portal Main View -->
+<div id="mainPortal" style="display: block; font-family: 'Segoe UI', sans-serif; background: linear-gradient(to right, #004225, #0b6623); padding: 30px; border-radius: 15px; color: #f4f4f4; position: relative; box-shadow: 0 6px 12px rgba(0,0,0,0.3);">
+
+  <!-- 🐾 Schedule Button (Top-Left) -->
+  <div style="position: absolute; top: 30px; left: 30px;">
+    <button onclick="document.getElementById('mainPortal').style.display='none'; document.getElementById('schedulerPage').style.display='block';" style="
+      padding: 12px 22px;
+      background-color: #d4af37;
+      color: #004225;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    ">
+      🐾 Schedule Your Roar
+    </button>
+  </div>
+
+  <!-- 🦁 Title -->
+  <div style="text-align: center; margin-top: 80px;">
+    <h1 style="font-size: 2.5em; color: #d4af37;">🦁 Welcome to The Lion Den</h1>
+    <p style="font-size: 1.2em;">View upcoming roars and join instantly via Google Meet.</p>
+  </div>
+
+  <!-- 📆 Google Calendar Embed -->
+  <div style="margin-top: 40px;">
+    <h2 style="text-align: center; color: #d4af37;">📆 Upcoming Roars</h2>
+    <p style="text-align: center;">Click an event to view its details and <strong>join via Google Meet</strong>.</p>
+    <iframe src="https://calendar.google.com/calendar/embed?src=lionhunter920%40gmail.com&ctz=Africa%2FKampala"
+      style="border: 2px solid #d4af37; width: 100%; height: 600px; border-radius: 10px;" frameborder="0">
+    </iframe>
+    <p style="text-align: center; font-size: 0.9em; color: #ccc;">Meet link appears inside each event popup—click to roar in!</p>
+  </div>
+
+  <!-- 🌿 Footer -->
+  <div style="text-align: center; margin-top: 30px;">
+    <p style="font-size: 0.9em; color: #ccc;">
+      Hosted with pride by LIONHUNTER • Powered by Cal.com & Google Calendar 🐾🔥
+    </p>
+  </div>
+</div>
+
+<!-- 🐾 Scheduler Page Standalone -->
+<div id="schedulerPage" style="display: none; font-family: 'Segoe UI', sans-serif; background: #004225; padding: 40px; border-radius: 15px; color: #f4f4f4; box-shadow: inset 0 0 12px rgba(0,0,0,0.3); text-align: center; position: relative;">
+
+  <!-- 🔙 Return Button -->
+  <div style="position: absolute; top: 30px; left: 30px;">
+    <button onclick="document.getElementById('schedulerPage').style.display='none'; document.getElementById('mainPortal').style.display='block';" style="
+      padding: 12px 22px;
+      background-color: #d4af37;
+      color: #004225;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    ">
+      🔙 Return to Lion Den
+    </button>
+  </div>
+
+  <!-- 📅 Schedule Header -->
+  <h1 style="font-size: 2.5em; color: #d4af37; margin-top: 60px;">📅 Schedule Your Roar</h1>
+  <p style="font-size: 1.2em;">Select your time—your clickable Google Meet link will be emailed instantly to join the pride.</p>
+
+  <!-- 🦁 Run Button -->
+  <button onclick="document.getElementById('calFrame').style.display='block'; this.style.display='none';" style="
+    padding: 14px 28px;
+    margin-top: 20px;
+    background-color: #d4af37;
+    color: #004225;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  ">
+    🦁 Run Scheduler
+  </button>
+
+  <!-- 📅 Cal.com Scheduler Widget -->
+  <div id="calFrame" style="display: none; margin-top: 30px;">
+    <iframe src="https://cal.com/lion-den-disscussion/" style="width:100%; height:650px; border:0; border-radius:10px; box-shadow: 0 4px 12px rgba(0,0,0,0.4);"></iframe>
+    <p style="font-size: 0.9em; color: #ccc; margin-top: 10px;">
+      Google Meet link will be emailed and embedded in your calendar event. Click it to join the roar 🐾
+    </p>
+  </div>
+</div>
+<!-- partial -->
+  
+</body>
+</html>
