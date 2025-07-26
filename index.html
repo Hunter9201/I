@@ -185,6 +185,48 @@
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
 </script>
+  <script type="module">
+  // Firebase core setup
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+  import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyABgKrFpiFqC9gndXaK09MvhAVhZHAGk78",
+    authDomain: "lionhunterwebpush.firebaseapp.com",
+    projectId: "lionhunterwebpush",
+    storageBucket: "lionhunterwebpush.firebasestorage.app",
+    messagingSenderId: "803161144360",
+    appId: "1:803161144360:web:6d64c6c5c275d894a4891d",
+    measurementId: "G-GTJFDE1592"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+  const messaging = getMessaging(app);
+
+  Notification.requestPermission().then((permission) => {
+    if (permission === "granted") {
+      return getToken(messaging, {
+        vapidKey: "BOz1LEINl3DEOVWHBBZl4WLVIWR4mONDH0rmovfIvIOauLkE9_uBgN7U94T3rtdaO9AWyaA_WmA7yP1hnEcx98c"
+      });
+    } else {
+      throw new Error("Notification permission not granted.");
+    }
+  }).then((token) => {
+    console.log("🦁 Device FCM Token:", token);
+    // Optionally: Save token to Firestore or backend
+  }).catch((err) => {
+    console.error("🔕 Push setup failed:", err);
+  });
+
+  onMessage(messaging, (payload) => {
+    console.log("📨 Foreground message received:", payload);
+    alert(`${payload.notification.title}\n${payload.notification.body}`);
+  });
+</script>
+
 
 <body>
 
