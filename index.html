@@ -228,6 +228,164 @@
     alert(`${payload.notification.title}\n${payload.notification.body}`);
   });
 </script>
+<!-- Paste this code into your main page just before </body> -->
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* Custom keyframes for button animations */
+  @keyframes lion-dance {
+    0%,100%   { transform: translateY(0) rotate(0) scale(1);}
+    25%       { transform: translateY(-8px) rotate(-3deg) scale(1.05);}
+    50%       { transform: translateY(0)   rotate(3deg) scale(1.02);}
+    75%       { transform: translateY(-4px) rotate(2deg) scale(1.04);}
+  }
+  @keyframes lion-shake {
+    0%,100%           { transform: translateX(0) rotate(0deg);}
+    15%,45%,75%      { transform: translateX(-5px) rotate(-3deg);}
+    30%,60%,90%      { transform: translateX(5px)  rotate(3deg);}
+  }
+  .lion-dancing { animation: lion-dance 1.8s ease-in-out infinite alternate; }
+  .lion-stopped { animation: none !important; transform: none !important; }
+  .lion-shake   { animation: lion-shake 0.5s ease-in-out 1; }
+</style>
+
+<button id="lion-chat-button" class="lion-dancing rounded-full fixed bottom-6 right-6 w-14 h-14 bg-yellow-400 shadow-lg text-white text-3xl flex items-center justify-center">
+  🦁
+</button>
+
+<div id="lion-chat-container" class="fixed right-6 bottom-20 flex flex-col bg-white border-2 border-yellow-400 rounded-lg shadow-xl overflow-hidden max-h-0 w-72 transition-[max-height] duration-300">
+  <div class="bg-yellow-400 text-white font-bold p-3 text-center">Lion Hunt Bot</div>
+  <div id="lion-chat-messages" class="flex-1 p-3 bg-amber-50 overflow-auto text-sm space-y-2"></div>
+  <div class="border-t p-2 flex space-x-2">
+    <input id="lion-user-input" type="text" placeholder="Ask the Lion…" class="flex-1 border px-2 py-1 focus:outline-none" />
+    <button id="lion-send-btn" class="bg-yellow-400 text-white px-3">Roar</button>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('lion-chat-button');
+    const container = document.getElementById('lion-chat-container');
+    const messagesDiv = document.getElementById('lion-chat-messages');
+    const input = document.getElementById('lion-user-input');
+    const sendBtn = document.getElementById('lion-send-btn');
+
+    let messages = JSON.parse(localStorage.getItem('lionChat') || '[]');
+
+    const saveHistory = () => localStorage.setItem('lionChat', JSON.stringify(messages));
+    const scrollBottom = () => { messagesDiv.scrollTop = messagesDiv.scrollHeight; };
+
+    function appendMsg(content, role) {
+      const msg = document.createElement('div');
+      msg.className = role === 'user'
+        ? 'self-end bg-yellow-400 text-white px-3 py-1 rounded-l-lg rounded-br-lg max-w-[85%] whitespace-pre-wrap'
+        : 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
+      msg.textContent = content;
+      messagesDiv.appendChild(msg);
+      scrollBottom();
+    }
+
+    // Load stored messages
+    messages.forEach(m => appendMsg(m.content, m.role));
+
+    const toggleChat = () => {
+      const open = container.classList.toggle('open');
+      container.style.maxHeight = open ? '400px' : '0';
+      if (!open) {
+        btn.classList.add('lion-dancing');
+        btn.classList.remove('lion-stopped');
+      } else {
+        input.focus();
+      }
+    };
+
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('lion-dancing')) {
+        btn.classList.remove('lion-dancing');
+        btn.classList.add('lion-stopped', 'lion-shake');
+        btn.addEventListener('animationend', () => {
+          btn.classList.remove('lion-shake');
+        }, { once: true });
+        container.classList.add('open');
+        container.style.maxHeight = '400px';
+        input.focus();
+      } else {
+        toggleChat();
+      }
+    });
+
+    sendBtn.addEventListener('click', async () => {
+      const text = input.value.trim();
+      if (!text) return;
+      messages.push({role:'user', content:text});
+      saveHistory();
+      appendMsg(text, 'user');
+      input.value = '';
+      sendBtn.disabled = true;
+
+      const aiBubble = document.createElement('div');
+      aiBubble.className = 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
+      messagesDiv.appendChild(aiBubble);
+      scrollBottom();
+
+      const atStart = [
+        {role:'system', content:"You are Lion Hunt Bot. If service isn't ready, say so politely: 'Service is not available yet — coming soon!'"},
+        ...messages
+      ];
+
+      try {
+        const resp = await fetch("https://api.openai.com/v1/chat/completions", {
+          method:"POST", headers:{
+            "Content-Type":"application/json",
+            "Authorization":"Bearer YOUR_OPENAI_API_KEY"
+          },
+          body: JSON.stringify({model:"gpt-3.5-turbo", messages:atStart, stream:true})
+        });
+
+        if (!resp.ok) {
+          throw new Error(await resp.text());
+        }
+
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let assistantText = "";
+        while (true) {
+          const {value, done} = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value, {stream:true});
+          chunk.split("\n").forEach(line => {
+            if (line.startsWith("data: ")) {
+              const json = line.slice(6).trim();
+              if (json === "[DONE]") return;
+              try {
+                const parsed = JSON.parse(json);
+                const delta = parsed.choices[0].delta?.content;
+                if (delta) {
+                  assistantText += delta;
+                  aiBubble.textContent = assistantText;
+                  scrollBottom();
+                }
+              } catch{} // skip invalid
+            }
+          });
+        }
+        messages.push({role:'assistant', content:assistantText});
+        saveHistory();
+      } catch(err) {
+        aiBubble.textContent = "Error: " + err;
+        console.error(err);
+      } finally {
+        sendBtn.disabled = false;
+      }
+    });
+
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendBtn.click();
+      }
+    });
+  });
+</script>
 
 
 <body>
