@@ -334,60 +334,7 @@ sk-proj-Ja12E6tGjCx2X1PdtSX7uu7XwsMF1jrkhLWnTqcYlelVC4wO6nzfTbJJTy0PkjgfWuiCsZ6b
       ];
 
       try {
-        const resp = await fetch("https://api.openai.com/v1/chat/completions", {
-          method:"POST", headers:{
-            "Content-Type":"application/json",
-            "Authorization":"Bearer YOUR_OPENAI_API_KEY"
-          },
-          body: JSON.stringify({model:"gpt-3.5-turbo", messages:atStart, stream:true})
-        });
-
-        if (!resp.ok) {
-          throw new Error(await resp.text());
-        }
-
-        const reader = resp.body.getReader();
-        const decoder = new TextDecoder("utf-8");
-        let assistantText = "";
-        while (true) {
-          const {value, done} = await reader.read();
-          if (done) break;
-          const chunk = decoder.decode(value, {stream:true});
-          chunk.split("\n").forEach(line => {
-            if (line.startsWith("data: ")) {
-              const json = line.slice(6).trim();
-              if (json === "[DONE]") return;
-              try {
-                const parsed = JSON.parse(json);
-                const delta = parsed.choices[0].delta?.content;
-                if (delta) {
-                  assistantText += delta;
-                  aiBubble.textContent = assistantText;
-                  scrollBottom();
-                }
-              } catch{} // skip invalid
-            }
-          });
-        }
-        messages.push({role:'assistant', content:assistantText});
-        saveHistory();
-      } catch(err) {
-        aiBubble.textContent = "Error: " + err;
-        console.error(err);
-      } finally {
-        sendBtn.disabled = false;
-      }
-    });
-
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendBtn.click();
-      }
-    });
-  });
-</script>
-
+       
 
 <body>
 
@@ -459,7 +406,7 @@ sk-proj-Ja12E6tGjCx2X1PdtSX7uu7XwsMF1jrkhLWnTqcYlelVC4wO6nzfTbJJTy0PkjgfWuiCsZ6b
       <div class="card"><h3>Bar Bites</h3><p>Motivational Content and War stories</p><a href="services.html">Open</a></div>
       <div class="card"><h3>Online Discussions</h3><p>Workshop Case Summaries</p><a href="Discussions.html">Open</a></div> 
       <div class="card"><h3>Case Summaries</h3><p>Workshop Case Summaries</p><a href="caseslandone.html">Open</a></div>
-      <div class="card"><h3>Legal Services</h3><p>Let Arthur register companies, prepare contracts, and advise you.</p><a href="services.html">Hire Me</a></div>
+      <div class="card"><h3>Legal Services</h3><p>Let the lion rule.</p><a href="services.html">Hire Me</a></div>
     </div>
   </main>
 
@@ -468,7 +415,7 @@ sk-proj-Ja12E6tGjCx2X1PdtSX7uu7XwsMF1jrkhLWnTqcYlelVC4wO6nzfTbJJTy0PkjgfWuiCsZ6b
   </div>
 
   <footer>
-    &copy; 2025 Arthur Solutions. Built for LDC students. Designed for excellence.
+     2025 LionHunter.com  . Built for LDC Hunters . Designed for excellence.
   </footer>
 
   <script> 
