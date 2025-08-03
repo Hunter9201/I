@@ -1,427 +1,473 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head><!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCLCFN2CV4"></script>
-
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-gtag('config', 'G-KCLCFN2CV4');
+  gtag('config', 'G-KCLCFN2CV4');
 </script>
-<meta charset="UTF-8" />
-<title>THE LION HUNTER</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="google-site-verification" content="google47c9c1017e180e8f.html" />
-<meta name="description" content="The Lion Hunter – A jungle-themed portal for legal clarity, advocacy training, and nonstop discussion. Built for LDC students, designed for pride." />
-<meta name="keywords" content="The Lion Hunter, Lion Hunter, legal education, LDC Uganda, advocacy, case summaries, jungle platform, Arthur Solutions" />
-<meta property="og:title" content="The Lion Hunter" />
-<meta property="og:description" content="Empowering the pride through immersive learning and nonstop discussion." />
-<meta property="og:image" content="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" /> <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
-<style>
-body {
-margin: 0;
-font-family: 'Poppins', sans-serif;
-background-color: #f7f9fc;
-color: #333;
-}
-header {
-position: relative;
-text-align: center;
-}
-header img {
-width: 100%;
-height: auto;
-display: block;
-}
-.menu-icon {
-position: absolute;
-top: 10px;
-right: 20px;
-font-size: 28px;
-color: white;
-background-color: #0f3057cc;
-padding: 8px 12px;
-border-radius: 6px;
-cursor: pointer;
-z-index: 1001;
-}
-.nav-container {
-position: fixed;
-top: 0;
-right: -250px;
-width: 250px;
-height: 100%;
-background-color: #2e8bc0;
-padding-top: 60px;
-transition: right 0.3s ease;
-box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
-z-index: 1000;
-}
-.nav-container.open {
-right: 0;
-}
-.nav-container a {
-display: block;
-color: white;
-text-decoration: none;
-padding: 1rem;
-font-weight: bold;
-border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-.nav-container a:hover {
-background-color: #2474a9;
-}
-#calendar-alert {
-background: linear-gradient(to right, #283e51, #4b79a1);
-color: white;
-border-radius: 8px;
-margin: 12px auto;
-width: 95%;
-max-width: 800px;
-padding: 12px 20px;
-font-size: 0.95rem;
-font-weight: 500;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-display: flex;
-align-items: center;
-justify-content: space-between;
-animation: roar 1.6s infinite;
-}
-#calendar-alert a {
-background-color: #ffeb3b;
-color: #222;
-padding: 6px 12px;
-text-decoration: none;
-border-radius: 4px;
-font-weight: 600;
-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-}
-@keyframes roar {
-0%, 100% { transform: scale(1); }
-50% { transform: scale(1.02); }
-}
-main {
-padding: 2rem;
-text-align: center;
-}
-.grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-gap: 1.5rem;
-margin-top: 2rem;
-}
-.card {
-background: white;
-padding: 1rem;
-border-radius: 10px;
-box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-transition: transform 0.2s;
-}
-.card:hover {
-transform: translateY(-5px);
-}
-.card a {
-display: inline-block;
-margin-top: 1rem;
-padding: 0.5rem 1rem;
-background: #2e8bc0;
-color: white;
-text-decoration: none;
-border-radius: 5px;
-font-weight: bold;
-}
-.motto {
-background: #e3eef9;
-padding: 2rem;
-margin: 2rem;
-border-radius: 10px;
-font-size: 1.2rem;
-font-weight: 600;
-color: #0f3057;
-}
-footer {
-background: #0f3057;
-color: #ccc;
-text-align: center;
-padding: 1rem;
-font-size: 0.9rem;
-}
-</style>
-<script src="https://your-deployed-url.repl.co/embed.js"></script>
+  <meta charset="UTF-8" />
+  <title>THE LION HUNTER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google-site-verification" content="google47c9c1017e180e8f.html" />
+  <meta name="description" content="The Lion Hunter – A jungle-themed portal for legal clarity, advocacy training, and nonstop discussion. Built for LDC students, designed for pride." />
+  <meta name="keywords" content="The Lion Hunter, Lion Hunter, legal education, LDC Uganda, advocacy, case summaries, jungle platform, Arthur Solutions" />
+  <meta property="og:title" content="The Lion Hunter" />
+  <meta property="og:description" content="Empowering the pride through immersive learning and nonstop discussion." />
+  <meta property="og:image" content="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" />  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #f7f9fc;
+      color: #333;
+    }
+    header {
+      position: relative;
+      text-align: center;
+    }
+    header img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .menu-icon {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 28px;
+      color: white;
+      background-color: #0f3057cc;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    .nav-container {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #2e8bc0;
+      padding-top: 60px;
+      transition: right 0.3s ease;
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    .nav-container.open {
+      right: 0;
+    }
+    .nav-container a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 1rem;
+      font-weight: bold;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .nav-container a:hover {
+      background-color: #2474a9;
+    }
+    #calendar-alert {
+      background: linear-gradient(to right, #283e51, #4b79a1);
+      color: white;
+      border-radius: 8px;
+      margin: 12px auto;
+      width: 95%;
+      max-width: 800px;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: roar 1.6s infinite;
+    }
+    #calendar-alert a {
+      background-color: #ffeb3b;
+      color: #222;
+      padding: 6px 12px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    }
+    @keyframes roar {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+    main {
+      padding: 2rem;
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background: #2e8bc0;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .motto {
+      background: #e3eef9;
+      padding: 2rem;
+      margin: 2rem;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #0f3057;
+    }
+    footer {
+      background: #0f3057;
+      color: #ccc;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head><script>
+  function toggleMenu() {
+    const menu = document.getElementById('navMenu');
+    menu.classList.toggle('open');
+  }
 
-</head>
-<script>
-function toggleMenu() {
-const menu = document.getElementById('navMenu');
-menu.classList.toggle('open');
-}
-
-// Auto-close when link is clicked
-document.addEventListener("DOMContentLoaded", () => {
-document.querySelectorAll('#navMenu a').forEach(link => {
-link.addEventListener('click', () => {
-document.getElementById('navMenu').classList.remove('open');
-});
-});
-});
+  // Auto-close when link is clicked
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('#navMenu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navMenu').classList.remove('open');
+      });
+    });
+  });
 </script><script type="module">
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-apiKey: "
-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",
-authDomain: "lionhunterwebpush.firebaseapp.com",
-projectId: "lionhunterwebpush",
-storageBucket: "lionhunterwebpush.firebasestorage.app",
-messagingSenderId: "803161144360",
-appId: "1:803161144360:web:6d64c6c5c275d894a4891d",
-measurementId: "G-GTJFDE1592"
-};
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyABgKrFpiFqC9gndXaK09MvhAVhZHAGk78",
+    authDomain: "lionhunterwebpush.firebaseapp.com",
+    projectId: "lionhunterwebpush",
+    storageBucket: "lionhunterwebpush.firebasestorage.app",
+    messagingSenderId: "803161144360",
+    appId: "1:803161144360:web:6d64c6c5c275d894a4891d",
+    measurementId: "G-GTJFDE1592"
+  };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
 </script>
-<script type="module">
-// Firebase core setup
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
+  <script type="module">
+  // Firebase core setup
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+  import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
 
-const firebaseConfig = {
-apiKey: "AIzaSyABgKrFpiFqC9gndXaK09MvhAVhZHAGk78",
-authDomain: "lionhunterwebpush.firebaseapp.com",
-projectId: "lionhunterwebpush",
-storageBucket: "lionhunterwebpush.firebasestorage.app",
-messagingSenderId: "803161144360",
-appId: "1:803161144360:web:6d64c6c5c275d894a4891d",
-measurementId: "G-GTJFDE1592"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyABgKrFpiFqC9gndXaK09MvhAVhZHAGk78",
+    authDomain: "lionhunterwebpush.firebaseapp.com",
+    projectId: "lionhunterwebpush",
+    storageBucket: "lionhunterwebpush.firebasestorage.app",
+    messagingSenderId: "803161144360",
+    appId: "1:803161144360:web:6d64c6c5c275d894a4891d",
+    measurementId: "G-GTJFDE1592"
+  };
 
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
 
-const messaging = getMessaging(app);
+  const messaging = getMessaging(app);
 
-Notification.requestPermission().then((permission) => {
-if (permission === "granted") {
-return getToken(messaging, {
-vapidKey: "BOz1LEINl3DEOVWHBBZl4WLVIWR4mONDH0rmovfIvIOauLkE9_uBgN7U94T3rtdaO9AWyaA_WmA7yP1hnEcx98c"
-});
-} else {
-throw new Error("Notification permission not granted.");
-}
-}).then((token) => {
-console.log("🦁 Device FCM Token:", token);
-// Optionally: Save token to Firestore or backend
-}).catch((err) => {
-console.error("🔕 Push setup failed:", err);
-});
+  Notification.requestPermission().then((permission) => {
+    if (permission === "granted") {
+      return getToken(messaging, {
+        vapidKey: "BOz1LEINl3DEOVWHBBZl4WLVIWR4mONDH0rmovfIvIOauLkE9_uBgN7U94T3rtdaO9AWyaA_WmA7yP1hnEcx98c"
+      });
+    } else {
+      throw new Error("Notification permission not granted.");
+    }
+  }).then((token) => {
+    console.log("🦁 Device FCM Token:", token);
+    // Optionally: Save token to Firestore or backend
+  }).catch((err) => {
+    console.error("🔕 Push setup failed:", err);
+  });
 
-onMessage(messaging, (payload) => {
-console.log("📨 Foreground message received:", payload);
-alert(`${payload.notification.title}\n${payload.notification.body}`);
-});
+  onMessage(messaging, (payload) => {
+    console.log("📨 Foreground message received:", payload);
+    alert(`${payload.notification.title}\n${payload.notification.body}`);
+  });
 </script>
-<!-- Paste this code into your main page just before </body> -->
+<script src="https://your-deployed-url.repl.co/embed.js"></script>
+  <!-- Paste this code into your main page just before </body> -->
 <script src="https://cdn.tailwindcss.com"></script>
-
 <style>
-/* Custom keyframes for button animations */
-@keyframes lion-dance {
-0%,100% { transform: translateY(0) rotate(0) scale(1);}
-25% { transform: translateY(-8px) rotate(-3deg) scale(1.05);}
-50% { transform: translateY(0) rotate(3deg) scale(1.02);}
-75% { transform: translateY(-4px) rotate(2deg) scale(1.04);}
-}
-@keyframes lion-shake {
-0%,100% { transform: translateX(0) rotate(0deg);}
-15%,45%,75% { transform: translateX(-5px) rotate(-3deg);}
-30%,60%,90% { transform: translateX(5px) rotate(3deg);}
-}
-.lion-dancing { animation: lion-dance 1.8s ease-in-out infinite alternate; }
-.lion-stopped { animation: none !important; transform: none !important; }
-.lion-shake { animation: lion-shake 0.5s ease-in-out 1; }
+  /* Custom keyframes for button animations */
+  @keyframes lion-dance {
+    0%,100%   { transform: translateY(0) rotate(0) scale(1);}
+    25%       { transform: translateY(-8px) rotate(-3deg) scale(1.05);}
+    50%       { transform: translateY(0)   rotate(3deg) scale(1.02);}
+    75%       { transform: translateY(-4px) rotate(2deg) scale(1.04);}
+  }
+  @keyframes lion-shake {
+    0%,100%           { transform: translateX(0) rotate(0deg);}
+    15%,45%,75%      { transform: translateX(-5px) rotate(-3deg);}
+    30%,60%,90%      { transform: translateX(5px)  rotate(3deg);}
+  }
+  .lion-dancing { animation: lion-dance 1.8s ease-in-out infinite alternate; }
+  .lion-stopped { animation: none !important; transform: none !important; }
+  .lion-shake   { animation: lion-shake 0.5s ease-in-out 1; }
 </style>
 
 <button id="lion-chat-button" class="lion-dancing rounded-full fixed bottom-6 right-6 w-14 h-14 bg-yellow-400 shadow-lg text-white text-3xl flex items-center justify-center">
-🦁
+  🦁
 </button>
 
 <div id="lion-chat-container" class="fixed right-6 bottom-20 flex flex-col bg-white border-2 border-yellow-400 rounded-lg shadow-xl overflow-hidden max-h-0 w-72 transition-[max-height] duration-300">
-<div class="bg-yellow-400 text-white font-bold p-3 text-center">Lion Hunt Bot</div>
-<div id="lion-chat-messages" class="flex-1 p-3 bg-amber-50 overflow-auto text-sm space-y-2"></div>
-<div class="border-t p-2 flex space-x-2">
-<input id="lion-user-input" type="text" placeholder="Ask the Lion…" class="flex-1 border px-2 py-1 focus:outline-none" />
-<button id="lion-send-btn" class="bg-yellow-400 text-white px-3">Roar</button>
-</div>
+  <div class="bg-yellow-400 text-white font-bold p-3 text-center">Lion Hunt Bot</div>
+  <div id="lion-chat-messages" class="flex-1 p-3 bg-amber-50 overflow-auto text-sm space-y-2"></div>
+  <div class="border-t p-2 flex space-x-2">
+    <input id="lion-user-input" type="text" placeholder="Ask the Lion…" class="flex-1 border px-2 py-1 focus:outline-none" />
+    <button id="lion-send-btn" class="bg-yellow-400 text-white px-3">Roar</button>
+  </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-const btn = document.getElementById('lion-chat-button');
-const container = document.getElementById('lion-chat-container');
-const messagesDiv = document.getElementById('lion-chat-messages');
-const input = document.getElementById('lion-user-input');
-const sendBtn = document.getElementById('lion-send-btn');
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('lion-chat-button');
+    const container = document.getElementById('lion-chat-container');
+    const messagesDiv = document.getElementById('lion-chat-messages');
+    const input = document.getElementById('lion-user-input');
+    const sendBtn = document.getElementById('lion-send-btn');
 
-let messages = JSON.parse(localStorage.getItem('lionChat') || '[]');
+    let messages = JSON.parse(localStorage.getItem('lionChat') || '[]');
 
-const saveHistory = () => localStorage.setItem('lionChat', JSON.stringify(messages));
-const scrollBottom = () => { messagesDiv.scrollTop = messagesDiv.scrollHeight; };
+    const saveHistory = () => localStorage.setItem('lionChat', JSON.stringify(messages));
+    const scrollBottom = () => { messagesDiv.scrollTop = messagesDiv.scrollHeight; };
 
-function appendMsg(content, role) {
-const msg = document.createElement('div');
-msg.className = role === 'user'
-? 'self-end bg-yellow-400 text-white px-3 py-1 rounded-l-lg rounded-br-lg max-w-[85%] whitespace-pre-wrap'
-: 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
-msg.textContent = content;
-messagesDiv.appendChild(msg);
-scrollBottom();
-}
+    function appendMsg(content, role) {
+      const msg = document.createElement('div');
+      msg.className = role === 'user'
+        ? 'self-end bg-yellow-400 text-white px-3 py-1 rounded-l-lg rounded-br-lg max-w-[85%] whitespace-pre-wrap'
+        : 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
+      msg.textContent = content;
+      messagesDiv.appendChild(msg);
+      scrollBottom();
+    }
 
-// Load stored messages
-messages.forEach(m => appendMsg(m.content, m.role));
+    // Load stored messages
+    messages.forEach(m => appendMsg(m.content, m.role));
 
-const toggleChat = () => {
-const open = container.classList.toggle('open');
-container.style.maxHeight = open ? '400px' : '0';
-if (!open) {
-btn.classList.add('lion-dancing');
-btn.classList.remove('lion-stopped');
-} else {
-input.focus();
-}
-};
+    const toggleChat = () => {
+      const open = container.classList.toggle('open');
+      container.style.maxHeight = open ? '400px' : '0';
+      if (!open) {
+        btn.classList.add('lion-dancing');
+        btn.classList.remove('lion-stopped');
+      } else {
+        input.focus();
+      }
+    };
 
-btn.addEventListener('click', () => {
-if (btn.classList.contains('lion-dancing')) {
-btn.classList.remove('lion-dancing');
-btn.classList.add('lion-stopped', 'lion-shake');
-btn.addEventListener('animationend', () => {
-btn.classList.remove('lion-shake');
-}, { once: true });
-container.classList.add('open');
-container.style.maxHeight = '400px';
-input.focus();
-} else {
-toggleChat();
-}
-});
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('lion-dancing')) {
+        btn.classList.remove('lion-dancing');
+        btn.classList.add('lion-stopped', 'lion-shake');
+        btn.addEventListener('animationend', () => {
+          btn.classList.remove('lion-shake');
+        }, { once: true });
+        container.classList.add('open');
+        container.style.maxHeight = '400px';
+        input.focus();
+      } else {
+        toggleChat();
+      }
+    });
 
-sendBtn.addEventListener('click', async () => {
-const text = input.value.trim();
-if (!text) return;
-messages.push({role:'user', content:text});
-saveHistory();
-appendMsg(text, 'user');
-input.value = '';
-sendBtn.disabled = true;
+    sendBtn.addEventListener('click', async () => {
+      const text = input.value.trim();
+      if (!text) return;
+      messages.push({role:'user', content:text});
+      saveHistory();
+      appendMsg(text, 'user');
+      input.value = '';
+      sendBtn.disabled = true;
 
-const aiBubble = document.createElement('div');
-aiBubble.className = 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
-messagesDiv.appendChild(aiBubble);
-scrollBottom();
+      const aiBubble = document.createElement('div');
+      aiBubble.className = 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
+      messagesDiv.appendChild(aiBubble);
+      scrollBottom();
 
-const atStart = [
-{role:'system', content:"You are Lion Hunt Bot. If service isn't ready, say so politely: 'Service is not available yet — coming soon!'"},
-...messages
-];
+      const atStart = [
+        {role:'system', content:"You are Lion Hunt Bot. If service isn't ready, say so politely: 'Service is not available yet — coming soon!'"},
+        ...messages
+      ];
 
-try {
+      try {
+        const resp = await fetch("https://api.openai.com/v1/chat/completions", {
+          method:"POST", headers:{
+            "Content-Type":"application/json",
+            "Authorization":"Bearer YOUR_OPENAI_API_KEY"
+          },
+          body: JSON.stringify({model:"gpt-3.5-turbo", messages:atStart, stream:true})
+        });
+
+        if (!resp.ok) {
+          throw new Error(await resp.text());
+        }
+
+        const reader = resp.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let assistantText = "";
+        while (true) {
+          const {value, done} = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value, {stream:true});
+          chunk.split("\n").forEach(line => {
+            if (line.startsWith("data: ")) {
+              const json = line.slice(6).trim();
+              if (json === "[DONE]") return;
+              try {
+                const parsed = JSON.parse(json);
+                const delta = parsed.choices[0].delta?.content;
+                if (delta) {
+                  assistantText += delta;
+                  aiBubble.textContent = assistantText;
+                  scrollBottom();
+                }
+              } catch{} // skip invalid
+            }
+          });
+        }
+        messages.push({role:'assistant', content:assistantText});
+        saveHistory();
+      } catch(err) {
+        aiBubble.textContent = "Error: " + err;
+        console.error(err);
+      } finally {
+        sendBtn.disabled = false;
+      }
+    });
+
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendBtn.click();
+      }
+    });
+  });
+</script>
 
 
 <body>
 
-<body>
+ <body>
 
-<!-- 🔔 Alert Banner Redirecting to Online Discussions -->
-<div id="calendar-alert" style="
-background: linear-gradient(to right, #283e51, #4b79a1);
-color: white;
-border-radius: 8px;
-margin: 12px auto;
-width: 95%;
-max-width: 800px;
-padding: 12px 20px;
-font-size: 0.95rem;
-font-weight: 500;
-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-display: flex;
-align-items: center;
-justify-content: space-between;
-font-family: 'Poppins', sans-serif;
-animation: roar 1.6s infinite;
-">
-📅 Check out for a discussion<br>
-<small>Lion Hunt | Nonstop Discussions</small>
+  <!-- 🔔 Alert Banner Redirecting to Online Discussions -->
+  <div id="calendar-alert" style="
+    background: linear-gradient(to right, #283e51, #4b79a1);
+    color: white;
+    border-radius: 8px;
+    margin: 12px auto;
+    width: 95%;
+    max-width: 800px;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Poppins', sans-serif;
+    animation: roar 1.6s infinite;
+  ">
+    📅 Check out for a discussion<br>
+  <small>Lion Hunt | Nonstop Discussions</small>
 </span>
 
-<a href="Discussions.html" style="
-background-color: #ffeb3b;
-color: #222;
-padding: 6px 12px;
-text-decoration: none;
-border-radius: 4px;
-font-weight: 600;
-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-">View Calendar</a>
-</div>
+    <a href="Discussions.html" style="
+      background-color: #ffeb3b;
+      color: #222;
+      padding: 6px 12px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    ">View Calendar</a>
+  </div>
 
 
-<header>
-<div class="menu-icon" onclick="toggleMenu()">☰</div>
-<img src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" alt="LDC LEGAL COMPANION" />
-</header>
+  <header>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    <img src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" alt="LDC LEGAL COMPANION" />
+  </header>
 
-<div id="navMenu" class="nav-container">
-<a href="laws.html">Laws</a>
-<a href="trial-advocacy.html">Trial Advocacy</a>
-<a href="workshop.html">Workshops</a>
-<a href="ia.html">I.A</a>
-<a href="exams.html">Exams</a>
-<a href="audio.html">Audio</a><a href="audio.html">Oral Exams</a>
-<a href="category-b.html">Category B</a>
-<a href="caseslandone.html">Case Summaries</a>
-<a href="Discussions.html">Online Discussions</a> 
-<a href="services.html">Bar Bites</a>
-<a href="services.html">Legal Services</a>
-</div>
+  <div id="navMenu" class="nav-container">
+    <a href="laws.html">Laws</a>
+    <a href="trial-advocacy.html">Trial Advocacy</a>
+    <a href="workshop.html">Workshops</a>
+    <a href="ia.html">I.A</a>
+    <a href="exams.html">Exams</a>
+    <a href="audio.html">Audio</a><a href="audio.html">Oral Exams</a>
+    <a href="category-b.html">Category B</a>
+    <a href="caseslandone.html">Case Summaries</a>
+    <a href="Discussions.html">Online Discussions</a> 
+    <a href="services.html">Bar Bites</a>
+    <a href="services.html">Legal Services</a>
+  </div>
 
-<main>
-<h2>📂 Explore Sections</h2>
-<div class="grid">
-<div class="card"><h3>Laws</h3><p>New Acts, judicial updates, and useful legislation.</p><a href="laws.html">Open</a></div>
-<div class="card"><h3>Trial Advocacy</h3><p>Evidence rules, litigation guides and role-play prep.</p><a href="trial-advocacy.html">Open</a></div>
-<div class="card"><h3>Workshops</h3><p>Bootcamps and short courses for rapid learning.</p><a href="workshop.html">Open</a></div>
-<div class="card"><h3>Individual Assessment</h3><p>Self-review materials and examiner tips.</p><a href="ia.html">Open</a></div>
-<div class="card"><h3>Exams</h3><p>Mock papers, past exams, answer outlines.</p><a href="exams.html">Open</a></div>
-<div class="card"><h3>Audio Lessons</h3><p>Voice recaps for revision on the go.</p><a href="audio.html">Open</a></div><div class="card"><h3>Oral Exams</h3><p>Voice recaps for revision on the go.</p><a href="audo.html">Open</a></div>
-<div class="card"><h3>Category B</h3><p>Extra content and bonus support sections.</p><a href="category-b.html">Open</a></div>
-<div class="card"><h3>Bar Bites</h3><p>Motivational Content and War stories</p><a href="services.html">Open</a></div>
-<div class="card"><h3>Online Discussions</h3><p>Workshop Case Summaries</p><a href="Discussions.html">Open</a></div> 
-<div class="card"><h3>Case Summaries</h3><p>Workshop Case Summaries</p><a href="caseslandone.html">Open</a></div>
-<div class="card"><h3>Legal Services</h3><p>Let the lion rule.</p><a href="services.html">Hire Me</a></div>
-</div>
-</main>
+  <main>
+    <h2>📂 Explore Sections</h2>
+    <div class="grid">
+      <div class="card"><h3>Laws</h3><p>New Acts, judicial updates, and useful legislation.</p><a href="laws.html">Open</a></div>
+      <div class="card"><h3>Trial Advocacy</h3><p>Evidence rules, litigation guides and role-play prep.</p><a href="trial-advocacy.html">Open</a></div>
+      <div class="card"><h3>Workshops</h3><p>Bootcamps and short courses for rapid learning.</p><a href="workshop.html">Open</a></div>
+      <div class="card"><h3>Individual Assessment</h3><p>Self-review materials and examiner tips.</p><a href="ia.html">Open</a></div>
+      <div class="card"><h3>Exams</h3><p>Mock papers, past exams, answer outlines.</p><a href="exams.html">Open</a></div>
+      <div class="card"><h3>Audio Lessons</h3><p>Voice recaps for revision on the go.</p><a href="audio.html">Open</a></div><div class="card"><h3>Oral Exams</h3><p>Voice recaps for revision on the go.</p><a href="audo.html">Open</a></div>
+      <div class="card"><h3>Category B</h3><p>Extra content and bonus support sections.</p><a href="category-b.html">Open</a></div>
+      <div class="card"><h3>Bar Bites</h3><p>Motivational Content and War stories</p><a href="services.html">Open</a></div>
+      <div class="card"><h3>Online Discussions</h3><p>Workshop Case Summaries</p><a href="Discussions.html">Open</a></div> 
+      <div class="card"><h3>Case Summaries</h3><p>Workshop Case Summaries</p><a href="caseslandone.html">Open</a></div>
+      <div class="card"><h3>Legal Services</h3><p>Let Arthur register companies, prepare contracts, and advise you.</p><a href="services.html">Hire Me</a></div>
+    </div>
+  </main>
 
-<div class="motto">
-<h2>If others can, then with God, I must.<br>This pen is my tool, this paper my battle — and I won’t stop until the law bows to clarity.</h2>
-</div>
+  <div class="motto">
+    <h2>If others can, then with God, I must.<br>This pen is my tool, this paper my battle — and I won’t stop until the law bows to clarity.</h2>
+  </div>
 
-<footer> 
-  &copy;
-2025 LionHunter.com . Built for LDC Hunters . Designed for excellence.
-</footer>
+  <footer>
+    &copy; 2025 Arthur Solutions. Built for LDC students. Designed for excellence.
+  </footer>
 
-<script> 
-
-
+  <script> 
