@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head><!-- Google tag (gtag.js) -->
@@ -248,17 +249,16 @@
   .lion-shake   { animation: lion-shake 0.5s ease-in-out 1; }
 </style>
 
-<button id="lion-chat-button" class="lion-dancing rounded-full fixed bottom-6 right-6 w-14 h-14 bg-yellow-400 shadow-lg text-white text-3xl flex items-center justify-center">
+<!-- 🦁 Floating Chat Button on the LEFT -->
+<button id="lion-chat-button" class="lion-dancing rounded-full fixed bottom-6 left-6 w-14 h-14 bg-yellow-400 shadow-lg text-white text-3xl flex items-center justify-center">
   🦁
 </button>
 
-<div id="lion-chat-container" class="fixed right-6 bottom-20 flex flex-col bg-white border-2 border-yellow-400 rounded-lg shadow-xl overflow-hidden max-h-0 w-72 transition-[max-height] duration-300">
+<!-- 💬 Chat Container on the LEFT -->
+<div id="lion-chat-container" class="fixed left-6 bottom-20 flex flex-col bg-white border-2 border-yellow-400 rounded-lg shadow-xl overflow-hidden max-h-0 w-72 transition-[max-height] duration-300">
   <div class="bg-yellow-400 text-white font-bold p-3 text-center">Lion Hunt Bot</div>
-  <div id="lion-chat-messages" class="flex-1 p-3 bg-amber-50 overflow-auto text-sm space-y-2"></div>
-  <div class="border-t p-2 flex space-x-2">
-    <input id="lion-user-input" type="text" placeholder="Ask the Lion…" class="flex-1 border px-2 py-1 focus:outline-none" />
-    <button id="lion-send-btn" class="bg-yellow-400 text-white px-3">Roar</button>
-  </div>
+  
+
 </div>
 
 <script>
@@ -387,7 +387,24 @@
   });
 </script>
 
-
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/connectycube@4/dist/connectycube.min.js"></script>
+<script src="https://unpkg.com/@connectycube/chat-widget@latest/dist/index.umd.js"></script>
+<script>
+const chatWidgetContainer = document.createElement('div');
+chatWidgetContainer.id = 'ConnectyCube_chat-widget';
+document.body.appendChild(chatWidgetContainer);
+const props = {
+  appId: 9313,
+  authKey: '1C7B8D6C-7CB7-4B0B-9E50-68E6291E3D84',
+  userId: '45', // a User Id from your system
+  userName: 'Samuel', // how other users will see your user name
+  showOnlineUsersTab: false,
+  splitView: true,
+};
+ReactDOM.createRoot(chatWidgetContainer).render(React.createElement(ConnectyCubeChatWidget, props));
+</script>
 <body>
 
  <body>
