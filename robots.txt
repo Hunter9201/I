@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://hunter9201.github.io/I/sitemap.xml
+Sitemap: https://www.ldclionhunter.com/sitemap.xml
