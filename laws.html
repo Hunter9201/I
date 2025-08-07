@@ -1,34 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>LAWS</title>
-  
-
-</head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KCLCFN2CV4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-KCLCFN2CV4');
-</script>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LAWS</title>
+  <title>LAWS | Statutes & Acts</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f5f5f5;
+      background: #f9f9f9;
       margin: 0;
       padding: 0;
+      color: #333;
     }
     header {
       background-color: #003366;
@@ -51,36 +33,43 @@
     }
     section {
       padding: 2rem;
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
     }
     h2 {
       color: #003366;
       margin-top: 3rem;
+      font-size: 1.5rem;
     }
     .resource {
       background: white;
-      margin-bottom: 1.5rem;
-      padding: 1rem 1.5rem;
-      border-left: 4px solid #003366;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      border-left: 5px solid #003366;
       border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     .resource h3 {
-      margin: 0;
+      margin: 0 0 0.5rem;
       color: #003366;
+      font-size: 1.2rem;
     }
     .resource p {
-      margin: 0.5rem 0;
+      margin: 0.5rem 0 1rem;
+      font-size: 0.95rem;
     }
-    .resource a {
-      display: inline-block;
-      margin: 0.5rem 0.5rem 0 0;
+    .resource button {
       background: #003366;
       color: white;
-      padding: 0.5rem 1rem;
-      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border: none;
       border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .resource button:hover {
+      background: #0055aa;
     }
     footer {
       background: #eee;
@@ -88,57 +77,75 @@
       padding: 1rem;
       font-size: 0.9rem;
       color: #555;
+      margin-top: 3rem;
     }
   </style>
+  <script>
+    function openLinks(links) {
+      links.forEach(link => window.open(link, '_blank'));
+    }
+  </script>
 </head>
 <body>
   <header>
     <a href="index.html" class="return-btn">← Return</a>
     <h1>LAWS</h1>
-    <p>Statutes & Acts </p>
+    <p>Statutes & Acts Reference Portal</p>
   </header>
 
   <section>
-    <h2>Civil Procedure</h2>
+    <h2>Civil Litigation</h2>
     <div class="resource">
-      <h3>Civil Procedure statutes & Acts</h3>
-      <p></p>
-      <a href="https://example.com/civil-lick-1.pdf" target="_blank">click</a>
-      <a href="https://example.com/civil-lick-2.pdf" target="_blank">click</a>
+      <h3>Statutes & Acts</h3>
+      <p>key laws governing civil litigation.</p>
+      <button onclick="openLinks([
+        'https://example.com/civil-lick-1.pdf',
+        'https://example.com/civil-lick-2.pdf'
+      ])">Civil Litigation Laws</button>
     </div>
 
-    <h2>Criminal Procedure</h2>
+    <h2>Criminal Proceedings Laws</h2>
     <div class="resource">
-      <h3>Criminal Procedure statutes & Acts</h3>
-      <p></p>
-      <a href="https://example.com/criminal-lick-1.pdf" target="_blank">click</a>
-      <a href="https://example.com/criminal-lick-2.pdf" target="_blank">click</a>
+      <h3>Criminal Procedure Statutes & Acts</h3>
+      <p>Essential statutes for criminal trials and investigations.</p>
+      <button onclick="openLinks([
+        'https://example.com/criminal-lick-1.pdf',
+        'https://example.com/criminal-lick-2.pdf'
+      ])">Criminal Procedure Laws</button>
     </div>
 
-    <h2>Land Proceedings</h2>
+    <h2>Land Transactions</h2>
     <div class="resource">
       <h3>Land Law Procedure Laws & Statutes</h3>
-      <p></p>
-      <a href="https://drive.google.com/file/d/1GTDDKjktpUBx0lnEBuSWDqVNJ1wT6p0Y/view?usp=sharing" target="_blank">click</a>
-      <a href="https://example.com/land-lick-2.pdf" target="_blank">click 2</a>
-    </div>
+      <p>Acts.</p>
+      <button onclick="openLinks([
+        'https://drive.google.com/file/d/1GTDDKjktpUBx0lnEBuSWDqVNJ1wT6p0Y/view?usp=sharing',
+        'https://example.com/land-lick-2.pdf'
+      ])"> Land Law Transactions</button>
     </div>
 
-    <h2>Corporate Law</h2>
+    <h2>Family law Practice</h2>
     <div class="resource">
-      <h3> Corporate Laws & Statutes</h3>
-      <p></p>
-      <a href="https://drive.google.com/file/d/1GTDDKjktpUBx0lnEBuSWDqVNJ1wT6p0Y/view?usp=sharing"_blank">click</a>
-      <a href="https://example.com/land-lick-2.pdf" target="_blank">click 2</a>
+      <h3>Family law Practice Laws & Statutes</h3>
+      <p>Acts& Statutes</p>
+      <button onclick="openLinks([
+        'https://drive.google.com/file/d/1GTDDKjktpUBx0lnEBuSWDqVNJ1wT6p0Y/view?usp=sharing',
+        'https://example.com/land-lick-2.pdf'
+      ])">Family law Practice</button>
+    </div>
+     <h2>Corporate & Commercial Practice</h2>
+    <div class="resource">
+      <h3>Corporate Laws & Statutes</h3>
+      <p>Acts& Statutes</p>
+      <button onclick="openLinks([
+        'https://drive.google.com/file/d/1GTDDKjktpUBx0lnEBuSWDqVNJ1wT6p0Y/view?usp=sharing',
+        'https://example.com/land-lick-2.pdf'
+      ])">Corporate & Commercial Practice Laws</button>
     </div>
   </section>
 
   <footer>
-    &copy; 2025 Law Mastery Portal | Faith. Precision. Victory.
+    &copy; 2025 LionHunter.com 
   </footer>
-</body>
-</html>
-<!-- partial -->
-  
 </body>
 </html>
