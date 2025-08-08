@@ -1,0 +1,187 @@
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Login + PIN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --brand:#0f766e; --bg:#f6f7fb; }
+    body { font-family: system-ui, Arial, sans-serif; background: var(--bg); margin:0; }
+    .wrap { max-width: 420px; margin: 40px auto; background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:22px; box-shadow:0 6px 18px rgba(0,0,0,.06);}
+    h1 { margin:0 0 12px; font-size:22px; }
+    label { display:block; margin:10px 0 4px; font-weight:600; }
+    input { width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:16px; }
+    button { width:100%; padding:12px; margin-top:12px; border:0; border-radius:8px; font-size:16px; background:var(--brand); color:#fff; cursor:pointer; }
+    .muted { color:#6b7280; font-size:13px; margin-top:6px; }
+    .ok { color:#16a34a; }
+    .err { color:#dc2626; }
+    .hr { height:1px; background:#e5e7eb; margin:16px 0; }
+    .pin-card { border:2px dashed #d1d5db; padding:16px; border-radius:10px; background:#fafafa; }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="authCard">
+    <h1>Sign in</h1>
+    <div class="muted">Use email + password. New? Click Create account.</div>
+    <label>Email</label>
+    <input id="email" type="email" placeholder="you@example.com" />
+    <label>Password</label>
+    <input id="password" type="password" placeholder="••••••••" />
+    <button id="loginBtn">Login</button>
+    <button id="signupBtn">Create account</button>
+    <div class="muted" id="authMsg"></div>
+    <div class="hr"></div>
+    <div class="muted">After login you’ll set a 4–6 digit PIN.</div>
+  </div>
+
+  <div class="wrap hidden" id="pinCard">
+    <h1 id="pinTitle">Enter PIN</h1>
+
+    <div id="pinSetBlock" class="pin-card hidden">
+      <div style="margin-bottom:8px;">First time? Set your PIN (digits only):</div>
+      <label>PIN</label>
+      <input id="pinNew1" type="password" inputmode="numeric" minlength="4" maxlength="6" placeholder="1234" />
+      <label>Confirm PIN</label>
+      <input id="pinNew2" type="password" inputmode="numeric" minlength="4" maxlength="6" placeholder="1234" />
+      <button id="savePinBtn">Save PIN</button>
+      <div class="muted" id="pinSetMsg"></div>
+    </div>
+
+    <div id="pinEnterBlock" class="pin-card hidden">
+      <div style="margin-bottom:8px;">Enter your PIN to continue:</div>
+      <label>PIN</label>
+      <input id="pinInput" type="password" inputmode="numeric" minlength="4" maxlength="6" placeholder="••••" />
+      <button id="checkPinBtn">Unlock</button>
+      <div class="muted" id="pinMsg"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    // ==== Firebase Config ====
+    const FIREBASE_CONFIG = {
+      apiKey: "AIzaSyAKOZmEaLexWd9b_FOFXTMPvG9KgtHwugQ",
+      authDomain: "lionhunter-pins.firebaseapp.com",
+      projectId: "lionhunter-pins",
+      storageBucket: "lionhunter-pins.firebasestorage.app",
+      messagingSenderId: "974538656519",
+      appId: "1:974538656519:web:174fd26c77dad4106b53a2",
+      measurementId: "G-FP7PJ8XW4E"
+    };
+
+    const AFTER_LOGIN_URL = "worksup.html";
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import {
+      getAuth, onAuthStateChanged, signInWithEmailAndPassword,
+      createUserWithEmailAndPassword, signOut
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import {
+      getFirestore, doc, getDoc, setDoc, updateDoc
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const app = initializeApp(FIREBASE_CONFIG);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const $ = (id) => document.getElementById(id);
+    const authCard = $("authCard");
+    const pinCard = $("pinCard");
+    const pinSetBlock = $("pinSetBlock");
+    const pinEnterBlock = $("pinEnterBlock");
+    const authMsg = $("authMsg");
+    const pinSetMsg = $("pinSetMsg");
+    const pinMsg = $("pinMsg");
+    const pinTitle = $("pinTitle");
+    const show = (el) => el.classList.remove("hidden");
+    const hide = (el) => el.classList.add("hidden");
+
+    const hex = (buf) => [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+    function randomHex(bytes=16){ return hex(crypto.getRandomValues(new Uint8Array(bytes))); }
+    async function sha256Hex(text) {
+      const enc = new TextEncoder();
+      const buf = await crypto.subtle.digest("SHA-256", enc.encode(text));
+      return hex(buf);
+    }
+    async function hashPin(pin, salt) { return sha256Hex(${pin}:${salt}); }
+    const validPin = (p) => /^\d{4,6}$/.test(p);
+
+    async function ensureUserDoc(uid) {
+      const ref = doc(db, "users", uid);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) await setDoc(ref, { createdAt: Date.now() });
+      return ref;
+    }
+    const getUserDoc = (uid) => getDoc(doc(db, "users", uid));
+
+    $("loginBtn").addEventListener("click", async () => {
+      authMsg.textContent = "";
+      try {
+        await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
+      } catch (e) { authMsg.textContent = e.message; }
+    });
+
+    $("signupBtn").addEventListener("click", async () => {
+      authMsg.textContent = "";
+      try {
+        await createUserWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
+        authMsg.textContent = "Account created. You’re signed in.";
+        authMsg.className = "muted ok";
+      } catch (e) { authMsg.textContent = e.message; authMsg.className="muted err"; }
+    });
+
+    document.getElementById("savePinBtn").addEventListener("click", async () => {
+      pinSetMsg.textContent = "";
+      try {
+        const p1 = $("pinNew1").value.trim();
+        const p2 = $("pinNew2").value.trim();
+        if (p1 !== p2) throw new Error("PINs don’t match.");
+        if (!validPin(p1)) throw new Error("PIN must be 4–6 digits.");
+        const u = auth.currentUser; if (!u) throw new Error("Not signed in.");
+
+        const salt = randomHex(16);
+        const pinHash = await hashPin(p1, salt);
+        const ref = await ensureUserDoc(u.uid);
+        await updateDoc(ref, { pinHash, salt, pinSetAt: Date.now() });
+
+        sessionStorage.setItem("pin_ok", "1");
+        window.location.href = AFTER_LOGIN_URL;
+      } catch (e) { pinSetMsg.textContent = e.message; pinSetMsg.className="muted err"; }
+    });
+
+    document.getElementById("checkPinBtn").addEventListener("click", async () => {
+      pinMsg.textContent = "";
+      try {
+        const u = auth.currentUser; if (!u) throw new Error("Not signed in.");
+        const pin = $("pinInput").value.trim();
+        if (!validPin(pin)) throw new Error("PIN must be 4–6 digits.");
+
+        const snap = await getUserDoc(u.uid);
+        const data = snap.data() || {};
+        if (!data.pinHash || !data.salt) throw new Error("No PIN set. Set one below.");
+
+        const candidate = await hashPin(pin, data.salt);
+        if (candidate !== data.pinHash) throw new Error("Wrong PIN.");
+
+        sessionStorage.setItem("pin_ok", "1");
+        window.location.href = AFTER_LOGIN_URL;
+      } catch (e) { pinMsg.textContent = e.message; pinMsg.className="muted err"; }
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) { show(authCard); hide(pinCard); return; }
+      hide(authCard); show(pinCard);
+      try {
+        const snap = await getUserDoc(user.uid);
+        const data = snap.data() || {};
+        if (data.pinHash && data.salt) {
+          hide(pinSetBlock); show(pinEnterBlock); pinTitle.textContent = "Enter PIN";
+        } else {
+          show(pinSetBlock); hide(pinEnterBlock); pinTitle.textContent = "Set your PIN";
+        }
+      } catch {}
+    });
+  </script>
+</body>
+</html>
