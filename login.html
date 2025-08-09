@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Login + Email PIN</title>
+  <title>Login + Email PIN (Admin WhatsApp Flow)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root { --brand:#0f766e; --brand2:#0ea5e9; --bg:#f6f7fb; }
@@ -31,7 +31,16 @@
   <!-- AUTH CARD -->
   <div class="wrap" id="authCard">
     <h1>Sign in</h1>
-    <div class="muted">Use email + password. New? Click <b>Create account</b>. We’ll email you a 6-digit PIN.</div>
+   <div class="muted">
+  After account creation, wait for the admin to send your PIN via WhatsApp after confirmation of Payment.
+  <br><br>
+  <a href="https://wa.me/256706315216?text=Hello%20Admin,%20I%20have%20made%20payment%20for%20my%20subscription.%20Here%20is%20my%20proof%20of%20payment." 
+     target="_blank" 
+     style="display:inline-block; margin-top:8px; padding:8px 14px; background:#25D366; color:#fff; border-radius:6px; text-decoration:none; font-weight:600;">
+    📎 Click to send proof of payment
+  </a>
+</div>
+
 
     <label for="email">Email</label>
     <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
@@ -42,29 +51,35 @@
       <button id="togglePwBtn" type="button" style="background:#6b7280;">Show</button>
     </div>
 
+    <!-- WhatsApp number field -->
+    <label for="whatsapp">WhatsApp Number</label>
+    <input id="whatsapp" type="tel" placeholder="+256701234567" autocomplete="tel" />
+
     <button id="loginBtn">Login</button>
     <button id="signupBtn" class="secondary">Create account</button>
 
     <div class="muted" id="authMsg"></div>
     <div class="hr"></div>
-    <div class="muted">After account creation, check your email for the PIN.</div>
+    <div class="muted">After account creation, wait for the admin to send your PIN via WhatsApp after confirmation of Payment.</div>
   </div>
 
   <!-- PIN CARD -->
   <div class="wrap hidden" id="pinCard">
     <h1 id="pinTitle">Enter PIN</h1>
     <div id="pinEnterBlock" class="pin-card hidden">
-      <div style="margin-bottom:8px;">We emailed you a 6-digit PIN. Enter it to continue:</div>
+      <div style="margin-bottom:8px;">
+        Enter the <b>6-digit PIN</b> the admin sent you on WhatsApp:
+      </div>
       <label>PIN</label>
       <input id="pinInput" type="password" inputmode="numeric" minlength="6" maxlength="6" placeholder="••••••" />
       <button id="checkPinBtn">Unlock</button>
-      <button id="resendPinBtn" class="secondary">Resend PIN to my email</button>
+      <button id="resendPinBtn" class="secondary">Request PIN again</button>
       <div class="muted" id="pinMsg"></div>
     </div>
   </div>
 
   <script type="module">
-    /* === CONFIG (use same in worksup.html) === */
+    /* === CONFIG === */
     const FIREBASE_CONFIG = {
       apiKey: "AIzaSyAkOZmEaLexWd9b_fOFXTMPvG9KgtHwugQ",
       authDomain: "lionhunter-pins.firebaseapp.com",
@@ -75,6 +90,9 @@
       measurementId: "G-FP7PJ8XW4E"
     };
     const AFTER_LOGIN_URL = "worksup.html";
+
+    // Admin email for receiving PIN
+    const ADMIN_EMAIL = "lionhunter920@gmail.com";
 
     // EmailJS IDs
     const EMAILJS_SERVICE_ID  = "service_kvuzg36";
@@ -96,7 +114,7 @@
     await setPersistence(auth, browserLocalPersistence);
     const db = getFirestore(app);
 
-    /* === DOM helpers === */
+    /* === Helpers === */
     const $ = (id) => document.getElementById(id);
     const authCard = $("authCard");
     const pinCard = $("pinCard");
@@ -108,14 +126,18 @@
     const hide = (el) => el && el.classList.add("hidden");
     const setLoading = (v) => ["loginBtn","signupBtn","checkPinBtn","resendPinBtn"].forEach(id => { const b=$(id); if (b) b.disabled=v; });
 
-    /* === Crypto + PIN === */
+    // Simple resend cooldown (60s)
+    let lastResendAt = 0;
+    function canResend() { return Date.now() - lastResendAt > 60_000; }
+
+    // Crypto + PIN
     const hex = (buf) => [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,"0")).join("");
     function randomHex(bytes=16){ return hex(crypto.getRandomValues(new Uint8Array(bytes))); }
     function randomPin6(){ return String(Math.floor(100000 + Math.random()*900000)); }
     async function sha256Hex(text){ const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text)); return hex(buf); }
     async function hashPin(pin, salt){ return sha256Hex(`${pin}:${salt}`); }
 
-    /* === Firestore === */
+    // Firestore
     const userRef = (uid) => doc(db, "users", uid);
     const getUserDoc = (uid) => getDoc(userRef(uid));
     async function saveHashedPin(uid, pin){
@@ -124,20 +146,23 @@
       await setDoc(userRef(uid), { pinHash, salt, pinSetAt: Date.now() }, { merge:true });
     }
 
-    /* === Email === */
-    async function sendPinEmail(toEmail, pin){
+    // Email to ADMIN with WhatsApp number
+    async function sendPinEmailToAdmin({ userEmail, userUid, whatsapp, pin }){
       if (!EMAILJS_ENABLED || !window.emailjs) return false;
       try {
         await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: toEmail,
-          pin,
+          to_email: ADMIN_EMAIL,
+          requester_email: userEmail,
+          requester_uid: userUid,
+          whatsapp_number: whatsapp,
+          pin: pin,
           project: "Lion Hunter"
         });
         return true;
-      } catch (e) { console.error("EmailJS send failed:", e); return false; }
+      } catch (e) { console.error("EmailJS admin send failed:", e); return false; }
     }
 
-    /* === UI events === */
+    // UI events
     $("togglePwBtn")?.addEventListener("click", () => {
       const p = $("password");
       const showPw = p.type === "password";
@@ -161,21 +186,22 @@
       try {
         const email = $("email").value.trim();
         const password = $("password").value;
-        if (!email || !password) throw new Error("Enter email and password.");
+        const whatsapp = $("whatsapp").value.trim();
+        if (!email || !password || !whatsapp) throw new Error("Enter email, password, and WhatsApp number.");
 
         const cred = await createUserWithEmailAndPassword(auth, email, password);
         try { await updateProfile(cred.user, { displayName: email.split("@")[0] }); } catch {}
 
+        // Generate + save PIN
         const pin = randomPin6();
         await saveHashedPin(cred.user.uid, pin);
 
-        const mailed = await sendPinEmail(email, pin);
-        if (mailed) {
-          authMsg.textContent = "Account created. PIN sent to your email."; authMsg.className="muted ok";
-        } else {
-          authMsg.textContent = "Account created. Email failed — check Console. (PIN logged for testing)"; authMsg.className="muted err";
-          console.warn("TEST PIN (not emailed):", pin);
-        }
+        // Email the PIN to ADMIN only with WhatsApp number
+        const mailed = await sendPinEmailToAdmin({ userEmail: email, userUid: cred.user.uid, whatsapp, pin });
+        authMsg.textContent = mailed
+          ? "Account created. Admin will WhatsApp you the PIN shortly."
+          : "Account created. Admin notification failed — please contact the admin.";
+        authMsg.className = mailed ? "muted ok" : "muted err";
 
         hide(authCard); show(pinCard); show(pinEnterBlock); pinTitle.textContent = "Enter PIN";
       } catch (e) { authMsg.textContent = e.message; authMsg.className="muted err"; console.error(e); }
@@ -187,16 +213,15 @@
       try {
         const u = auth.currentUser; if (!u) throw new Error("Not signed in.");
         const pin = $("pinInput").value.trim();
-        if (!/^\d{6}$/.test(pin)) throw new Error("Enter the 6-digit PIN sent to your email.");
+        if (!/^\d{6}$/.test(pin)) throw new Error("Enter your 6-digit PIN.");
 
         const snap = await getUserDoc(u.uid);
         const data = snap.data() || {};
-        if (!data.pinHash || !data.salt) throw new Error("No PIN set yet. Tap Resend PIN.");
+        if (!data.pinHash || !data.salt) throw new Error("No PIN set yet. Ask admin to send it.");
 
         const candidate = await hashPin(pin, data.salt);
         if (candidate !== data.pinHash) throw new Error("Wrong PIN.");
 
-        // set both flags so worksup.html won’t bounce
         sessionStorage.setItem("pin_ok", "1");
         localStorage.setItem("lion_access_pin", JSON.stringify({ usedAt: new Date().toISOString() }));
 
@@ -208,18 +233,25 @@
     $("resendPinBtn")?.addEventListener("click", async () => {
       pinMsg.textContent = ""; pinMsg.className="muted"; setLoading(true);
       try {
+        if (!canResend()) { pinMsg.textContent = "Please wait a minute before requesting again."; pinMsg.className="muted err"; return; }
         const u = auth.currentUser; if (!u) throw new Error("Not signed in.");
+
+        const snap = await getUserDoc(u.uid);
+        const whatsapp = snap.data()?.whatsapp_number || "Not provided";
+
         const newPin = randomPin6();
         await saveHashedPin(u.uid, newPin);
-        const mailed = await sendPinEmail(u.email, newPin);
-        pinMsg.textContent = mailed ? "A new PIN has been emailed." : "Could not send email — check Console.";
+
+        const mailed = await sendPinEmailToAdmin({ userEmail: u.email, userUid: u.uid, whatsapp, pin: newPin });
+        pinMsg.textContent = mailed
+          ? "Request sent. Admin will WhatsApp you a new PIN."
+          : "Could not notify admin — please try again later.";
         pinMsg.className = mailed ? "muted ok" : "muted err";
-        if (!mailed) console.warn("TEST PIN (not emailed):", newPin);
+        lastResendAt = Date.now();
       } catch (e) { pinMsg.textContent = e.message; pinMsg.className="muted err"; console.error(e); }
       finally { setLoading(false); }
     });
 
-    /* === Auth state → UI === */
     onAuthStateChanged(auth, async (user) => {
       if (!user) { show(authCard); hide(pinCard); return; }
       hide(authCard); show(pinCard);
@@ -228,20 +260,11 @@
         const data = snap.data() || {};
         show(pinEnterBlock); pinTitle.textContent = "Enter PIN";
         if (!data.pinHash || !data.salt) {
-          pinMsg.textContent = "No PIN found yet. Use Resend PIN."; pinMsg.className="muted";
+          pinMsg.textContent = "No PIN found yet. Ask admin to send it."; pinMsg.className="muted";
         }
       } catch (e) {
         show(pinEnterBlock); pinTitle.textContent = "Enter PIN"; console.error(e);
       }
-    });
-
-    /* (optional) Tiny inline error catcher for debugging */
-    window.addEventListener('error', (e) => {
-      const div = document.createElement('div');
-      div.style.cssText='position:fixed;left:8px;bottom:8px;background:#fee;border:1px solid #f99;color:#900;padding:6px 8px;border-radius:6px;max-width:90vw;font:12px system-ui;z-index:9999';
-      div.textContent = 'JS error: ' + (e.error?.message || e.message);
-      document.body.appendChild(div);
-      console.error(e.error || e.message);
     });
   </script>
 </body>
