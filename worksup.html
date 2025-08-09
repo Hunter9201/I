@@ -10,6 +10,7 @@
     .muted { color: #9fb0d1; }
     .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
     .btn { background:#0f766e; color:#fff; border:0; padding:10px 14px; border-radius:10px; cursor:pointer; }
+    .btn.whatsapp { background:#25D366; }
     .badge { display:inline-block; padding:4px 10px; border-radius:999px; background:#122142; color:#cfe3ff; border:1px solid #223055; margin-left:8px; font-size:12px; }
     .card { border:1px solid #223055; border-radius:14px; padding:14px; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); margin:12px 0; }
     .row { display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; }
@@ -24,6 +25,9 @@
       <div id="who" class="muted"></div>
     </div>
     <div class="row">
+      <a id="waRequestPinTop" class="btnlink" target="_blank" rel="noopener" style="display:none;">
+        <button class="btn whatsapp">Request PIN on WhatsApp</button>
+      </a>
       <button id="logoutBtn" class="btn">Sign out</button>
     </div>
   </div>
@@ -31,6 +35,11 @@
   <!-- PIN status -->
   <div class="card">
     <div id="countdown" class="muted">Checking PIN status…</div>
+    <div style="margin-top:10px;">
+      <a id="waRequestPin" class="btnlink" target="_blank" rel="noopener" style="display:none;">
+        <button class="btn whatsapp">Request PIN on WhatsApp</button>
+      </a>
+    </div>
   </div>
 
   <!-- Optional: Plan callout (only shown if plan & amount present) -->
@@ -83,6 +92,10 @@
   const PIN_KEY = "lion_access_pin";               // { usedAt: ISO }
   const PIN_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
+  // === ADMIN WHATSAPP (edit if you change number/name) ===
+  const ADMIN_WHATSAPP = "+256706315216"; // same as your proof link on login page
+  const ADMIN_NAME = "Lion Hunt Admin";
+
   // Init Firebase once
   if (!getApps().length) initializeApp(FIREBASE_CONFIG);
   const auth = getAuth();
@@ -112,6 +125,16 @@
     }
   }
 
+  function formatTimeLeft(usedAtISO){
+    const usedAtMs = new Date(usedAtISO).getTime();
+    const diff = usedAtMs + PIN_MAX_AGE_MS - Date.now();
+    if (diff <= 0) return "expired";
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+    const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+    return `${d}d ${h}h ${m}m`;
+  }
+
   function startCountdown(usedAtISO) {
     const el = $("countdown");
     function render() {
@@ -125,6 +148,29 @@
     }
     render();
     setInterval(render, 60 * 1000);
+  }
+
+  function buildWaLink(email, usedAtISO){
+    const num = ADMIN_WHATSAPP.replace(/\D/g,'');
+    const timeLeft = usedAtISO ? formatTimeLeft(usedAtISO) : "unknown";
+    const msg =
+`Hello ${ADMIN_NAME},
+
+Please send me a NEW 6-digit PIN for Works Up.
+Email: ${email || "(not signed in)"}
+Current PIN time left: ${timeLeft}
+
+Thank you.`;
+
+    return `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+  }
+
+  function showWaButtons(email, usedAtISO){
+    const link = buildWaLink(email, usedAtISO);
+    const a1 = $("waRequestPin");
+    const a2 = $("waRequestPinTop");
+    if (a1) { a1.href = link; a1.style.display = "inline-block"; }
+    if (a2) { a2.href = link; a2.style.display = "inline-block"; }
   }
 
   // Copy buttons (if you kept the plan callout UI)
@@ -143,20 +189,22 @@
   // Logout
   $("logoutBtn")?.addEventListener("click", async () => {
     try { await signOut(auth); } catch {}
-    // keep localStorage PIN if you want “back button” to still require fresh login:
-    // localStorage.removeItem(PIN_KEY);
     redirectToLoginOnce();
   });
 
-  // ------- Gate logic (stable) -------
+  // ------- Gate logic -------
   onAuthStateChanged(auth, async (user) => {
-    // Small grace to allow storage/session to be set if navigating fast
     await new Promise(r => setTimeout(r, 150));
 
     const usedAt = readPinUsedAt();
     const ok = !!user && !!usedAt && isFresh(usedAt);
 
-    if (!ok) { redirectToLoginOnce(); return; }
+    if (!ok) {
+      // Even if not OK, still expose WA button so user can request a new PIN
+      showWaButtons(user?.email || "", usedAt || "");
+      redirectToLoginOnce();
+      return;
+    }
 
     // Show who is logged in (optional UI)
     const who = $("who");
@@ -165,7 +213,10 @@
     // Start countdown
     startCountdown(usedAt);
 
-    // If you pass ?plan & ?amount in URL, you can show your callout here (optional):
+    // Show WhatsApp request buttons with prefilled message
+    showWaButtons(user?.email || "", usedAt);
+
+    // Optional plan callout
     const params = new URLSearchParams(location.search);
     const plan = params.get("plan");
     const amount = params.get("amount");
@@ -177,8 +228,6 @@
       $("planRef").textContent = ref;
       $("momoDisp").textContent = "+256 998 2999288";
       $("acctDisp").textContent = "82989489848";
-      const ADMIN_WHATSAPP = "+2569982999288";
-      const ADMIN_NAME = "Lion Hunt Admin";
       const msg = `Hello ${ADMIN_NAME},%0A%0AI have paid for the *${plan.toUpperCase()}* plan (UGX ${Number(amount).toLocaleString()}).%0AReference: ${ref}%0APlease activate my premium access and send my PIN.%0A%0AThank you.`;
       $("waBtn").href = `https://wa.me/${ADMIN_WHATSAPP.replace(/\D/g,'')}?text=${msg}`;
     }
