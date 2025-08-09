@@ -66,15 +66,16 @@
   </div>
 
   <script type="module">
-    /*********** 1) CONFIG (fixed) ***********/
+    /*********** 1) CONFIG ***********/
+    // Use the SAME config in worksup.html
     const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyAkOZmEaLexWd9b_fOFXTMPvG9KgtHwugQ",
-  authDomain: "lionhunter-pins.firebaseapp.com",
-  projectId: "lionhunter-pins",
-  storageBucket: "lionhunter-pins.firebasestorage.app",
-  messagingSenderId: "974538656519",
-  appId: "1:974538656519:web:174fd26c77dad4106b53a2",
-  measurementId: "G-FP7PJ8XW4E"
+      apiKey: "AIzaSyAKOZmEaLexWd9b_FOFXTMPvG9KgtHwugQ",
+      authDomain: "lionhunter-pins.firebaseapp.com",
+      projectId: "lionhunter-pins",
+      storageBucket: "lionhunter-pins.firebasestorage.app",
+      messagingSenderId: "974538656519",
+      appId: "1:974538656519:web:174fd26c77dad4106b53a2",
+      measurementId: "G-FP7PJ8XW4E"
     };
     const AFTER_LOGIN_URL = "worksup.html";
 
@@ -82,14 +83,8 @@
     const EMAILJS_SERVICE_ID  = "service_kvuzg36";
     const EMAILJS_TEMPLATE_ID = "template_ngw0gey";
     const EMAILJS_PUBLIC_KEY  = "LrC0wbKy8WjpawS0f";
-
-    // ✅ correct boolean check (strings, not bare identifiers)
     const EMAILJS_ENABLED = Boolean(EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY);
-
-    if (EMAILJS_ENABLED && window.emailjs) {
-      // ✅ pass the variable, not a bare identifier
-      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-    }
+    if (EMAILJS_ENABLED && window.emailjs) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
     /*********** 2) FIREBASE SDK ***********/
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
@@ -210,14 +205,16 @@
         const candidate = await hashPin(pin, data.salt);
         if (candidate !== data.pinHash) throw new Error("Wrong PIN.");
 
+        // ✅ set both flags so worksup.html won't bounce back
         sessionStorage.setItem("pin_ok", "1");
+        localStorage.setItem("lion_access_pin", JSON.stringify({ usedAt: new Date().toISOString() }));
+
         window.location.href = AFTER_LOGIN_URL;
       } catch (e) {
         pinMsg.textContent = e.message; pinMsg.className="muted err"; console.error(e);
       } finally { setLoading(false); }
     });
 
-    // ✅ Wire the Resend button
     $("resendPinBtn")?.addEventListener("click", async () => {
       pinMsg.textContent = ""; pinMsg.className="muted"; setLoading(true);
       try {
