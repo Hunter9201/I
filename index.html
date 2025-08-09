@@ -2,498 +2,310 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head><!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KCLCFN2CV4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-KCLCFN2CV4');
-</script>
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "srhjtupxnp");
-</script>
+<head>
   <meta charset="UTF-8" />
   <title>THE LION HUNTER</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-site-verification" content="google47c9c1017e180e8f.html" />
+  <!-- ✅ Google site verification should be the token only -->
+  <meta name="google-site-verification" content="google47c9c1017e180e8f" />
   <meta name="description" content="The Lion Hunter – A jungle-themed portal for legal clarity, advocacy training, and nonstop discussion. Built for LDC students, designed for pride." />
   <meta name="keywords" content="The Lion Hunter, Lion Hunter, legal education, LDC Uganda, advocacy, case summaries, jungle platform, Arthur Solutions" />
   <meta property="og:title" content="The Lion Hunter" />
   <meta property="og:description" content="Empowering the pride through immersive learning and nonstop discussion." />
-  <meta property="og:image" content="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" />  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+  <meta property="og:image" content="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" />
+
+  <!-- Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCLCFN2CV4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-KCLCFN2CV4');
+  </script>
+  <!-- Microsoft Clarity -->
+  <script>
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}
+    ;t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i
+    ;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "srhjtupxnp");
+  </script>
+
+  <!-- Tailwind (for chat UI) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #f7f9fc;
-      color: #333;
-    }
-    header {
-      position: relative;
-      text-align: center;
-    }
-    header img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .menu-icon {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      font-size: 28px;
-      color: white;
-      background-color: #0f3057cc;
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      z-index: 1001;
-    }
-    .nav-container {
-      position: fixed;
-      top: 0;
-      right: -250px;
-      width: 250px;
-      height: 100%;
-      background-color: #2e8bc0;
-      padding-top: 60px;
-      transition: right 0.3s ease;
-      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
-    }
-    .nav-container.open {
-      right: 0;
-    }
-    .nav-container a {
-      display: block;
-      color: white;
-      text-decoration: none;
-      padding: 1rem;
-      font-weight: bold;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    .nav-container a:hover {
-      background-color: #2474a9;
-    }
-    #calendar-alert {
-      background: linear-gradient(to right, #283e51, #4b79a1);
-      color: white;
-      border-radius: 8px;
-      margin: 12px auto;
-      width: 95%;
-      max-width: 800px;
-      padding: 12px 20px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      animation: roar 1.6s infinite;
-    }
-    #calendar-alert a {
-      background-color: #ffeb3b;
-      color: #222;
-      padding: 6px 12px;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: 600;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    }
-    @keyframes roar {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-    }
-    main {
-      padding: 2rem;
-      text-align: center;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    .card {
-      background: white;
-      padding: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    .card a {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background: #2e8bc0;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-    }
-    .motto {
-      background: #e3eef9;
-      padding: 2rem;
-      margin: 2rem;
-      border-radius: 10px;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #0f3057;
-    }
-    footer {
-      background: #0f3057;
-      color: #ccc;
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-    }
+    body { margin:0; font-family:'Poppins',sans-serif; background:#f7f9fc; color:#333; }
+    header { position:relative; text-align:center; }
+    header img { width:100%; height:auto; display:block; }
+    .menu-icon { position:absolute; top:10px; right:20px; font-size:28px; color:white; background:#0f3057cc; padding:8px 12px; border-radius:6px; cursor:pointer; z-index:1001; }
+    .nav-container { position:fixed; top:0; right:-250px; width:250px; height:100%; background:#2e8bc0; padding-top:60px; transition:right .3s ease; box-shadow:-4px 0 12px rgba(0,0,0,.1); z-index:1000; }
+    .nav-container.open { right:0; }
+    .nav-container a { display:block; color:#fff; text-decoration:none; padding:1rem; font-weight:bold; border-bottom:1px solid rgba(255,255,255,.2); }
+    .nav-container a:hover { background:#2474a9; }
+    #calendar-alert { background:linear-gradient(to right,#283e51,#4b79a1); color:#fff; border-radius:8px; margin:12px auto; width:95%; max-width:800px; padding:12px 20px; font-size:.95rem; font-weight:500; box-shadow:0 2px 8px rgba(0,0,0,.15); display:flex; align-items:center; justify-content:space-between; animation:roar 1.6s infinite; }
+    #calendar-alert a { background:#ffeb3b; color:#222; padding:6px 12px; text-decoration:none; border-radius:4px; font-weight:600; box-shadow:0 1px 4px rgba(0,0,0,.2); }
+    @keyframes roar { 0%,100%{transform:scale(1)} 50%{transform:scale(1.02)} }
+    main { padding:2rem; text-align:center; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.5rem; margin-top:2rem; }
+    .card { background:#fff; padding:1rem; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.08); transition:transform .2s; }
+    .card:hover{ transform:translateY(-5px); }
+    .card a { display:inline-block; margin-top:1rem; padding:.5rem 1rem; background:#2e8bc0; color:#fff; text-decoration:none; border-radius:5px; font-weight:bold; }
+    .motto { background:#e3eef9; padding:2rem; margin:2rem; border-radius:10px; font-size:1.2rem; font-weight:600; color:#0f3057; }
+    footer { background:#0f3057; color:#ccc; text-align:center; padding:1rem; font-size:.9rem; }
+
+    /* Chat button effects */
+    @keyframes lion-dance { 0%,100%{transform:translateY(0) rotate(0) scale(1)} 25%{transform:translateY(-8px) rotate(-3deg) scale(1.05)} 50%{transform:translateY(0) rotate(3deg) scale(1.02)} 75%{transform:translateY(-4px) rotate(2deg) scale(1.04)} }
+    @keyframes lion-shake { 0%,100%{transform:translateX(0) rotate(0)} 15%,45%,75%{transform:translateX(-5px) rotate(-3deg)} 30%,60%,90%{transform:translateX(5px) rotate(3deg)} }
+    .lion-dancing { animation: lion-dance 1.8s ease-in-out infinite alternate; }
+    .lion-stopped { animation:none !important; transform:none !important; }
+    .lion-shake { animation: lion-shake .5s ease-in-out 1; }
   </style>
-</head><script>
-  function toggleMenu() {
-    const menu = document.getElementById('navMenu');
-    menu.classList.toggle('open');
-  }
-
-  // Auto-close when link is clicked
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('#navMenu a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('navMenu').classList.remove('open');
-      });
-    });
-  });
-</script><script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyABgKrFpiFqC9gndXaK09MvhAVhZHAGk78",
-    authDomain: "lionhunterwebpush.firebaseapp.com",
-    projectId: "lionhunterwebpush",
-    storageBucket: "lionhunterwebpush.firebasestorage.app",
-    messagingSenderId: "803161144360",
-    appId: "1:803161144360:web:6d64c6c5c275d894a4891d",
-    measurementId: "G-GTJFDE1592"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
-  <script type="module">
-  // Firebase core setup
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-  import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyABgKrFpiFqC9gndXaK09MvhAVhZHAGk78",
-    authDomain: "lionhunterwebpush.firebaseapp.com",
-    projectId: "lionhunterwebpush",
-    storageBucket: "lionhunterwebpush.firebasestorage.app",
-    messagingSenderId: "803161144360",
-    appId: "1:803161144360:web:6d64c6c5c275d894a4891d",
-    measurementId: "G-GTJFDE1592"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-
-  const messaging = getMessaging(app);
-
-  Notification.requestPermission().then((permission) => {
-    if (permission === "granted") {
-      return getToken(messaging, {
-        vapidKey: "BOz1LEINl3DEOVWHBBZl4WLVIWR4mONDH0rmovfIvIOauLkE9_uBgN7U94T3rtdaO9AWyaA_WmA7yP1hnEcx98c"
-      });
-    } else {
-      throw new Error("Notification permission not granted.");
-    }
-  }).then((token) => {
-    console.log("🦁 Device FCM Token:", token);
-    // Optionally: Save token to Firestore or backend
-  }).catch((err) => {
-    console.error("🔕 Push setup failed:", err);
-  });
-
-  onMessage(messaging, (payload) => {
-    console.log("📨 Foreground message received:", payload);
-    alert(`${payload.notification.title}\n${payload.notification.body}`);
-  });
-</script>
-<script src="https://your-deployed-url.repl.co/embed.js"></script>
-  <!-- Paste this code into your main page just before </body> -->
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-  /* Custom keyframes for button animations */
-  @keyframes lion-dance {
-    0%,100%   { transform: translateY(0) rotate(0) scale(1);}
-    25%       { transform: translateY(-8px) rotate(-3deg) scale(1.05);}
-    50%       { transform: translateY(0)   rotate(3deg) scale(1.02);}
-    75%       { transform: translateY(-4px) rotate(2deg) scale(1.04);}
-  }
-  @keyframes lion-shake {
-    0%,100%           { transform: translateX(0) rotate(0deg);}
-    15%,45%,75%      { transform: translateX(-5px) rotate(-3deg);}
-    30%,60%,90%      { transform: translateX(5px)  rotate(3deg);}
-  }
-  .lion-dancing { animation: lion-dance 1.8s ease-in-out infinite alternate; }
-  .lion-stopped { animation: none !important; transform: none !important; }
-  .lion-shake   { animation: lion-shake 0.5s ease-in-out 1; }
-</style>
-
-<!-- 🦁 Floating Chat Button on the LEFT -->
-<button id="lion-chat-button" class="lion-dancing rounded-full fixed bottom-6 left-6 w-14 h-14 bg-yellow-400 shadow-lg text-white text-3xl flex items-center justify-center">
-  🦁
-</button>
-
-<!-- 💬 Chat Container on the LEFT -->
-<div id="lion-chat-container" class="fixed left-6 bottom-20 flex flex-col bg-white border-2 border-yellow-400 rounded-lg shadow-xl overflow-hidden max-h-0 w-72 transition-[max-height] duration-300">
-  <div class="bg-yellow-400 text-white font-bold p-3 text-center">Lion Hunt Bot</div>
-  
-
-</div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('lion-chat-button');
-    const container = document.getElementById('lion-chat-container');
-    const messagesDiv = document.getElementById('lion-chat-messages');
-    const input = document.getElementById('lion-user-input');
-    const sendBtn = document.getElementById('lion-send-btn');
-
-    let messages = JSON.parse(localStorage.getItem('lionChat') || '[]');
-
-    const saveHistory = () => localStorage.setItem('lionChat', JSON.stringify(messages));
-    const scrollBottom = () => { messagesDiv.scrollTop = messagesDiv.scrollHeight; };
-
-    function appendMsg(content, role) {
-      const msg = document.createElement('div');
-      msg.className = role === 'user'
-        ? 'self-end bg-yellow-400 text-white px-3 py-1 rounded-l-lg rounded-br-lg max-w-[85%] whitespace-pre-wrap'
-        : 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
-      msg.textContent = content;
-      messagesDiv.appendChild(msg);
-      scrollBottom();
-    }
-
-    // Load stored messages
-    messages.forEach(m => appendMsg(m.content, m.role));
-
-    const toggleChat = () => {
-      const open = container.classList.toggle('open');
-      container.style.maxHeight = open ? '400px' : '0';
-      if (!open) {
-        btn.classList.add('lion-dancing');
-        btn.classList.remove('lion-stopped');
-      } else {
-        input.focus();
-      }
-    };
-
-    btn.addEventListener('click', () => {
-      if (btn.classList.contains('lion-dancing')) {
-        btn.classList.remove('lion-dancing');
-        btn.classList.add('lion-stopped', 'lion-shake');
-        btn.addEventListener('animationend', () => {
-          btn.classList.remove('lion-shake');
-        }, { once: true });
-        container.classList.add('open');
-        container.style.maxHeight = '400px';
-        input.focus();
-      } else {
-        toggleChat();
-      }
-    });
-
-    sendBtn.addEventListener('click', async () => {
-      const text = input.value.trim();
-      if (!text) return;
-      messages.push({role:'user', content:text});
-      saveHistory();
-      appendMsg(text, 'user');
-      input.value = '';
-      sendBtn.disabled = true;
-
-      const aiBubble = document.createElement('div');
-      aiBubble.className = 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
-      messagesDiv.appendChild(aiBubble);
-      scrollBottom();
-
-      const atStart = [
-        {role:'system', content:"You are Lion Hunt Bot. If service isn't ready, say so politely: 'Service is not available yet — coming soon!'"},
-        ...messages
-      ];
-
-      try {
-        const resp = await fetch("https://api.openai.com/v1/chat/completions", {
-          method:"POST", headers:{
-            "Content-Type":"application/json",
-            "Authorization":"Bearer YOUR_OPENAI_API_KEY"
-          },
-          body: JSON.stringify({model:"gpt-3.5-turbo", messages:atStart, stream:true})
-        });
-
-        if (!resp.ok) {
-          throw new Error(await resp.text());
-        }
-
-        const reader = resp.body.getReader();
-        const decoder = new TextDecoder("utf-8");
-        let assistantText = "";
-        while (true) {
-          const {value, done} = await reader.read();
-          if (done) break;
-          const chunk = decoder.decode(value, {stream:true});
-          chunk.split("\n").forEach(line => {
-            if (line.startsWith("data: ")) {
-              const json = line.slice(6).trim();
-              if (json === "[DONE]") return;
-              try {
-                const parsed = JSON.parse(json);
-                const delta = parsed.choices[0].delta?.content;
-                if (delta) {
-                  assistantText += delta;
-                  aiBubble.textContent = assistantText;
-                  scrollBottom();
-                }
-              } catch{} // skip invalid
-            }
-          });
-        }
-        messages.push({role:'assistant', content:assistantText});
-        saveHistory();
-      } catch(err) {
-        aiBubble.textContent = "Error: " + err;
-        console.error(err);
-      } finally {
-        sendBtn.disabled = false;
-      }
-    });
-
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendBtn.click();
-      }
-    });
-  });
-</script>
-
-<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/connectycube@4/dist/connectycube.min.js"></script>
-<script src="https://unpkg.com/@connectycube/chat-widget@latest/dist/index.umd.js"></script>
-<script>
-const chatWidgetContainer = document.createElement('div');
-chatWidgetContainer.id = 'ConnectyCube_chat-widget';
-document.body.appendChild(chatWidgetContainer);
-const props = {
-  appId: 9313,
-  authKey: '1C7B8D6C-7CB7-4B0B-9E50-68E6291E3D84',
-  userId: '45', // a User Id from your system
-  userName: 'Lion', // how other users will see your user name
-  showOnlineUsersTab: false,
-  splitView: true,
-};
-ReactDOM.createRoot(chatWidgetContainer).render(React.createElement(ConnectyCubeChatWidget, props));
-</script>
+</head>
 <body>
 
- <body>
-
-  <!-- 🔔 Alert Banner Redirecting to Online Discussions -->
-  <div id="calendar-alert" style="
-    background: linear-gradient(to right, #283e51, #4b79a1);
-    color: white;
-    border-radius: 8px;
-    margin: 12px auto;
-    width: 95%;
-    max-width: 800px;
-    padding: 12px 20px;
-    font-size: 0.95rem;
-    font-weight: 500;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-family: 'Poppins', sans-serif;
-    animation: roar 1.6s infinite;
-  ">
-    📅 Check out for a discussion<br>
-  <small>Lion Hunt | Nonstop Discussions</small>
-</span>
-
-    <a href="Discussions.html" style="
-      background-color: #ffeb3b;
-      color: #222;
-      padding: 6px 12px;
-      text-decoration: none;
-      border-radius: 4px;
-      font-weight: 600;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    ">View Calendar</a>
+  <!-- Alert -->
+  <div id="calendar-alert">
+    <div>
+      📅 Check out for a discussion<br><small>Lion Hunt | Nonstop Discussions</small>
+    </div>
+    <a href="Discussions.html">View Calendar</a>
   </div>
-
 
   <header>
     <div class="menu-icon" onclick="toggleMenu()">☰</div>
     <img src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" alt="LDC LEGAL COMPANION" />
   </header>
 
-  <div id="navMenu" class="nav-container">
+  <nav id="navMenu" class="nav-container">
     <a href="laws.html">Laws</a>
     <a href="trial-advocacy.html">Trial Advocacy</a>
     <a href="workshop.html">Workshops</a>
     <a href="ia.html">I.A</a>
     <a href="exams.html">Exams</a>
-    <a href="audio.html">Audio</a><a href="audio.html">Oral Exams</a>
+    <a href="audio.html">Audio</a>
+    <a href="oral-exams.html">Oral Exams</a>
     <a href="category-b.html">Category B</a>
     <a href="Fullcases.html">All WK Cases</a>
-     <a href="caseslandone.html">Case Summaries</a>
-    <a href="Discussions.html">Online Discussions</a> 
+    <a href="caseslandone.html">Case Summaries</a>
+    <a href="Discussions.html">Online Discussions</a>
     <a href="services.html">Bar Bites</a>
     <a href="services.html">Legal Services</a>
-  </div>
+  </nav>
 
   <main>
     <h2>📂 Explore Sections</h2>
     <div class="grid">
-      <div class="card"><h3>Laws</h3><p> Acts & Statutes.</p><a href="laws.html">Open</a></div>
+      <div class="card"><h3>Laws</h3><p>Acts & Statutes.</p><a href="laws.html">Open</a></div>
       <div class="card"><h3>Trial Advocacy</h3><p>Evidence rules, litigation guides and role-play prep.</p><a href="trial-advocacy.html">Open</a></div>
-      <div class="card"><h3>Workshops</h3><p>Civil,family,land,Corporate &Criminal Workshops.</p><a href="workshop.html">Open</a></div>
+      <div class="card"><h3>Workshops</h3><p>Civil, family, land, corporate & criminal workshops.</p><a href="workshop.html">Open</a></div>
       <div class="card"><h3>Individual Assessment</h3><p>Friday Hunter Series.</p><a href="ia.html">Open</a></div>
-      <div class="card"><h3>Exams</h3><p>Past exams  </p><a href="exams.html">Open</a></div>
-      <div class="card"><h3>Audio Lessons</h3><p>Voice recaps for revision on the go.</p><a href="audio.html">Open</a></div><div class="card"><h3>Oral Exams</h3><p>Voice recaps for revision on the go.</p><a href="audo.html">Open</a></div>
+      <div class="card"><h3>Exams</h3><p>Past exams</p><a href="exams.html">Open</a></div>
+      <div class="card"><h3>Audio Lessons</h3><p>Voice recaps for revision on the go.</p><a href="audio.html">Open</a></div>
+      <div class="card"><h3>Oral Exams</h3><p>Practice questions and answers.</p><a href="oral-exams.html">Open</a></div>
       <div class="card"><h3>Category B</h3><p>Legal Writing, Professional Conduct & ADR.</p><a href="category-b.html">Open</a></div>
-      <div class="card"><h3>Bar Bites</h3><p>Motivational Content and War stories</p><a href="services.html">Open</a></div>
-      <div class="card"><h3>Online Discussions</h3><p>Lion Hunt | Nonstop Discussions</p><a href="Discussions.html">Open</a></div> 
-      <div class="card"><h3> All Wk Cases </h3><p>All Workshop Cases </p><a href="Fullcases.html">Open</a></div>
+      <div class="card"><h3>Bar Bites</h3><p>Motivational content and war stories.</p><a href="services.html">Open</a></div>
+      <div class="card"><h3>Online Discussions</h3><p>Lion Hunt | Nonstop Discussions</p><a href="Discussions.html">Open</a></div>
+      <div class="card"><h3>All WK Cases</h3><p>All Workshop Cases</p><a href="Fullcases.html">Open</a></div>
       <div class="card"><h3>Case Summaries</h3><p>Workshop Case Summaries</p><a href="caseslandone.html">Open</a></div>
-      <div class="card"><h3>Legal Services</h3><p>Let the Lion  roar for you.</p><a href="services.html">Hire Me</a></div>
+      <div class="card"><h3>Legal Services</h3><p>Let the Lion roar for you.</p><a href="services.html">Hire Me</a></div>
     </div>
   </main>
 
   <div class="motto">
-    <h2>If others can, then with God, I must.<br>This pen is my tool, this paper is my battle — and I won’t stop until the law bows to clarity.</h2>
+    <h2>If others can, then with God, I must.<br />This pen is my tool, this paper is my battle — and I won’t stop until the law bows to clarity.</h2>
   </div>
 
   <footer>
-    &copy; 2025 Lion Hunt. Built for the  Bar Hunters . Designed for excellence.
+    &copy; 2025 Lion Hunt. Built for the Bar Hunters. Designed for excellence.
   </footer>
 
-  <script> 
+  <!-- 🦁 Floating Chat Button (LEFT) -->
+  <button id="lion-chat-button" class="lion-dancing rounded-full fixed bottom-6 left-6 w-14 h-14 bg-yellow-400 shadow-lg text-white text-3xl flex items-center justify-center" title="Chat">
+    🦁
+  </button>
+
+  <!-- 💬 Chat Container (LEFT) -->
+  <div id="lion-chat-container" class="fixed left-6 bottom-20 flex flex-col bg-white border-2 border-yellow-400 rounded-lg shadow-xl overflow-hidden max-h-0 w-72 transition-[max-height] duration-300">
+    <div class="bg-yellow-400 text-white font-bold p-3 text-center">Lion Hunt Bot</div>
+    <div id="lion-chat-messages" class="flex flex-col gap-2 p-3 overflow-y-auto" style="max-height: 260px;"></div>
+    <div class="flex gap-2 p-3 border-t border-yellow-200">
+      <textarea id="lion-user-input" class="flex-1 border rounded-md p-2 text-sm" rows="1" placeholder="Type a message..."></textarea>
+      <button id="lion-send-btn" class="px-3 py-2 bg-yellow-400 text-white rounded-md">Send</button>
+    </div>
+  </div>
+
+  <!-- ConnectyCube widget (optional) -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/connectycube@4/dist/connectycube.min.js"></script>
+  <script src="https://unpkg.com/@connectycube/chat-widget@latest/dist/index.umd.js"></script>
+  <script>
+    (function(){
+      const chatWidgetContainer = document.createElement('div');
+      chatWidgetContainer.id = 'ConnectyCube_chat-widget';
+      document.body.appendChild(chatWidgetContainer);
+      const props = {
+        appId: 9313,
+        authKey: '1C7B8D6C-7CB7-4B0B-9E50-68E6291E3D84',
+        userId: '45',
+        userName: 'Lion',
+        showOnlineUsersTab: false,
+        splitView: true,
+      };
+      if (window.ReactDOM && window.ConnectyCubeChatWidget) {
+        ReactDOM.createRoot(chatWidgetContainer)
+          .render(React.createElement(ConnectyCubeChatWidget, props));
+      }
+    })();
+  </script>
+
+  <!-- App Scripts -->
+  <script>
+    // Side menu
+    function toggleMenu(){
+      const menu = document.getElementById('navMenu');
+      menu.classList.toggle('open');
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('#navMenu a').forEach(link => {
+        link.addEventListener('click', () => document.getElementById('navMenu').classList.remove('open'));
+      });
+    });
+  </script>
+
+  <!-- 🔔 Firebase (single init) + FCM -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+    import { getMessaging, getToken, onMessage, isSupported } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyABgKrFpiFqC9gndXaK09MvhAVhZHAGk78",
+      authDomain: "lionhunterwebpush.firebaseapp.com",
+      projectId: "lionhunterwebpush",
+      storageBucket: "lionhunterwebpush.firebasestorage.app",
+      messagingSenderId: "803161144360",
+      appId: "1:803161144360:web:6d64c6c5c275d894a4891d",
+      measurementId: "G-GTJFDE1592"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    try { getAnalytics(app); } catch {}
+
+    if (await isSupported()) {
+      const messaging = (await import("https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js")).getMessaging(app);
+
+      // ✅ Register service worker at the site root
+      const swReg = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
+
+      const permission = await Notification.requestPermission();
+      if (permission !== "granted") throw new Error("Notification permission not granted.");
+
+      const token = await getToken(messaging, {
+        vapidKey: "BOz1LEINl3DEOVWHBBZl4WLVIWR4mONDH0rmovfIvIOauLkE9_uBgN7U94T3rtdaO9AWyaA_WmA7yP1hnEcx98c",
+        serviceWorkerRegistration: swReg
+      });
+      console.log("🦁 Device FCM Token:", token);
+
+      onMessage(messaging, (payload) => {
+        console.log("📨 Foreground message received:", payload);
+        const n = payload.notification || {};
+        alert((n.title||"Lion Hunt") + "\n" + (n.body||""));
+      });
+    } else {
+      console.warn("FCM is not supported in this browser.");
+    }
+  </script>
+
+  <!-- 🦁 Simple local chat (uses OpenAI API—replace YOUR_OPENAI_API_KEY) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('lion-chat-button');
+      const container = document.getElementById('lion-chat-container');
+      const messagesDiv = document.getElementById('lion-chat-messages');
+      const input = document.getElementById('lion-user-input');
+      const sendBtn = document.getElementById('lion-send-btn');
+
+      let messages = JSON.parse(localStorage.getItem('lionChat') || '[]');
+      const saveHistory = () => localStorage.setItem('lionChat', JSON.stringify(messages));
+      const scrollBottom = () => { messagesDiv.scrollTop = messagesDiv.scrollHeight; };
+
+      function appendMsg(content, role) {
+        const msg = document.createElement('div');
+        msg.className = role === 'user'
+          ? 'self-end bg-yellow-400 text-white px-3 py-1 rounded-l-lg rounded-br-lg max-w-[85%] whitespace-pre-wrap'
+          : 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
+        msg.textContent = content;
+        messagesDiv.appendChild(msg);
+        scrollBottom();
+      }
+
+      messages.forEach(m => appendMsg(m.content, m.role));
+
+      const toggleChat = () => {
+        const open = container.classList.toggle('open');
+        container.style.maxHeight = open ? '400px' : '0';
+        if (!open) { btn.classList.add('lion-dancing'); btn.classList.remove('lion-stopped'); }
+        else { input.focus(); }
+      };
+
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('lion-dancing')) {
+          btn.classList.remove('lion-dancing');
+          btn.classList.add('lion-stopped','lion-shake');
+          btn.addEventListener('animationend', () => btn.classList.remove('lion-shake'), { once:true });
+          container.classList.add('open'); container.style.maxHeight = '400px'; input.focus();
+        } else { toggleChat(); }
+      });
+
+      sendBtn.addEventListener('click', async () => {
+        const text = input.value.trim();
+        if (!text) return;
+        messages.push({role:'user', content:text}); saveHistory(); appendMsg(text,'user');
+        input.value=''; sendBtn.disabled = true;
+
+        const aiBubble = document.createElement('div');
+        aiBubble.className = 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
+        messagesDiv.appendChild(aiBubble); scrollBottom();
+
+        const atStart = [{role:'system', content:"You are Lion Hunt Bot. If service isn't ready, say: 'Service is not available yet — coming soon!'"},
+                         ...messages];
+
+        try {
+          const resp = await fetch("https://api.openai.com/v1/chat/completions", {
+            method:"POST",
+            headers:{ "Content-Type":"application/json", "Authorization":"Bearer YOUR_OPENAI_API_KEY" },
+            body: JSON.stringify({ model:"gpt-3.5-turbo", messages:atStart, stream:true })
+          });
+          if (!resp.ok) throw new Error(await resp.text());
+
+          const reader = resp.body.getReader(); const decoder = new TextDecoder("utf-8");
+          let assistantText = "";
+          while (true) {
+            const {value, done} = await reader.read(); if (done) break;
+            const chunk = decoder.decode(value, {stream:true});
+            chunk.split("\n").forEach(line => {
+              if (line.startsWith("data: ")) {
+                const json = line.slice(6).trim();
+                if (json === "[DONE]") return;
+                try {
+                  const parsed = JSON.parse(json);
+                  const delta = parsed.choices[0].delta?.content;
+                  if (delta) { assistantText += delta; aiBubble.textContent = assistantText; scrollBottom(); }
+                } catch {}
+              }
+            });
+          }
+          messages.push({role:'assistant', content:assistantText}); saveHistory();
+        } catch(err) {
+          aiBubble.textContent = "Error: " + err; console.error(err);
+        } finally { sendBtn.disabled = false; }
+      });
+
+      input.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendBtn.click(); }
+      });
+    });
+  </script>
+</body>
+</html>
