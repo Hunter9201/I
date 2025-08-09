@@ -33,7 +33,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
   <style>
     body { margin:0; font-family:'Poppins',sans-serif; background:#f7f9fc; color:#333; }
-    header { position:relative; text-align:center; }
+    header { position:relative; text-align:center; } /* important: relative for timetable position */
     header img { width:100%; height:auto; display:block; }
     .menu-icon { position:absolute; top:10px; right:20px; font-size:28px; color:white; background:#0f3057cc; padding:8px 12px; border-radius:6px; cursor:pointer; z-index:1001; }
     .nav-container { position:fixed; top:0; right:-250px; width:250px; height:100%; background:#2e8bc0; padding-top:60px; transition:right .3s ease; box-shadow:-4px 0 12px rgba(0,0,0,.1); z-index:1000; }
@@ -81,13 +81,56 @@
       background: linear-gradient(135deg, #145da0, #0f3057);
       box-shadow: 0 5px 12px rgba(0,0,0,0.25);
     }
-    @keyframes fadeSlideIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeSlideIn { to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInUp { from {opacity:0; transform:translateY(12px)} to {opacity:1; transform:translateY(0)} }
 
-    @keyframes fadeInUp {
-      from {opacity:0; transform:translateY(12px)}
-      to {opacity:1; transform:translateY(0)}
+    /* === Timetable styles === */
+    .timetable-wrap{
+      position:absolute;
+      top: 74px;             /* move up/down as needed */
+      left: 34px;            /* move left/right as needed */
+      z-index: 1002;         /* above hamburger (1001) */
+      font-family: system-ui,-apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    .timetable-badge{
+      background:#111827;
+      color:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:14px;
+      display:inline-flex; gap:8px; align-items:center;
+      box-shadow:0 10px 24px rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12);
+      cursor:pointer; user-select:none;
+    }
+    .timetable-badge:hover{ filter:brightness(1.05); }
+    .timetable-dot{ width:8px; height:8px; border-radius:50%; background:#f59e0b; display:inline-block; }
+    .timetable-pop{
+      position:absolute;
+      margin-top:10px;
+      width:300px;
+      background:#ffffff;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      box-shadow:0 22px 48px rgba(0,0,0,.22);
+      padding:10px;
+      display:none;
+    }
+    .timetable-pop:before{
+      content:""; position:absolute; top:-8px; left:22px; width:14px; height:14px;
+      background:#fff; border-left:1px solid #e5e7eb; border-top:1px solid #e5e7eb; transform:rotate(45deg);
+    }
+    .timetable-pop h4{ margin:4px 8px 8px; font-size:14px; font-weight:800; color:#111827; }
+    .timetable-list{ max-height:260px; overflow:auto; margin:0; padding:4px; }
+    .timetable-item{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; transition:background .15s ease; }
+    .timetable-item:hover{ background:#f9fafb; }
+    .timetable-item span{ font-size:13px; color:#111827; font-weight:600; }
+    .timetable-item a{ font-size:12px; text-decoration:none; padding:6px 10px; border-radius:8px; background:#0ea5e9; color:#fff; font-weight:700; }
+
+    @media (max-width: 480px){
+      .timetable-wrap{ left:16px; top:56px; }
+      .timetable-pop{ width:270px; }
     }
   </style>
 </head>
@@ -105,13 +148,25 @@
   <header>
     <div class="menu-icon" onclick="toggleMenu()">☰</div>
     <img src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" alt="LDC LEGAL COMPANION" />
+
+    <!-- 🦁 Timetables (inside hero image) -->
+    <div class="timetable-wrap" id="timetableWrap" aria-haspopup="true" aria-expanded="false">
+      <div class="timetable-badge" id="timetableBtn">
+        <span class="timetable-dot"></span>
+        Timetables
+      </div>
+      <div class="timetable-pop" id="timetablePop">
+        <h4>Weekly Timetables</h4>
+        <div class="timetable-list" id="timetableList"></div>
+      </div>
+    </div>
   </header>
 
   <nav id="navMenu" class="nav-container">
     <a href="laws.html">Laws</a>
     <a href="Fullcases.html">All WK Cases</a>
-    <a href="caseslandone.html">Case Summaries</a> 
-    <a href="workshop.html">Workshops</a>  
+    <a href="caseslandone.html">Case Summaries</a>
+    <a href="workshop.html">Workshops</a>
     <a href="Documents.html">Documents</a>
     <a href="ia.html">I.A</a>
     <a href="exams.html">Exams</a>
@@ -375,25 +430,79 @@
       document.querySelectorAll('.card').forEach(card => {
         const title = (card.querySelector('h3')?.innerText || "").trim().toLowerCase();
 
-        // If card is not one of the unlocked ones, intercept its clicks
         if (!unlocked.includes(title)) {
           card.addEventListener('click', (e) => {
-            // If the click was on a link or anywhere in the card, block navigation
             if (e.target.closest('a')) e.preventDefault();
             e.preventDefault();
             openPopup();
           });
-          // Also prevent direct anchor navigation inside the card
           card.querySelectorAll('a').forEach(a => {
             a.addEventListener('click', (e) => { e.preventDefault(); openPopup(); });
           });
         }
       });
 
-      // Close popup if clicking outside message
       popup.addEventListener('click', (e) => { if (e.target === popup) closePopup(); });
     });
   </script>
 
+  <!-- === Timetable logic === -->
+  <script>
+    // Replace with your real Google links (keep /preview for fast viewer)
+    const WEEK_LINKS = [
+      { label: "Week 1 (Family)",    url: "https://drive.google.com/drive/folders/1p4CqiLEgrcY0m-yCBDDB0zbLBQh5nZia?usp=sharing "},
+      { label: "Week 2 (Civil)",     url: "https://docs.google.com/spreadsheets/d/EXAMPLE2/preview" },
+      { label: "Week 3 (Corporate)", url: "https://drive.google.com/file/d/EXAMPLE3/preview" },
+      { label: "Week 4 (Criminal)",  url: "https://docs.google.com/document/d/EXAMPLE4/preview" },
+      { label: "Week 5 (Land)",      url: "https://docs.google.com/document/d/EXAMPLE5/preview" }
+    ];
+
+    // Build timetable list
+    const listEl = document.getElementById('timetableList');
+    if (listEl) {
+      WEEK_LINKS.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'timetable-item';
+        const title = document.createElement('span'); title.textContent = item.label;
+
+        const open = document.createElement('a');
+        open.textContent = 'Open';
+        open.href = item.url;
+        open.target = '_blank';
+        open.rel = 'noopener';
+
+        row.appendChild(title);
+        row.appendChild(open);
+        listEl.appendChild(row);
+      });
+    }
+
+    // Popup toggle & close behaviors
+    const btn  = document.getElementById('timetableBtn');
+    const pop  = document.getElementById('timetablePop');
+    const wrap = document.getElementById('timetableWrap');
+
+    function openPop(){
+      pop.style.display = 'block';
+      wrap.setAttribute('aria-expanded','true');
+      document.addEventListener('click', onClickAway, {capture:true});
+      document.addEventListener('keydown', onEsc);
+    }
+    function closePop(){
+      pop.style.display = 'none';
+      wrap.setAttribute('aria-expanded','false');
+      document.removeEventListener('click', onClickAway, {capture:true});
+      document.removeEventListener('keydown', onEsc);
+    }
+    function onClickAway(e){ if(!wrap.contains(e.target)) closePop(); }
+    function onEsc(e){ if(e.key==='Escape') closePop(); }
+
+    if (btn) {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        (pop.style.display === 'block') ? closePop() : openPop();
+      });
+    }
+  </script>
 </body>
 </html>
