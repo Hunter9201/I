@@ -13,6 +13,7 @@
     input { width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:16px; }
     button { width:100%; padding:12px; margin-top:12px; border:0; border-radius:8px; font-size:16px; background:var(--brand); color:#fff; cursor:pointer; }
     button.secondary { background: var(--brand2); }
+    button.linky { background:transparent; color:#0ea5e9; text-decoration:underline; width:auto; padding:0; margin:8px 0 0; }
     button[disabled]{opacity:.7; cursor:not-allowed;}
     .muted { color:#6b7280; font-size:13px; margin-top:6px; }
     .ok { color:#16a34a; }
@@ -42,6 +43,17 @@
     }
     .whatsapp-proof:hover { background-color: #1ebe5b; transform: translateY(-2px); box-shadow: 0 5px 14px rgba(0,0,0,0.2); }
     .whatsapp-proof:active { transform: scale(0.96); }
+
+    /* Reset modal */
+    .modal-backdrop{
+      position:fixed; inset:0; background:rgba(0,0,0,.45);
+      display:flex; align-items:center; justify-content:center; padding:16px;
+    }
+    .modal{ background:#fff; width:100%; max-width:420px; border-radius:12px; box-shadow:0 10px 26px rgba(0,0,0,.18); padding:18px; }
+    .modal h2{ margin:0 0 8px; font-size:18px; }
+    .modal .actions{ display:flex; gap:8px; justify-content:flex-end; margin-top:12px; }
+    .modal .actions button{ width:auto; padding:10px 14px; }
+    .hide{ display:none; }
   </style>
 
   <!-- EmailJS SDK -->
@@ -64,7 +76,7 @@
       </a>
     </div>
 
-    <!-- Simple form wrapper helps browser password managers -->
+    <!-- Form wrapper helps browser password managers -->
     <form id="authForm" autocomplete="on">
       <label for="email">Email <span class="muted">(required)</span></label>
       <input id="email" name="email" type="email" placeholder="you@example.com"
@@ -76,7 +88,7 @@
                autocomplete="current-password" minlength="6" required />
         <button id="togglePwBtn" type="button" style="background:#6b7280;">Show</button>
       </div>
-      <div class="help">🔑 Don’t forget your password. Use “Remember me” so this device keeps it.</div>
+      <div class="help">🔑 Don’t forget your password. Use “Remember me” so this device keeps it, or use “Forgot password?” to reset by email.</div>
 
       <!-- WhatsApp number field (required for Create account) -->
       <label for="whatsapp">WhatsApp Number <span class="muted">(required for Create account)</span></label>
@@ -92,6 +104,7 @@
 
       <button id="loginBtn" type="button">Login</button>
       <button id="signupBtn" type="button" class="secondary">Create account</button>
+      <button id="forgotBtn" type="button" class="linky">Forgot password?</button>
     </form>
 
     <div class="muted" id="authMsg"></div>
@@ -109,6 +122,21 @@
       <button id="checkPinBtn">Unlock</button>
       <button id="resendPinBtn" class="secondary">Request PIN again</button>
       <div class="muted" id="pinMsg"></div>
+    </div>
+  </div>
+
+  <!-- Reset Password Modal -->
+  <div id="resetModal" class="modal-backdrop hide" role="dialog" aria-modal="true" aria-labelledby="resetTitle">
+    <div class="modal">
+      <h2 id="resetTitle">Reset your password</h2>
+      <p class="muted" style="margin:6px 0 10px;">Enter your account email. We’ll send a reset link.</p>
+      <label for="resetEmail">Email</label>
+      <input id="resetEmail" type="email" placeholder="you@example.com" autocomplete="email" />
+      <div id="resetMsg" class="muted" style="min-height:18px;margin-top:8px;"></div>
+      <div class="actions">
+        <button type="button" id="resetCancel">Cancel</button>
+        <button type="button" id="resetSend" class="secondary">Send reset link</button>
+      </div>
     </div>
   </div>
 
@@ -142,7 +170,8 @@
       const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js");
       const {
         getAuth, onAuthStateChanged, signInWithEmailAndPassword,
-        createUserWithEmailAndPassword, setPersistence, browserLocalPersistence, updateProfile
+        createUserWithEmailAndPassword, setPersistence, browserLocalPersistence, updateProfile,
+        sendPasswordResetEmail
       } = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js");
       const { getFirestore, doc, getDoc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js");
 
@@ -162,7 +191,20 @@
       const authForm = $("authForm");
       const show = (el) => el && el.classList.remove("hidden");
       const hide = (el) => el && el.classList.add("hidden");
-      const setLoading = (v) => ["loginBtn","signupBtn","checkPinBtn","resendPinBtn"].forEach(id => { const b=$(id); if (b) b.disabled=v; });
+      const setLoading = (v) => ["loginBtn","signupBtn","checkPinBtn","resendPinBtn","resetSend"].forEach(id => { const b=$(id); if (b) b.disabled=v; });
+
+      // Reset modal helpers
+      const resetModal = $("resetModal");
+      const resetEmail = $("resetEmail");
+      const resetMsg = $("resetMsg");
+      const openReset = (prefill="") => {
+        resetEmail.value = prefill || $("email").value.trim();
+        resetMsg.textContent = "";
+        resetMsg.className = "muted";
+        resetModal.classList.remove("hide");
+        resetEmail.focus();
+      };
+      const closeReset = () => resetModal.classList.add("hide");
 
       // Resend cooldown
       let lastResendAt = 0;
@@ -189,7 +231,7 @@
         if (!EMAILJS_ENABLED || !window.emailjs) return false;
         try {
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-            to_email: ADMIN_EMAIL,             // always to your email
+            to_email: ADMIN_EMAIL,
             requester_email: userEmail,
             requester_uid: userUid,
             whatsapp_number: whatsapp,
@@ -217,7 +259,6 @@
         const payload = {
           remember,
           email: $("email").value.trim() || "",
-          // Only store password if box is checked (explicit opt-in)
           password: remember ? ($("password").value || "") : ""
         };
         try { localStorage.setItem(REMEMBER_KEY, JSON.stringify(payload)); } catch {}
@@ -260,22 +301,17 @@
       $("loginBtn")?.addEventListener("click", async () => {
         authMsg.textContent = ""; authMsg.className="muted"; setLoading(true);
         try {
-          // HTML5 validity first
           if (!authForm.reportValidity()) { throw new Error("Please fill in all required fields."); }
 
           const email = $("email").value.trim();
           const password = $("password").value;
           if (!email || !password) throw new Error("Enter email and password.");
 
-          // Ensure login uses current-password for password managers
           $("password").setAttribute("autocomplete","current-password");
 
           const cred = await signInWithEmailAndPassword(auth, email, password);
 
-          // Save remembered (if opted-in)
           saveRemembered();
-
-          // Best-effort store to password manager on login too
           await storeBrowserCredentials(email, password);
 
         } catch (e) { authMsg.textContent = e.message; authMsg.className="muted err"; console.error(e); }
@@ -285,7 +321,6 @@
       $("signupBtn")?.addEventListener("click", async () => {
         authMsg.textContent = ""; authMsg.className="muted"; setLoading(true);
         try {
-          // For sign-up, WhatsApp is compulsory
           if (!validateWhatsAppForSignup()) {
             authForm.reportValidity();
             throw new Error("Enter a valid WhatsApp number.");
@@ -297,30 +332,23 @@
 
           if (!email || !password || !whatsapp) throw new Error("Enter email, password, and WhatsApp number.");
 
-          // Nudge password managers to treat this as a new password
           $("password").setAttribute("autocomplete","new-password");
 
           const cred = await createUserWithEmailAndPassword(auth, email, password);
           try { await updateProfile(cred.user, { displayName: email.split("@")[0] }); } catch {}
 
-          // Save WhatsApp on the user doc (so you can see it later)
           await setDoc(userRef(cred.user.uid), { whatsapp_number: whatsapp }, { merge: true });
 
-          // Generate + save PIN
           const pin = randomPin6();
           await saveHashedPin(cred.user.uid, pin);
 
-          // Email ADMIN with details
           const mailed = await sendPinEmailToAdmin({ userEmail: email, userUid: cred.user.uid, whatsapp, pin });
           authMsg.textContent = mailed
             ? "Account created. Admin will WhatsApp you the PIN shortly."
             : "Account created. Admin notification failed — please contact the admin.";
           authMsg.className = mailed ? "muted ok" : "muted err";
 
-          // Save remembered (if opted-in)
           saveRemembered();
-
-          // Store credentials in browser password manager (best-effort)
           await storeBrowserCredentials(email, password);
 
           hide(authCard); show(pinCard); show(pinEnterBlock); pinTitle.textContent = "Enter PIN";
@@ -328,6 +356,36 @@
         finally { setLoading(false); }
       });
 
+      // ======= RESET PASSWORD FLOW =======
+      $("forgotBtn")?.addEventListener("click", () => openReset());
+
+      $("resetCancel")?.addEventListener("click", () => closeReset());
+
+      $("resetSend")?.addEventListener("click", async () => {
+        resetMsg.textContent = ""; resetMsg.className = "muted";
+        const email = resetEmail.value.trim() || $("email").value.trim();
+        if (!email) {
+          resetMsg.textContent = "Enter your account email."; resetMsg.className = "muted err"; return;
+        }
+        try {
+          setLoading(true);
+          await sendPasswordResetEmail(auth, email);
+          resetMsg.textContent = "Reset link sent. Check your inbox and spam folder."; resetMsg.className = "muted ok";
+          // Auto-close after a short delay
+          setTimeout(closeReset, 1400);
+        } catch (e) {
+          resetMsg.textContent = e.message || "Could not send reset email."; resetMsg.className = "muted err";
+          console.error(e);
+        } finally {
+          setLoading(false);
+        }
+      });
+
+      // Close modal on ESC or backdrop click
+      resetModal?.addEventListener("click", (e) => { if (e.target === resetModal) closeReset(); });
+      document.addEventListener("keydown", (e) => { if (!resetModal.classList.contains("hide") && e.key === "Escape") closeReset(); });
+
+      // ======= PIN FLOW =======
       $("checkPinBtn")?.addEventListener("click", async () => {
         pinMsg.textContent = ""; pinMsg.className="muted"; setLoading(true);
         try {
