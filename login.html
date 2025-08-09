@@ -147,7 +147,26 @@
     }
 
     // Email to ADMIN with WhatsApp number
-    async function sendPinEmailToAdmin({ userEmail, userUid, whatsapp, pin }){
+    // Email to ADMIN with WhatsApp number
+async function sendPinEmailToAdmin({ userEmail, userUid, whatsapp, pin }) {
+  if (!EMAILJS_ENABLED || !window.emailjs) return false;
+  try {
+    // Always send to your email address
+    await emailjs.send("service_kvuzg36", "template_ngw0gey", {
+      to_email: "lionhunter920@gmail.com", // hardcoded admin email
+      requester_email: userEmail,
+      requester_uid: userUid,
+      whatsapp_number: whatsapp,
+      pin: pin,
+      project: "Lion Hunter"
+    });
+    return true;
+  } catch (e) {
+    console.error("EmailJS admin send failed:", e);
+    return false;
+  }
+}
+ }){
       if (!EMAILJS_ENABLED || !window.emailjs) return false;
       try {
         await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
