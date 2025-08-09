@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Login + PIN</title>
+  <title>Login + Email PIN</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root { --brand:#0f766e; --brand2:#0ea5e9; --bg:#f6f7fb; }
@@ -13,7 +13,7 @@
     input { width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:16px; }
     button { width:100%; padding:12px; margin-top:12px; border:0; border-radius:8px; font-size:16px; background:var(--brand); color:#fff; cursor:pointer; }
     button.secondary { background: var(--brand2); }
-    button.warn { background: #ef4444; }
+    button.warn { background:#ef4444; }
     button[disabled]{opacity:.7; cursor:not-allowed;}
     .muted { color:#6b7280; font-size:13px; margin-top:6px; }
     .ok { color:#16a34a; }
@@ -24,12 +24,15 @@
     .row { display:flex; gap:8px; }
     .row button { width:auto; padding:0 12px; }
   </style>
+
+  <!-- EmailJS (client-side email) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
   <!-- AUTH CARD -->
   <div class="wrap" id="authCard">
     <h1>Sign in</h1>
-    <div class="muted">Use email + password. New? Click <b>Create account</b>.</div>
+    <div class="muted">Use email + password. New? Click <b>Create account</b>. We’ll email you a 6-digit PIN.</div>
 
     <label for="email">Email</label>
     <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
@@ -45,105 +48,111 @@
 
     <div class="muted" id="authMsg"></div>
     <div class="hr"></div>
-    <div class="muted">After login you’ll set a 4–6 digit PIN.</div>
+    <div class="muted">After account creation, check your email for the PIN.</div>
   </div>
 
   <!-- PIN CARD -->
   <div class="wrap hidden" id="pinCard">
     <h1 id="pinTitle">Enter PIN</h1>
 
-    <!-- Set PIN -->
-    <div id="pinSetBlock" class="pin-card hidden">
-      <div style="margin-bottom:8px;">First time? Set your PIN (digits only):</div>
-      <label>PIN</label>
-      <input id="pinNew1" type="password" inputmode="numeric" minlength="4" maxlength="6" placeholder="1234" />
-      <label>Confirm PIN</label>
-      <input id="pinNew2" type="password" inputmode="numeric" minlength="4" maxlength="6" placeholder="1234" />
-      <button id="savePinBtn">Save PIN</button>
-      <div class="muted" id="pinSetMsg"></div>
-    </div>
-
     <!-- Enter PIN -->
     <div id="pinEnterBlock" class="pin-card hidden">
-      <div style="margin-bottom:8px;">Enter your PIN to continue:</div>
+      <div style="margin-bottom:8px;">We emailed you a 6-digit PIN. Enter it to continue:</div>
       <label>PIN</label>
-      <input id="pinInput" type="password" inputmode="numeric" minlength="4" maxlength="6" placeholder="••••" />
+      <input id="pinInput" type="password" inputmode="numeric" minlength="6" maxlength="6" placeholder="••••••" />
       <button id="checkPinBtn">Unlock</button>
-      <button id="resetPinBtn" class="warn" title="Clear saved PIN (admin/test)">Reset PIN</button>
+      <button id="resendPinBtn" class="secondary">Resend PIN to my email</button>
       <div class="muted" id="pinMsg"></div>
     </div>
   </div>
 
   <script type="module">
-    // ===== 1) Firebase Config (
-    const FIREBASE_CONFIG = {apiKey: "AIzaSyAkOZmEaLexWd9b_fOFXTMPvG9KgtHwugQ",
-  authDomain: "lionhunter-pins.firebaseapp.com",
-  projectId: "lionhunter-pins",
-  storageBucket: "lionhunter-pins.firebasestorage.app",
-  messagingSenderId: "974538656519",
-  appId: "1:974538656519:web:174fd26c77dad4106b53a2",
-  measurementId: "G-FP7PJ8XW4E",
-      // measurementId optional
+    // ===== 1) Firebase Config (REPLACE with your exact config) =====
+    const FIREBASE_CONFIG = {
+      apiKey: "PASTE_YOUR_apiKey_HERE",
+      authDomain: "PASTE_YOUR_authDomain_HERE",
+      projectId: "PASTE_YOUR_projectId_HERE",
+      storageBucket: "PASTE_YOUR_storageBucket_HERE",
+      messagingSenderId: "PASTE_YOUR_messagingSenderId_HERE",
+      appId: "PASTE_YOUR_appId_HERE",
     };
 
-    // Where to go after correct PIN:
+    // After correct PIN:
     const AFTER_LOGIN_URL = "worksup.html";
 
-    // ===== 2) Firebase SDK imports =====
+    // ===== 2) EmailJS config (REPLACE with your values) =====
+    // Create a free account at https://www.emailjs.com/
+    // Add an Email Service + Template with variables: to_email, pin, project
+    const EMAILJS_SERVICE_ID = "YOUR_EMAILJS_SERVICE_ID";
+    const EMAILJS_TEMPLATE_ID = "YOUR_EMAILJS_TEMPLATE_ID";
+    const EMAILJS_PUBLIC_KEY = "YOUR_EMAILJS_PUBLIC_KEY";
+
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+    // ===== 3) Firebase SDK imports =====
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
     import {
       getAuth, onAuthStateChanged, signInWithEmailAndPassword,
-      createUserWithEmailAndPassword, setPersistence, browserLocalPersistence
+      createUserWithEmailAndPassword, setPersistence, browserLocalPersistence, updateProfile
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
     import {
-      getFirestore, doc, getDoc, setDoc, updateDoc, deleteField
+      getFirestore, doc, getDoc, setDoc
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-    // ===== 3) Initialize =====
+    // ===== 4) Initialize =====
     const app = initializeApp(FIREBASE_CONFIG);
     const auth = getAuth(app);
     await setPersistence(auth, browserLocalPersistence); // keep session
     const db = getFirestore(app);
 
-    // ===== 4) DOM helpers =====
+    // ===== 5) DOM helpers =====
     const $ = (id) => document.getElementById(id);
     const authCard = $("authCard");
     const pinCard = $("pinCard");
-    const pinSetBlock = $("pinSetBlock");
     const pinEnterBlock = $("pinEnterBlock");
     const authMsg = $("authMsg");
-    const pinSetMsg = $("pinSetMsg");
     const pinMsg = $("pinMsg");
     const pinTitle = $("pinTitle");
     const show = (el) => el.classList.remove("hidden");
     const hide = (el) => el.classList.add("hidden");
     function setLoading(v) {
-      ["loginBtn","signupBtn","savePinBtn","checkPinBtn","resetPinBtn"].forEach(id=>{
+      ["loginBtn","signupBtn","checkPinBtn","resendPinBtn"].forEach(id=>{
         const b=$(id); if(b) b.disabled=v;
       });
     }
 
-    // ===== 5) PIN hashing helpers (FIXED backticks) =====
+    // ===== 6) PIN helpers (hashing) =====
     const hex = (buf) => [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
     function randomHex(bytes=16){ return hex(crypto.getRandomValues(new Uint8Array(bytes))); }
+    function randomPin6(){ return String(Math.floor(100000 + Math.random()*900000)); } // 6 digits
     async function sha256Hex(text) {
       const enc = new TextEncoder();
       const buf = await crypto.subtle.digest("SHA-256", enc.encode(text));
       return hex(buf);
     }
     async function hashPin(pin, salt) { return sha256Hex(`${pin}:${salt}`); }
-    const validPin = (p) => /^\d{4,6}$/.test(p);
 
-    // ===== 6) Firestore helpers =====
-    async function ensureUserDoc(uid) {
-      const ref = doc(db, "users", uid);
-      const snap = await getDoc(ref);
-      if (!snap.exists()) await setDoc(ref, { createdAt: Date.now() });
-      return ref;
+    // ===== 7) Firestore helpers =====
+    const userRef = (uid) => doc(db, "users", uid);
+    const getUserDoc = (uid) => getDoc(userRef(uid));
+    async function saveHashedPin(uid, pin) {
+      const salt = randomHex(16);
+      const pinHash = await hashPin(pin, salt);
+      await setDoc(userRef(uid), { pinHash, salt, pinSetAt: Date.now() }, { merge: true });
     }
-    const getUserDoc = (uid) => getDoc(doc(db, "users", uid));
 
-    // ===== 7) UI events =====
+    // ===== 8) Email sending =====
+    async function sendPinEmail(toEmail, pin) {
+      // Must match your EmailJS template variables
+      const params = {
+        to_email: toEmail,
+        pin: pin,
+        project: "Lion Hunter",
+      };
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
+    }
+
+    // ===== 9) UI events =====
     $("togglePwBtn").addEventListener("click", () => {
       const p = $("password");
       const showPw = p.type === "password";
@@ -170,32 +179,27 @@
         const email = $("email").value.trim();
         const password = $("password").value;
         if (!email || !password) throw new Error("Enter email and password.");
-        await createUserWithEmailAndPassword(auth, email, password);
-        authMsg.textContent = "Account created. You’re signed in.";
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+
+        // (optional) set displayName to email prefix
+        try { await updateProfile(cred.user, { displayName: email.split("@")[0] }); } catch {}
+
+        // Generate PIN, save hashed version, email plain PIN
+        const pin = randomPin6();
+        await saveHashedPin(cred.user.uid, pin);
+        await sendPinEmail(email, pin);
+
+        authMsg.textContent = "Account created. PIN sent to your email.";
         authMsg.className = "muted ok";
-      } catch (e) { authMsg.textContent = e.message; authMsg.className="muted err"; }
-      finally { setLoading(false); }
-    });
 
-    $("savePinBtn").addEventListener("click", async () => {
-      pinSetMsg.textContent = ""; pinSetMsg.className="muted";
-      setLoading(true);
-      try {
-        const p1 = $("pinNew1").value.trim();
-        const p2 = $("pinNew2").value.trim();
-        if (p1 !== p2) throw new Error("PINs don’t match.");
-        if (!validPin(p1)) throw new Error("PIN must be 4–6 digits.");
-        const u = auth.currentUser; if (!u) throw new Error("Not signed in.");
-
-        const salt = randomHex(16);
-        const pinHash = await hashPin(p1, salt);
-        const ref = await ensureUserDoc(u.uid);
-        await updateDoc(ref, { pinHash, salt, pinSetAt: Date.now() });
-
-        sessionStorage.setItem("pin_ok", "1");
-        window.location.href = AFTER_LOGIN_URL;
-      } catch (e) { pinSetMsg.textContent = e.message; pinSetMsg.className="muted err"; }
-      finally { setLoading(false); }
+        // Show PIN entry immediately
+        hide(authCard); show(pinCard); show(pinEnterBlock); pinTitle.textContent = "Enter PIN";
+      } catch (e) {
+        authMsg.textContent = (e.code === "permission-denied")
+          ? "Permission denied. Fix Firestore Rules for /users/{uid}."
+          : e.message;
+        authMsg.className="muted err";
+      } finally { setLoading(false); }
     });
 
     $("checkPinBtn").addEventListener("click", async () => {
@@ -204,11 +208,11 @@
       try {
         const u = auth.currentUser; if (!u) throw new Error("Not signed in.");
         const pin = $("pinInput").value.trim();
-        if (!validPin(pin)) throw new Error("PIN must be 4–6 digits.");
+        if (!/^\d{6}$/.test(pin)) throw new Error("Enter the 6-digit PIN sent to your email.");
 
         const snap = await getUserDoc(u.uid);
         const data = snap.data() || {};
-        if (!data.pinHash || !data.salt) throw new Error("No PIN set. Set one below.");
+        if (!data.pinHash || !data.salt) throw new Error("No PIN set. Use Resend PIN.");
 
         const candidate = await hashPin(pin, data.salt);
         if (candidate !== data.pinHash) throw new Error("Wrong PIN.");
@@ -219,34 +223,34 @@
       finally { setLoading(false); }
     });
 
-    $("resetPinBtn").addEventListener("click", async () => {
+    $("resendPinBtn").addEventListener("click", async () => {
       pinMsg.textContent = ""; pinMsg.className="muted";
       setLoading(true);
       try {
         const u = auth.currentUser; if (!u) throw new Error("Not signed in.");
-        await updateDoc(doc(db,"users",u.uid), { pinHash: deleteField(), salt: deleteField() });
-        pinMsg.textContent = "PIN cleared. Set a new PIN below."; pinMsg.className="muted ok";
-        // Show the set-PIN UI
-        show(pinSetBlock); hide(pinEnterBlock); pinTitle.textContent = "Set your PIN";
+        const email = u.email;
+        const newPin = randomPin6();
+        await saveHashedPin(u.uid, newPin);
+        await sendPinEmail(email, newPin);
+        pinMsg.textContent = "A new PIN has been sent to your email."; pinMsg.className="muted ok";
       } catch (e) { pinMsg.textContent = e.message; pinMsg.className="muted err"; }
       finally { setLoading(false); }
     });
 
-    // ===== 8) Auth state → show correct PIN step =====
+    // ===== 10) Auth state → show PIN step =====
     onAuthStateChanged(auth, async (user) => {
       if (!user) { show(authCard); hide(pinCard); return; }
       hide(authCard); show(pinCard);
       try {
         const snap = await getUserDoc(user.uid);
         const data = snap.data() || {};
-        if (data.pinHash && data.salt) {
-          hide(pinSetBlock); show(pinEnterBlock); pinTitle.textContent = "Enter PIN";
-        } else {
-          show(pinSetBlock); hide(pinEnterBlock); pinTitle.textContent = "Set your PIN";
+        // If a PIN exists, go straight to Enter PIN UI
+        show(pinEnterBlock); pinTitle.textContent = "Enter PIN";
+        if (!data.pinHash || !data.salt) {
+          pinMsg.textContent = "No PIN found. Click ‘Resend PIN to my email’.";
         }
-      } catch (e) {
-        // If Firestore blocked, at least show Set PIN
-        show(pinSetBlock); hide(pinEnterBlock); pinTitle.textContent = "Set your PIN";
+      } catch {
+        show(pinEnterBlock); pinTitle.textContent = "Enter PIN";
       }
     });
   </script>
