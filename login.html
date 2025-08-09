@@ -1,5 +1,4 @@
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -13,24 +12,33 @@
     label { display:block; margin:10px 0 4px; font-weight:600; }
     input { width:100%; padding:12px; border:1px solid #d1d5db; border-radius:8px; font-size:16px; }
     button { width:100%; padding:12px; margin-top:12px; border:0; border-radius:8px; font-size:16px; background:var(--brand); color:#fff; cursor:pointer; }
+    button[disabled]{opacity:.7; cursor:not-allowed;}
     .muted { color:#6b7280; font-size:13px; margin-top:6px; }
     .ok { color:#16a34a; }
     .err { color:#dc2626; }
     .hr { height:1px; background:#e5e7eb; margin:16px 0; }
     .pin-card { border:2px dashed #d1d5db; padding:16px; border-radius:10px; background:#fafafa; }
     .hidden { display:none; }
+    .row { display:flex; gap:8px; }
   </style>
 </head>
 <body>
   <div class="wrap" id="authCard">
     <h1>Sign in</h1>
-    <div class="muted">Use email + password. New? Click Create account.</div>
-    <label>Email</label>
-    <input id="email" type="email" placeholder="you@example.com" />
-    <label>Password</label>
-    <input id="password" type="password" placeholder="••••••••" />
+    <div class="muted">Use email + password. New? Click <b>Create account</b>.</div>
+
+    <label for="email">Email</label>
+    <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
+
+    <label for="password">Password</label>
+    <div class="row">
+      <input id="password" type="password" placeholder="••••••••" autocomplete="current-password" />
+      <button id="togglePwBtn" type="button" style="width:auto;background:#6b7280;">Show</button>
+    </div>
+
     <button id="loginBtn">Login</button>
-    <button id="signupBtn">Create account</button>
+    <button id="signupBtn" style="background:#0ea5e9;">Create account</button>
+
     <div class="muted" id="authMsg"></div>
     <div class="hr"></div>
     <div class="muted">After login you’ll set a 4–6 digit PIN.</div>
@@ -75,7 +83,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
     import {
       getAuth, onAuthStateChanged, signInWithEmailAndPassword,
-      createUserWithEmailAndPassword, signOut
+      createUserWithEmailAndPassword, setPersistence, browserLocalPersistence
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
     import {
       getFirestore, doc, getDoc, setDoc, updateDoc
@@ -83,6 +91,8 @@
 
     const app = initializeApp(FIREBASE_CONFIG);
     const auth = getAuth(app);
+    // Keep users signed in across tabs/reloads
+    await setPersistence(auth, browserLocalPersistence);
     const db = getFirestore(app);
 
     const $ = (id) => document.getElementById(id);
@@ -104,7 +114,8 @@
       const buf = await crypto.subtle.digest("SHA-256", enc.encode(text));
       return hex(buf);
     }
-    async function hashPin(pin, salt) { return sha256Hex(${pin}:${salt}); }
+    // ✅ FIXED: use backticks for template string
+    async function hashPin(pin, salt) { return sha256Hex(`${pin}:${salt}`); }
     const validPin = (p) => /^\d{4,6}$/.test(p);
 
     async function ensureUserDoc(uid) {
@@ -115,24 +126,49 @@
     }
     const getUserDoc = (uid) => getDoc(doc(db, "users", uid));
 
+    function setLoading(isLoading) {
+      $("loginBtn").disabled = isLoading;
+      $("signupBtn").disabled = isLoading;
+      $("savePinBtn").disabled = isLoading;
+      $("checkPinBtn").disabled = isLoading;
+    }
+
+    $("togglePwBtn").addEventListener("click", () => {
+      const p = $("password");
+      const showPw = p.type === "password";
+      p.type = showPw ? "text" : "password";
+      $("togglePwBtn").textContent = showPw ? "Hide" : "Show";
+    });
+
     $("loginBtn").addEventListener("click", async () => {
-      authMsg.textContent = "";
+      authMsg.textContent = ""; authMsg.className="muted";
+      setLoading(true);
       try {
-        await signInWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
-      } catch (e) { authMsg.textContent = e.message; }
+        const email = $("email").value.trim();
+        const password = $("password").value;
+        if (!email || !password) throw new Error("Enter email and password.");
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (e) { authMsg.textContent = e.message; authMsg.className="muted err"; }
+      finally { setLoading(false); }
     });
 
     $("signupBtn").addEventListener("click", async () => {
-      authMsg.textContent = "";
+      authMsg.textContent = ""; authMsg.className="muted";
+      setLoading(true);
       try {
-        await createUserWithEmailAndPassword(auth, $("email").value.trim(), $("password").value);
+        const email = $("email").value.trim();
+        const password = $("password").value;
+        if (!email || !password) throw new Error("Enter email and password.");
+        await createUserWithEmailAndPassword(auth, email, password);
         authMsg.textContent = "Account created. You’re signed in.";
         authMsg.className = "muted ok";
       } catch (e) { authMsg.textContent = e.message; authMsg.className="muted err"; }
+      finally { setLoading(false); }
     });
 
-    document.getElementById("savePinBtn").addEventListener("click", async () => {
-      pinSetMsg.textContent = "";
+    $("savePinBtn").addEventListener("click", async () => {
+      pinSetMsg.textContent = ""; pinSetMsg.className="muted";
+      setLoading(true);
       try {
         const p1 = $("pinNew1").value.trim();
         const p2 = $("pinNew2").value.trim();
@@ -148,10 +184,12 @@
         sessionStorage.setItem("pin_ok", "1");
         window.location.href = AFTER_LOGIN_URL;
       } catch (e) { pinSetMsg.textContent = e.message; pinSetMsg.className="muted err"; }
+      finally { setLoading(false); }
     });
 
-    document.getElementById("checkPinBtn").addEventListener("click", async () => {
-      pinMsg.textContent = "";
+    $("checkPinBtn").addEventListener("click", async () => {
+      pinMsg.textContent = ""; pinMsg.className="muted";
+      setLoading(true);
       try {
         const u = auth.currentUser; if (!u) throw new Error("Not signed in.");
         const pin = $("pinInput").value.trim();
@@ -167,6 +205,7 @@
         sessionStorage.setItem("pin_ok", "1");
         window.location.href = AFTER_LOGIN_URL;
       } catch (e) { pinMsg.textContent = e.message; pinMsg.className="muted err"; }
+      finally { setLoading(false); }
     });
 
     onAuthStateChanged(auth, async (user) => {
