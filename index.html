@@ -335,5 +335,17 @@
       });
     });
   </script>
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const loginBtn = document.getElementById('login-btn');
+  if (loginBtn) {
+    loginBtn.addEventListener('click', function (e) {
+      e.preventDefault(); // Stop navigation to login.html
+      alert("🔒 Premium services coming soon!");
+    });
+  }
+});
+</script>
+
 </body>
 </html>
