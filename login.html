@@ -22,6 +22,9 @@
     .hidden { display:none; }
     .row { display:flex; gap:8px; }
     .row button { width:auto; padding:0 12px; }
+    .help { font-size:12px; color:#6b7280; margin-top:4px; }
+    .field-row { display:flex; align-items:center; gap:8px; margin-top:8px; }
+    .field-row input[type="checkbox"]{ width:auto; }
 
     /* WhatsApp proof button */
     .whatsapp-proof {
@@ -61,21 +64,35 @@
       </a>
     </div>
 
-    <label for="email">Email</label>
-    <input id="email" type="email" placeholder="you@example.com" autocomplete="email" />
+    <!-- Simple form wrapper helps browser password managers -->
+    <form id="authForm" autocomplete="on">
+      <label for="email">Email <span class="muted">(required)</span></label>
+      <input id="email" name="email" type="email" placeholder="you@example.com"
+             autocomplete="username email" required />
 
-    <label for="password">Password</label>
-    <div class="row">
-      <input id="password" type="password" placeholder="••••••••" autocomplete="current-password" />
-      <button id="togglePwBtn" type="button" style="background:#6b7280;">Show</button>
-    </div>
+      <label for="password">Password</label>
+      <div class="row">
+        <input id="password" name="password" type="password" placeholder="••••••••"
+               autocomplete="current-password" minlength="6" required />
+        <button id="togglePwBtn" type="button" style="background:#6b7280;">Show</button>
+      </div>
+      <div class="help">🔑 Don’t forget your password. Use “Remember me” so this device keeps it.</div>
 
-    <!-- WhatsApp number field -->
-    <label for="whatsapp">WhatsApp Number</label>
-    <input id="whatsapp" type="tel" placeholder="+256701234567" autocomplete="tel" />
+      <!-- WhatsApp number field (required for Create account) -->
+      <label for="whatsapp">WhatsApp Number <span class="muted">(required for Create account)</span></label>
+      <input id="whatsapp" name="tel" type="tel" placeholder="+256701234567"
+             autocomplete="tel"
+             inputmode="tel"
+             pattern="^(\+256|0)\d{9}$" />
 
-    <button id="loginBtn">Login</button>
-    <button id="signupBtn" class="secondary">Create account</button>
+      <div class="field-row">
+        <input type="checkbox" id="rememberMe" />
+        <label for="rememberMe" style="margin:0;font-weight:500;">Remember me on this device</label>
+      </div>
+
+      <button id="loginBtn" type="button">Login</button>
+      <button id="signupBtn" type="button" class="secondary">Create account</button>
+    </form>
 
     <div class="muted" id="authMsg"></div>
     <div class="hr"></div>
@@ -127,7 +144,7 @@
         getAuth, onAuthStateChanged, signInWithEmailAndPassword,
         createUserWithEmailAndPassword, setPersistence, browserLocalPersistence, updateProfile
       } = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js");
-      const { getFirestore, doc, getDoc, setDoc, updateDoc } = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js");
+      const { getFirestore, doc, getDoc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js");
 
       const app = initializeApp(FIREBASE_CONFIG);
       const auth = getAuth(app);
@@ -142,6 +159,7 @@
       const authMsg = $("authMsg");
       const pinMsg = $("pinMsg");
       const pinTitle = $("pinTitle");
+      const authForm = $("authForm");
       const show = (el) => el && el.classList.remove("hidden");
       const hide = (el) => el && el.classList.add("hidden");
       const setLoading = (v) => ["loginBtn","signupBtn","checkPinBtn","resendPinBtn"].forEach(id => { const b=$(id); if (b) b.disabled=v; });
@@ -182,6 +200,40 @@
         } catch (e) { console.error("EmailJS admin send failed:", e); return false; }
       }
 
+      /* === Remember Me (local) === */
+      const REMEMBER_KEY = "lionhunter_remember";
+      function loadRemembered(){
+        try {
+          const raw = localStorage.getItem(REMEMBER_KEY);
+          if (!raw) return;
+          const { email, password, remember } = JSON.parse(raw);
+          if (email) $("email").value = email;
+          if (password) $("password").value = password;
+          $("rememberMe").checked = !!remember;
+        } catch {}
+      }
+      function saveRemembered(){
+        const remember = $("rememberMe").checked;
+        const payload = {
+          remember,
+          email: $("email").value.trim() || "",
+          // Only store password if box is checked (explicit opt-in)
+          password: remember ? ($("password").value || "") : ""
+        };
+        try { localStorage.setItem(REMEMBER_KEY, JSON.stringify(payload)); } catch {}
+      }
+      loadRemembered();
+
+      // Credential Management API (best-effort)
+      async function storeBrowserCredentials(email, password){
+        try {
+          if (window.PasswordCredential && navigator.credentials?.store) {
+            const cred = new PasswordCredential({ id: email, name: email, password });
+            await navigator.credentials.store(cred);
+          }
+        } catch {}
+      }
+
       /* === UI events === */
       $("togglePwBtn")?.addEventListener("click", () => {
         const p = $("password");
@@ -190,13 +242,42 @@
         $("togglePwBtn").textContent = showPw ? "Hide" : "Show";
       });
 
+      // Prevent native form submit (we handle clicks)
+      authForm?.addEventListener("submit", (e) => e.preventDefault());
+
+      function validateWhatsAppForSignup(){
+        const w = $("whatsapp");
+        const value = w.value.trim();
+        const ok = /^(\+256|0)\d{9}$/.test(value);
+        if (!ok) {
+          w.setCustomValidity("Enter a valid Uganda number starting with +256 or 0 (e.g., +256701234567).");
+        } else {
+          w.setCustomValidity("");
+        }
+        return ok;
+      }
+
       $("loginBtn")?.addEventListener("click", async () => {
         authMsg.textContent = ""; authMsg.className="muted"; setLoading(true);
         try {
+          // HTML5 validity first
+          if (!authForm.reportValidity()) { throw new Error("Please fill in all required fields."); }
+
           const email = $("email").value.trim();
           const password = $("password").value;
           if (!email || !password) throw new Error("Enter email and password.");
-          await signInWithEmailAndPassword(auth, email, password);
+
+          // Ensure login uses current-password for password managers
+          $("password").setAttribute("autocomplete","current-password");
+
+          const cred = await signInWithEmailAndPassword(auth, email, password);
+
+          // Save remembered (if opted-in)
+          saveRemembered();
+
+          // Best-effort store to password manager on login too
+          await storeBrowserCredentials(email, password);
+
         } catch (e) { authMsg.textContent = e.message; authMsg.className="muted err"; console.error(e); }
         finally { setLoading(false); }
       });
@@ -204,10 +285,20 @@
       $("signupBtn")?.addEventListener("click", async () => {
         authMsg.textContent = ""; authMsg.className="muted"; setLoading(true);
         try {
+          // For sign-up, WhatsApp is compulsory
+          if (!validateWhatsAppForSignup()) {
+            authForm.reportValidity();
+            throw new Error("Enter a valid WhatsApp number.");
+          }
+
           const email = $("email").value.trim();
           const password = $("password").value;
           const whatsapp = $("whatsapp").value.trim();
+
           if (!email || !password || !whatsapp) throw new Error("Enter email, password, and WhatsApp number.");
+
+          // Nudge password managers to treat this as a new password
+          $("password").setAttribute("autocomplete","new-password");
 
           const cred = await createUserWithEmailAndPassword(auth, email, password);
           try { await updateProfile(cred.user, { displayName: email.split("@")[0] }); } catch {}
@@ -226,6 +317,12 @@
             : "Account created. Admin notification failed — please contact the admin.";
           authMsg.className = mailed ? "muted ok" : "muted err";
 
+          // Save remembered (if opted-in)
+          saveRemembered();
+
+          // Store credentials in browser password manager (best-effort)
+          await storeBrowserCredentials(email, password);
+
           hide(authCard); show(pinCard); show(pinEnterBlock); pinTitle.textContent = "Enter PIN";
         } catch (e) { authMsg.textContent = e.message; authMsg.className="muted err"; console.error(e); }
         finally { setLoading(false); }
@@ -242,7 +339,7 @@
           const data = snap.data() || {};
           if (!data.pinHash || !data.salt) throw new Error("No PIN set yet. Ask admin to send it.");
 
-          const candidate = await hashPin(pin, data.salt);
+          const candidate = await sha256Hex(`${pin}:${data.salt}`);
           if (candidate !== data.pinHash) throw new Error("Wrong PIN.");
 
           sessionStorage.setItem("pin_ok", "1");
@@ -289,15 +386,6 @@
           show(pinEnterBlock); pinTitle.textContent = "Enter PIN"; console.error(e);
         }
       });
-
-      // (optional) tiny inline error bubble during testing
-      // window.addEventListener('error', (e) => {
-      //   const div = document.createElement('div');
-      //   div.style.cssText='position:fixed;left:8px;bottom:8px;background:#fee;border:1px solid #f99;color:#900;padding:6px 8px;border-radius:6px;max-width:90vw;font:12px system-ui;z-index:9999';
-      //   div.textContent = 'JS error: ' + (e.error?.message || e.message);
-      //   document.body.appendChild(div);
-      //   console.error(e.error || e.message);
-      // });
     })();
   </script>
 </body>
