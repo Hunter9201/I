@@ -1,141 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-KCLCFN2CV4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-KCLCFN2CV4');
-</script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Land Law Workshop Portal</title>
+  <meta charset="utf-8" />
+  <title>Works Up (Protected)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #003366;
-      color: white;
-      padding: 2rem;
-      text-align: center;
-      position: relative;
-    }
-    .return-btn {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background: white;
-      color: #003366;
-      padding: 0.5rem 1rem;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    section {
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
-    }
-    .term {
-      margin-bottom: 2rem;
-      background: white;
-      padding: 1.5rem;
-      border-radius: 10px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    }
-    .term h2 {
-      color: #003366;
-      margin-top: 0;
-    }
-    .workshop {
-      margin-top: 1rem;
-      padding: 1rem;
-      border-left: 4px solid #003366;
-      background-color: #fdfdfd;
-    }
-    .workshop h3 {
-      margin: 0 0 0.5rem;
-      color: #003366;
-    }
-    .register-btn {
-      display: inline-block;
-      margin-top: 1rem;
-      background: #003366;
-      color: white;
-      padding: 0.6rem 1rem;
-      text-decoration: none;
-      border-radius: 5px;
-    }
-    footer {
-      background: #eee;
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #555;
-    }
+    body { font-family: system-ui, Arial, sans-serif; padding: 20px; }
+    .ok { color: #0a7a28; font-weight: 700; }
+    .muted { color: #666; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+    .btn { background:#0f766e; color:#fff; border:0; padding:8px 12px; border-radius:8px; cursor:pointer; }
   </style>
 </head>
 <body>
-  <header>
-    <a href="index.html" class="return-btn">← Return</a>
-    <h1>Land Law Workshops</h1>
-    <p>Term I, II & III</p>
-  </header>
+  <div class="topbar">
+    <h1>Welcome to Works Up <span class="ok">✅</span></h1>
+    <button id="logoutBtn" class="btn">Sign out</button>
+  </div>
+  <p class="muted">You successfully logged in and entered your PIN.</p>
+  <p id="countdown" class="muted"></p>
 
-  <section>
-    <div class="term">
-      <h2>Term I</h2>
-      <div class="workshop">
-        <h3>Workshop 1:</h3> 
-        <p></p>
-        <a href="Huntareas.html" class="register-btn">Click</a>
-      </div>
-      <div class="workshop">
-        <h3>Workshop 2:</h3>
-        <p></p>
-        <a href="Huntareas.html" class="register-btn">Click</a>
-      </div>
-    </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-    <div class="term">
-      <h2>Term II</h2>
-      <div class="workshop">
-        <h3>Workshop 1:</h3> 
-        <p></p>
-        <a href="Huntareas.html" class="register-btn">Click</a>
-      </div>
-      <div class="workshop">
-        <h3>Workshop 2:</h3>
-        <p></p>
-        <a href="Huntareas.html" class="register-btn">Click</a>
-      </div>
-    </div>
+    // SAME CONFIG AS login.html
+    const FIREBASE_CONFIG = {
+      apiKey: "AIzaSyAKOZmEaLexWd9b_FOFXTMPvG9KgtHwugQ",
+      authDomain: "lionhunter-pins.firebaseapp.com",
+      projectId: "lionhunter-pins",
+      storageBucket: "lionhunter-pins.firebasestorage.app",
+      messagingSenderId: "974538656519",
+      appId: "1:974538656519:web:174fd26c77dad4106b53a2",
+      measurementId: "G-FP7PJ8XW4E"
+    };
 
-    <div class="term">
-      <h2>Term III</h2>
-      <div class="workshop">
-        <h3>Workshop 1:</h3> 
-        <p></p>
-        <a href="Huntareas.html" class="register-btn">Click</a>
-      </div>
-      <div class="workshop">
-        <h3>Workshop 2:</h3>
-        <p></p>
-        <a href="Huntareas.html" class="register-btn">Click</a>
-      </div>
-    </div>
-  </section>
+    const LOGIN_URL = "login.html";
+    const PIN_KEY = "lion_access_pin";               // { usedAt: ISO string }
+    const PIN_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
-  <footer>
-    &copy; 2025 Land Law Mastery Portal | Symbolism. Precision. Victory.
-  </footer>
+    const app = initializeApp(FIREBASE_CONFIG);
+    const auth = getAuth(app);
+
+    function getStoredPinUsedAt() {
+      if (sessionStorage.getItem("pin_ok") === "1") return new Date().toISOString();
+      try {
+        const raw = localStorage.getItem(PIN_KEY);
+        if (!raw) return null;
+        const obj = JSON.parse(raw);
+        return obj?.usedAt || null;
+      } catch { return null; }
+    }
+
+    function isFresh(usedAtISO) {
+      const t = new Date(usedAtISO).getTime();
+      if (Number.isNaN(t)) return false;
+      return (Date.now() - t) < PIN_MAX_AGE_MS;
+    }
+
+    function redirectToLoginOnce() {
+      if (!location.pathname.endsWith("/" + LOGIN_URL) && !location.pathname.endsWith(LOGIN_URL)) {
+        location.replace(LOGIN_URL);
+      }
+    }
+
+    function startCountdown(usedAtISO) {
+      const el = document.getElementById("countdown");
+      function render() {
+        const usedAtMs = new Date(usedAtISO).getTime();
+        const expiresAt = usedAtMs + PIN_MAX_AGE_MS;
+        const diff = expiresAt - Date.now();
+        if (diff <= 0) {
+          el.textContent = "❌ Your PIN access window has expired. Please log in again.";
+          return;
+        }
+        const d = Math.floor(diff / (1000*60*60*24));
+        const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+        const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+        el.textContent = `⏳ PIN access expires in ${d}d ${h}h ${m}m`;
+      }
+      render();
+      setInterval(render, 60 * 1000);
+    }
+
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      try { await signOut(auth); } catch {}
+      sessionStorage.removeItem("pin_ok");
+      // For a “hard” sign-out uncomment next line:
+      // localStorage.removeItem(PIN_KEY);
+      redirectToLoginOnce();
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      const usedAt = getStoredPinUsedAt();
+      const ok = !!user && !!usedAt && isFresh(usedAt);
+      if (!ok) { redirectToLoginOnce(); return; }
+      startCountdown(usedAt);
+    });
+
+    // (optional) show any JS errors inline
+    window.addEventListener('error', (e) => {
+      const div = document.createElement('div');
+      div.style.cssText='position:fixed;left:8px;bottom:8px;background:#fee;border:1px solid #f99;color:#900;padding:6px 8px;border-radius:6px;max-width:90vw;font:12px system-ui;z-index:9999';
+      div.textContent = 'JS error: ' + (e.error?.message || e.message);
+      document.body.appendChild(div);
+      console.error(e.error || e.message);
+    });
+  </script>
 </body>
 </html>
