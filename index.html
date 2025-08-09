@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,33 +57,38 @@
     .lion-dancing { animation: lion-dance 1.8s ease-in-out infinite alternate; }
     .lion-stopped { animation:none !important; transform:none !important; }
     .lion-shake { animation: lion-shake .5s ease-in-out 1; }
-    /* Stylish Login Button */
-#login-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: linear-gradient(135deg, #2e8bc0, #145da0);
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 8px 14px;
-  border-radius: 20px;
-  text-decoration: none;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-  opacity: 0;
-  transform: translateY(-10px);
-  animation: fadeSlideIn 0.6s ease forwards;
-  animation-delay: 0.4s;
-  z-index: 2000;
-}
-#login-btn:hover {
-  background: linear-gradient(135deg, #145da0, #0f3057);
-  box-shadow: 0 5px 12px rgba(0,0,0,0.25);
-}
-@keyframes fadeSlideIn {
-  to { opacity: 1; transform: translateY(0); }
-}
 
+    /* Stylish Login Button */
+    #login-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #2e8bc0, #145da0);
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 20px;
+      text-decoration: none;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      opacity: 0;
+      transform: translateY(-10px);
+      animation: fadeSlideIn 0.6s ease forwards;
+      animation-delay: 0.4s;
+      z-index: 2000;
+    }
+    #login-btn:hover {
+      background: linear-gradient(135deg, #145da0, #0f3057);
+      box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+    }
+    @keyframes fadeSlideIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from {opacity:0; transform:translateY(12px)}
+      to {opacity:1; transform:translateY(0)}
+    }
   </style>
 </head>
 <body>
@@ -105,23 +108,17 @@
   </header>
 
   <nav id="navMenu" class="nav-container">
-    <a href="laws.html">Laws</a<a href="Fullcases.html">All WK Cases</a>
+    <a href="laws.html">Laws</a>
+    <a href="Fullcases.html">All WK Cases</a>
     <a href="caseslandone.html">Case Summaries</a> 
     <a href="workshop.html">Workshops</a>  
-    <a href="workshop.html">Documents</a>
+    <a href="Documents.html">Documents</a>
     <a href="ia.html">I.A</a>
-        <a href="exams.html">Exams</a>
+    <a href="exams.html">Exams</a>
     <a href="oral-exams.html">Oral Exams</a>
-     <a href="category-b.html">Category B</a>
+    <a href="category-b.html">Category B</a>
     <a href="trial-advocacy.html">Trial Advocacy</a>
-  
-    
-
     <a href="audio.html">Audio</a>
-    
-   
-    
-   
     <a href="Discussions.html">Online Discussions</a>
     <a href="services.html">Bar Bites</a>
     <a href="services.html">Legal Services</a>
@@ -132,25 +129,17 @@
     <div class="grid">
       <div class="card"><h3>Laws</h3><p>Acts & Statutes.</p><a href="laws.html">Open</a></div>
       <div class="card"><h3>All WK Cases</h3><p>All Workshop Cases</p><a href="Fullcases.html">Open</a></div>
-        <div class="card"><h3>Case Summaries</h3><p>Workshop Case Summaries</p><a href="caseslandone.html">Open</a></div>
-       <div class="card"><h3>Workshops</h3><p>Civil, family, land, corporate & criminal workshops.</p><a href="workshop.html">Open</a></div>
-       <div class="card"><h3>Documents</h3><p>Civil, family, land, corporate & criminal Documents.</p><a href="Documents.html">Open</a></div>
+      <div class="card"><h3>Case Summaries</h3><p>Workshop Case Summaries</p><a href="caseslandone.html">Open</a></div>
+      <div class="card"><h3>Workshops</h3><p>Civil, family, land, corporate & criminal workshops.</p><a href="workshop.html">Open</a></div>
+      <div class="card"><h3>Documents</h3><p>Civil, family, land, corporate & criminal Documents.</p><a href="Documents.html">Open</a></div>
       <div class="card"><h3>Individual Assessment</h3><p>Friday Hunter Series.</p><a href="ia.html">Open</a></div>
       <div class="card"><h3>Exams</h3><p>Past exams</p><a href="exams.html">Open</a></div>
-       <div class="card"><h3>Oral Exams</h3><p>Practice questions and answers.</p><a href="oral-exams.html">Open</a></div>
-         <div class="card"><h3>Category B</h3><p>Legal Writing, Professional Conduct & ADR.</p><a href="category-b.html">Open</a></div>
-      
+      <div class="card"><h3>Oral Exams</h3><p>Practice questions and answers.</p><a href="oral-exams.html">Open</a></div>
+      <div class="card"><h3>Category B</h3><p>Legal Writing, Professional Conduct & ADR.</p><a href="category-b.html">Open</a></div>
       <div class="card"><h3>Trial Advocacy</h3><p>Evidence rules, litigation guides and role-play prep.</p><a href="trial-advocacy.html">Open</a></div>
-     
-      
-      
       <div class="card"><h3>Audio Lessons</h3><p>Voice recaps for revision on the go.</p><a href="audio.html">Open</a></div>
-     
-   
       <div class="card"><h3>Bar Bites</h3><p>Motivational content and war stories.</p><a href="services.html">Open</a></div>
       <div class="card"><h3>Online Discussions</h3><p>Lion Hunt | Nonstop Discussions</p><a href="Discussions.html">Open</a></div>
-      
-    
       <div class="card"><h3>Legal Services</h3><p>Let the Lion roar for you.</p><a href="services.html">Hire Me</a></div>
     </div>
   </main>
@@ -351,17 +340,60 @@
       });
     });
   </script>
+
+  <!-- Login button temporarily locked -->
   <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const loginBtn = document.getElementById('login-btn');
-  if (loginBtn) {
-    loginBtn.addEventListener('click', function (e) {
-      e.preventDefault(); // Stop navigation to login.html
-      alert("🔒 Premium services coming soon!");
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginBtn = document.getElementById('login-btn');
+      if (loginBtn) {
+        loginBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          alert("🔒 Premium services coming soon!");
+        });
+      }
     });
-  }
-});
-</script>
+  </script>
+
+  <!-- 🦁 Popup Message (single instance) -->
+  <div id="popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:3000; align-items:center; justify-content:center; padding:16px;">
+    <div style="background:#fff; color:#0f3057; border-radius:14px; padding:22px 26px; text-align:center; box-shadow:0 12px 30px rgba(0,0,0,.15); max-width:420px; width:100%; animation:fadeInUp 0.25s ease; border:1px solid #e9eef5;">
+      <h4 style="margin:0 0 8px; font-size:1.15rem;">🦁 The Lion’s Den is being constructed</h4>
+      <p style="margin:0 0 14px; color:#445;">We’re sharpening our claws. Check back soon.</p>
+      <button onclick="closePopup()" style="border:0; padding:8px 14px; border-radius:10px; cursor:pointer; font-weight:600; background:#2e8bc0; color:#fff;">OK</button>
+    </div>
+  </div>
+
+  <!-- 🔒 Lock all cards EXCEPT the three specified -->
+  <script>
+    const popup = document.getElementById('popup');
+    function closePopup(){ popup.style.display = 'none'; }
+    function openPopup(){ popup.style.display = 'flex'; }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const unlocked = ["laws", "all wk cases", "case summaries"];
+
+      document.querySelectorAll('.card').forEach(card => {
+        const title = (card.querySelector('h3')?.innerText || "").trim().toLowerCase();
+
+        // If card is not one of the unlocked ones, intercept its clicks
+        if (!unlocked.includes(title)) {
+          card.addEventListener('click', (e) => {
+            // If the click was on a link or anywhere in the card, block navigation
+            if (e.target.closest('a')) e.preventDefault();
+            e.preventDefault();
+            openPopup();
+          });
+          // Also prevent direct anchor navigation inside the card
+          card.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', (e) => { e.preventDefault(); openPopup(); });
+          });
+        }
+      });
+
+      // Close popup if clicking outside message
+      popup.addEventListener('click', (e) => { if (e.target === popup) closePopup(); });
+    });
+  </script>
 
 </body>
 </html>
