@@ -8,92 +8,107 @@
     body { font-family: system-ui, Arial, sans-serif; padding: 20px; }
     .ok { color: #0a7a28; font-weight: 700; }
     .muted { color: #666; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+    .btn { background:#0f766e; color:#fff; border:0; padding:8px 12px; border-radius:8px; cursor:pointer; }
   </style>
 </head>
 <body>
-  <h1>Welcome to Works Up <span class="ok">✅</span></h1>
-  <p>You successfully logged in and entered your PIN.</p>
+  <div class="topbar">
+    <h1>Welcome to Works Up <span class="ok">✅</span></h1>
+    <button id="logoutBtn" class="btn">Sign out</button>
+  </div>
+  <p class="muted">You successfully logged in and entered your PIN.</p>
   <p id="countdown" class="muted"></p>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-    // --- CONFIG ---
+    // --- SAME CONFIG AS login.html ---
     const FIREBASE_CONFIG = {
-  apiKey: "AIzaSyAkOZmEaLexWd9b_fOFXTMPvG9KgtHwugQ",
-  authDomain: "lionhunter-pins.firebaseapp.com",
-  projectId: "lionhunter-pins",
-  storageBucket: "lionhunter-pins.firebasestorage.app",
-  messagingSenderId: "974538656519",
-  appId: "1:974538656519:web:174fd26c77dad4106b53a2",
-  measurementId: "G-FP7PJ8XW4E"
+      apiKey: "AIzaSyAKOZmEaLexWd9b_FOFXTMPvG9KgtHwugQ",
+      authDomain: "lionhunter-pins.firebaseapp.com",
+      projectId: "lionhunter-pins",
+      storageBucket: "lionhunter-pins.firebasestorage.app",
+      messagingSenderId: "974538656519",
+      appId: "1:974538656519:web:174fd26c77dad4106b53a2",
+      measurementId: "G-FP7PJ8XW4E"
     };
+
     const LOGIN_URL = "login.html";
-    const PIN_KEY = "lion_access_pin";            // { pin: "123456", usedAt: ISO string }
+    const PIN_KEY = "lion_access_pin";               // { usedAt: ISO string }
     const PIN_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
-    // --- INIT ---
     const app = initializeApp(FIREBASE_CONFIG);
     const auth = getAuth(app);
 
-    // --- HELPERS ---
-    function getStoredPin() {
+    // --- Helpers ---
+    function getStoredPinUsedAt() {
+      // If session flag is present this visit is OK
+      if (sessionStorage.getItem("pin_ok") === "1") {
+        return new Date().toISOString();
+      }
+      // Otherwise use the long-lived localStorage record
       try {
         const raw = localStorage.getItem(PIN_KEY);
         if (!raw) return null;
         const obj = JSON.parse(raw);
-        if (!obj?.pin || !obj?.usedAt) return null;
-        return obj;
-      } catch {
-        return null;
-      }
+        if (!obj?.usedAt) return null;
+        return obj.usedAt;
+      } catch { return null; }
     }
 
-    function isPinValid(pinObj) {
-      const usedAtMs = new Date(pinObj.usedAt).getTime();
-      if (Number.isNaN(usedAtMs)) return false;
-      return (Date.now() - usedAtMs) < PIN_MAX_AGE_MS;
+    function isFresh(usedAtISO) {
+      const t = new Date(usedAtISO).getTime();
+      if (Number.isNaN(t)) return false;
+      return (Date.now() - t) < PIN_MAX_AGE_MS;
     }
 
-    function redirectToLogin() {
-      // prevent redirect loop
+    function redirectToLoginOnce() {
+      // Avoid loops if already on login page
       if (!location.pathname.endsWith("/" + LOGIN_URL) && !location.pathname.endsWith(LOGIN_URL)) {
-        window.location.replace(LOGIN_URL);
+        location.replace(LOGIN_URL);
       }
     }
 
     function startCountdown(usedAtISO) {
       const el = document.getElementById("countdown");
       function render() {
-        const usedAt = new Date(usedAtISO).getTime();
-        const expiresAt = usedAt + PIN_MAX_AGE_MS;
+        const usedAtMs = new Date(usedAtISO).getTime();
+        const expiresAt = usedAtMs + PIN_MAX_AGE_MS;
         const diff = expiresAt - Date.now();
         if (diff <= 0) {
-          el.textContent = "❌ Your PIN has expired. Please request a new PIN.";
+          el.textContent = "❌ Your PIN access window has expired. Please log in again.";
           return;
         }
         const d = Math.floor(diff / (1000*60*60*24));
         const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
         const m = Math.floor((diff % (1000*60*60)) / (1000*60));
-        el.textContent = `⏳ PIN expires in ${d}d ${h}h ${m}m`;
+        el.textContent = `⏳ PIN access expires in ${d}d ${h}h ${m}m`;
       }
       render();
-      setInterval(render, 60 * 1000); // update every minute
+      setInterval(render, 60 * 1000);
     }
 
-    // --- ENFORCE PROTECTION ---
-    onAuthStateChanged(auth, (user) => {
-      const pinObj = getStoredPin();
-      const ok = !!user && !!pinObj && isPinValid(pinObj);
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      try { await signOut(auth); } catch {}
+      // Clear flags on sign-out
+      sessionStorage.removeItem("pin_ok");
+      // Keep localStorage record if you want returning users to skip PIN within 30 days.
+      // If you prefer a hard sign-out, also clear this:
+      // localStorage.removeItem(PIN_KEY);
+      redirectToLoginOnce();
+    });
 
+    // --- Enforce protection ---
+    onAuthStateChanged(auth, (user) => {
+      const usedAt = getStoredPinUsedAt();
+      const ok = !!user && !!usedAt && isFresh(usedAt);
       if (!ok) {
-        redirectToLogin();
+        redirectToLoginOnce();
         return;
       }
-
-      // Show countdown if OK
-      startCountdown(pinObj.usedAt);
+      startCountdown(usedAt);
     });
   </script>
 </body>
