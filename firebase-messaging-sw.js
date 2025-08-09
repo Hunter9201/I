@@ -1,5 +1,6 @@
-importScripts('https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js');
+/* firebase-messaging-sw.js (site root) */
+importScripts('https://www.gstatic.com/firebasejs/12.0.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging-compat.js');
 
 firebase.initializeApp({
   apiKey: "AIzaSyABgKrFpiFqC9gndXaK09MvhAVhZHAGk78",
@@ -7,16 +8,17 @@ firebase.initializeApp({
   projectId: "lionhunterwebpush",
   storageBucket: "lionhunterwebpush.firebasestorage.app",
   messagingSenderId: "803161144360",
-  appId: "1:803161144360:web:6d64c6c5c275d894a4891d",
-  measurementId: "G-GTJFDE1592"
+  appId: "1:803161144360:web:6d64c6c5c275d894a4891d"
 });
 
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage((payload) => {
-  console.log('🦁 Background message:', payload);
-  self.registration.showNotification(payload.notification.title, {
-    body: payload.notification.body,
-    icon: 'https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg',
+  const n = payload.notification || {};
+  self.registration.showNotification(n.title || "Lion Hunt", {
+    body: n.body || "",
+    icon: n.icon || "https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg",
   });
+});
+
 });
