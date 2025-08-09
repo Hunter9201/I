@@ -5,111 +5,185 @@
   <title>Works Up (Protected)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body { font-family: system-ui, Arial, sans-serif; padding: 20px; }
-    .ok { color: #0a7a28; font-weight: 700; }
-    .muted { color: #666; }
-    .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
-    .btn { background:#0f766e; color:#fff; border:0; padding:8px 12px; border-radius:8px; cursor:pointer; }
+    body { font-family: system-ui, Arial, sans-serif; padding: 20px; background:#0b1224; color:#e5e7eb; }
+    .ok { color: #22c55e; font-weight: 700; }
+    .muted { color: #9fb0d1; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+    .btn { background:#0f766e; color:#fff; border:0; padding:10px 14px; border-radius:10px; cursor:pointer; }
+    .badge { display:inline-block; padding:4px 10px; border-radius:999px; background:#122142; color:#cfe3ff; border:1px solid #223055; margin-left:8px; font-size:12px; }
+    .card { border:1px solid #223055; border-radius:14px; padding:14px; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); margin:12px 0; }
+    .row { display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; }
+    .copy { border:1px solid #2c3b63; background:#132041; color:#d1d5db; border-radius:8px; padding:6px 10px; cursor:pointer; }
+    a.btnlink { text-decoration:none; }
   </style>
 </head>
 <body>
   <div class="topbar">
-    <h1>Welcome to Works Up <span class="ok">✅</span></h1>
-    <button id="logoutBtn" class="btn">Sign out</button>
+    <div>
+      <h1 style="margin:0;">Welcome to Works Up <span class="ok">✅</span></h1>
+      <div id="who" class="muted"></div>
+    </div>
+    <div class="row">
+      <button id="logoutBtn" class="btn">Sign out</button>
+    </div>
   </div>
-  <p class="muted">You successfully logged in and entered your PIN.</p>
-  <p id="countdown" class="muted"></p>
+
+  <!-- PIN status -->
+  <div class="card">
+    <div id="countdown" class="muted">Checking PIN status…</div>
+  </div>
+
+  <!-- Optional: Plan callout (only shown if plan & amount present) -->
+  <div id="planCard" class="card" style="display:none;">
+    <h3 style="margin:0 0 8px;">Selected plan <span id="planBadge" class="badge"></span></h3>
+    <div class="row">
+      <div>Amount: <b id="planAmount">UGX 0</b></div>
+      <div>Reference: <code id="planRef" style="font-weight:700;">LIONHUNT-XXXXXX</code>
+        <button class="copy" data-copy="#planRef">Copy</button>
+      </div>
+    </div>
+    <div class="row" style="margin-top:8px;">
+      <div class="muted">Pay via MTN MoMo: <b id="momoDisp">+256 998 2999288</b>
+        <button class="copy" data-copy="#momoDisp">Copy</button>
+      </div>
+      <div class="muted">Bank A/C: <b id="acctDisp">82989489848</b>
+        <button class="copy" data-copy="#acctDisp">Copy</button>
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <a id="waBtn" class="btnlink" target="_blank" rel="noopener">
+        <button class="btn" style="background:#22c55e;">WhatsApp Admin Proof</button>
+      </a>
+    </div>
+    <div class="muted" style="margin-top:6px;">Attach your receipt/screenshot and include the reference above.</div>
+  </div>
+
+  <!-- Your protected content goes below -->
+  <div class="card">
+    <h3 style="margin:0 0 6px;">Premium Area</h3>
+    <div class="muted">You now have access to the protected “Works Up” content.</div>
+  </div>
 
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-    // --- SAME CONFIG AS login.html ---
-    const FIREBASE_CONFIG = {
-      "  apiKey: "AIzaSyAkOZmEaLexWd9b_fOFXTMPvG9KgtHwugQ",
-  authDomain: "lionhunter-pins.firebaseapp.com",
-  projectId: "lionhunter-pins",
-  storageBucket: "lionhunter-pins.firebasestorage.app",
-  messagingSenderId: "974538656519",
-  appId: "1:974538656519:web:174fd26c77dad4106b53a2",
-  measurementId: "G-FP7PJ8XW4E"
-    };
+  // SAME CONFIG AS login.html
+  const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyAkOZmEaLexWd9b_fOFXTMPvG9KgtHwugQ",
+    authDomain: "lionhunter-pins.firebaseapp.com",
+    projectId: "lionhunter-pins",
+    storageBucket: "lionhunter-pins.firebasestorage.app",
+    messagingSenderId: "974538656519",
+    appId: "1:974538656519:web:174fd26c77dad4106b53a2",
+    measurementId: "G-FP7PJ8XW4E"
+  };
 
-    const LOGIN_URL = "login.html";
-    const PIN_KEY = "lion_access_pin";               // { usedAt: ISO string }
-    const PIN_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+  const LOGIN_URL = "login.html";
+  const PIN_KEY = "lion_access_pin";               // { usedAt: ISO }
+  const PIN_MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
-    const app = initializeApp(FIREBASE_CONFIG);
-    const auth = getAuth(app);
+  // Init Firebase once
+  if (!getApps().length) initializeApp(FIREBASE_CONFIG);
+  const auth = getAuth();
 
-    // --- Helpers ---
-    function getStoredPinUsedAt() {
-      // If session flag is present this visit is OK
-      if (sessionStorage.getItem("pin_ok") === "1") {
-        return new Date().toISOString();
-      }
-      // Otherwise use the long-lived localStorage record
-      try {
-        const raw = localStorage.getItem(PIN_KEY);
-        if (!raw) return null;
-        const obj = JSON.parse(raw);
-        if (!obj?.usedAt) return null;
-        return obj.usedAt;
-      } catch { return null; }
+  // ------- Helpers -------
+  const $ = (id) => document.getElementById(id);
+
+  function readPinUsedAt() {
+    try {
+      const raw = localStorage.getItem(PIN_KEY);
+      if (!raw) return null;
+      const obj = JSON.parse(raw);
+      return obj?.usedAt || null;
+    } catch { return null; }
+  }
+
+  function isFresh(usedAtISO) {
+    const t = new Date(usedAtISO).getTime();
+    if (Number.isNaN(t)) return false;
+    return (Date.now() - t) < PIN_MAX_AGE_MS;
+  }
+
+  function redirectToLoginOnce() {
+    const path = location.pathname;
+    if (!path.endsWith("/" + LOGIN_URL) && !path.endsWith(LOGIN_URL)) {
+      location.replace(LOGIN_URL);
     }
+  }
 
-    function isFresh(usedAtISO) {
-      const t = new Date(usedAtISO).getTime();
-      if (Number.isNaN(t)) return false;
-      return (Date.now() - t) < PIN_MAX_AGE_MS;
+  function startCountdown(usedAtISO) {
+    const el = $("countdown");
+    function render() {
+      const usedAtMs = new Date(usedAtISO).getTime();
+      const diff = usedAtMs + PIN_MAX_AGE_MS - Date.now();
+      if (diff <= 0) { el.textContent = "❌ Your PIN window has expired. Please log in again."; return; }
+      const d = Math.floor(diff / (1000*60*60*24));
+      const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+      el.textContent = `⏳ PIN access expires in ${d}d ${h}h ${m}m`;
     }
+    render();
+    setInterval(render, 60 * 1000);
+  }
 
-    function redirectToLoginOnce() {
-      // Avoid loops if already on login page
-      if (!location.pathname.endsWith("/" + LOGIN_URL) && !location.pathname.endsWith(LOGIN_URL)) {
-        location.replace(LOGIN_URL);
-      }
-    }
-
-    function startCountdown(usedAtISO) {
-      const el = document.getElementById("countdown");
-      function render() {
-        const usedAtMs = new Date(usedAtISO).getTime();
-        const expiresAt = usedAtMs + PIN_MAX_AGE_MS;
-        const diff = expiresAt - Date.now();
-        if (diff <= 0) {
-          el.textContent = "❌ Your PIN access window has expired. Please log in again.";
-          return;
-        }
-        const d = Math.floor(diff / (1000*60*60*24));
-        const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-        const m = Math.floor((diff % (1000*60*60)) / (1000*60));
-        el.textContent = `⏳ PIN access expires in ${d}d ${h}h ${m}m`;
-      }
-      render();
-      setInterval(render, 60 * 1000);
-    }
-
-    document.getElementById("logoutBtn").addEventListener("click", async () => {
-      try { await signOut(auth); } catch {}
-      // Clear flags on sign-out
-      sessionStorage.removeItem("pin_ok");
-      // Keep localStorage record if you want returning users to skip PIN within 30 days.
-      // If you prefer a hard sign-out, also clear this:
-      // localStorage.removeItem(PIN_KEY);
-      redirectToLoginOnce();
+  // Copy buttons (if you kept the plan callout UI)
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".copy");
+    if (!btn) return;
+    const sel = btn.getAttribute("data-copy");
+    const target = document.querySelector(sel);
+    if (!target) return;
+    navigator.clipboard.writeText(target.textContent.trim()).then(() => {
+      const orig = btn.textContent; btn.textContent = "Copied";
+      setTimeout(() => btn.textContent = orig, 1200);
     });
+  });
 
-    // --- Enforce protection ---
-    onAuthStateChanged(auth, (user) => {
-      const usedAt = getStoredPinUsedAt();
-      const ok = !!user && !!usedAt && isFresh(usedAt);
-      if (!ok) {
-        redirectToLoginOnce();
-        return;
-      }
-      startCountdown(usedAt);
-    });
-  </script>
+  // Logout
+  $("logoutBtn")?.addEventListener("click", async () => {
+    try { await signOut(auth); } catch {}
+    // keep localStorage PIN if you want “back button” to still require fresh login:
+    // localStorage.removeItem(PIN_KEY);
+    redirectToLoginOnce();
+  });
+
+  // ------- Gate logic (stable) -------
+  onAuthStateChanged(auth, async (user) => {
+    // Small grace to allow storage/session to be set if navigating fast
+    await new Promise(r => setTimeout(r, 150));
+
+    const usedAt = readPinUsedAt();
+    const ok = !!user && !!usedAt && isFresh(usedAt);
+
+    if (!ok) { redirectToLoginOnce(); return; }
+
+    // Show who is logged in (optional UI)
+    const who = $("who");
+    if (who) who.textContent = user?.email ? `Signed in as ${user.email}` : "Signed in";
+
+    // Start countdown
+    startCountdown(usedAt);
+
+    // If you pass ?plan & ?amount in URL, you can show your callout here (optional):
+    const params = new URLSearchParams(location.search);
+    const plan = params.get("plan");
+    const amount = params.get("amount");
+    if (plan && amount && $("planCard")) {
+      $("planCard").style.display = "block";
+      $("planBadge").textContent = plan.toUpperCase();
+      $("planAmount").textContent = `UGX ${Number(amount).toLocaleString()}`;
+      const ref = `LIONHUNT-${Math.random().toString(36).slice(2,8).toUpperCase()}`;
+      $("planRef").textContent = ref;
+      $("momoDisp").textContent = "+256 998 2999288";
+      $("acctDisp").textContent = "82989489848";
+      const ADMIN_WHATSAPP = "+2569982999288";
+      const ADMIN_NAME = "Lion Hunt Admin";
+      const msg = `Hello ${ADMIN_NAME},%0A%0AI have paid for the *${plan.toUpperCase()}* plan (UGX ${Number(amount).toLocaleString()}).%0AReference: ${ref}%0APlease activate my premium access and send my PIN.%0A%0AThank you.`;
+      $("waBtn").href = `https://wa.me/${ADMIN_WHATSAPP.replace(/\D/g,'')}?text=${msg}`;
+    }
+  });
+</script>
+
 </body>
 </html>
