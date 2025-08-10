@@ -32,17 +32,26 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
   <style>
+    :root { --brand:#0f3057; } /* unified brand color */
+
     body { margin:0; font-family:'Poppins',sans-serif; background:#f7f9fc; color:#333; }
-    header { position:relative; text-align:center; } /* important: relative for timetable position */
+    header { position:relative; text-align:center; } /* important: relative for timetable/login absolute positioning */
     header img { width:100%; height:auto; display:block; }
-    .menu-icon { position:absolute; top:10px; right:20px; font-size:28px; color:white; background:#0f3057cc; padding:8px 12px; border-radius:6px; cursor:pointer; z-index:1001; }
+
+    .menu-icon {
+      position:absolute; top:10px; right:20px; font-size:28px; color:#fff;
+      background: var(--brand); padding:8px 12px; border-radius:6px; cursor:pointer; z-index:1001;
+    }
+
     .nav-container { position:fixed; top:0; right:-250px; width:250px; height:100%; background:#2e8bc0; padding-top:60px; transition:right .3s ease; box-shadow:-4px 0 12px rgba(0,0,0,.1); z-index:1000; }
     .nav-container.open { right:0; }
     .nav-container a { display:block; color:#fff; text-decoration:none; padding:1rem; font-weight:bold; border-bottom:1px solid rgba(255,255,255,.2); }
     .nav-container a:hover { background:#2474a9; }
+
     #calendar-alert { background:linear-gradient(to right,#283e51,#4b79a1); color:#fff; border-radius:8px; margin:12px auto; width:95%; max-width:800px; padding:12px 20px; font-size:.95rem; font-weight:500; box-shadow:0 2px 8px rgba(0,0,0,.15); display:flex; align-items:center; justify-content:space-between; animation:roar 1.6s infinite; }
     #calendar-alert a { background:#ffeb3b; color:#222; padding:6px 12px; text-decoration:none; border-radius:4px; font-weight:600; box-shadow:0 1px 4px rgba(0,0,0,.2); }
     @keyframes roar { 0%,100%{transform:scale(1)} 50%{transform:scale(1.02)} }
+
     main { padding:2rem; text-align:center; }
     .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.5rem; margin-top:2rem; }
     .card { background:#fff; padding:1rem; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.08); transition:transform .2s; }
@@ -58,42 +67,10 @@
     .lion-stopped { animation:none !important; transform:none !important; }
     .lion-shake { animation: lion-shake .5s ease-in-out 1; }
 
-    /* Stylish Login Button */
-    #login-btn {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: linear-gradient(135deg, #2e8bc0, #145da0);
-      color: white;
-      font-size: 14px;
-      font-weight: 600;
-      padding: 8px 14px;
-      border-radius: 20px;
-      text-decoration: none;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-      opacity: 0;
-      transform: translateY(-10px);
-      animation: fadeSlideIn 0.6s ease forwards;
-      animation-delay: 0.4s;
-      z-index: 2000;
-    }
-    #login-btn:hover {
-      background: linear-gradient(135deg, #145da0, #0f3057);
-      box-shadow: 0 5px 12px rgba(0,0,0,0.25);
-    }
-    @keyframes fadeSlideIn { to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInUp { from {opacity:0; transform:translateY(12px)} to {opacity:1; transform:translateY(0)} }
-
-    /* === Timetable styles === */
-    .timetable-wrap{
-      position:absolute;
-      top: 74px;             /* move up/down as needed */
-      left: 34px;            /* move left/right as needed */
-      z-index: 1002;         /* above hamburger (1001) */
-      font-family: system-ui,-apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
+    /* === Login above Timetable (same color as hamburger/timetable) === */
+    .login-hero-btn,
     .timetable-badge{
-      background:#111827;
+      background: var(--brand);
       color:#fff;
       padding:8px 12px;
       border-radius:999px;
@@ -102,20 +79,21 @@
       display:inline-flex; gap:8px; align-items:center;
       box-shadow:0 10px 24px rgba(0,0,0,.22);
       border:1px solid rgba(255,255,255,.12);
+      text-decoration:none;
       cursor:pointer; user-select:none;
     }
-    .timetable-badge:hover{ filter:brightness(1.05); }
+    .login-hero-btn:hover, .timetable-badge:hover { filter:brightness(1.05); }
     .timetable-dot{ width:8px; height:8px; border-radius:50%; background:#f59e0b; display:inline-block; }
+
+    /* Position inside the hero image */
+    .login-hero-btn{ position:absolute; top: 34px; left: 34px; z-index:1002; }
+    .timetable-wrap{ position:absolute; top: 74px; left: 34px; z-index:1002; font-family: system-ui,-apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+
+    /* Timetable popup */
     .timetable-pop{
-      position:absolute;
-      margin-top:10px;
-      width:300px;
-      background:#ffffff;
-      border:1px solid #e5e7eb;
-      border-radius:12px;
-      box-shadow:0 22px 48px rgba(0,0,0,.22);
-      padding:10px;
-      display:none;
+      position:absolute; margin-top:10px; width:300px; background:#ffffff;
+      border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 22px 48px rgba(0,0,0,.22);
+      padding:10px; display:none;
     }
     .timetable-pop:before{
       content:""; position:absolute; top:-8px; left:22px; width:14px; height:14px;
@@ -129,13 +107,13 @@
     .timetable-item a{ font-size:12px; text-decoration:none; padding:6px 10px; border-radius:8px; background:#0ea5e9; color:#fff; font-weight:700; }
 
     @media (max-width: 480px){
+      .login-hero-btn{ left:16px; top:24px; }
       .timetable-wrap{ left:16px; top:56px; }
       .timetable-pop{ width:270px; }
     }
   </style>
 </head>
 <body>
-<a href="login.html" id="login-btn">Login</a>
 
   <!-- Alert -->
   <div id="calendar-alert">
@@ -148,6 +126,9 @@
   <header>
     <div class="menu-icon" onclick="toggleMenu()">☰</div>
     <img src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" alt="LDC LEGAL COMPANION" />
+
+    <!-- ✅ Login button (static, above timetable, same color) -->
+    <a href="login.html" class="login-hero-btn" id="login-hero-btn">Login</a>
 
     <!-- 🦁 Timetables (inside hero image) -->
     <div class="timetable-wrap" id="timetableWrap" aria-haspopup="true" aria-expanded="false">
@@ -396,19 +377,6 @@
     });
   </script>
 
-  <!-- Login button temporarily locked -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const loginBtn = document.getElementById('login-btn');
-      if (loginBtn) {
-        loginBtn.addEventListener('click', function (e) {
-          e.preventDefault();
-          alert("🔒 Premium services coming soon!");
-        });
-      }
-    });
-  </script>
-
   <!-- 🦁 Popup Message (single instance) -->
   <div id="popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:3000; align-items:center; justify-content:center; padding:16px;">
     <div style="background:#fff; color:#0f3057; border-radius:14px; padding:22px 26px; text-align:center; box-shadow:0 12px 30px rgba(0,0,0,.15); max-width:420px; width:100%; animation:fadeInUp 0.25s ease; border:1px solid #e9eef5;">
@@ -450,7 +418,7 @@
   <script>
     // Replace with your real Google links (keep /preview for fast viewer)
     const WEEK_LINKS = [
-      { label: "Week 1 (Family)",    url: "https://drive.google.com/drive/folders/1p4CqiLEgrcY0m-yCBDDB0zbLBQh5nZia?usp=sharing "},
+      { label: "Week 1 (Family)",    url: "https://drive.google.com/drive/folders/1p4CqiLEgrcY0m-yCBDDB0zbLBQh5nZia?usp=sharing" },
       { label: "Week 2 (Civil)",     url: "https://docs.google.com/spreadsheets/d/EXAMPLE2/preview" },
       { label: "Week 3 (Corporate)", url: "https://drive.google.com/file/d/EXAMPLE3/preview" },
       { label: "Week 4 (Criminal)",  url: "https://docs.google.com/document/d/EXAMPLE4/preview" },
@@ -503,6 +471,17 @@
         (pop.style.display === 'block') ? closePop() : openPop();
       });
     }
+
+    // 🔒 Temporarily lock login (same behavior as before)
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginBtn = document.getElementById('login-hero-btn');
+      if (loginBtn) {
+        loginBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          alert("🔒 Premium services coming soon!");
+        });
+      }
+    });
   </script>
 </body>
 </html>
