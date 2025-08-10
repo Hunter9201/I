@@ -414,6 +414,40 @@
     });
   </script>
 
+  <!-- 🔒 Lock specific nav links as requested -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const lockedNav = [
+        'workshop.html',
+        'documents.html',
+        'ia.html',
+        'exams.html',
+        'oral-exams.html',
+        'category-b.html',
+        'trial-advocacy.html',
+        'audio.html'
+      ];
+
+      document.querySelectorAll('#navMenu a').forEach(a => {
+        // Compare on the attribute (relative) and the resolved pathname (absolute) for robustness
+        const hrefAttr = (a.getAttribute('href') || '').toLowerCase();
+        const pathName = (new URL(a.href, location.href)).pathname.toLowerCase();
+        const isLocked = lockedNav.some(t =>
+          hrefAttr === t || pathName.endsWith('/' + t)
+        );
+
+        if (isLocked) {
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            openPopup(); // show "Lion’s Den" message
+            // Close the slide-out menu if it’s open
+            document.getElementById('navMenu')?.classList.remove('open');
+          });
+        }
+      });
+    });
+  </script>
+
   <!-- === Timetable logic === -->
   <script>
     // Replace with your real Google links (keep /preview for fast viewer)
