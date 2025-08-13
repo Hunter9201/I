@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weekly Assessments – Drive Folder Viewer</title>
+  <style>
+    :root{
+      --brand:#0f766e; --bg:#0b1220; --card:#0f172a; --muted:#94a3b8; --text:#e2e8f0; --border:#1f2937;
+      --ok:#10b981; --warn:#f59e0b; --bad:#ef4444;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    header{position:sticky;top:0;z-index:10;background:rgba(15,23,42,.8);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+    .bar{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .title{font-size:18px;color:#a7f3d0;font-weight:700}
+    .note{font-size:12px;color:var(--muted)}
+    .wrap{max-width:1100px;margin:18px auto;padding:0 16px}
+    .panel{background:linear-gradient(180deg,#0f172a,#0b1324);border:1px solid var(--border);border-radius:16px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+
+    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .btn{appearance:none;border:1px solid var(--border);background:#0b1324;color:var(--text);border-radius:10px;padding:10px 12px;cursor:pointer}
+    .btn:hover{border-color:#263141}
+    .primary{background:var(--brand);border-color:transparent;color:white}
+
+    /* status badges */
+    .pill{font-size:12px;border:1px solid var(--border);padding:4px 8px;border-radius:999px}
+    .pill.ok{color:#a7f3d0}
+    .pill.warn{color:#fcd34d}
+    .pill.bad{color:#fecaca}
+
+    /* Viewer frame */
+    .frame-wrap{position:relative;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#000}
+    .frame-top{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--border);background:#0c1323}
+
+    iframe{display:block;width:100%;height:70vh;border:0}
+
+    /* Skeleton while loading */
+    .skeleton{position:absolute;inset:0;background:
+      linear-gradient(90deg, rgba(255,255,255,.05) 25%, rgba(255,255,255,.08) 37%, rgba(255,255,255,.05) 63%);
+      background-size:400% 100%;animation:shimmer 1.8s linear infinite}
+    @keyframes shimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
+
+    /* Error box */
+    .error{margin-top:12px;border:1px solid #3f1d1d;background:#1a0f0f;color:#fecaca;border-radius:12px;padding:12px}
+    .error a{color:#93c5fd}
+
+    /* Deterrents (cannot fully block) */
+    .shield{position:absolute;inset:0;pointer-events:none}
+    .shield::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.04) 0 12px,transparent 12px 24px);animation: drift 16s linear infinite;pointer-events:none}
+    @keyframes drift{from{transform:translateX(0)}to{transform:translateX(24px)}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div class="title">Weekly Individual Assessments</div>
+      <div class="note">Better display • Link-only setup • Picture-style grid from Drive</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="panel">
+      <div class="controls">
+        <button id="gridBtn" class="btn primary">Grid view</button>
+        <button id="listBtn" class="btn">List view</button>
+        <span id="statusBadge" class="pill ok">Status: ready</span>
+      </div>
+
+      <div class="frame-wrap" style="margin-top:12px">
+        <div class="frame-top">
+          <div class="note">Public Drive folder preview (embedded)</div>
+          <div class="pill" id="modeLabel">Grid</div>
+        </div>
+        <div id="skeleton" class="skeleton" aria-hidden="true"></div>
+        <iframe id="driveFrame" src="" referrerpolicy="no-referrer"></iframe>
+        <div class="shield" aria-hidden="true"></div>
+      </div>
+
+      <div id="errorBox" class="error" style="display:none"></div>
+    </div>
+  </div>
+
+  <script>
+    const DRIVE_FOLDER_ID = "1b4GCLAr4P32hVVNJSaZZRyy0YmazJql6";
+    const EMBED = (mode)=> `https://drive.google.com/embeddedfolderview?id=${DRIVE_FOLDER_ID}${mode==='list'?'#list':'#grid'}`;
+    const FOLDER = `https://drive.google.com/drive/folders/${DRIVE_FOLDER_ID}?usp=sharing`;
+
+    const frame = document.getElementById('driveFrame');
+    const gridBtn = document.getElementById('gridBtn');
+    const listBtn = document.getElementById('listBtn');
+    const modeLabel = document.getElementById('modeLabel');
+    const statusBadge = document.getElementById('statusBadge');
+    const errorBox = document.getElementById('errorBox');
+    const skeleton = document.getElementById('skeleton');
+
+    function setOnlineStatus(){
+      if (navigator.onLine) {
+        statusBadge.textContent = 'Status: online';
+        statusBadge.className = 'pill ok';
+      } else {
+        statusBadge.textContent = 'Status: offline';
+        statusBadge.className = 'pill bad';
+      }
+    }
+    window.addEventListener('online', setOnlineStatus);
+    window.addEventListener('offline', setOnlineStatus);
+
+    let currentMode = 'grid';
+    let loadTimer = null;
+
+    function showError(msg){
+      errorBox.style.display = 'block';
+      errorBox.innerHTML = `
+        <strong>Can’t display the documents here.</strong><br/>
+        <div style="margin-top:6px">${escapeHTML(msg)}</div>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+          <a class="btn" href="${FOLDER}" target="_blank" rel="noopener">Open in Google Drive</a>
+          <button class="btn" onclick="retry()">Retry</button>
+          <button class="btn" onclick="toggleMode()">Try ${currentMode==='grid'?'List':'Grid'} mode</button>
+        </div>
+        <div class="note" style="margin-top:8px">
+          Troubleshooting: Ensure folder is shared as <em>Anyone with the link → Viewer</em> and that Google allows embedding via <code>embeddedfolderview</code>.
+        </div>`;
+    }
+
+    function clearError(){
+      errorBox.style.display = 'none';
+      errorBox.innerHTML = '';
+    }
+
+    function resetFrame(url){
+      clearTimeout(loadTimer);
+      skeleton.style.display = 'block';
+      frame.src = url;
+      loadTimer = setTimeout(()=>{
+        skeleton.style.display = 'none';
+        showError('The embedded preview is not loading. This can happen if Google temporarily blocks embeds or if the folder sharing settings are too strict.');
+      }, 7000);
+    }
+
+    frame.addEventListener('load', ()=>{
+      skeleton.style.display = 'none';
+      clearTimeout(loadTimer);
+      clearError();
+    });
+
+    function setMode(mode){
+      currentMode = mode;
+      modeLabel.textContent = mode === 'list' ? 'List' : 'Grid';
+      gridBtn.classList.toggle('primary', mode==='grid');
+      listBtn.classList.toggle('primary', mode==='list');
+      resetFrame(EMBED(mode));
+    }
+
+    function toggleMode(){ setMode(currentMode==='grid' ? 'list' : 'grid'); }
+    function retry(){ resetFrame(EMBED(currentMode)); }
+
+    gridBtn.addEventListener('click', ()=> setMode('grid'));
+    listBtn.addEventListener('click', ()=> setMode('list'));
+
+    setOnlineStatus();
+    const params = new URLSearchParams(location.search);
+    const startMode = params.get('mode') === 'list' ? 'list' : 'grid';
+    setMode(startMode);
+
+    window.addEventListener('contextmenu', e=> e.preventDefault());
+
+    function escapeHTML(s){
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
+    }
+  </script>
+</body>
+</html>
