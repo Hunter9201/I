@@ -393,7 +393,7 @@
     function openPopup(){ popup.style.display = 'flex'; }
 
     document.addEventListener('DOMContentLoaded', () => {
-      const unlocked = ["laws","Individual Assessment", "all wk cases", "case summaries"];
+      const unlocked = ["laws","IndividualAssessment", "all wk cases", "case summaries"];
 
       document.querySelectorAll('.card').forEach(card => {
         const title = (card.querySelector('h3')?.innerText || "").trim().toLowerCase();
