@@ -5,139 +5,86 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCLCFN2CV4"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-KCLCFN2CV4');
+    function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-KCLCFN2CV4');
   </script>
 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Case Summaries - Land Transactions</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Case Summaries – Land Transactions</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f0f6fc;
-      color: #1c1c1c;
-      margin: 0;
-      padding: 2rem;
-      line-height: 1.6;
+    :root{
+      --brand:#0f766e; --bg:#0b1220; --card:#0f172a; --muted:#94a3b8; --text:#e2e8f0; --border:#1f2937;
+      --ok:#10b981; --warn:#f59e0b; --bad:#ef4444;
     }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    a{color:#93c5fd}
 
-    .return-button {
-      display: inline-block;
-      margin-bottom: 2rem;
-      padding: 0.5rem 1rem;
-      background-color: #004080;
-      color: #ffffff;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      transition: background-color 0.3s ease;
-    }
+    /* Header bar (matches Weekly Assessments) */
+    header{position:sticky;top:0;z-index:10;background:rgba(15,23,42,.8);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+    .bar{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+    .title{font-size:18px;color:#a7f3d0;font-weight:700}
+    .note{font-size:12px;color:var(--muted)}
+    .btn{appearance:none;border:1px solid var(--border);background:#0b1324;color:var(--text);border-radius:10px;padding:10px 12px;cursor:pointer;text-decoration:none}
+    .btn:hover{border-color:#263141}
+    .primary{background:var(--brand);border-color:transparent;color:white}
 
-    .return-button:hover {
-      background-color: #003366;
-    }
+    /* Wrapper and panels */
+    .wrap{max-width:1100px;margin:18px auto;padding:0 16px}
+    .panel{background:linear-gradient(180deg,#0f172a,#0b1324);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .panel h2{margin:0 0 8px;font-size:18px;color:#e5f3ff}
+    .panel p{margin:0 0 12px;color:var(--muted)}
 
-    h1 {
-      font-size: 2rem;
-      text-align: center;
-      color: #004080;
-      margin-bottom: 2rem;
-    }
+    /* Link list */
+    .links{display:flex;flex-wrap:wrap;gap:10px}
+    .link-btn{display:inline-flex;align-items:center;gap:8px}
 
-    h2 {
-      font-size: 1.5rem;
-      color: #003366;
-      margin-bottom: 0.5rem;
-    }
-
-    .section {
-      background-color: #ffffff;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      border-radius: 10px;
-      border-left: 6px solid #1e90ff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-
-    p {
-      margin-bottom: 1rem;
-    }
-
-    ul {
-      margin-left: 1rem;
-      padding-left: 1rem;
-    }
-
-    li {
-      margin-bottom: 0.5rem;
-    }
-
-    a {
-      color: #0066cc;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .reference {
-      font-size: 0.9rem;
-      color: #444;
-      margin-top: 1rem;
-    }
+    /* Section group heading */
+    h1{max-width:1100px;margin:18px auto 10px;padding:0 16px;font-size:22px;color:#e5f3ff}
   </style>
 </head>
 <body>
+  <header>
+    <div class="bar">
+      <div>
+        <div class="title">Case Summaries & Comparative Tables</div>
+        <div class="note">Land Transactions • Drive folder links</div>
+      </div>
+      <a href="index.html" class="btn">⬅ Return</a>
+    </div>
+  </header>
 
-  <a href="index.html" class="return-button">← Return</a>
+  <h1>🦁 Land Transactions – Term Resources</h1>
 
-  <h1>🦁 Case Summaries & Comparative Tables Portal</h1>
+  <div class="wrap">
+    <!-- Workshop One -->
+    <section class="panel">
+      <h2>Workshop One, Term One: Land Transactions</h2>
+      <p>Detailed case summaries for all Workshop One cases on the reading list.</p>
+      <div class="links">
+        <a class="btn primary link-btn" href="https://drive.google.com/drive/folders/1BHQM5TozEeUjFnxslPsUr2gchKAYr5IH?usp=sharing" target="_blank" rel="noopener noreferrer">📁 Workshop One Case Summaries</a>
+      </div>
+    </section>
 
-  <div class="section">
-    <h2>Workshop One, Term One: Land Transactions</h2>
-    <p>Access the detailed case summaries for all Workshop One cases on reading lists.</p>
-    <ul>
-      <li>
-        <a href="https://drive.google.com/drive/folders/1BHQM5TozEeUjFnxslPsUr2gchKAYr5IH?usp=sharing" target="_blank" rel="noopener noreferrer">
-          📁 Workshop One Case Summaries
-        </a>
-      </li>
-    </ul>
+    <!-- Workshop Two -->
+    <section class="panel">
+      <h2>Workshop Two, Term One: Land Transactions</h2>
+      <p>Detailed case summaries for all Workshop Two cases on the reading list.</p>
+      <div class="links">
+        <a class="btn primary link-btn" href="https://drive.google.com/drive/folders/13xhvO5NvdIaxyxv5AcjedcQEF0KSsOPB?usp=sharing" target="_blank" rel="noopener noreferrer">📚 Workshop Two Case Summaries</a>
+        <a class="btn link-btn" href="https://drive.google.com/drive/folders/1NQCoBxQHTuYlQ9eyuo9GuReRF---c-d9?usp=sharing" target="_blank" rel="noopener noreferrer">🗂️ Comparative Case Table</a>
+      </div>
+    </section>
+
+    <!-- Family Law Practice -->
+    <section class="panel">
+      <h2>Workshops One & Two, Term Four: Family Law Practice</h2>
+      <p>Consolidated case summaries for Family Law Practice.</p>
+      <div class="links">
+        <a class="btn primary link-btn" href="https://drive.google.com/drive/folders/14uhE_t5U4aE615FzjhGApYGeHV14qpAO?usp=sharing" target="_blank" rel="noopener noreferrer">📁 Workshop One & Two Case Summaries</a>
+      </div>
+    </section>
   </div>
-
-  <div class="section">
-    <h2>Workshop Two: Term One Land Transactions</h2>
-    <p>Access the detailed case summaries for all Workshop Two cases on reading lists.</p>
-    <ul>
-      <li>
-        <a href="https://drive.google.com/drive/folders/13xhvO5NvdIaxyxv5AcjedcQEF0KSsOPB?usp=sharing" target="_blank" rel="noopener noreferrer">
-          📚 Workshop Two Case Summaries
-        </a>
-      </li>
-    </ul>
-
-    <a href="https://drive.google.com/drive/folders/1NQCoBxQHTuYlQ9eyuo9GuReRF---c-d9?usp=sharing" target="_blank" rel="noopener noreferrer">
-      🗂️ Comparative Case Table
-    </a>
-  </div>
-   <div class="section">
-    <h2>Workshop One& Two Term Four:Family Law Practice</h2>
-    <p>Access the detailed case summaries for all Workshop One cases on reading lists.</p>
-    <ul>
-      <li>
-        <a href="https://drive.google.com/drive/folders/14uhE_t5U4aE615FzjhGApYGeHV14qpAO?usp=sharing">
-          📁 Workshop One & Two Case Summaries
-        </a>
-      </li>
-    </ul>
-  </div>
-
-
 </body>
 </html>
