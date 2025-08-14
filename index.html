@@ -386,17 +386,25 @@
     </div>
   </div>
 
-  <!-- 🔒 Lock all cards EXCEPT the four specified -->
+  <!-- 🔒 Lock all cards EXCEPT the four specified (IA UNLOCKED) -->
   <script>
     const popup = document.getElementById('popup');
     function closePopup(){ popup.style.display = 'none'; }
     function openPopup(){ popup.style.display = 'flex'; }
 
     document.addEventListener('DOMContentLoaded', () => {
-      const unlocked = ["laws","IndividualAssessment", "all wk cases", "case summaries"];
+      // ✅ use lowercase for matching (we lowercase titles below)
+      const unlocked = ["laws","individual assessment","all wk cases","case summaries"];
 
       document.querySelectorAll('.card').forEach(card => {
         const title = (card.querySelector('h3')?.innerText || "").trim().toLowerCase();
+
+        // ✅ ensure IA card points to the right page
+        if (title === "individual assessment") {
+          let link = card.querySelector('a');
+          if (!link) { link = document.createElement('a'); link.textContent = 'Open'; card.appendChild(link); }
+          link.href = "IndividualAssessment.html";
+        }
 
         if (!unlocked.includes(title)) {
           card.addEventListener('click', (e) => {
@@ -414,13 +422,13 @@
     });
   </script>
 
-  <!-- 🔒 Lock specific nav links as requested -->
+  <!-- 🔒 Lock specific nav links (IA left UNLOCKED) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const lockedNav = [
         'workshop.html',
         'documents.html',
-                'exams.html',
+        'exams.html',
         'oral-exams.html',
         'category-b.html',
         'trial-advocacy.html',
@@ -428,9 +436,14 @@
       ];
 
       document.querySelectorAll('#navMenu a').forEach(a => {
-        // Compare on the attribute (relative) and the resolved pathname (absolute) for robustness
+        // Compare attribute and resolved path
         const hrefAttr = (a.getAttribute('href') || '').toLowerCase();
         const pathName = (new URL(a.href, location.href)).pathname.toLowerCase();
+
+        // ✅ Explicitly allow IndividualAssessment.html
+        const isIA = hrefAttr === 'individualassessment.html' || pathName.endsWith('/individualassessment.html');
+        if (isIA) return;
+
         const isLocked = lockedNav.some(t =>
           hrefAttr === t || pathName.endsWith('/' + t)
         );
@@ -438,8 +451,7 @@
         if (isLocked) {
           a.addEventListener('click', (e) => {
             e.preventDefault();
-            openPopup(); // show "Lion’s Den" message
-            // Close the slide-out menu if it’s open
+            openPopup();
             document.getElementById('navMenu')?.classList.remove('open');
           });
         }
