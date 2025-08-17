@@ -130,7 +130,7 @@
     h2 { margin:0 0 12px; color:var(--ink); }
     .sub { color:var(--muted); margin:0 auto 16px; max-width:60ch; }
 
-    /* 🔎 Search bar */
+    /* 🔎 Search bar (CSS left in place; markup optional) */
     .searchbar{
       display:flex; gap:8px; align-items:center; justify-content:center;
       margin:0 0 16px; flex-wrap:wrap;
@@ -298,8 +298,6 @@
   </nav>
 
   <main>
-   
-
     <!-- iPhone-style app icons + Calendar widget inside the grid -->
     <div class="apps" aria-label="App grid">
 
@@ -401,7 +399,7 @@
     });
   </script>
 
-  <!-- Firebase + FCM -->
+  <!-- Firebase + FCM (requires /firebase-messaging-sw.js at site root) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
@@ -628,7 +626,7 @@
     })();
   </script>
 
-  <!-- 🔎 Client-side search logic (auto-search, no button) -->
+  <!-- 🔎 Client-side search logic (guarded if inputs not on page) -->
   <script>
     const INDEX = [
       // Statutes / Acts
@@ -650,50 +648,51 @@
     const q   = document.getElementById('q');
     const out = document.getElementById('searchResults');
 
-    function renderResults(items, term){
-      if(!term){ out.innerHTML=''; return; }
-      if(!items.length){
-        out.innerHTML = `
+    if (q && out){
+      function renderResults(items, term){
+        if(!term){ out.innerHTML=''; return; }
+        if(!items.length){
+          out.innerHTML = `
+            <div class="result-card">
+              <strong>No matches for “${term}”.</strong>
+              <div>Try keywords like <em>negligence</em>, <em>evidence</em>, <em>land</em>, or open a library:</div>
+              <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+                <a class="open-btn" href="laws.html">Open Laws</a>
+                <a class="open-btn" href="Fullcases.html">Open All Cases</a>
+                <a class="open-btn" href="caseslandone.html">Open Summaries</a>
+              </div>
+            </div>`;
+          return;
+        }
+        out.innerHTML = items.map(item => `
           <div class="result-card">
-            <strong>No matches for “${term}”.</strong>
-            <div>Try keywords like <em>negligence</em>, <em>evidence</em>, <em>land</em>, or open a library:</div>
-            <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
-              <a class="open-btn" href="laws.html">Open Laws</a>
-              <a class="open-btn" href="Fullcases.html">Open All Cases</a>
-              <a class="open-btn" href="caseslandone.html">Open Summaries</a>
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+              <strong>${item.title}</strong>
+              <span class="badge">${item.type}</span>
             </div>
-          </div>`;
-        return;
-      }
-      out.innerHTML = items.map(item => `
-        <div class="result-card">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
-            <strong>${item.title}</strong>
-            <span class="badge">${item.type}</span>
+            <a class="open-btn" href="${item.url}">Open</a>
           </div>
-          <a class="open-btn" href="${item.url}">Open</a>
-        </div>
-      `).join('');
-    }
+        `).join('');
+      }
 
-    function doSearch(){
-      const term = (q.value || '').trim().toLowerCase();
-      if(!term){ out.innerHTML=''; return; }
-      const words = term.split(/\s+/).filter(Boolean);
-      const items = INDEX.filter(it => {
-        const hay = (it.title + ' ' + it.tags).toLowerCase();
-        return words.every(w => hay.includes(w));
-      }).slice(0, 24);
-      renderResults(items, term);
-    }
+      function doSearch(){
+        const term = (q.value || '').trim().toLowerCase();
+        if(!term){ out.innerHTML=''; return; }
+        const words = term.split(/\s+/).filter(Boolean);
+        const items = INDEX.filter(it => {
+          const hay = (it.title + ' ' + it.tags).toLowerCase();
+          return words.every(w => hay.includes(w));
+        }).slice(0, 24);
+        renderResults(items, term);
+      }
 
-    // Auto-search as you type (debounced) + Enter key
-    let debounceTimer;
-    q.addEventListener('input', () => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(doSearch, 200);
-    });
-    q.addEventListener('keydown', (e)=>{ if(e.key==='Enter') doSearch(); });
+      let debounceTimer;
+      q.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(doSearch, 200);
+      });
+      q.addEventListener('keydown', (e)=>{ if(e.key==='Enter') doSearch(); });
+    }
   </script>
 
   <!-- 📅 Mini calendar: show today's events (API if set; else embed today-only day agenda) -->
@@ -702,7 +701,7 @@
       // OPTIONAL: if you add a Google API key and make the calendar public, this list view will be used
       const API_KEY = ""; // e.g. "AIza..."; leave blank to use the embed fallback
       const CAL_ID  = "lionhunter920@gmail.com";
-      const TIMEZONE = "Africa/Nairobi";
+      const TIMEZONE = "Africa/Kampala";
 
       const eventsBox = document.getElementById('miniEvents');
 
@@ -753,7 +752,7 @@
           const html = events.slice(0,6).map(e => {
             const s = e.start || {}, ed = e.end || {};
             const when  = s.date ? "All day" : `${fmtTime(s)}–${fmtTime(ed)}`;
-            const title = e.summary || "(No title)";
+            const title = e.summary || "(No title)`;
             return `<div class="ev"><span class="ev-time">${when}</span><span class="ev-title">${title}</span></div>`;
           }).join("");
 
@@ -764,7 +763,7 @@
         }
       }
 
-      // 🔁 Fallback: small embedded DAY agenda locked to today's date in Africa/Nairobi
+      // 🔁 Fallback: small embedded DAY agenda locked to today's date in Africa/Kampala
       function ymdInTZ(tz, date){
         const parts = new Intl.DateTimeFormat('en-CA',{ timeZone: tz, year:'numeric', month:'2-digit', day:'2-digit'}).formatToParts(date);
         const get = t => parts.find(p => p.type === t).value;
@@ -812,105 +811,92 @@
       eventsBox.replaceWith(iframe);
     })();
   </script>
-  <!-- 🔒 Global September Launch Gate -->
-<style>
-  /* Lock visuals */
-  .is-locked{
-    pointer-events:auto; /* we intercept the click */
-    filter:grayscale(1) contrast(.9);
-    opacity:.9;
-    cursor:not-allowed;
-    position:relative;
-  }
-  .is-locked .lock-badge{
-    margin-left:8px;
-    background:#1f2937;
-    color:#e5e7eb;
-    border:1px solid #334155;
-    font-size:12px;
-    padding:4px 8px;
-    border-radius:999px;
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-  }
-  .is-locked .lock-badge::before{ content:"🔒"; }
-</style>
 
-<script id="sept-launch-gate">
-(function(){
-  // Unlock at 1 Sep 2025 00:00 Africa/Kampala (UTC+03:00)
-  const RELEASE_ISO = '2025-09-01T00:00:00+03:00';
+  <!-- 🔒 Clickable-but-locked gate (no badges/labels); applies to nav + app icons -->
+  <script id="sept-gate-no-badges">
+  (function(){
+    // Unlock at 1 Sep 2025 00:00 Africa/Kampala (UTC+03:00)
+    const RELEASE_ISO = '2025-09-01T00:00:00+03:00';
 
-  // Match hrefs (case-insensitive) for all targets (nav + app grid)
-  const targets = [
-    /(^|\/)(workshop|workshops)(\.html)?([?#]|$)/i,          // Workshops
-    /(^|\/)documents?(\.html)?([?#]|$)/i,                    // Documents
-    /(^|\/)exams?(\.html)?([?#]|$)/i,                        // Exams
-    /(^|\/)oral([-_ ]?exams?)?(\.html)?([?#]|$)/i,           // Oral Exams
-    /(^|\/)category[-_ ]?b(\.html)?([?#]|$)/i,               // Category B
-    /(^|\/)trial[-_ ]?advocacy(\.html)?([?#]|$)/i,           // Trial Advocacy
-    /(^|\/)audio(s|apps)?(\.html)?([?#]|$)/i                 // Audio / Audios / Audio Apps
-  ];
+    // Target hrefs (case-insensitive) for all requested sections
+    const targets = [
+      { rx: /(^|\/)(workshop|workshops)(\.html)?([?#]|$)/i,              name: 'Workshops' },
+      { rx: /(^|\/)documents?(\.html)?([?#]|$)/i,                        name: 'Documents' },
+      { rx: /(^|\/)exams?(\.html)?([?#]|$)/i,                            name: 'Exams' },
+      { rx: /(^|\/)oral([-_ ]?exams?)?(\.html)?([?#]|$)/i,               name: 'Oral Exams' },
+      { rx: /(^|\/)category[-_ ]?b(\.html)?([?#]|$)/i,                   name: 'Category B' },
+      { rx: /(^|\/)trial[-_ ]?advocacy(\.html)?([?#]|$)/i,               name: 'Trial Advocacy' },
+      { rx: /(^|\/)audio(s|apps)?(\.html)?([?#]|$)/i,                    name: 'Audio' }
+    ];
 
-  function nowInKampala(){
-    // Convert current time into Africa/Kampala local time Date
-    return new Date(new Date().toLocaleString('en-US',{ timeZone:'Africa/Kampala' }));
-  }
-
-  function isBeforeRelease(){
-    return nowInKampala() < new Date(RELEASE_ISO);
-  }
-
-  function shouldCheck(href){
-    // ignore external links, anchors, mailto
-    return href && !href.startsWith('#') && !href.startsWith('mailto:') && !/^https?:\/\//i.test(href);
-  }
-
-  function lockLinks(){
-    const anchors = document.querySelectorAll('a[href]');
-    anchors.forEach(a=>{
-      const href = a.getAttribute('href');
-      if (!shouldCheck(href)) return;
-      if (targets.some(rx => rx.test(href))){
-        if (!a.dataset.realHref) a.dataset.realHref = href;
-        a.setAttribute('href','#');
-        a.classList.add('is-locked');
-        if (!a.querySelector('.lock-badge')){
-          const tag = document.createElement('span');
-          tag.className = 'lock-badge';
-          tag.textContent = ' Unlocks 1 Sep';
-          a.appendChild(tag);
-        }
-        a.addEventListener('click', function(ev){
-          ev.preventDefault();
-          alert('🔒 This section unlocks on 1 September 2025 (Africa/Kampala).');
-        }, { once:true });
-      }
-    });
-  }
-
-  function unlockLinks(){
-    document.querySelectorAll('a.is-locked').forEach(a=>{
-      if (a.dataset.realHref) a.setAttribute('href', a.dataset.realHref);
-      a.classList.remove('is-locked');
-      const b = a.querySelector('.lock-badge'); if (b) b.remove();
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', ()=>{
-    if (isBeforeRelease()){
-      lockLinks();
-      const msUntil = new Date(RELEASE_ISO) - nowInKampala();
-      if (msUntil > 0 && msUntil < 0x7fffffff){ // safety bound
-        setTimeout(unlockLinks, msUntil);
-      }
-    } else {
-      unlockLinks();
+    function nowInKampala(){
+      return new Date(new Date().toLocaleString('en-US', { timeZone: 'Africa/Kampala' }));
     }
-  });
-})();
-</script>
+    function beforeRelease(){ return nowInKampala() < new Date(RELEASE_ISO); }
+    function releaseText(){ return '1 September 2025 (Africa/Kampala)'; }
 
+    function shouldCheck(href){
+      if (!href) return false;
+      if (href.startsWith('#') || href.startsWith('mailto:')) return false;
+      if (/^https?:\/\//i.test(href)) return false; // only intercept site-internal links
+      return true;
+    }
+
+    // Minimal toast (created on demand; nothing visible otherwise)
+    function toast(msg){
+      let box = document.getElementById('lh-toast-box');
+      if (!box){
+        box = document.createElement('div');
+        box.id = 'lh-toast-box';
+        Object.assign(box.style, {
+          position:'fixed', top:'14px', right:'14px', zIndex:'9999',
+          display:'flex', flexDirection:'column', gap:'8px'
+        });
+        document.body.appendChild(box);
+      }
+      const t = document.createElement('div');
+      Object.assign(t.style, {
+        background:'#111827', color:'#f8fafc', border:'1px solid #334155',
+        padding:'10px 12px', borderRadius:'10px',
+        boxShadow:'0 10px 22px rgba(0,0,0,.25)',
+        font:'600 12.5px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif',
+        maxWidth:'320px', opacity:'1', transition:'opacity .3s'
+      });
+      t.textContent = msg;
+      box.appendChild(t);
+      setTimeout(()=>{ t.style.opacity='0'; setTimeout(()=>t.remove(), 300); }, 2600);
+    }
+
+    function intercept(ev, sectionName){
+      ev.preventDefault();
+      toast(`“${sectionName}” is under review and will be ready by ${releaseText()}.`);
+    }
+
+    function hook(){
+      if (!beforeRelease()) return; // after release, do nothing
+      document.querySelectorAll('a[href]').forEach(a=>{
+        if (a.__lhGate) return;
+        const href = a.getAttribute('href');
+        if (!shouldCheck(href)) return;
+        const match = targets.find(t => t.rx.test(href));
+        if (match){
+          a.__lhGate = true;
+          a.addEventListener('click', (ev)=>intercept(ev, match.name));
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', hook);
+    // Catch dynamically added links too
+    const mo = new MutationObserver(hook);
+    mo.observe(document.documentElement, { childList:true, subtree:true });
+
+    // Auto-release: refresh at unlock so clicks start working
+    if (beforeRelease()){
+      const ms = new Date(RELEASE_ISO) - nowInKampala();
+      if (ms > 0 && ms < 0x7fffffff) setTimeout(()=>location.reload(), ms);
+    }
+  })();
+  </script>
 </body>
 </html>
