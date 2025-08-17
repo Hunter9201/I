@@ -812,5 +812,105 @@
       eventsBox.replaceWith(iframe);
     })();
   </script>
+  <!-- 🔒 Global September Launch Gate -->
+<style>
+  /* Lock visuals */
+  .is-locked{
+    pointer-events:auto; /* we intercept the click */
+    filter:grayscale(1) contrast(.9);
+    opacity:.9;
+    cursor:not-allowed;
+    position:relative;
+  }
+  .is-locked .lock-badge{
+    margin-left:8px;
+    background:#1f2937;
+    color:#e5e7eb;
+    border:1px solid #334155;
+    font-size:12px;
+    padding:4px 8px;
+    border-radius:999px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .is-locked .lock-badge::before{ content:"🔒"; }
+</style>
+
+<script id="sept-launch-gate">
+(function(){
+  // Unlock at 1 Sep 2025 00:00 Africa/Kampala (UTC+03:00)
+  const RELEASE_ISO = '2025-09-01T00:00:00+03:00';
+
+  // Match hrefs (case-insensitive) for all targets (nav + app grid)
+  const targets = [
+    /(^|\/)(workshop|workshops)(\.html)?([?#]|$)/i,          // Workshops
+    /(^|\/)documents?(\.html)?([?#]|$)/i,                    // Documents
+    /(^|\/)exams?(\.html)?([?#]|$)/i,                        // Exams
+    /(^|\/)oral([-_ ]?exams?)?(\.html)?([?#]|$)/i,           // Oral Exams
+    /(^|\/)category[-_ ]?b(\.html)?([?#]|$)/i,               // Category B
+    /(^|\/)trial[-_ ]?advocacy(\.html)?([?#]|$)/i,           // Trial Advocacy
+    /(^|\/)audio(s|apps)?(\.html)?([?#]|$)/i                 // Audio / Audios / Audio Apps
+  ];
+
+  function nowInKampala(){
+    // Convert current time into Africa/Kampala local time Date
+    return new Date(new Date().toLocaleString('en-US',{ timeZone:'Africa/Kampala' }));
+  }
+
+  function isBeforeRelease(){
+    return nowInKampala() < new Date(RELEASE_ISO);
+  }
+
+  function shouldCheck(href){
+    // ignore external links, anchors, mailto
+    return href && !href.startsWith('#') && !href.startsWith('mailto:') && !/^https?:\/\//i.test(href);
+  }
+
+  function lockLinks(){
+    const anchors = document.querySelectorAll('a[href]');
+    anchors.forEach(a=>{
+      const href = a.getAttribute('href');
+      if (!shouldCheck(href)) return;
+      if (targets.some(rx => rx.test(href))){
+        if (!a.dataset.realHref) a.dataset.realHref = href;
+        a.setAttribute('href','#');
+        a.classList.add('is-locked');
+        if (!a.querySelector('.lock-badge')){
+          const tag = document.createElement('span');
+          tag.className = 'lock-badge';
+          tag.textContent = ' Unlocks 1 Sep';
+          a.appendChild(tag);
+        }
+        a.addEventListener('click', function(ev){
+          ev.preventDefault();
+          alert('🔒 This section unlocks on 1 September 2025 (Africa/Kampala).');
+        }, { once:true });
+      }
+    });
+  }
+
+  function unlockLinks(){
+    document.querySelectorAll('a.is-locked').forEach(a=>{
+      if (a.dataset.realHref) a.setAttribute('href', a.dataset.realHref);
+      a.classList.remove('is-locked');
+      const b = a.querySelector('.lock-badge'); if (b) b.remove();
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    if (isBeforeRelease()){
+      lockLinks();
+      const msUntil = new Date(RELEASE_ISO) - nowInKampala();
+      if (msUntil > 0 && msUntil < 0x7fffffff){ // safety bound
+        setTimeout(unlockLinks, msUntil);
+      }
+    } else {
+      unlockLinks();
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
