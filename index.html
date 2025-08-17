@@ -46,7 +46,7 @@
     body { margin:0; font-family:'Poppins',sans-serif; background:#f7f9fc; color:#333; }
     header { position:relative; text-align:center; background:#0b64c0; }
 
-    /* 🎞️ Hero slideshow (all images show in full, no crop) */
+    /* 🎞️ Hero slideshow (all images show in full width) */
     header img#heroImg{
       width:100%;
       height:auto;
@@ -92,7 +92,7 @@
     }
     .nav-container a:hover { background:#2474a9; }
 
-    /* Login & Timetable (kept) */
+    /* Login & Timetable */
     .login-hero-btn,
     .timetable-badge{
       background: var(--brand);
@@ -211,7 +211,15 @@
     .w-badge{ font-size:12px; background:#eef6ff; color:#0b64c0; padding:4px 8px; border-radius:999px; border:1px solid #d8e9ff; }
     .w-date{ font-size:28px; font-weight:800; color:#0b64c0; letter-spacing:.5px; }
     .w-sub{ font-size:12px; color:var(--muted); margin-top:-2px; }
-    .w-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+    .w-events{
+      font-size:12.5px; color:var(--ink);
+      display:flex; flex-direction:column; gap:6px;
+      max-height:160px; overflow:auto; padding-right:4px;
+    }
+    .ev{ display:flex; align-items:center; gap:8px; }
+    .ev-time{ min-width:68px; font-variant-numeric:tabular-nums; color:#0b64c0; font-weight:800; }
+    .ev-title{ flex:1; }
+    .w-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
     .btn { display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:10px; background:var(--brand2); color:#fff; font-weight:800; text-decoration:none; border:1px solid #1e5f8a; font-size:12px; }
     .btn.ghost{ background:#fff; color:#0b64c0; border-color:#bbd9ff; }
     .btn:hover{ filter:brightness(1.05); text-decoration:none; }
@@ -228,6 +236,15 @@
     .lion-dancing { animation: lion-dance 1.8s ease-in-out infinite alternate; }
     .lion-stopped { animation:none !important; transform:none !important; }
     .lion-shake { animation: lion-shake .5s ease-in-out 1; }
+
+    /* Mini agenda iframe styling */
+    .mini-agenda {
+      width:100%;
+      height:160px;
+      border:0;
+      border-radius:8px;
+      overflow:hidden;
+    }
   </style>
 </head>
 <body>
@@ -242,7 +259,7 @@
 
   <header>
     <div class="menu-icon" onclick="toggleMenu()" aria-label="Toggle menu">☰</div>
-    <!-- 🎞️ Hero slideshow image (all images in full) -->
+    <!-- 🎞️ Hero slideshow image (all images full width) -->
     <img
       id="heroImg"
       src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg"
@@ -304,9 +321,15 @@
         </div>
         <div class="w-date" id="miniDate">—</div>
         <div class="w-sub" id="miniDow">—</div>
+
+        <!-- Shows today's events: tries API if configured, else uses a tiny day-agenda iframe -->
+        <div class="w-events" id="miniEvents">
+          <div class="ev"><span class="ev-time">--:--</span><span class="ev-title">Loading today’s events…</span></div>
+        </div>
+
         <div class="w-actions">
           <a class="btn" href="Discussions.html" rel="noopener">Join next session</a>
-          <a class="btn.ghost btn" href="Discussions.html" rel="noopener">Open full calendar</a>
+          <a class="btn ghost" href="Discussions.html" rel="noopener">Open full calendar</a>
         </div>
       </div>
 
@@ -567,7 +590,7 @@
     })();
   </script>
 
-  <!-- 🎞️ Hero slideshow (5s interval, all images full/contain) -->
+  <!-- 🎞️ Hero slideshow (5s interval, all images full width) -->
   <script>
     const HERO_IMAGES = [
       { src: "https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg", alt: "LDC LEGAL COMPANION" },   // starts first
@@ -678,6 +701,127 @@
 
     qGo.addEventListener('click', doSearch);
     q.addEventListener('keydown', (e)=>{ if(e.key==='Enter') doSearch(); });
+  </script>
+
+  <!-- 📅 Mini calendar: show today's events (API if set; else embed today-only day agenda) -->
+  <script>
+    (async function loadTodaysEvents(){
+      // OPTIONAL: if you add a Google API key and make the calendar public, this list view will be used
+      const API_KEY = ""; // e.g. "AIza..."; leave blank to use the embed fallback
+      const CAL_ID  = "lionhunter920@gmail.com";
+      const TIMEZONE = "Africa/Nairobi";
+
+      const eventsBox = document.getElementById('miniEvents');
+
+      function setStatus(text){
+        eventsBox.innerHTML = `<div class="ev"><span class="ev-time">—</span><span class="ev-title">${text}</span></div>`;
+      }
+
+      // Helper to format times (12h)
+      function fmtTime(dtOrDate){
+        if (dtOrDate.date) return "All day";
+        const dt = new Date(dtOrDate.dateTime || dtOrDate);
+        let h = dt.getHours(), m = dt.getMinutes();
+        const ampm = h >= 12 ? "PM" : "AM";
+        h = h % 12 || 12;
+        const mm = m.toString().padStart(2, "0");
+        return `${h}:${mm} ${ampm}`;
+      }
+
+      // If API key is provided, try the JSON API
+      if (API_KEY && !API_KEY.startsWith("YOUR_")) {
+        try{
+          // Build Nairobi "today" window
+          const now = new Date();
+          const partsToday = new Intl.DateTimeFormat('en-CA',{ timeZone: TIMEZONE, year:'numeric', month:'2-digit', day:'2-digit'}).format(now).split('-'); // YYYY-MM-DD
+          const y = +partsToday[0], m = +partsToday[1], d = +partsToday[2];
+          const start = new Date(Date.UTC(y, m-1, d, 0, 0, 0));
+          const end   = new Date(Date.UTC(y, m-1, d+1, 0, 0, 0));
+
+          const params = new URLSearchParams({
+            key: API_KEY,
+            singleEvents: "true",
+            orderBy: "startTime",
+            timeMin: start.toISOString(),
+            timeMax: end.toISOString(),
+            timeZone: TIMEZONE,
+            showDeleted: "false",
+            maxResults: "10"
+          });
+
+          const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CAL_ID)}/events?${params.toString()}`;
+          const resp = await fetch(url);
+          if(!resp.ok) throw new Error(await resp.text());
+          const data = await resp.json();
+          const events = (data.items || []).filter(e => e.status !== "cancelled");
+
+          if (!events.length){
+            setStatus("No events scheduled today.");
+            return;
+          }
+
+          const html = events.slice(0,6).map(e => {
+            const s = e.start || {}, ed = e.end || {};
+            const when  = s.date ? "All day" : `${fmtTime(s)}–${fmtTime(ed)}`;
+            const title = e.summary || "(No title)";
+            return `<div class="ev"><span class="ev-time">${when}</span><span class="ev-title">${title}</span></div>`;
+          }).join("");
+
+          eventsBox.innerHTML = html;
+          return; // done
+        }catch(err){
+          console.warn("Falling back to embed:", err);
+        }
+      }
+
+      // 🔁 Fallback: small embedded DAY agenda locked to today's date in Africa/Nairobi
+      function ymdInTZ(tz, date){
+        const parts = new Intl.DateTimeFormat('en-CA',{ timeZone: tz, year:'numeric', month:'2-digit', day:'2-digit'}).formatToParts(date);
+        const get = t => parts.find(p => p.type === t).value;
+        return { y: +get('year'), m: +get('month'), d: +get('day') };
+      }
+      function addDaysUTC(y,m,d,days){
+        const dt = new Date(Date.UTC(y, m-1, d));
+        dt.setUTCDate(dt.getUTCDate()+days);
+        return { y: dt.getUTCFullYear(), m: dt.getUTCMonth()+1, d: dt.getUTCDate() };
+      }
+      function yyyymmdd(obj){
+        const mm = String(obj.m).padStart(2,'0');
+        const dd = String(obj.d).padStart(2,'0');
+        return `${obj.y}${mm}${dd}`;
+      }
+
+      const todayParts = ymdInTZ(TIMEZONE, new Date());
+      const tomorrow   = addDaysUTC(todayParts.y, todayParts.m, todayParts.d, 1);
+      const startStr   = yyyymmdd(todayParts);
+      const endStr     = yyyymmdd(tomorrow);
+
+      const embedParams = new URLSearchParams({
+        src: CAL_ID,
+        ctz: TIMEZONE,
+        mode: "AGENDA",
+        dates: `${startStr}/${endStr}`,
+        showTitle: "0",
+        showNav: "0",
+        showDate: "0",
+        showPrint: "0",
+        showTabs: "0",
+        showCalendars: "0",
+        showTz: "0",
+        wkst: "1",
+        bgcolor: "#ffffff"
+      });
+
+      const iframe = document.createElement('iframe');
+      iframe.className = 'mini-agenda';
+      iframe.loading = 'lazy';
+      iframe.title = 'Today’s agenda';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.src = `https://calendar.google.com/calendar/embed?${embedParams.toString()}`;
+
+      // Replace the events list area with the tiny day agenda iframe
+      eventsBox.replaceWith(iframe);
+    })();
   </script>
 </body>
 </html>
