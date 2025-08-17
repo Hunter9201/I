@@ -4,18 +4,15 @@
   <meta charset="UTF-8" />
   <title>THE LION HUNTER</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- ✅ Google site verification should be the token only -->
   <meta name="google-site-verification" content="google47c9c1017e180e8f" />
   <meta name="description" content="The Lion Hunter – A jungle-themed portal for legal clarity, advocacy training, and nonstop discussion. Built for LDC students, designed for pride." />
   <meta name="keywords" content="The Lion Hunter, Lion Hunter, legal education, LDC Uganda, advocacy, case summaries, jungle platform, Arthur Solutions" />
   <meta property="og:title" content="The Lion Hunter" />
   <meta property="og:description" content="Empowering the pride through immersive learning and nonstop discussion." />
   <meta property="og:image" content="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" />
-  <!-- Tab icon / favicon -->
-<link rel="icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1" type="image/jpeg" sizes="any">
-<link rel="shortcut icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1" type="image/jpeg">
-<link rel="apple-touch-icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1">
-
+  <link rel="icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1" type="image/jpeg" sizes="any">
+  <link rel="shortcut icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1" type="image/jpeg">
+  <link rel="apple-touch-icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1">
 
   <!-- Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCLCFN2CV4"></script>
@@ -32,69 +29,82 @@
     })(window, document, "clarity", "script", "srhjtupxnp");
   </script>
 
-  <!-- Tailwind (for chat UI) -->
+  <!-- Tailwind (chat only) -->
   <script src="https://cdn.tailwindcss.com"></script>
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+
   <style>
-    :root { --brand:#0f3057; } /* unified brand color */
-
-    body { margin:0; font-family:'Poppins',sans-serif; background:#f7f9fc; color:#333; }
-    header { position:relative; text-align:center; } /* important: relative for timetable/login absolute positioning */
-    header img { width:100%; height:auto; display:block; }
-
-    .menu-icon {
-      position:absolute; top:10px; right:20px; font-size:28px; color:#fff;
-      background: var(--brand); padding:8px 12px; border-radius:6px; cursor:pointer; z-index:1001;
+    :root{
+      --brand:#0f3057;
+      --ink:#0f172a;
+      --muted:#64748b;
+      --line:#e5e7eb;
+      --card:#ffffff;
+      --brand2:#2e8bc0;
     }
 
-    .nav-container { position:fixed; top:0; right:-250px; width:250px; height:100%; background:#2e8bc0; padding-top:60px; transition:right .3s ease; box-shadow:-4px 0 12px rgba(0,0,0,.1); z-index:1000; }
+    body { margin:0; font-family:'Poppins',sans-serif; background:#f7f9fc; color:#333; }
+    header { position:relative; text-align:center; background:#0b64c0; }
+
+    /* 🎞️ Hero slideshow (all images show in full, no crop) */
+    header img#heroImg{
+      width:100%;
+      height:auto;
+      display:block;
+      transition:opacity .6s ease-in-out;
+      opacity:1;
+      background:#0b64c0;
+      max-height:70vh;
+    }
+    .hero-fade-out{ opacity:0; }
+    @media (prefers-reduced-motion: reduce){
+      header img#heroImg{ transition:none; }
+    }
+
+    /* Top alert */
+    #calendar-alert {
+      background:linear-gradient(to right,#283e51,#4b79a1);
+      color:#fff; border-radius:12px; margin:12px auto; width:95%; max-width:1100px;
+      padding:12px 16px; font-size:.95rem; font-weight:600;
+      box-shadow:0 2px 8px rgba(0,0,0,.15);
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    #calendar-alert a {
+      background:#ffeb3b; color:#222; padding:8px 12px; text-decoration:none; border-radius:10px;
+      font-weight:800; box-shadow:0 1px 4px rgba(0,0,0,.2);
+    }
+
+    /* Hamburger + slide-out nav */
+    .menu-icon {
+      position:absolute; top:10px; right:20px; font-size:28px; color:#fff;
+      background: var(--brand); padding:8px 12px; border-radius:8px; cursor:pointer; z-index:1001;
+      box-shadow:0 6px 18px rgba(0,0,0,.18);
+    }
+    .nav-container {
+      position:fixed; top:0; right:-260px; width:260px; height:100%;
+      background:#2e8bc0; padding-top:60px; transition:right .3s ease;
+      box-shadow:-4px 0 16px rgba(0,0,0,.18); z-index:1000;
+    }
     .nav-container.open { right:0; }
-    .nav-container a { display:block; color:#fff; text-decoration:none; padding:1rem; font-weight:bold; border-bottom:1px solid rgba(255,255,255,.2); }
+    .nav-container a {
+      display:block; color:#fff; text-decoration:none; padding:1rem 1.25rem; font-weight:700;
+      border-bottom:1px solid rgba(255,255,255,.18);
+    }
     .nav-container a:hover { background:#2474a9; }
 
-    #calendar-alert { background:linear-gradient(to right,#283e51,#4b79a1); color:#fff; border-radius:8px; margin:12px auto; width:95%; max-width:800px; padding:12px 20px; font-size:.95rem; font-weight:500; box-shadow:0 2px 8px rgba(0,0,0,.15); display:flex; align-items:center; justify-content:space-between; animation:roar 1.6s infinite; }
-    #calendar-alert a { background:#ffeb3b; color:#222; padding:6px 12px; text-decoration:none; border-radius:4px; font-weight:600; box-shadow:0 1px 4px rgba(0,0,0,.2); }
-    @keyframes roar { 0%,100%{transform:scale(1)} 50%{transform:scale(1.02)} }
-
-    main { padding:2rem; text-align:center; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.5rem; margin-top:2rem; }
-    .card { background:#fff; padding:1rem; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.08); transition:transform .2s; }
-    .card:hover{ transform:translateY(-5px); }
-    .card a { display:inline-block; margin-top:1rem; padding:.5rem 1rem; background:#2e8bc0; color:#fff; text-decoration:none; border-radius:5px; font-weight:bold; }
-    .motto { background:#e3eef9; padding:2rem; margin:2rem; border-radius:10px; font-size:1.2rem; font-weight:600; color:#0f3057; }
-    footer { background:#0f3057; color:#ccc; text-align:center; padding:1rem; font-size:.9rem; }
-
-    /* Chat button effects */
-    @keyframes lion-dance { 0%,100%{transform:translateY(0) rotate(0) scale(1)} 25%{transform:translateY(-8px) rotate(-3deg) scale(1.05)} 50%{transform:translateY(0) rotate(3deg) scale(1.02)} 75%{transform:translateY(-4px) rotate(2deg) scale(1.04)} }
-    @keyframes lion-shake { 0%,100%{transform:translateX(0) rotate(0)} 15%,45%,75%{transform:translateX(-5px) rotate(-3deg)} 30%,60%,90%{transform:translateX(5px) rotate(3deg)} }
-    .lion-dancing { animation: lion-dance 1.8s ease-in-out infinite alternate; }
-    .lion-stopped { animation:none !important; transform:none !important; }
-    .lion-shake { animation: lion-shake .5s ease-in-out 1; }
-
-    /* === Login above Timetable (same color as hamburger/timetable) === */
+    /* Login & Timetable (kept) */
     .login-hero-btn,
     .timetable-badge{
       background: var(--brand);
-      color:#fff;
-      padding:8px 12px;
-      border-radius:999px;
-      font-weight:700;
-      font-size:14px;
-      display:inline-flex; gap:8px; align-items:center;
-      box-shadow:0 10px 24px rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      text-decoration:none;
-      cursor:pointer; user-select:none;
+      color:#fff; padding:8px 12px; border-radius:999px; font-weight:700; font-size:14px;
+      display:inline-flex; gap:8px; align-items:center; box-shadow:0 10px 24px rgba(0,0,0,.22);
+      border:1px solid rgba(255,255,255,.12); text-decoration:none; cursor:pointer; user-select:none;
     }
     .login-hero-btn:hover, .timetable-badge:hover { filter:brightness(1.05); }
     .timetable-dot{ width:8px; height:8px; border-radius:50%; background:#f59e0b; display:inline-block; }
 
-    /* Position inside the hero image */
-    .login-hero-btn{ position:absolute; top: 34px; left: 34px; z-index:1002; }
-    .timetable-wrap{ position:absolute; top: 74px; left: 34px; z-index:1002; font-family: system-ui,-apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-
-    /* Timetable popup */
+    .login-hero-btn{ position:absolute; top: 16px; left: 16px; z-index:1002; }
+    .timetable-wrap{ position:absolute; top: 58px; left: 16px; z-index:1002; font-family: system-ui,-apple-system, Segoe UI, Roboto, Arial, sans-serif; }
     .timetable-pop{
       position:absolute; margin-top:10px; width:300px; background:#ffffff;
       border:1px solid #e5e7eb; border-radius:12px; box-shadow:0 22px 48px rgba(0,0,0,.22);
@@ -110,12 +120,114 @@
     .timetable-item:hover{ background:#f9fafb; }
     .timetable-item span{ font-size:13px; color:#111827; font-weight:600; }
     .timetable-item a{ font-size:12px; text-decoration:none; padding:6px 10px; border-radius:8px; background:#0ea5e9; color:#fff; font-weight:700; }
-
-    @media (max-width: 480px){
-      .login-hero-btn{ left:16px; top:24px; }
-      .timetable-wrap{ left:16px; top:56px; }
-      .timetable-pop{ width:270px; }
+    @media (min-width: 481px){
+      .login-hero-btn{ top: 24px; left: 24px; }
+      .timetable-wrap{ top: 64px; left: 24px; }
     }
+
+    /* Main layout */
+    main { padding:24px 16px 8px; text-align:center; max-width:1100px; margin:0 auto; }
+    h2 { margin:0 0 12px; color:var(--ink); }
+    .sub { color:var(--muted); margin:0 auto 16px; max-width:60ch; }
+
+    /* 🔎 Search bar */
+    .searchbar{
+      display:flex; gap:8px; align-items:center; justify-content:center;
+      margin:0 0 16px; flex-wrap:wrap;
+    }
+    .searchbar input{
+      width:min(720px, 100%);
+      padding:12px 14px; border-radius:12px; border:1px solid var(--line);
+      background:#fff; color:#0f172a; font-size:16px; outline:none;
+    }
+    .searchbar button{
+      padding:12px 16px; border-radius:12px; border:1px solid var(--brand2);
+      background:var(--brand2); color:#fff; font-weight:800; cursor:pointer;
+    }
+    .search-results{
+      margin:8px auto 18px; max-width:1100px; display:grid; gap:10px;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); text-align:left;
+    }
+    .result-card{
+      background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px;
+      display:flex; flex-direction:column; gap:8px; box-shadow:0 6px 12px rgba(0,0,0,.04);
+    }
+    .badge{ display:inline-block; font-size:12px; padding:2px 8px; border-radius:999px; background:#eef6ff; color:#0b64c0; border:1px solid #d8e9ff; }
+    .open-btn{ align-self:flex-start; text-decoration:none; background:var(--brand2); color:#fff; border:1px solid #1e5f8a; padding:6px 10px; border-radius:10px; font-weight:800; }
+
+    /* App grid (iPhone-like) */
+    .apps {
+      display:grid; gap:16px;
+      grid-template-columns:repeat(4,1fr);
+      padding:8px 0 4px;
+    }
+    @media (max-width: 900px){ .apps{ grid-template-columns:repeat(3,1fr); } }
+    @media (max-width: 600px){ .apps{ grid-template-columns:repeat(3,1fr); gap:14px; } }
+    @media (max-width: 420px){ .apps{ grid-template-columns:repeat(3,1fr); gap:12px; } }
+
+    .app { text-decoration:none; display:flex; flex-direction:column; align-items:center; gap:8px; }
+    .icon {
+      width:84px; height:84px; border-radius:22px;
+      display:grid; place-items:center; font-size:34px; color:#fff;
+      box-shadow:0 12px 24px rgba(0,0,0,.18), inset 0 0 0 1px rgba(255,255,255,.25);
+      transition: transform .12s ease, box-shadow .12s ease;
+      background: linear-gradient(160deg,#338eda,#0b64c0);
+    }
+    @media (max-width:420px){
+      .icon{ width:74px; height:74px; font-size:28px; border-radius:20px; }
+    }
+    .icon.alt1{ background:linear-gradient(160deg,#ef4444,#b91c1c);}
+    .icon.alt2{ background:linear-gradient(160deg,#f59e0b,#d97706);}
+    .icon.alt3{ background:linear-gradient(160deg,#10b981,#059669);}
+    .icon.alt4{ background:linear-gradient(160deg,#8b5cf6,#6d28d9);}
+    .icon.alt5{ background:linear-gradient(160deg,#ec4899,#db2777);}
+    .icon.alt6{ background:linear-gradient(160deg,#0ea5e9,#0369a1);}
+    .icon.alt7{ background:linear-gradient(160deg,#14b8a6,#0d9488);}
+    .icon.alt8{ background:linear-gradient(160deg,#eab308,#ca8a04);}
+    .icon.alt9{ background:linear-gradient(160deg,#475569,#334155);}
+    .icon.alt10{ background:linear-gradient(160deg,#f97316,#ea580c);}
+    .icon.alt11{ background:linear-gradient(160deg,#22c55e,#15803d);}
+    .icon.alt12{ background:linear-gradient(160deg,#a855f7,#7e22ce);}
+    .icon.alt13{ background:linear-gradient(160deg,#60a5fa,#2563eb);}
+    .app:active .icon{ transform:scale(.96); box-shadow:0 6px 16px rgba(0,0,0,.18); }
+    .label{ font-size:12.5px; line-height:1.1; color:#0f172a; text-align:center; width:92px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:700; }
+    @media (max-width:420px){ .label{ width:80px; font-size:12px; } }
+
+    /* Calendar widget in grid */
+    .widget {
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:0 10px 22px rgba(0,0,0,.08);
+      padding:12px;
+      display:flex; flex-direction:column; gap:8px; align-items:stretch; justify-content:space-between;
+    }
+    .widget.calendar { grid-column: span 2; grid-row: span 2; }
+    @media (max-width:400px){
+      .widget.calendar{ grid-column: 1 / -1; grid-row:auto; }
+    }
+    .w-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .w-title{ font-weight:800; color:var(--ink); font-size:14px; }
+    .w-badge{ font-size:12px; background:#eef6ff; color:#0b64c0; padding:4px 8px; border-radius:999px; border:1px solid #d8e9ff; }
+    .w-date{ font-size:28px; font-weight:800; color:#0b64c0; letter-spacing:.5px; }
+    .w-sub{ font-size:12px; color:var(--muted); margin-top:-2px; }
+    .w-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+    .btn { display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:10px; background:var(--brand2); color:#fff; font-weight:800; text-decoration:none; border:1px solid #1e5f8a; font-size:12px; }
+    .btn.ghost{ background:#fff; color:#0b64c0; border-color:#bbd9ff; }
+    .btn:hover{ filter:brightness(1.05); text-decoration:none; }
+
+    .motto {
+      background:#e3eef9; padding:1.25rem; margin:1rem auto 1.25rem; border-radius:12px;
+      font-size:1.05rem; font-weight:600; color:#0f3057; max-width:1100px;
+    }
+    footer { background:#0f3057; color:#ccc; text-align:center; padding:1rem; font-size:.9rem; }
+
+    /* Chat button effects */
+    @keyframes lion-dance { 0%,100%{transform:translateY(0) rotate(0) scale(1)} 25%{transform:translateY(-8px) rotate(-3deg) scale(1.05)} 50%{transform:translateY(0) rotate(3deg) scale(1.02)} 75%{transform:translateY(-4px) rotate(2deg) scale(1.04)} }
+    @keyframes lion-shake { 0%,100%{transform:translateX(0) rotate(0)} 15%,45%,75%{transform:translateX(-5px) rotate(-3deg)} 30%,60%,90%{transform:translateX(5px) rotate(3deg)} }
+    .lion-dancing { animation: lion-dance 1.8s ease-in-out infinite alternate; }
+    .lion-stopped { animation:none !important; transform:none !important; }
+    .lion-shake { animation: lion-shake .5s ease-in-out 1; }
   </style>
 </head>
 <body>
@@ -125,17 +237,25 @@
     <div>
       📅 Check out for a discussion<br><small>Lion Hunt | Nonstop Discussions</small>
     </div>
-    <a href="Discussions.html">View Calendar</a>
+    <a href="Discussions.html" rel="noopener">View Calendar</a>
   </div>
 
   <header>
-    <div class="menu-icon" onclick="toggleMenu()">☰</div>
-    <img src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" alt="LDC LEGAL COMPANION" />
+    <div class="menu-icon" onclick="toggleMenu()" aria-label="Toggle menu">☰</div>
+    <!-- 🎞️ Hero slideshow image (all images in full) -->
+    <img
+      id="heroImg"
+      src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg"
+      alt="LDC LEGAL COMPANION"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
 
-    <!-- ✅ Login button (static, above timetable, same color) -->
+    <!-- Login -->
     <a href="login.html" class="login-hero-btn" id="login-hero-btn">Login</a>
 
-    <!-- 🦁 Timetables (inside hero image) -->
+    <!-- Timetables -->
     <div class="timetable-wrap" id="timetableWrap" aria-haspopup="true" aria-expanded="false">
       <div class="timetable-badge" id="timetableBtn">
         <span class="timetable-dot"></span>
@@ -148,7 +268,7 @@
     </div>
   </header>
 
-  <nav id="navMenu" class="nav-container">
+  <nav id="navMenu" class="nav-container" aria-label="Primary">
     <a href="laws.html">Laws</a>
     <a href="Fullcases.html">All WK Cases</a>
     <a href="caseslandone.html">Case Summaries</a>
@@ -166,23 +286,45 @@
   </nav>
 
   <main>
-    <h2>📂 Explore Sections</h2>
-    <div class="grid">
-      <div class="card"><h3>Laws</h3><p>Acts & Statutes.</p><a href="laws.html">Open</a></div>
-      <div class="card"><h3>All WK Cases</h3><p>All Workshop Cases</p><a href="Fullcases.html">Open</a></div>
-      <div class="card"><h3>Case Summaries</h3><p>Workshop Case Summaries</p><a href="caseslandone.html">Open</a></div>
-      <div class="card"><h3>Individual Assessment</h3><p>Friday Hunter Series.</p><a href=" IndividualAssessment.html">Open</a></div>
-      <div class="card"><h3>Workshops</h3><p>Civil, family, land, corporate & criminal workshops.</p><a href="workshop.html">Open</a></div>
-      <div class="card"><h3>Documents</h3><p>Civil, family, land, corporate & criminal Documents.</p><a href="Documents.html">Open</a></div>
-      
-      <div class="card"><h3>Exams</h3><p>Past exams</p><a href="exams.html">Open</a></div>
-      <div class="card"><h3>Oral Exams</h3><p>Practice questions and answers.</p><a href="oral-exams.html">Open</a></div>
-      <div class="card"><h3>Category B</h3><p>Legal Writing, Professional Conduct & ADR.</p><a href="category-b.html">Open</a></div>
-      <div class="card"><h3>Trial Advocacy</h3><p>Evidence rules, litigation guides and role-play prep.</p><a href="trial-advocacy.html">Open</a></div>
-      <div class="card"><h3>Audio Lessons</h3><p>Voice recaps for revision on the go.</p><a href="audio.html">Open</a></div>
-      <div class="card"><h3>Bar Bites</h3><p>Motivational content and war stories.</p><a href="services.html">Open</a></div>
-      <div class="card"><h3>Online Discussions</h3><p>Lion Hunt | Nonstop Discussions</p><a href="Discussions.html">Open</a></div>
-      <div class="card"><h3>Legal Services</h3><p>Let the Lion roar for you.</p><a href="services.html">Hire Me</a></div>
+    <!-- 🔎 Search -->
+    <div class="searchbar" role="search">
+      <input id="q" type="search" placeholder="Search cases, statutes & laws…" aria-label="Search cases, statutes and laws">
+      <button id="qGo" type="button" aria-label="Search">Search</button>
+    </div>
+    <div id="searchResults" class="search-results" aria-live="polite"></div>
+
+    <!-- iPhone-style app icons + Calendar widget inside the grid -->
+    <div class="apps" aria-label="App grid">
+
+      <!-- 🧩 Calendar widget -->
+      <div class="widget calendar" aria-label="Calendar widget">
+        <div class="w-head">
+          <div class="w-title">Today</div>
+          <div class="w-badge">Lion Hunt</div>
+        </div>
+        <div class="w-date" id="miniDate">—</div>
+        <div class="w-sub" id="miniDow">—</div>
+        <div class="w-actions">
+          <a class="btn" href="Discussions.html" rel="noopener">Join next session</a>
+          <a class="btn.ghost btn" href="Discussions.html" rel="noopener">Open full calendar</a>
+        </div>
+      </div>
+
+      <!-- Apps -->
+      <a class="app" href="laws.html"><div class="icon">📜</div><span class="label">Laws</span></a>
+      <a class="app" href="Fullcases.html"><div class="icon alt1">📚</div><span class="label">All WK Cases</span></a>
+      <a class="app" href="caseslandone.html"><div class="icon alt2">🧾</div><span class="label">Case Summaries</span></a>
+      <a class="app" href="IndividualAssessment.html"><div class="icon alt3">📝</div><span class="label">I.A</span></a>
+      <a class="app" href="workshop.html"><div class="icon alt4">🛠️</div><span class="label">Workshops</span></a>
+      <a class="app" href="Documents.html"><div class="icon alt5">📄</div><span class="label">Documents</span></a>
+      <a class="app" href="exams.html"><div class="icon alt6">🧪</div><span class="label">Exams</span></a>
+      <a class="app" href="oral-exams.html"><div class="icon alt7">🗣️</div><span class="label">Oral Exams</span></a>
+      <a class="app" href="category-b.html"><div class="icon alt8">🧭</div><span class="label">Category B</span></a>
+      <a class="app" href="trial-advocacy.html"><div class="icon alt9">⚖️</div><span class="label">Trial Advocacy</span></a>
+      <a class="app" href="audio.html"><div class="icon alt10">🎧</div><span class="label">Audio</span></a>
+      <a class="app" href="services.html"><div class="icon alt11">🦁</div><span class="label">Bar Bites</span></a>
+      <a class="app" href="Discussions.html"><div class="icon alt12">💬</div><span class="label">Discussions</span></a>
+      <a class="app" href="services.html"><div class="icon alt13">👩‍⚖️</div><span class="label">Legal Services</span></a>
     </div>
   </main>
 
@@ -234,9 +376,8 @@
     })();
   </script>
 
-  <!-- App Scripts -->
+  <!-- Side menu -->
   <script>
-    // Side menu
     function toggleMenu(){
       const menu = document.getElementById('navMenu');
       menu.classList.toggle('open');
@@ -248,7 +389,7 @@
     });
   </script>
 
-  <!-- 🔔 Firebase (single init) + FCM -->
+  <!-- Firebase + FCM -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
@@ -270,9 +411,7 @@
     if (await isSupported()) {
       const messaging = (await import("https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js")).getMessaging(app);
 
-      // ✅ Register service worker at the site root
       const swReg = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
-
       const permission = await Notification.requestPermission();
       if (permission !== "granted") throw new Error("Notification permission not granted.");
 
@@ -283,7 +422,6 @@
       console.log("🦁 Device FCM Token:", token);
 
       onMessage(messaging, (payload) => {
-        console.log("📨 Foreground message received:", payload);
         const n = payload.notification || {};
         alert((n.title||"Lion Hunt") + "\n" + (n.body||""));
       });
@@ -292,7 +430,7 @@
     }
   </script>
 
-  <!-- 🦁 Simple local chat (uses OpenAI API—replace YOUR_OPENAI_API_KEY) -->
+  <!-- Simple local chat (OpenAI — replace YOUR_OPENAI_API_KEY) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const btn = document.getElementById('lion-chat-button');
@@ -373,7 +511,7 @@
           }
           messages.push({role:'assistant', content:assistantText}); saveHistory();
         } catch(err) {
-          aiBubble.textContent = "Error: " + err; console.error(err);
+          aiBubble.textContent = "Error: " + err;
         } finally { sendBtn.disabled = false; }
       });
 
@@ -383,91 +521,8 @@
     });
   </script>
 
-  <!-- 🦁 Popup Message (single instance) -->
-  <div id="popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:3000; align-items:center; justify-content:center; padding:16px;">
-    <div style="background:#fff; color:#0f3057; border-radius:14px; padding:22px 26px; text-align:center; box-shadow:0 12px 30px rgba(0,0,0,.15); max-width:420px; width:100%; animation:fadeInUp 0.25s ease; border:1px solid #e9eef5;">
-      <h4 style="margin:0 0 8px; font-size:1.15rem;">🦁 The Lion’s Den is being constructed</h4>
-      <p style="margin:0 0 14px; color:#445;">We’re sharpening our claws. Check back soon.</p>
-      <button onclick="closePopup()" style="border:0; padding:8px 14px; border-radius:10px; cursor:pointer; font-weight:600; background:#2e8bc0; color:#fff;">OK</button>
-    </div>
-  </div>
-
-  <!-- 🔒 Lock all cards EXCEPT the four specified (IA UNLOCKED) -->
+  <!-- Timetable logic + mini date fill -->
   <script>
-    const popup = document.getElementById('popup');
-    function closePopup(){ popup.style.display = 'none'; }
-    function openPopup(){ popup.style.display = 'flex'; }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      // ✅ use lowercase for matching (we lowercase titles below)
-      const unlocked = ["laws","individual assessment","all wk cases","case summaries"];
-
-      document.querySelectorAll('.card').forEach(card => {
-        const title = (card.querySelector('h3')?.innerText || "").trim().toLowerCase();
-
-        // ✅ ensure IA card points to the right page
-        if (title === "individual assessment") {
-          let link = card.querySelector('a');
-          if (!link) { link = document.createElement('a'); link.textContent = 'Open'; card.appendChild(link); }
-          link.href = "IndividualAssessment.html";
-        }
-
-        if (!unlocked.includes(title)) {
-          card.addEventListener('click', (e) => {
-            if (e.target.closest('a')) e.preventDefault();
-            e.preventDefault();
-            openPopup();
-          });
-          card.querySelectorAll('a').forEach(a => {
-            a.addEventListener('click', (e) => { e.preventDefault(); openPopup(); });
-          });
-        }
-      });
-
-      popup.addEventListener('click', (e) => { if (e.target === popup) closePopup(); });
-    });
-  </script>
-
-  <!-- 🔒 Lock specific nav links (IA left UNLOCKED) -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const lockedNav = [
-        'workshop.html',
-        'documents.html',
-        'exams.html',
-        'oral-exams.html',
-        'category-b.html',
-        'trial-advocacy.html',
-        'audio.html'
-      ];
-
-      document.querySelectorAll('#navMenu a').forEach(a => {
-        // Compare attribute and resolved path
-        const hrefAttr = (a.getAttribute('href') || '').toLowerCase();
-        const pathName = (new URL(a.href, location.href)).pathname.toLowerCase();
-
-        // ✅ Explicitly allow IndividualAssessment.html
-        const isIA = hrefAttr === 'individualassessment.html' || pathName.endsWith('/individualassessment.html');
-        if (isIA) return;
-
-        const isLocked = lockedNav.some(t =>
-          hrefAttr === t || pathName.endsWith('/' + t)
-        );
-
-        if (isLocked) {
-          a.addEventListener('click', (e) => {
-            e.preventDefault();
-            openPopup();
-            document.getElementById('navMenu')?.classList.remove('open');
-          });
-        }
-      });
-    });
-  </script>
-
-  <!-- === Timetable logic === -->
-  <script>
-    // Replace with your real Google links (keep /preview for fast viewer)
     const WEEK_LINKS = [
       { label: "Week 1 (Family)",    url: "https://drive.google.com/drive/folders/1p4CqiLEgrcY0m-yCBDDB0zbLBQh5nZia?usp=sharing" },
       { label: "Week 2 (Civil)",     url: "https://drive.google.com/drive/folders/1KZAbnXqZKGKcyNow_tLrS0bSwDYPrH3l?usp=sharing" },
@@ -475,64 +530,154 @@
       { label: "Week 4 (Criminal)",  url: "https://docs.google.com/document/d/EXAMPLE4/preview" },
       { label: "Week 5 (Land)",      url: "https://docs.google.com/document/d/EXAMPLE5/preview" }
     ];
-
-    // Build timetable list
     const listEl = document.getElementById('timetableList');
     if (listEl) {
       WEEK_LINKS.forEach(item => {
         const row = document.createElement('div');
         row.className = 'timetable-item';
         const title = document.createElement('span'); title.textContent = item.label;
-
-        const open = document.createElement('a');
-        open.textContent = 'Open';
-        open.href = item.url;
-        open.target = '_blank';
-        open.rel = 'noopener';
-
-        row.appendChild(title);
-        row.appendChild(open);
-        listEl.appendChild(row);
+        const open = document.createElement('a'); open.textContent = 'Open'; open.href = item.url; open.target = '_blank'; open.rel = 'noopener';
+        row.appendChild(title); row.appendChild(open); listEl.appendChild(row);
       });
     }
-
-    // Popup toggle & close behaviors
     const btn  = document.getElementById('timetableBtn');
     const pop  = document.getElementById('timetablePop');
     const wrap = document.getElementById('timetableWrap');
-
-    function openPop(){
-      pop.style.display = 'block';
-      wrap.setAttribute('aria-expanded','true');
-      document.addEventListener('click', onClickAway, {capture:true});
-      document.addEventListener('keydown', onEsc);
-    }
-    function closePop(){
-      pop.style.display = 'none';
-      wrap.setAttribute('aria-expanded','false');
-      document.removeEventListener('click', onClickAway, {capture:true});
-      document.removeEventListener('keydown', onEsc);
-    }
+    function openPop(){ pop.style.display = 'block'; wrap.setAttribute('aria-expanded','true');
+      document.addEventListener('click', onClickAway, {capture:true}); document.addEventListener('keydown', onEsc); }
+    function closePop(){ pop.style.display = 'none'; wrap.setAttribute('aria-expanded','false');
+      document.removeEventListener('click', onClickAway, {capture:true}); document.removeEventListener('keydown', onEsc); }
     function onClickAway(e){ if(!wrap.contains(e.target)) closePop(); }
     function onEsc(e){ if(e.key==='Escape') closePop(); }
+    if (btn) { btn.addEventListener('click', e=>{ e.stopPropagation(); (pop.style.display==='block') ? closePop() : openPop(); }); }
 
-    if (btn) {
-      btn.addEventListener('click', e => {
-        e.stopPropagation();
-        (pop.style.display === 'block') ? closePop() : openPop();
-      });
-    }
-
-    // 🔒 Temporarily lock login (same behavior as before)
+    // Lock login temporarily
     document.addEventListener('DOMContentLoaded', () => {
       const loginBtn = document.getElementById('login-hero-btn');
-      if (loginBtn) {
-        loginBtn.addEventListener('click', function (e) {
-          e.preventDefault();
-          alert("🔒 Premium services coming soon!");
-        });
-      }
+      loginBtn?.addEventListener('click', (e) => { e.preventDefault(); alert("🔒 Premium services coming soon!"); });
     });
+
+    // 🗓️ Fill the mini widget date (Today)
+    (function(){
+      const d = new Date();
+      const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+      const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+      document.getElementById('miniDate').textContent = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+      document.getElementById('miniDow').textContent  = days[d.getDay()];
+    })();
+  </script>
+
+  <!-- 🎞️ Hero slideshow (5s interval, all images full/contain) -->
+  <script>
+    const HERO_IMAGES = [
+      { src: "https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg", alt: "LDC LEGAL COMPANION" },   // starts first
+      { src: "https://i.postimg.cc/28k9C3Nw/younglawyer.png",      alt: "Young Lawyer" },
+      { src: "https://i.postimg.cc/xdQqJrj9/books.jpg",            alt: "Law books" },
+      { src: "https://i.postimg.cc/bJCvBsxv/lib.jpg",              alt: "Library shelves" }
+    ];
+
+    (function setupHeroSlideshow(){
+      const img = document.getElementById("heroImg");
+      if(!img) return;
+
+      // Preload
+      HERO_IMAGES.forEach(i => { const p = new Image(); p.src = i.src; });
+
+      let i = 0;
+      const DURATION = 5000; // 5 seconds
+      let timerId;
+
+      function swap() {
+        i = (i + 1) % HERO_IMAGES.length;
+        img.classList.add("hero-fade-out");
+        const next = HERO_IMAGES[i];
+
+        const onLoad = () => {
+          img.removeEventListener("load", onLoad);
+          requestAnimationFrame(() => img.classList.remove("hero-fade-out"));
+        };
+
+        img.addEventListener("load", onLoad);
+        img.alt = next.alt || "";
+        img.src = next.src;
+      }
+
+      function start(){ if(!timerId) timerId = setInterval(swap, DURATION); }
+      function stop(){ clearInterval(timerId); timerId = null; }
+
+      document.addEventListener("visibilitychange", () =>
+        document.hidden ? stop() : start()
+      );
+
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return; // keep the first image, no animation
+      }
+      start();
+    })();
+  </script>
+
+  <!-- 🔎 Client-side search logic -->
+  <script>
+    const INDEX = [
+      // Statutes / Acts
+      { title: "Evidence Act (Uganda)", type: "Statute", tags: "evidence statute burden proof hearsay", url: "laws.html" },
+      { title: "Civil Procedure Act", type: "Statute", tags: "civil procedure pleadings service jurisdiction", url: "laws.html" },
+      { title: "Criminal Procedure Code", type: "Statute", tags: "criminal procedure arrest bail trial", url: "laws.html" },
+      { title: "Land Act", type: "Statute", tags: "land tenure registration mortgages conveyancing", url: "laws.html" },
+
+      // Cases
+      { title: "Donoghue v Stevenson [1932] AC 562", type: "Case", tags: "negligence duty of care snail bottle tort", url: "Fullcases.html" },
+      { title: "Carlill v Carbolic Smoke Ball Co [1893] 1 QB 256", type: "Case", tags: "contract offer acceptance unilateral advertisement reward", url: "Fullcases.html" },
+      { title: "Rylands v Fletcher (1868)", type: "Case", tags: "tort strict liability escape non-natural use", url: "Fullcases.html" },
+
+      // Collections
+      { title: "All Workshop Cases", type: "Collection", tags: "cases list workshop full text", url: "Fullcases.html" },
+      { title: "Case Summaries", type: "Collection", tags: "summaries briefs digests workshop", url: "caseslandone.html" }
+    ];
+
+    const q     = document.getElementById('q');
+    const qGo   = document.getElementById('qGo');
+    const out   = document.getElementById('searchResults');
+
+    function renderResults(items, term){
+      if(!items.length){
+        out.innerHTML = `
+          <div class="result-card">
+            <strong>No matches for “${term}”.</strong>
+            <div>Try keywords like <em>negligence</em>, <em>evidence</em>, <em>land</em>, or open a library:</div>
+            <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+              <a class="open-btn" href="laws.html">Open Laws</a>
+              <a class="open-btn" href="Fullcases.html">Open All Cases</a>
+              <a class="open-btn" href="caseslandone.html">Open Summaries</a>
+            </div>
+          </div>`;
+        return;
+      }
+      out.innerHTML = items.map(item => `
+        <div class="result-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+            <strong>${item.title}</strong>
+            <span class="badge">${item.type}</span>
+          </div>
+          <a class="open-btn" href="${item.url}">Open</a>
+        </div>
+      `).join('');
+    }
+
+    function doSearch(){
+      const term = (q.value || '').trim().toLowerCase();
+      if(!term){ out.innerHTML=''; q.focus(); return; }
+
+      const words = term.split(/\s+/).filter(Boolean);
+      const items = INDEX.filter(it => {
+        const hay = (it.title + ' ' + it.tags).toLowerCase();
+        return words.every(w => hay.includes(w));
+      }).slice(0, 24);
+      renderResults(items, term);
+    }
+
+    qGo.addEventListener('click', doSearch);
+    q.addEventListener('keydown', (e)=>{ if(e.key==='Enter') doSearch(); });
   </script>
 </body>
 </html>
