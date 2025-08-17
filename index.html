@@ -140,10 +140,6 @@
       padding:12px 14px; border-radius:12px; border:1px solid var(--line);
       background:#fff; color:#0f172a; font-size:16px; outline:none;
     }
-    .searchbar button{
-      padding:12px 16px; border-radius:12px; border:1px solid var(--brand2);
-      background:var(--brand2); color:#fff; font-weight:800; cursor:pointer;
-    }
     .search-results{
       margin:8px auto 18px; max-width:1100px; display:grid; gap:10px;
       grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); text-align:left;
@@ -221,7 +217,6 @@
     .ev-title{ flex:1; }
     .w-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
     .btn { display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:10px; background:var(--brand2); color:#fff; font-weight:800; text-decoration:none; border:1px solid #1e5f8a; font-size:12px; }
-    .btn.ghost{ background:#fff; color:#0b64c0; border-color:#bbd9ff; }
     .btn:hover{ filter:brightness(1.05); text-decoration:none; }
 
     .motto {
@@ -303,12 +298,7 @@
   </nav>
 
   <main>
-    <!-- 🔎 Search -->
-    <div class="searchbar" role="search">
-      <input id="q" type="search" placeholder="Search cases, statutes & laws…" aria-label="Search cases, statutes and laws">
-      <button id="qGo" type="button" aria-label="Search">Search</button>
-    </div>
-    <div id="searchResults" class="search-results" aria-live="polite"></div>
+   
 
     <!-- iPhone-style app icons + Calendar widget inside the grid -->
     <div class="apps" aria-label="App grid">
@@ -329,7 +319,6 @@
 
         <div class="w-actions">
           <a class="btn" href="Discussions.html" rel="noopener">Join next session</a>
-          <a class="btn ghost" href="Discussions.html" rel="noopener">Open full calendar</a>
         </div>
       </div>
 
@@ -639,7 +628,7 @@
     })();
   </script>
 
-  <!-- 🔎 Client-side search logic -->
+  <!-- 🔎 Client-side search logic (auto-search, no button) -->
   <script>
     const INDEX = [
       // Statutes / Acts
@@ -658,11 +647,11 @@
       { title: "Case Summaries", type: "Collection", tags: "summaries briefs digests workshop", url: "caseslandone.html" }
     ];
 
-    const q     = document.getElementById('q');
-    const qGo   = document.getElementById('qGo');
-    const out   = document.getElementById('searchResults');
+    const q   = document.getElementById('q');
+    const out = document.getElementById('searchResults');
 
     function renderResults(items, term){
+      if(!term){ out.innerHTML=''; return; }
       if(!items.length){
         out.innerHTML = `
           <div class="result-card">
@@ -689,8 +678,7 @@
 
     function doSearch(){
       const term = (q.value || '').trim().toLowerCase();
-      if(!term){ out.innerHTML=''; q.focus(); return; }
-
+      if(!term){ out.innerHTML=''; return; }
       const words = term.split(/\s+/).filter(Boolean);
       const items = INDEX.filter(it => {
         const hay = (it.title + ' ' + it.tags).toLowerCase();
@@ -699,7 +687,12 @@
       renderResults(items, term);
     }
 
-    qGo.addEventListener('click', doSearch);
+    // Auto-search as you type (debounced) + Enter key
+    let debounceTimer;
+    q.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(doSearch, 200);
+    });
     q.addEventListener('keydown', (e)=>{ if(e.key==='Enter') doSearch(); });
   </script>
 
@@ -717,7 +710,6 @@
         eventsBox.innerHTML = `<div class="ev"><span class="ev-time">—</span><span class="ev-title">${text}</span></div>`;
       }
 
-      // Helper to format times (12h)
       function fmtTime(dtOrDate){
         if (dtOrDate.date) return "All day";
         const dt = new Date(dtOrDate.dateTime || dtOrDate);
@@ -728,12 +720,10 @@
         return `${h}:${mm} ${ampm}`;
       }
 
-      // If API key is provided, try the JSON API
       if (API_KEY && !API_KEY.startsWith("YOUR_")) {
         try{
-          // Build Nairobi "today" window
           const now = new Date();
-          const partsToday = new Intl.DateTimeFormat('en-CA',{ timeZone: TIMEZONE, year:'numeric', month:'2-digit', day:'2-digit'}).format(now).split('-'); // YYYY-MM-DD
+          const partsToday = new Intl.DateTimeFormat('en-CA',{ timeZone: TIMEZONE, year:'numeric', month:'2-digit', day:'2-digit'}).format(now).split('-');
           const y = +partsToday[0], m = +partsToday[1], d = +partsToday[2];
           const start = new Date(Date.UTC(y, m-1, d, 0, 0, 0));
           const end   = new Date(Date.UTC(y, m-1, d+1, 0, 0, 0));
@@ -768,7 +758,7 @@
           }).join("");
 
           eventsBox.innerHTML = html;
-          return; // done
+          return;
         }catch(err){
           console.warn("Falling back to embed:", err);
         }
@@ -819,7 +809,6 @@
       iframe.referrerPolicy = 'no-referrer-when-downgrade';
       iframe.src = `https://calendar.google.com/calendar/embed?${embedParams.toString()}`;
 
-      // Replace the events list area with the tiny day agenda iframe
       eventsBox.replaceWith(iframe);
     })();
   </script>
