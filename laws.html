@@ -5,79 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LAWS | Statutes & Acts</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 0;
-      color: #333;
+    :root {
+      --brand:#0f766e; --bg:#0b1220; --card:#0f172a; --muted:#94a3b8; --text:#e2e8f0; --border:#1f2937;
+      --ok:#10b981; --warn:#f59e0b; --bad:#ef4444;
     }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: var(--bg); color: var(--text); }
+
+    a { color: #93c5fd; text-decoration: none; }
+
     header {
-      background-color: #003366;
-      color: white;
-      padding: 2rem;
-      text-align: center;
-      position: relative;
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(15,23,42,.8); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
     }
-    .return-btn {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background: white;
-      color: #003366;
-      padding: 0.5rem 1rem;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    .bar {
+      max-width: 1100px; margin: 0 auto; padding: 14px 16px;
+      display: flex; gap: 12px; align-items: center; justify-content: space-between; flex-wrap: wrap;
     }
-    section {
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
+    .title { font-size: 18px; color: #a7f3d0; font-weight: 700; }
+    .note { font-size: 12px; color: var(--muted); }
+    .btn {
+      appearance: none; border: 1px solid var(--border); background: #0b1324;
+      color: var(--text); border-radius: 10px; padding: 10px 12px;
+      cursor: pointer; text-decoration: none;
     }
-    h2 {
-      color: #003366;
-      margin-top: 3rem;
-      font-size: 1.5rem;
+    .btn:hover { border-color: #263141; }
+    .primary { background: var(--brand); border-color: transparent; color: white; }
+
+    h1 {
+      max-width: 1100px; margin: 18px auto 10px; padding: 0 16px;
+      font-size: 22px; color: #e5f3ff;
     }
-    .resource {
-      background: white;
-      margin-bottom: 2rem;
-      padding: 1.5rem;
-      border-left: 5px solid #003366;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+    .wrap {
+      max-width: 1100px; margin: 18px auto; padding: 0 16px;
     }
-    .resource h3 {
-      margin: 0 0 0.5rem;
-      color: #003366;
-      font-size: 1.2rem;
+
+    .panel {
+      background: linear-gradient(180deg,#0f172a,#0b1324);
+      border: 1px solid var(--border); border-radius: 16px;
+      padding: 16px; margin-bottom: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
     }
-    .resource p {
-      margin: 0.5rem 0 1rem;
-      font-size: 0.95rem;
+    .panel h2 {
+      margin: 0 0 8px; font-size: 18px; color: #e5f3ff;
     }
-    .resource button {
-      background: #003366;
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s ease;
+    .panel p {
+      margin: 0 0 12px; color: var(--muted);
     }
-    .resource button:hover {
-      background: #0055aa;
+
+    .link-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 10px;
     }
+
     footer {
-      background: #eee;
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #555;
-      margin-top: 3rem;
+      text-align: center; padding: 16px; font-size: 0.9rem;
+      color: var(--muted); border-top: 1px solid var(--border);
+      margin-top: 40px;
     }
   </style>
   <script>
@@ -88,64 +74,61 @@
 </head>
 <body>
   <header>
-    <a href="index.html" class="return-btn">← Return</a>
-    <h1>LAWS</h1>
-    <p>Statutes & Acts Reference Portal</p>
+    <div class="bar">
+      <div>
+        <div class="title">Statutes & Acts Reference</div>
+        <div class="note">LAWS • Drive folder links</div>
+      </div>
+      <a href="index.html" class="btn">⬅ Return</a>
+    </div>
   </header>
 
-  <section>
-    <h2>Civil Litigation</h2>
-    <div class="resource">
-      <h3>Statutes & Acts</h3>
-      <p>key laws governing civil litigation.</p>
-      <button onclick="openLinks([
-        'https://drive.google.com/drive/folders/1naBvYbfaQ70VfgXWSv07EaIEVU1WoBAH?usp=sharing',
+  <h1>📚 Statutes & Acts – Term Resources</h1>
+
+  <div class="wrap">
+    <section class="panel">
+      <h2>Civil Litigation</h2>
+      <p>Key laws governing civil litigation.</p>
+      <a class="btn primary link-btn" onclick="openLinks([
         'https://drive.google.com/drive/folders/1naBvYbfaQ70VfgXWSv07EaIEVU1WoBAH?usp=sharing'
-      ])">Civil Litigation Laws</button>
-    </div>
+      ])">📁 Civil Litigation Laws</a>
+    </section>
 
-    <h2>Criminal Proceedings Laws</h2>
-    <div class="resource">
-      <h3>Criminal Procedure Statutes & Acts</h3>
+    <section class="panel">
+      <h2>Criminal Proceedings</h2>
       <p>Essential statutes for criminal trials and investigations.</p>
-      <button onclick="openLinks([
-        'https://drive.google.com/drive/folders/1k464l6l8xS-Bvbsvv4UTrQcvaJsT_ujL?usp=sharing',
+      <a class="btn primary link-btn" onclick="openLinks([
         'https://drive.google.com/drive/folders/1k464l6l8xS-Bvbsvv4UTrQcvaJsT_ujL?usp=sharing'
-      ])">Criminal Procedure Laws</button>
-    </div>
+      ])">📁 Criminal Procedure Laws</a>
+    </section>
 
-    <h2>Land Transactions</h2>
-    <div class="resource">
-      <h3>Land Law Procedure Laws & Statutes</h3>
-      <p>Acts.</p>
-      <button onclick="openLinks([
-        'https://drive.google.com/drive/folders/1naBvYbfaQ70VfgXWSv07EaIEVU1WoBAH?usp=drive_link',
+    <section class="panel">
+      <h2>Land Transactions</h2>
+      <p>Acts and procedures governing land law.</p>
+      <a class="btn primary link-btn" onclick="openLinks([
         'https://drive.google.com/drive/folders/1naBvYbfaQ70VfgXWSv07EaIEVU1WoBAH?usp=drive_link'
-      ])"> Land Law Transactions</button>
-    </div>
+      ])">📁 Land Law Transactions</a>
+    </section>
 
-    <h2>Family law Practice</h2>
-    <div class="resource">
-      <h3>Family law Practice Laws & Statutes</h3>
-      <p>Acts& Statutes</p>
-      <button onclick="openLinks([
-        'https://drive.google.com/drive/folders/1HYlcJizwTRFrOxwjF78YINDKVi6Dhz_9?usp=sharing',
+    <section class="panel">
+      <h2>Family Law Practice</h2>
+      <p>Relevant statutes and acts for family law practice.</p>
+      <a class="btn primary link-btn" onclick="openLinks([
         'https://drive.google.com/drive/folders/1HYlcJizwTRFrOxwjF78YINDKVi6Dhz_9?usp=sharing'
-      ])">Family law Practice</button>
-    </div>
-       <h2>Corporate&Commercial Practice</h2>
-    <div class="resource">
-      <h3>Corporate&Commercial Practice </h3>
-      <p>Laws & Statutes</p>
-      <button onclick="openLinks([
-        'https://drive.google.com/drive/folders/1taDspcYwri3X3dmEnrwJixOCbikONF6q?usp=sharing',
+      ])">📁 Family Law Statutes</a>
+    </section>
+
+    <section class="panel">
+      <h2>Corporate & Commercial Practice</h2>
+      <p>Statutes governing corporate and commercial law.</p>
+      <a class="btn primary link-btn" onclick="openLinks([
         'https://drive.google.com/drive/folders/1taDspcYwri3X3dmEnrwJixOCbikONF6q?usp=sharing'
-      ])"> Corporate&Commercial Practice</button>
-    </div>
-  </section>
+      ])">📁 Corporate & Commercial Laws</a>
+    </section>
+  </div>
 
   <footer>
-    &copy; 2025 LionHunter.com 
+    &copy; 2025 LionHunter.com 🦁 All rights reserved.
   </footer>
 </body>
 </html>
