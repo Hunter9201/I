@@ -14,13 +14,13 @@
   <link rel="shortcut icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1" type="image/jpeg">
   <link rel="apple-touch-icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1">
 
-  <!-- Analytics -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCLCFN2CV4"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date()); gtag('config', 'G-KCLCFN2CV4');
+    function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-KCLCFN2CV4');
   </script>
+
   <!-- Microsoft Clarity -->
   <script>
     (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}
@@ -120,36 +120,9 @@
     .timetable-item:hover{ background:#f9fafb; }
     .timetable-item span{ font-size:13px; color:#111827; font-weight:600; }
     .timetable-item a{ font-size:12px; text-decoration:none; padding:6px 10px; border-radius:8px; background:#0ea5e9; color:#fff; font-weight:700; }
-    @media (min-width: 481px){
-      .login-hero-btn{ top: 24px; left: 24px; }
-      .timetable-wrap{ top: 64px; left: 24px; }
-    }
 
     /* Main layout */
     main { padding:24px 16px 8px; text-align:center; max-width:1100px; margin:0 auto; }
-    h2 { margin:0 0 12px; color:var(--ink); }
-    .sub { color:var(--muted); margin:0 auto 16px; max-width:60ch; }
-
-    /* 🔎 Search bar (CSS left in place; markup optional) */
-    .searchbar{
-      display:flex; gap:8px; align-items:center; justify-content:center;
-      margin:0 0 16px; flex-wrap:wrap;
-    }
-    .searchbar input{
-      width:min(720px, 100%);
-      padding:12px 14px; border-radius:12px; border:1px solid var(--line);
-      background:#fff; color:#0f172a; font-size:16px; outline:none;
-    }
-    .search-results{
-      margin:8px auto 18px; max-width:1100px; display:grid; gap:10px;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); text-align:left;
-    }
-    .result-card{
-      background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px;
-      display:flex; flex-direction:column; gap:8px; box-shadow:0 6px 12px rgba(0,0,0,.04);
-    }
-    .badge{ display:inline-block; font-size:12px; padding:2px 8px; border-radius:999px; background:#eef6ff; color:#0b64c0; border:1px solid #d8e9ff; }
-    .open-btn{ align-self:flex-start; text-decoration:none; background:var(--brand2); color:#fff; border:1px solid #1e5f8a; padding:6px 10px; border-radius:10px; font-weight:800; }
 
     /* App grid (iPhone-like) */
     .apps {
@@ -199,9 +172,7 @@
       display:flex; flex-direction:column; gap:8px; align-items:stretch; justify-content:space-between;
     }
     .widget.calendar { grid-column: span 2; grid-row: span 2; }
-    @media (max-width:400px){
-      .widget.calendar{ grid-column: 1 / -1; grid-row:auto; }
-    }
+    @media (max-width:400px){ .widget.calendar{ grid-column: 1 / -1; grid-row:auto; } }
     .w-head{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
     .w-title{ font-weight:800; color:var(--ink); font-size:14px; }
     .w-badge{ font-size:12px; background:#eef6ff; color:#0b64c0; padding:4px 8px; border-radius:999px; border:1px solid #d8e9ff; }
@@ -209,15 +180,19 @@
     .w-sub{ font-size:12px; color:var(--muted); margin-top:-2px; }
     .w-events{
       font-size:12.5px; color:var(--ink);
-      display:flex; flex-direction:column; gap:6px;
-      max-height:160px; overflow:auto; padding-right:4px;
+      display:flex; flex-direction:column; gap:8px;
+      max-height:180px; overflow:auto; padding-right:4px;
     }
-    .ev{ display:flex; align-items:center; gap:8px; }
-    .ev-time{ min-width:68px; font-variant-numeric:tabular-nums; color:#0b64c0; font-weight:800; }
+    .ev{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .ev-time{ min-width:72px; font-variant-numeric:tabular-nums; color:#0b64c0; font-weight:800; }
     .ev-title{ flex:1; }
+    .ev-actions{ display:flex; gap:6px; }
     .w-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:4px; }
+
     .btn { display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius:10px; background:var(--brand2); color:#fff; font-weight:800; text-decoration:none; border:1px solid #1e5f8a; font-size:12px; }
     .btn:hover{ filter:brightness(1.05); text-decoration:none; }
+    .btn.meet{ background:#16a34a; border-color:#15803d; }
+    .btn.meet::before{ content:"🎥"; }
 
     .motto {
       background:#e3eef9; padding:1.25rem; margin:1rem auto 1.25rem; border-radius:12px;
@@ -232,14 +207,8 @@
     .lion-stopped { animation:none !important; transform:none !important; }
     .lion-shake { animation: lion-shake .5s ease-in-out 1; }
 
-    /* Mini agenda iframe styling */
-    .mini-agenda {
-      width:100%;
-      height:160px;
-      border:0;
-      border-radius:8px;
-      overflow:hidden;
-    }
+    /* Mini agenda iframe styling (fallback) */
+    .mini-agenda { width:100%; height:160px; border:0; border-radius:8px; overflow:hidden; }
   </style>
 </head>
 <body>
@@ -254,6 +223,7 @@
 
   <header>
     <div class="menu-icon" onclick="toggleMenu()" aria-label="Toggle menu">☰</div>
+
     <!-- 🎞️ Hero slideshow image (all images full width) -->
     <img
       id="heroImg"
@@ -298,7 +268,6 @@
   </nav>
 
   <main>
-    <!-- iPhone-style app icons + Calendar widget inside the grid -->
     <div class="apps" aria-label="App grid">
 
       <!-- 🧩 Calendar widget -->
@@ -310,7 +279,7 @@
         <div class="w-date" id="miniDate">—</div>
         <div class="w-sub" id="miniDow">—</div>
 
-        <!-- Shows today's events: tries API if configured, else uses a tiny day-agenda iframe -->
+        <!-- Today's events appear here (list or iframe fallback) -->
         <div class="w-events" id="miniEvents">
           <div class="ev"><span class="ev-time">--:--</span><span class="ev-title">Loading today’s events…</span></div>
         </div>
@@ -361,7 +330,7 @@
     </div>
   </div>
 
-  <!-- ConnectyCube widget (optional) -->
+  <!-- Optional ConnectyCube widget -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/connectycube@4/dist/connectycube.min.js"></script>
@@ -371,17 +340,9 @@
       const chatWidgetContainer = document.createElement('div');
       chatWidgetContainer.id = 'ConnectyCube_chat-widget';
       document.body.appendChild(chatWidgetContainer);
-      const props = {
-        appId: 9313,
-        authKey: '1C7B8D6C-7CB7-4B0B-9E50-68E6291E3D84',
-        userId: '45',
-        userName: 'Lion',
-        showOnlineUsersTab: false,
-        splitView: true,
-      };
+      const props = { appId: 9313, authKey: '1C7B8D6C-7CB7-4B0B-9E50-68E6291E3D84', userId: '45', userName: 'Lion', showOnlineUsersTab: false, splitView: true };
       if (window.ReactDOM && window.ConnectyCubeChatWidget) {
-        ReactDOM.createRoot(chatWidgetContainer)
-          .render(React.createElement(ConnectyCubeChatWidget, props));
+        ReactDOM.createRoot(chatWidgetContainer).render(React.createElement(ConnectyCubeChatWidget, props));
       }
     })();
   </script>
@@ -440,7 +401,7 @@
     }
   </script>
 
-  <!-- Simple local chat (OpenAI — replace YOUR_OPENAI_API_KEY) -->
+  <!-- Simple local chat (dummy reply) -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const btn = document.getElementById('lion-chat-button');
@@ -491,47 +452,18 @@
         aiBubble.className = 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
         messagesDiv.appendChild(aiBubble); scrollBottom();
 
-        const atStart = [{role:'system', content:"You are Lion Hunt Bot. If service isn't ready, say: 'Service is not available yet — coming soon!'"},
-                         ...messages];
-
-        try {
-          const resp = await fetch("https://api.openai.com/v1/chat/completions", {
-            method:"POST",
-            headers:{ "Content-Type":"application/json", "Authorization":"Bearer YOUR_OPENAI_API_KEY" },
-            body: JSON.stringify({ model:"gpt-3.5-turbo", messages:atStart, stream:true })
-          });
-          if (!resp.ok) throw new Error(await resp.text());
-
-          const reader = resp.body.getReader(); const decoder = new TextDecoder("utf-8");
-          let assistantText = "";
-          while (true) {
-            const {value, done} = await reader.read(); if (done) break;
-            const chunk = decoder.decode(value, {stream:true});
-            chunk.split("\n").forEach(line => {
-              if (line.startsWith("data: ")) {
-                const json = line.slice(6).trim();
-                if (json === "[DONE]") return;
-                try {
-                  const parsed = JSON.parse(json);
-                  const delta = parsed.choices[0].delta?.content;
-                  if (delta) { assistantText += delta; aiBubble.textContent = assistantText; scrollBottom(); }
-                } catch {}
-              }
-            });
-          }
-          messages.push({role:'assistant', content:assistantText}); saveHistory();
-        } catch(err) {
-          aiBubble.textContent = "Error: " + err;
-        } finally { sendBtn.disabled = false; }
+        setTimeout(() => {
+          const reply = "Roar! 🦁 Service is not available yet — coming soon!";
+          aiBubble.textContent = reply;
+          messages.push({role:'assistant', content:reply}); saveHistory(); sendBtn.disabled = false;
+        }, 400);
       });
 
-      input.addEventListener('keydown', e => {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendBtn.click(); }
-      });
+      input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendBtn.click(); } });
     });
   </script>
 
-  <!-- Timetable logic + mini date fill -->
+  <!-- Timetable list + mini date fill -->
   <script>
     const WEEK_LINKS = [
       { label: "Week 1 (Family)",    url: "https://drive.google.com/drive/folders/1p4CqiLEgrcY0m-yCBDDB0zbLBQh5nZia?usp=sharing" },
@@ -585,121 +517,33 @@
       { src: "https://i.postimg.cc/xdQqJrj9/books.jpg",            alt: "Law books" },
       { src: "https://i.postimg.cc/bJCvBsxv/lib.jpg",              alt: "Library shelves" }
     ];
-
     (function setupHeroSlideshow(){
       const img = document.getElementById("heroImg");
       if(!img) return;
-
-      // Preload
       HERO_IMAGES.forEach(i => { const p = new Image(); p.src = i.src; });
-
-      let i = 0;
-      const DURATION = 5000; // 5 seconds
-      let timerId;
-
+      let i = 0; const DURATION = 5000; let timerId;
       function swap() {
         i = (i + 1) % HERO_IMAGES.length;
         img.classList.add("hero-fade-out");
         const next = HERO_IMAGES[i];
-
-        const onLoad = () => {
-          img.removeEventListener("load", onLoad);
-          requestAnimationFrame(() => img.classList.remove("hero-fade-out"));
-        };
-
+        const onLoad = () => { img.removeEventListener("load", onLoad); requestAnimationFrame(() => img.classList.remove("hero-fade-out")); };
         img.addEventListener("load", onLoad);
-        img.alt = next.alt || "";
-        img.src = next.src;
+        img.alt = next.alt || ""; img.src = next.src;
       }
-
       function start(){ if(!timerId) timerId = setInterval(swap, DURATION); }
       function stop(){ clearInterval(timerId); timerId = null; }
-
-      document.addEventListener("visibilitychange", () =>
-        document.hidden ? stop() : start()
-      );
-
-      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        return; // keep the first image, no animation
-      }
+      document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) { return; }
       start();
     })();
   </script>
 
-  <!-- 🔎 Client-side search logic (guarded if inputs not on page) -->
-  <script>
-    const INDEX = [
-      // Statutes / Acts
-      { title: "Evidence Act (Uganda)", type: "Statute", tags: "evidence statute burden proof hearsay", url: "laws.html" },
-      { title: "Civil Procedure Act", type: "Statute", tags: "civil procedure pleadings service jurisdiction", url: "laws.html" },
-      { title: "Criminal Procedure Code", type: "Statute", tags: "criminal procedure arrest bail trial", url: "laws.html" },
-      { title: "Land Act", type: "Statute", tags: "land tenure registration mortgages conveyancing", url: "laws.html" },
-
-      // Cases
-      { title: "Donoghue v Stevenson [1932] AC 562", type: "Case", tags: "negligence duty of care snail bottle tort", url: "Fullcases.html" },
-      { title: "Carlill v Carbolic Smoke Ball Co [1893] 1 QB 256", type: "Case", tags: "contract offer acceptance unilateral advertisement reward", url: "Fullcases.html" },
-      { title: "Rylands v Fletcher (1868)", type: "Case", tags: "tort strict liability escape non-natural use", url: "Fullcases.html" },
-
-      // Collections
-      { title: "All Workshop Cases", type: "Collection", tags: "cases list workshop full text", url: "Fullcases.html" },
-      { title: "Case Summaries", type: "Collection", tags: "summaries briefs digests workshop", url: "caseslandone.html" }
-    ];
-
-    const q   = document.getElementById('q');
-    const out = document.getElementById('searchResults');
-
-    if (q && out){
-      function renderResults(items, term){
-        if(!term){ out.innerHTML=''; return; }
-        if(!items.length){
-          out.innerHTML = `
-            <div class="result-card">
-              <strong>No matches for “${term}”.</strong>
-              <div>Try keywords like <em>negligence</em>, <em>evidence</em>, <em>land</em>, or open a library:</div>
-              <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
-                <a class="open-btn" href="laws.html">Open Laws</a>
-                <a class="open-btn" href="Fullcases.html">Open All Cases</a>
-                <a class="open-btn" href="caseslandone.html">Open Summaries</a>
-              </div>
-            </div>`;
-          return;
-        }
-        out.innerHTML = items.map(item => `
-          <div class="result-card">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
-              <strong>${item.title}</strong>
-              <span class="badge">${item.type}</span>
-            </div>
-            <a class="open-btn" href="${item.url}">Open</a>
-          </div>
-        `).join('');
-      }
-
-      function doSearch(){
-        const term = (q.value || '').trim().toLowerCase();
-        if(!term){ out.innerHTML=''; return; }
-        const words = term.split(/\s+/).filter(Boolean);
-        const items = INDEX.filter(it => {
-          const hay = (it.title + ' ' + it.tags).toLowerCase();
-          return words.every(w => hay.includes(w));
-        }).slice(0, 24);
-        renderResults(items, term);
-      }
-
-      let debounceTimer;
-      q.addEventListener('input', () => {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(doSearch, 200);
-      });
-      q.addEventListener('keydown', (e)=>{ if(e.key==='Enter') doSearch(); });
-    }
-  </script>
-
-  <!-- 📅 Mini calendar: show today's events (API if set; else embed today-only day agenda) -->
+  <!-- 📅 Mini calendar: today's events with Meet buttons (API if available; else iframe fallback) -->
   <script>
     (async function loadTodaysEvents(){
-      // OPTIONAL: if you add a Google API key and make the calendar public, this list view will be used
-      const API_KEY = ""; // e.g. "AIza..."; leave blank to use the embed fallback
+      // ✅ Fill in your Google API key to enable list+Meet buttons.
+      //    Make sure the calendar is public or the API key can access it.
+      const API_KEY = ""; // e.g. "AIza..."; leave blank to use iframe fallback
       const CAL_ID  = "lionhunter920@gmail.com";
       const TIMEZONE = "Africa/Kampala";
 
@@ -709,21 +553,28 @@
         eventsBox.innerHTML = `<div class="ev"><span class="ev-time">—</span><span class="ev-title">${text}</span></div>`;
       }
 
-      function fmtTime(dtOrDate){
-        if (dtOrDate.date) return "All day";
-        const dt = new Date(dtOrDate.dateTime || dtOrDate);
-        let h = dt.getHours(), m = dt.getMinutes();
-        const ampm = h >= 12 ? "PM" : "AM";
-        h = h % 12 || 12;
-        const mm = m.toString().padStart(2, "0");
-        return `${h}:${mm} ${ampm}`;
+      function fmtTime(obj){
+        if (obj?.date) return "All day";
+        const dt = new Date(obj?.dateTime || obj);
+        return new Intl.DateTimeFormat('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone: TIMEZONE }).format(dt);
+      }
+
+      function findMeetLink(ev){
+        if (ev.hangoutLink) return ev.hangoutLink;
+        const fromConf = ev.conferenceData?.entryPoints?.find(p => p.entryPointType === 'video' && /meet\.google\.com/i.test(p.uri));
+        if (fromConf) return fromConf.uri;
+        const blob = [ev.description||'', ev.location||''].join(' ');
+        const m = blob.match(/https?:\/\/meet\.google\.com\/[^\s"'>)]+/i);
+        return m ? m[0] : null;
       }
 
       if (API_KEY && !API_KEY.startsWith("YOUR_")) {
         try{
+          // Build today's window in Kampala time (00:00–24:00)
           const now = new Date();
-          const partsToday = new Intl.DateTimeFormat('en-CA',{ timeZone: TIMEZONE, year:'numeric', month:'2-digit', day:'2-digit'}).format(now).split('-');
-          const y = +partsToday[0], m = +partsToday[1], d = +partsToday[2];
+          const partsToday = new Intl.DateTimeFormat('en-CA',{ timeZone: TIMEZONE, year:'numeric', month:'2-digit', day:'2-digit'}).formatToParts(now);
+          const get = t => partsToday.find(p => p.type===t).value;
+          const y = +get('year'), m = +get('month'), d = +get('day');
           const start = new Date(Date.UTC(y, m-1, d, 0, 0, 0));
           const end   = new Date(Date.UTC(y, m-1, d+1, 0, 0, 0));
 
@@ -735,7 +586,7 @@
             timeMax: end.toISOString(),
             timeZone: TIMEZONE,
             showDeleted: "false",
-            maxResults: "10"
+            maxResults: "12",
           });
 
           const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(CAL_ID)}/events?${params.toString()}`;
@@ -749,21 +600,27 @@
             return;
           }
 
-          const html = events.slice(0,6).map(e => {
+          const html = events.slice(0,8).map(e => {
             const s = e.start || {}, ed = e.end || {};
             const when  = s.date ? "All day" : `${fmtTime(s)}–${fmtTime(ed)}`;
-            const title = e.summary || "(No title)`;
-            return `<div class="ev"><span class="ev-time">${when}</span><span class="ev-title">${title}</span></div>`;
+            const title = e.summary || "(No title)";
+            const meet  = findMeetLink(e);
+            const act   = meet ? `<span class="ev-actions"><a class="btn meet" href="${meet}" target="_blank" rel="noopener">Join Meet</a></span>` : "";
+            return `<div class="ev">
+                      <span class="ev-time">${when}</span>
+                      <span class="ev-title">${title}</span>
+                      ${act}
+                    </div>`;
           }).join("");
 
           eventsBox.innerHTML = html;
           return;
         }catch(err){
-          console.warn("Falling back to embed:", err);
+          console.warn("Mini calendar API failed; fallback to iframe agenda.", err);
         }
       }
 
-      // 🔁 Fallback: small embedded DAY agenda locked to today's date in Africa/Kampala
+      // 🔁 Fallback: small embedded DAY agenda locked to today in Africa/Kampala
       function ymdInTZ(tz, date){
         const parts = new Intl.DateTimeFormat('en-CA',{ timeZone: tz, year:'numeric', month:'2-digit', day:'2-digit'}).formatToParts(date);
         const get = t => parts.find(p => p.type === t).value;
@@ -812,13 +669,10 @@
     })();
   </script>
 
-  <!-- 🔒 Clickable-but-locked gate (no badges/labels); applies to nav + app icons -->
+  <!-- 🔒 Gate certain links until 1 Sep 2025 -->
   <script id="sept-gate-no-badges">
   (function(){
-    // Unlock at 1 Sep 2025 00:00 Africa/Kampala (UTC+03:00)
     const RELEASE_ISO = '2025-09-01T00:00:00+03:00';
-
-    // Target hrefs (case-insensitive) for all requested sections
     const targets = [
       { rx: /(^|\/)(workshop|workshops)(\.html)?([?#]|$)/i,              name: 'Workshops' },
       { rx: /(^|\/)documents?(\.html)?([?#]|$)/i,                        name: 'Documents' },
@@ -828,70 +682,47 @@
       { rx: /(^|\/)trial[-_ ]?advocacy(\.html)?([?#]|$)/i,               name: 'Trial Advocacy' },
       { rx: /(^|\/)audio(s|apps)?(\.html)?([?#]|$)/i,                    name: 'Audio' }
     ];
-
-    function nowInKampala(){
-      return new Date(new Date().toLocaleString('en-US', { timeZone: 'Africa/Kampala' }));
-    }
+    function nowInKampala(){ return new Date(new Date().toLocaleString('en-US', { timeZone: 'Africa/Kampala' })); }
     function beforeRelease(){ return nowInKampala() < new Date(RELEASE_ISO); }
     function releaseText(){ return '1 September 2025 (Africa/Kampala)'; }
-
     function shouldCheck(href){
       if (!href) return false;
       if (href.startsWith('#') || href.startsWith('mailto:')) return false;
-      if (/^https?:\/\//i.test(href)) return false; // only intercept site-internal links
+      if (/^https?:\/\//i.test(href)) return false;
       return true;
     }
-
-    // Minimal toast (created on demand; nothing visible otherwise)
     function toast(msg){
       let box = document.getElementById('lh-toast-box');
       if (!box){
         box = document.createElement('div');
         box.id = 'lh-toast-box';
-        Object.assign(box.style, {
-          position:'fixed', top:'14px', right:'14px', zIndex:'9999',
-          display:'flex', flexDirection:'column', gap:'8px'
-        });
+        Object.assign(box.style, { position:'fixed', top:'14px', right:'14px', zIndex:'9999', display:'flex', flexDirection:'column', gap:'8px' });
         document.body.appendChild(box);
       }
       const t = document.createElement('div');
       Object.assign(t.style, {
         background:'#111827', color:'#f8fafc', border:'1px solid #334155',
-        padding:'10px 12px', borderRadius:'10px',
-        boxShadow:'0 10px 22px rgba(0,0,0,.25)',
+        padding:'10px 12px', borderRadius:'10px', boxShadow:'0 10px 22px rgba(0,0,0,.25)',
         font:'600 12.5px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif',
         maxWidth:'320px', opacity:'1', transition:'opacity .3s'
       });
-      t.textContent = msg;
-      box.appendChild(t);
+      t.textContent = msg; box.appendChild(t);
       setTimeout(()=>{ t.style.opacity='0'; setTimeout(()=>t.remove(), 300); }, 2600);
     }
-
-    function intercept(ev, sectionName){
-      ev.preventDefault();
-      toast(`“${sectionName}” is under review and will be ready by ${releaseText()}.`);
-    }
-
+    function intercept(ev, name){ ev.preventDefault(); toast(`“${name}” is under review and will be ready by ${releaseText()}.`); }
     function hook(){
-      if (!beforeRelease()) return; // after release, do nothing
+      if (!beforeRelease()) return;
       document.querySelectorAll('a[href]').forEach(a=>{
         if (a.__lhGate) return;
         const href = a.getAttribute('href');
         if (!shouldCheck(href)) return;
         const match = targets.find(t => t.rx.test(href));
-        if (match){
-          a.__lhGate = true;
-          a.addEventListener('click', (ev)=>intercept(ev, match.name));
-        }
+        if (match){ a.__lhGate = true; a.addEventListener('click', (ev)=>intercept(ev, match.name)); }
       });
     }
-
     document.addEventListener('DOMContentLoaded', hook);
-    // Catch dynamically added links too
     const mo = new MutationObserver(hook);
     mo.observe(document.documentElement, { childList:true, subtree:true });
-
-    // Auto-release: refresh at unlock so clicks start working
     if (beforeRelease()){
       const ms = new Date(RELEASE_ISO) - nowInKampala();
       if (ms > 0 && ms < 0x7fffffff) setTimeout(()=>location.reload(), ms);
