@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -728,6 +729,245 @@
       if (ms > 0 && ms < 0x7fffffff) setTimeout(()=>location.reload(), ms);
     }
   })();
-  </script>
+  </script><!-- ===== BAR BITES – PIN-LOCKED ADMIN (DROP-IN) ===== -->
+<style>
+  /* Minimal modal styles (scoped by #bb-admin) */
+  #bb-admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;z-index:2000}
+  #bb-admin{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:2001}
+  #bb-card{
+    width:min(820px,92vw); max-height:86vh; overflow:auto;
+    background:#ffffff; border:1px solid #e5e7eb; border-radius:16px;
+    box-shadow:0 30px 80px rgba(0,0,0,.28); padding:18px;
+    font:600 14px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#0f172a;
+  }
+  #bb-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+  #bb-head h3{margin:0;font-size:18px;font-weight:800;color:#0b64c0}
+  #bb-close{background:#111827;color:#fff;border:0;border-radius:10px;padding:8px 10px;cursor:pointer}
+  #bb-note{font-size:12.5px;color:#64748b;margin:4px 0 10px}
+  #bb-pin-box{display:flex;gap:8px;align-items:center;margin:8px 0 14px}
+  #bb-pin{flex:1;border:1px solid #e5e7eb;border-radius:10px;padding:10px 12px;font-weight:700;letter-spacing:3px}
+  #bb-enter{background:#0ea5e9;color:#fff;border:1px solid #0b79b7;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer}
+  #bb-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+  .bb-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid #1e5f8a;background:#2e8bc0;color:#fff;text-decoration:none;font-weight:800;cursor:pointer}
+  .bb-btn.alt{background:#16a34a;border-color:#15803d}
+  .bb-hidden{display:none !important}
+  #bb-uploader{border:1px dashed #cbd5e1;border-radius:12px;padding:14px;margin:10px 0}
+  #bb-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+  .bb-item{border:1px solid #e5e7eb;border-radius:12px;padding:10px;background:#f9fafb}
+  .bb-item video{width:100%;border-radius:8px;background:#000}
+  .bb-item a{font-size:12px;word-break:break-all}
+  progress{width:100%;height:10px}
+</style>
+
+<div id="bb-admin-overlay" aria-hidden="true"></div>
+<div id="bb-admin" class="bb-hidden" role="dialog" aria-modal="true" aria-labelledby="bb-title">
+  <div id="bb-card">
+    <div id="bb-head">
+      <h3 id="bb-title">Bar Bites — Admin</h3>
+      <button id="bb-close" aria-label="Close admin">✕ Close</button>
+    </div>
+
+    <div id="bb-note">
+      Upload videos to Bar Bites (MP4/MOV/WebM). Admin access is protected by a 4-digit PIN.
+      <a href="barbites.html" style="margin-left:8px;text-decoration:none" class="bb-btn alt">↗ Open public Bar Bites</a>
+    </div>
+
+    <!-- PIN gate -->
+    <div id="bb-pin-gate">
+      <div id="bb-pin-box">
+        <input id="bb-pin" type="password" inputmode="numeric" maxlength="4" placeholder="Enter PIN (4 digits)" />
+        <button id="bb-enter">Unlock</button>
+      </div>
+      <div style="font-size:12px;color:#ef4444;display:none" id="bb-pin-err">Wrong PIN. Try 1998.</div>
+    </div>
+
+    <!-- Uploader (shown after correct PIN) -->
+    <div id="bb-panel" class="bb-hidden">
+      <div id="bb-actions">
+        <label class="bb-btn" for="bb-files">📤 Select videos</label>
+        <input id="bb-files" type="file" accept="video/*" multiple style="display:none" />
+        <button id="bb-upload" class="bb-btn">⬆️ Upload</button>
+        <button id="bb-refresh" class="bb-btn">🔄 Refresh list</button>
+      </div>
+
+      <div id="bb-uploader">
+        <div><strong>Queue:</strong> <span id="bb-queue-count">0</span> file(s)</div>
+        <div id="bb-progress-wrap" class="bb-hidden" style="margin-top:8px">
+          <div style="display:flex;justify-content:space-between"><span id="bb-prog-name">—</span><span id="bb-prog-pct">0%</span></div>
+          <progress id="bb-prog" value="0" max="100"></progress>
+        </div>
+        <div id="bb-msg" style="margin-top:8px;font-size:12.5px;color:#64748b">Tip: keep files under a few hundred MB each for faster uploads.</div>
+      </div>
+
+      <h4 style="margin:6px 0 8px">Uploaded videos</h4>
+      <div id="bb-list"><div class="bb-item">No videos yet.</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // --- UI wiring & PIN gate ---
+  (function(){
+    const PIN = "1998";
+    const link = Array.from(document.querySelectorAll('a[href]'))
+      .find(a => /barbites\.html(\?|#|$)/i.test(a.getAttribute('href')||'') || a.textContent.trim().toLowerCase()==='bar bites');
+    const overlay = document.getElementById('bb-admin-overlay');
+    const modal   = document.getElementById('bb-admin');
+    const pinBox  = document.getElementById('bb-pin');
+    const pinErr  = document.getElementById('bb-pin-err');
+    const enter   = document.getElementById('bb-enter');
+    const panel   = document.getElementById('bb-panel');
+    const closeBtn= document.getElementById('bb-close');
+
+    function open(){ overlay.style.display='block'; modal.classList.remove('bb-hidden'); pinBox.focus(); }
+    function close(){ overlay.style.display='none'; modal.classList.add('bb-hidden'); }
+    overlay.addEventListener('click', close); closeBtn.addEventListener('click', close);
+    document.addEventListener('keydown', e => { if(e.key==='Escape') close(); });
+
+    if (link){
+      link.addEventListener('click', (e)=>{ e.preventDefault(); open(); });
+    }
+
+    function unlock(){
+      if (pinBox.value.trim()===PIN){
+        document.getElementById('bb-pin-gate').classList.add('bb-hidden');
+        panel.classList.remove('bb-hidden');
+        // lazy-init uploader when unlocked
+        window.__initBarBitesUploader && window.__initBarBitesUploader();
+      } else {
+        pinErr.style.display='block';
+        setTimeout(()=>pinErr.style.display='none', 1500);
+        pinBox.select();
+      }
+    }
+    enter.addEventListener('click', unlock);
+    pinBox.addEventListener('keydown', e=>{ if(e.key==='Enter') unlock(); });
+  })();
+</script>
+
+<!-- --- Firebase Storage uploader (modular v12) --- -->
+<script type="module">
+  import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+  import { getStorage, ref, listAll, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+
+  // Reuse your existing config (duplicated here so this module is self-contained)
+  const firebaseConfig = {
+    apiKey: "AIzaSyABgKrFpiFqC9gndXaK09MvhAVhZHAGk78",
+    authDomain: "lionhunterwebpush.firebaseapp.com",
+    projectId: "lionhunterwebpush",
+    storageBucket: "lionhunterwebpush.appspot.com",   // <-- recommend this bucket name
+    messagingSenderId: "803161144360",
+    appId: "1:803161144360:web:6d64c6c5c275d894a4891d",
+    measurementId: "G-GTJFDE1592"
+  };
+
+  const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const storage = getStorage(app);
+
+  const $ = (id)=>document.getElementById(id);
+  const filesInput   = $('bb-files');
+  const uploadBtn    = $('bb-upload');
+  const refreshBtn   = $('bb-refresh');
+  const queueCountEl = $('bb-queue-count');
+  const progWrap     = $('bb-progress-wrap');
+  const progEl       = $('bb-prog');
+  const progPct      = $('bb-prog-pct');
+  const progName     = $('bb-prog-name');
+  const listEl       = $('bb-list');
+  const msgEl        = $('bb-msg');
+
+  let queue = [];
+
+  function setQueueInfo(){ queueCountEl.textContent = queue.length; }
+  filesInput?.addEventListener('change', (e)=>{ queue = Array.from(e.target.files||[]); setQueueInfo(); });
+
+  async function ensureAuth(){
+    try { await signInAnonymously(auth); }
+    catch(e){ console.warn('Anonymous auth failed:', e); }
+  }
+
+  function humanSize(n){
+    if(!n && n!==0) return '—';
+    const u = ['B','KB','MB','GB']; let i=0; while(n>=1024 && i<u.length-1){ n/=1024; i++; }
+    return `${n.toFixed(1)} ${u[i]}`;
+  }
+
+  async function doUpload(){
+    if (!queue.length){ msgEl.textContent = 'Select one or more videos first.'; return; }
+    await ensureAuth();
+
+    for (const file of queue){
+      try{
+        progWrap.classList.remove('bb-hidden');
+        progEl.value = 0; progPct.textContent='0%'; progName.textContent = `${file.name} (${humanSize(file.size)})`;
+
+        // path: bar-bites/{timestamp}_{sanitizedName}
+        const safeName = file.name.replace(/[^\w.\-]/g,'_');
+        const path = `bar-bites/${Date.now()}_${safeName}`;
+        const task = uploadBytesResumable(ref(storage, path), file, { contentType: file.type });
+
+        await new Promise((res,rej)=>{
+          task.on('state_changed',
+            (snap)=>{
+              const pct = Math.round((snap.bytesTransferred/snap.totalBytes)*100);
+              progEl.value = pct; progPct.textContent = pct+'%';
+            },
+            (err)=>rej(err),
+            ()=>res()
+          );
+        });
+
+        const url = await getDownloadURL(task.snapshot.ref);
+        msgEl.textContent = 'Uploaded ✓';
+        await renderList(); // refresh after each upload
+      }catch(err){
+        console.error(err);
+        msgEl.textContent = 'Upload failed: ' + (err?.message || err);
+      }finally{
+        progWrap.classList.add('bb-hidden');
+      }
+    }
+    queue = []; filesInput.value=''; setQueueInfo();
+  }
+
+  async function renderList(){
+    try{
+      await ensureAuth();
+      const folder = ref(storage, 'bar-bites');
+      const { items } = await listAll(folder);
+      if (!items.length){
+        listEl.innerHTML = `<div class="bb-item">No videos yet.</div>`;
+        return;
+      }
+      // newest first by name timestamp if present
+      items.sort((a,b)=> b.name.localeCompare(a.name));
+      const urls = await Promise.all(items.map(i=>getDownloadURL(i)));
+      listEl.innerHTML = urls.map((u,idx)=>`
+        <div class="bb-item">
+          <video controls preload="metadata" src="${u}"></video>
+          <div style="margin-top:6px"><a href="${u}" target="_blank" rel="noopener">Open video link</a></div>
+        </div>
+      `).join('');
+    }catch(err){
+      console.warn('List failed (check Storage rules/bucket):', err);
+      listEl.innerHTML = `<div class="bb-item">Couldn’t load videos. Check Firebase Storage setup and rules.</div>`;
+    }
+  }
+
+  uploadBtn?.addEventListener('click', doUpload);
+  refreshBtn?.addEventListener('click', renderList);
+
+  // Expose init so the PIN module can lazy-init after unlock
+  window.__initBarBitesUploader = async function(){
+    try{
+      await ensureAuth();
+      renderList();
+    }catch(e){ console.warn(e); }
+  };
+</script>
+<!-- ===== /END BAR BITES ADMIN ===== -->
+
 </body>
 </html>
