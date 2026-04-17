@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <title>Juris Uganda | Legal Documents Library</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --law-navy: #0a1c2f;
+            --law-gold: #c5a572;
+            --law-gold-dark: #a77f46;
+            --law-marble: #fef9ef;
+            --law-burgundy: #7a2e3a;
+            --law-stone: #e8e2d4;
+            --law-slate: #2c3e4e;
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.05), 0 2px 6px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 15px 30px -12px rgba(0, 0, 0, 0.15);
+            --shadow-hover: 0 25px 35px -12px rgba(0, 0, 0, 0.2);
+            --transition-smooth: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            --border-radius-card: 1.2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f4efe7 0%, #eae3d7 100%);
+            color: #1f2a3e;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.03"><path fill="none" stroke="%233d2b1a" stroke-width="0.6" d="M30 10 L170 10 M30 30 L170 30 M30 50 L170 50 M30 70 L170 70 M30 90 L170 90 M30 110 L170 110 M30 130 L170 130 M30 150 L170 150 M30 170 L170 170 M30 190 L170 190 M10 30 L10 170 M30 30 L30 170 M50 30 L50 170 M70 30 L70 170 M90 30 L90 170 M110 30 L110 170 M130 30 L130 170 M150 30 L150 170 M170 30 L170 170"/><circle cx="40" cy="40" r="2" fill="%233d2b1a"/><circle cx="160" cy="40" r="2"/><circle cx="40" cy="160" r="2"/><circle cx="160" cy="160" r="2"/></svg>');
+            background-repeat: repeat;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .site-header, .main-container, .site-footer {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header */
+        .site-header {
+            background: linear-gradient(135deg, var(--law-navy) 0%, #112b44 100%);
+            color: white;
+            border-bottom: 3px solid var(--law-gold);
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .law-icon {
+            font-size: 2.5rem;
+            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.2));
+            transition: var(--transition-smooth);
+        }
+
+        .logo-text h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(120deg, #fff, var(--law-gold));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .logo-text .tagline {
+            font-size: clamp(0.7rem, 3vw, 0.85rem);
+            opacity: 0.85;
+            letter-spacing: 0.5px;
+        }
+
+        .header-search {
+            flex: 1;
+            max-width: 480px;
+            min-width: 200px;
+        }
+
+        .header-search-wrapper {
+            position: relative;
+        }
+
+        .header-search-input {
+            width: 100%;
+            padding: 0.9rem 1rem 0.9rem 3rem;
+            border: none;
+            border-radius: 60px;
+            font-size: clamp(0.85rem, 4vw, 0.95rem);
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--law-navy);
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: var(--transition-smooth);
+        }
+
+        .header-search-input:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(197, 165, 114, 0.4);
+        }
+
+        .header-search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--law-gold-dark);
+            font-size: 1.2rem;
+        }
+
+        .header-clear-search {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #e2e0db;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            color: #4a3b28;
+        }
+
+        .header-clear-search:hover {
+            background: var(--law-gold);
+            color: white;
+            transform: translateY(-50%) rotate(90deg);
+        }
+
+        .refresh-button {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(197, 165, 114, 0.5);
+            padding: 0.7rem 1.3rem;
+            border-radius: 40px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: var(--transition-smooth);
+            color: white;
+            cursor: pointer;
+            font-size: clamp(0.8rem, 3.5vw, 0.9rem);
+        }
+
+        .refresh-button i {
+            transition: transform 0.4s ease;
+        }
+
+        .refresh-button:hover {
+            background: var(--law-gold);
+            border-color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Stats bar + profile widget */
+        .legal-stats {
+            background: rgba(10, 28, 47, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 0.6rem 1.5rem;
+            margin: 1.2rem 0 1.8rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-left: 4px solid var(--law-gold);
+            box-shadow: var(--shadow-sm);
+            font-size: clamp(0.75rem, 3.5vw, 0.9rem);
+        }
+
+        .stats-left {
+            display: flex;
+            gap: 1.8rem;
+            font-weight: 500;
+        }
+
+        .stats-left span i {
+            color: var(--law-gold);
+            margin-right: 6px;
+        }
+
+        .search-query-badge {
+            background: var(--law-gold);
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--law-navy);
+        }
+
+        .last-sync {
+            font-size: 0.7rem;
+            opacity: 0.9;
+            background: rgba(0,0,0,0.3);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+        }
+
+        /* Profile widget inside stats bar – clickable */
+        .profile-widget {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(255,255,255,0.08);
+            padding: 0.3rem 0.8rem 0.3rem 0.5rem;
+            border-radius: 50px;
+            backdrop-filter: blur(2px);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+        }
+        .profile-widget:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.02);
+        }
+        .profile-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--law-gold);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            background: #f0e6d8;
+            transition: transform 0.2s;
+        }
+        .profile-widget:active .profile-avatar {
+            transform: scale(0.96);
+        }
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .profile-info .name {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: white;
+            letter-spacing: 0.3px;
+        }
+        .profile-info .title {
+            font-size: 0.6rem;
+            color: var(--law-gold);
+            font-weight: 500;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 780px) {
+            .legal-stats {
+                flex-direction: column;
+                align-items: stretch;
+                border-radius: 30px;
+            }
+            .stats-left {
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+            .profile-widget {
+                align-self: flex-end;
+                margin-top: 0.2rem;
+            }
+        }
+
+        /* MODAL for full image + bio */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            animation: modalFadeIn 0.3s ease;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .modal-image-container {
+            background: #1a2a3a;
+            text-align: center;
+            padding: 1.5rem;
+        }
+        .modal-image {
+            max-width: 100%;
+            max-height: 40vh;
+            border-radius: 1rem;
+            border: 3px solid var(--law-gold);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            object-fit: contain;
+        }
+        .modal-bio {
+            padding: 1.5rem 2rem;
+            overflow-y: auto;
+            font-family: 'Inter', sans-serif;
+            color: var(--law-navy);
+            line-height: 1.6;
+        }
+        .modal-bio h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            color: var(--law-gold-dark);
+            margin-bottom: 0.5rem;
+            border-left: 4px solid var(--law-gold);
+            padding-left: 1rem;
+        }
+        .modal-bio p {
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            color: white;
+            background: rgba(0,0,0,0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            z-index: 1001;
+        }
+        .modal-close:hover {
+            background: var(--law-gold);
+            transform: scale(1.1);
+        }
+        @media (max-width: 600px) {
+            .modal-bio {
+                padding: 1rem;
+            }
+            .modal-bio h3 {
+                font-size: 1.4rem;
+            }
+            .modal-content {
+                max-height: 95vh;
+            }
+        }
+
+        /* PDF Grid – 3 columns on mobile exactly as replica */
+        .pdf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pdf-grid {
+                gap: 0.6rem;
+            }
+        }
+
+        /* Card styling */
+        .pdf-card {
+            background: white;
+            border-radius: var(--border-radius-card);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(197, 165, 114, 0.3);
+            display: flex;
+            flex-direction: column;
+            animation: fadeSlideUp 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+            cursor: pointer;
+        }
+
+        .pdf-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--law-gold);
+        }
+
+        .pdf-card-header {
+            background: linear-gradient(115deg, var(--law-navy) 0%, #1f3a4e 100%);
+            padding: clamp(0.8rem, 3vw, 1.2rem) clamp(0.7rem, 2.5vw, 1.2rem) clamp(0.6rem, 2vw, 1rem);
+            position: relative;
+        }
+
+        .pdf-card-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 15px;
+            right: 15px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--law-gold), transparent);
+        }
+
+        .pdf-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(197, 165, 114, 0.2);
+            backdrop-filter: blur(2px);
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: clamp(0.6rem, 2.8vw, 0.7rem);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-bottom: 0.6rem;
+            color: #f3e1be;
+        }
+
+        .pdf-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(0.85rem, 4vw, 1.25rem);
+            font-weight: 700;
+            margin: 0.3rem 0 0.2rem;
+            line-height: 1.3;
+            color: white;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .pdf-meta {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+            font-size: clamp(0.55rem, 2.5vw, 0.7rem);
+            color: #d4cdb2;
+        }
+
+        .pdf-card-body {
+            padding: clamp(0.7rem, 3vw, 1.2rem);
+            flex-grow: 1;
+            background: white;
+        }
+
+        .pdf-description {
+            color: #2c3e4e;
+            font-size: clamp(0.65rem, 3vw, 0.85rem);
+            line-height: 1.4;
+            margin-bottom: 0.8rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .pdf-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: clamp(0.55rem, 2.5vw, 0.7rem);
+            background: #f8f4ec;
+            padding: 0.4rem 0.6rem;
+            border-radius: 40px;
+            color: #5e6f8d;
+            flex-wrap: wrap;
+        }
+
+        .pdf-details i {
+            margin-right: 4px;
+            color: var(--law-gold-dark);
+        }
+
+        .pdf-button {
+            width: 100%;
+            border: none;
+            background: var(--law-navy);
+            color: white;
+            font-weight: 600;
+            padding: clamp(0.5rem, 2.5vw, 0.9rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition-smooth);
+            font-size: clamp(0.65rem, 3vw, 0.9rem);
+            border-top: 1px solid rgba(197, 165, 114, 0.3);
+            pointer-events: none;
+        }
+
+        .badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--law-gold);
+            color: var(--law-navy);
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 20px;
+            font-size: clamp(0.55rem, 2.5vw, 0.65rem);
+        }
+
+        .empty-state, .error-state {
+            text-align: center;
+            padding: 3.5rem 2rem;
+            background: rgba(255, 248, 235, 0.9);
+            border-radius: 2rem;
+            margin: 2rem auto;
+            border: 1px dashed var(--law-gold);
+            grid-column: 1 / -1;
+        }
+
+        .loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .law-spinner {
+            display: inline-block;
+            width: 54px;
+            height: 54px;
+            border: 4px solid rgba(197, 165, 114, 0.3);
+            border-top: 4px solid var(--law-gold);
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .site-footer {
+            background: var(--law-navy);
+            border-top: 4px solid var(--law-gold);
+            margin-top: 3rem;
+            padding: 2rem 1rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo i {
+            font-size: 2rem;
+            color: var(--law-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-logo h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.2rem, 5vw, 1.5rem);
+        }
+
+        .copyright {
+            font-size: clamp(0.7rem, 3vw, 0.9rem);
+        }
+
+        .copyright a {
+            color: var(--law-gold);
+            text-decoration: none;
+        }
+
+        .highlight {
+            background: #fdebb3;
+            color: #2c3e2f;
+            padding: 0 2px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 780px) {
+            .header-container { flex-direction: column; text-align: center; }
+            .header-search { max-width: 100%; order: 2; width: 100%; }
+            .refresh-button { order: 3; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-container">
+        <div class="logo-container">
+            <div class="law-icon"><i class="fas fa-gavel"></i> <i class="fas fa-scale-balanced"></i></div>
+            <div class="logo-text">
+                <h1>JURIS UGANDA</h1>
+                <div class="tagline">Themis Lex · Statutes & Authorities</div>
+            </div>
+        </div>
+        <div class="header-search">
+            <div class="header-search-wrapper">
+                <i class="fas fa-search header-search-icon"></i>
+                <input type="text" class="header-search-input" id="searchInput" placeholder="Search by title, category, description, year...">
+                <button class="header-clear-search" id="clearSearch" style="display: none;" aria-label="Clear">×</button>
+            </div>
+        </div>
+        <button id="refreshDataBtn" class="refresh-button"><i class="fas fa-sync-alt"></i> Refresh Library</button>
+    </div>
+</header>
+
+<main class="main-container">
+    <!-- Stats bar with integrated clickable profile widget -->
+    <div class="legal-stats" id="legalStats">
+        <div class="stats-left">
+            <span><i class="fas fa-balance-scale"></i> <strong id="totalDocsCount">0</strong> Legal Instruments</span>
+            <span><i class="fas fa-book-open"></i> <span id="displayedDocsCount">0</span> displayed</span>
+            <span id="lastSyncTime" class="last-sync"><i class="far fa-clock"></i> Last sync: never</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div id="activeSearchBadge" class="search-query-badge" style="display: none;">
+                <i class="fas fa-filter"></i> <span id="searchTermBadge"></span>
+            </div>
+            <!-- Clickable profile widget: image + name (identical replica) -->
+            <div class="profile-widget" id="profileWidget">
+                <img class="profile-avatar" src="https://i.postimg.cc/mZ63fJ5n/Whats-App-Image-2026-04-16-at-16-29-32.jpg" alt="Baluti Bwanika Arthur">
+                <div class="profile-info">
+                    <span class="name">Baluti Bwanika Arthur</span>
+                    <span class="title">Principal Legal Researcher</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pdf-grid" id="pdfGrid">
+        <div class="loading">
+            <div class="law-spinner"></div>
+            <p><i class="fas fa-landmark"></i> Summoning legal documents...</p>
+        </div>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-logo">
+            <i class="fas fa-gavel"></i><i class="fas fa-scale-balanced"></i>
+            <h3>Uganda Legal Repository</h3>
+            <p>Authoritative collection of Acts, Regulations & Judicature guidelines</p>
+        </div>
+        <div class="copyright">
+            © 2025 Juris Uganda — Documents auto-sync from <a href="documents.json" target="_blank">documents.json</a> · Lex in Omnibus
+        </div>
+    </div>
+</footer>
+
+<!-- Modal for full image + detailed bio (exact replica) -->
+<div id="profileModal" class="modal">
+    <div class="modal-close" id="modalClose">&times;</div>
+    <div class="modal-content">
+        <div class="modal-image-container">
+            <img class="modal-image" id="modalImage" src="https://i.postimg.cc/mZ63fJ5n/Whats-App-Image-2026-04-16-at-16-29-32.jpg" alt="Baluti Bwanika Arthur">
+        </div>
+        <div class="modal-bio" id="modalBio">
+            <h3>Baluti Bwanika Arthur</h3>
+            <p>Baluti Bwanika Arthur is a forward-thinking legal professional whose practice reflects a strong convergence of law, technology and regulatory compliance. He holds a Diploma in Legal Practice from the Law Development Centre and a Bachelor of Laws (LLB) from the Islamic University in Uganda.</p>
+            <p>He currently serves as a Legal Assistant at NS-KIGOZI Advocates within the firm's corporate and commercial practice, where he provides transactional and regulatory support across a broad range of matters. His work includes supporting senior lawyers and associates in drafting commercial agreements and pleadings, supporting business formation, facilitating land transactions, and conducting in depth legal research within complex regulatory frameworks.</p>
+            <p>Arthur has developed a growing specialization in cyber law and data protection, with a particular focus on the legal and regulatory governance of digital systems. His work and research engage closely with data protection and privacy compliance, technology-driven regulatory risk, and consumer protection within digital environments. This focus is reinforced by his strong grounding in computer technology and systems design.</p>
+            <p>Motivated by early exposure to high pressure research demands, Arthur proactively bridged the gap between law and technology by developing practical digital tools for legal professionals. He is a self taught designer and developer of The Lion Hunter (<a href="https://www.idclionhunter.com" target="_blank" style="color: var(--law-gold-dark);">www.idclionhunter.com</a>), a web based legal research platform widely used by Law Development Centre students for case law access, academic tracking, and workshop support. He has since expanded his innovation portfolio with the development of an Inventory Management System tailored for SMEs.</p>
+            <p>His professional interests extend to the application of Artificial Intelligence including machine learning and natural language processing in automating and enhancing legal processes. He also focuses on the regulatory architecture of digital finance, including online payment systems, digital wallets, FinTech operations, anti-money laundering compliance, and the licensing and oversight of payment service providers, with a strong emphasis on data security and consumer protection.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ------------------------------
+    // PURE DOCUMENT VIEWER – REPLICA OF JURIS UGANDA
+    // Loads documents from "documents.json" (admin panel output)
+    // No admin controls – only search, display, refresh & profile modal
+    // ------------------------------
+    const pdfGrid = document.getElementById('pdfGrid');
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearch');
+    const refreshBtn = document.getElementById('refreshDataBtn');
+    const totalDocsSpan = document.getElementById('totalDocsCount');
+    const displayedDocsSpan = document.getElementById('displayedDocsCount');
+    const activeSearchBadge = document.getElementById('activeSearchBadge');
+    const searchTermBadge = document.getElementById('searchTermBadge');
+    const lastSyncSpan = document.getElementById('lastSyncTime');
+
+    // Modal elements
+    const modal = document.getElementById('profileModal');
+    const modalClose = document.getElementById('modalClose');
+    const profileWidget = document.getElementById('profileWidget');
+
+    // Profile widget open modal (exact replica)
+    profileWidget.addEventListener('click', (e) => {
+        e.stopPropagation();
+        modal.classList.add('active');
+    });
+    modalClose.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.classList.remove('active');
+    });
+
+    let allDocuments = [];
+    let currentSearch = '';
+    let debounceTimer;
+    let isFetching = false;
+
+    // Category display mapping (same as original)
+    const categoryMap = {
+        constitutional: "⚖️ Constitution",
+        criminal: "🔪 Criminal",
+        civil: "📜 Civil",
+        commercial: "💼 Commercial",
+        family: "👨‍👩‍👧 Family",
+        property: "🏛️ Property",
+        evidence: "📋 Evidence",
+        procedure: "⚙️ Procedure",
+        judicature: "🏛️ Judicature",
+        magistrate: "⚖️ Magistrate",
+        administrative: "📁 Admin",
+        employment: "👔 Employment",
+        international: "🌍 Intl. Law",
+        other: "📘 Other Acts"
+    };
+
+    function getCategoryDisplay(cat) {
+        if (!cat) return "📄 General Document";
+        const lowerCat = String(cat).toLowerCase();
+        if (categoryMap[lowerCat]) return categoryMap[lowerCat];
+        return cat.charAt(0).toUpperCase() + cat.slice(1);
+    }
+
+    function getCategoryIcon(cat) {
+        if (!cat) return "fa-file-alt";
+        const lowerCat = String(cat).toLowerCase();
+        const iconMap = {
+            constitutional: "fa-gavel",
+            criminal: "fa-handcuffs",
+            civil: "fa-scale-balanced",
+            commercial: "fa-chart-line",
+            family: "fa-heart",
+            property: "fa-building",
+            evidence: "fa-search",
+            procedure: "fa-tasks",
+            judicature: "fa-gavel",
+            magistrate: "fa-balance-scale",
+            administrative: "fa-folder-open",
+            employment: "fa-briefcase",
+            international: "fa-globe",
+            other: "fa-book"
+        };
+        return iconMap[lowerCat] || "fa-file-alt";
+    }
+
+    async function fetchDocuments() {
+        if (isFetching) return false;
+        isFetching = true;
+        try {
+            showLoadingState();
+            const cacheBuster = `?t=${Date.now()}`;
+            const response = await fetch(`documents.json${cacheBuster}`, {
+                cache: 'no-store',
+                headers: { 'Cache-Control': 'no-cache, no-store, must-revalidate' }
+            });
+            if (!response.ok) throw new Error(`HTTP ${response.status}: Cannot fetch documents.json`);
+            const data = await response.json();
+            if (!Array.isArray(data)) throw new Error('Invalid format: expected array');
+
+            // Normalize document fields (align with admin panel structure)
+            const validDocs = data
+                .filter(doc => doc && doc.id && doc.title && doc.filename)
+                .map(doc => {
+                    if (!doc.category) doc.category = 'other';
+                    if (!doc.description) doc.description = `Official legal document from Uganda.`;
+                    if (!doc.year) doc.year = 'N/A';
+                    if (!doc.size) doc.size = '—';
+                    if (!doc.pages) doc.pages = '?';
+                    if (!doc.date) doc.date = null;
+                    return doc;
+                });
+
+            if (validDocs.length === 0 && data.length > 0) throw new Error('No valid documents after normalization');
+            allDocuments = validDocs;
+            const now = new Date();
+            lastSyncSpan.innerHTML = `<i class="far fa-clock"></i> Last sync: ${now.toLocaleTimeString()}`;
+            renderDocuments(true);
+            updateStatsUI();
+            return true;
+        } catch (err) {
+            console.error('Fetch error:', err);
+            showErrorState(err.message);
+            updateStatsUIOnError();
+            return false;
+        } finally {
+            isFetching = false;
+        }
+    }
+
+    function showLoadingState() {
+        pdfGrid.innerHTML = `<div class="loading"><div class="law-spinner"></div><p><i class="fas fa-gavel"></i> Loading legislative archive...</p></div>`;
+    }
+
+    function showErrorState(msg) {
+        pdfGrid.innerHTML = `
+            <div class="error-state">
+                <i class="fas fa-landmark"></i>
+                <h3 style="color: var(--law-burgundy);">Judicial Notice: Unavailable</h3>
+                <p>${msg}</p>
+                <p style="margin-top: 0.8rem;">Ensure <strong>documents.json</strong> exists and is correctly formatted by the admin panel.</p>
+                <button onclick="location.reload()" class="refresh-button" style="margin-top: 1rem; background: var(--law-navy);"><i class="fas fa-redo-alt"></i> Reload Repository</button>
+            </div>`;
+    }
+
+    function updateStatsUI() {
+        const total = allDocuments.length;
+        totalDocsSpan.innerText = total;
+        const filteredCount = getFilteredDocuments().length;
+        displayedDocsSpan.innerText = filteredCount;
+        if (currentSearch.trim() !== '') {
+            activeSearchBadge.style.display = 'inline-flex';
+            searchTermBadge.innerText = `“${currentSearch}”`;
+        } else {
+            activeSearchBadge.style.display = 'none';
+        }
+    }
+
+    function updateStatsUIOnError() {
+        totalDocsSpan.innerText = '0';
+        displayedDocsSpan.innerText = '0';
+        activeSearchBadge.style.display = 'none';
+        lastSyncSpan.innerHTML = `<i class="far fa-clock"></i> Last sync: failed`;
+    }
+
+    function getFilteredDocuments() {
+        if (!currentSearch.trim()) return [...allDocuments];
+        const term = currentSearch.toLowerCase();
+        return allDocuments.filter(doc => 
+            (doc.title?.toLowerCase().includes(term)) ||
+            (doc.description?.toLowerCase().includes(term)) ||
+            (doc.category?.toLowerCase().includes(term)) ||
+            (doc.year?.toString().includes(term)) ||
+            (doc.filename?.toLowerCase().includes(term))
+        );
+    }
+
+    function highlightText(text, term) {
+        if (!term || !text) return text || '';
+        const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        return text.toString().replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    function openPDF(doc) {
+        const safeFilename = encodeURIComponent(doc.filename.trim());
+        window.open(safeFilename, '_blank');
+    }
+
+    function renderDocuments(immediate = false) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const filtered = getFilteredDocuments();
+            if (filtered.length === 0 && allDocuments.length > 0) {
+                pdfGrid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <h3>No precedent matches</h3>
+                        <p>No document found for <strong>“${currentSearch}”</strong>. Try a different legal term.</p>
+                    </div>`;
+                updateStatsUI();
+                return;
+            }
+            if (allDocuments.length === 0 && filtered.length === 0) {
+                pdfGrid.innerHTML = `<div class="empty-state"><i class="fas fa-file-alt"></i><h3>Library vacant</h3><p>Upload documents via admin panel (documents.json).</p></div>`;
+                updateStatsUI();
+                return;
+            }
+
+            pdfGrid.innerHTML = '';
+            filtered.sort((a,b) => (a.title || '').localeCompare(b.title || ''));
+            for (const doc of filtered) {
+                const card = document.createElement('div');
+                card.className = 'pdf-card';
+                card.addEventListener('click', () => openPDF(doc));
+
+                const catDisplay = getCategoryDisplay(doc.category);
+                const iconClass = getCategoryIcon(doc.category);
+                const highlightedTitle = currentSearch ? highlightText(doc.title, currentSearch) : (doc.title || 'Untitled');
+                const highlightedDesc = currentSearch ? highlightText(doc.description, currentSearch) : (doc.description || 'Official document from Uganda legal corpus.');
+                const formattedDate = doc.date ? new Date(doc.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Unknown';
+                
+                card.innerHTML = `
+                    <div class="pdf-card-header">
+                        ${doc.updated ? '<span class="badge"><i class="fas fa-sync-alt"></i> Updated</span>' : ''}
+                        <div class="pdf-category"><i class="fas ${iconClass}"></i> ${catDisplay}</div>
+                        <h3 class="pdf-title">${highlightedTitle}</h3>
+                        <div class="pdf-meta">
+                            <span><i class="fas fa-calendar-alt"></i> Year: ${doc.year || 'N/A'}</span>
+                            <span><i class="fas fa-calendar-plus"></i> ${formattedDate}</span>
+                        </div>
+                    </div>
+                    <div class="pdf-card-body">
+                        <p class="pdf-description">${highlightedDesc}</p>
+                        <div class="pdf-details">
+                            <span><i class="fas fa-file-pdf"></i> ${doc.size || '—'}</span>
+                            <span><i class="fas fa-receipt"></i> ${doc.pages || '?'} pages</span>
+                            <span><i class="fas fa-tag"></i> ${catDisplay}</span>
+                        </div>
+                    </div>
+                    <div class="pdf-card-footer">
+                        <button class="pdf-button"><i class="fas fa-balance-scale"></i> Read Statute <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                `;
+                pdfGrid.appendChild(card);
+            }
+            updateStatsUI();
+        }, immediate ? 0 : 280);
+    }
+
+    function updateSearchUI() {
+        if (searchInput.value.trim()) {
+            clearSearchBtn.style.display = 'flex';
+        } else {
+            clearSearchBtn.style.display = 'none';
+        }
+    }
+
+    async function hardRefresh() {
+        refreshBtn.disabled = true;
+        refreshBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Syncing Lex...';
+        currentSearch = '';
+        searchInput.value = '';
+        updateSearchUI();
+        await fetchDocuments();
+        refreshBtn.disabled = false;
+        refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh Library';
+    }
+
+    function setupEvents() {
+        searchInput.addEventListener('input', () => {
+            currentSearch = searchInput.value.trim();
+            updateSearchUI();
+            renderDocuments();
+        });
+        clearSearchBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            currentSearch = '';
+            updateSearchUI();
+            renderDocuments();
+            searchInput.focus();
+        });
+        refreshBtn.addEventListener('click', hardRefresh);
+        // Auto refresh every 3 minutes (matching original pattern)
+        setInterval(() => {
+            if (!isFetching) fetchDocuments().catch(console.warn);
+        }, 180000);
+    }
+
+    async function init() {
+        setupEvents();
+        await fetchDocuments();
+        if (allDocuments.length) renderDocuments(true);
+    }
+    init();
+</script>
+</body>
+</html>
