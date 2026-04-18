@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
     <title>Juris Uganda | Pleadings Vault – Motions, Affidavits & Petitions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
@@ -21,13 +21,7 @@
             --transition-smooth: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             --border-radius-card: 1.2rem;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: linear-gradient(145deg, #f4efe7 0%, #eae3d7 100%);
             color: #1f2a3e;
@@ -36,7 +30,6 @@
             min-height: 100vh;
             position: relative;
         }
-
         body::before {
             content: "";
             position: fixed;
@@ -49,12 +42,7 @@
             pointer-events: none;
             z-index: 0;
         }
-
-        .site-header, .main-container, .site-footer {
-            position: relative;
-            z-index: 2;
-        }
-
+        .site-header, .main-container, .site-footer { position: relative; z-index: 2; }
         .site-header {
             background: linear-gradient(135deg, var(--law-navy) 0%, #112b44 100%);
             color: white;
@@ -64,7 +52,6 @@
             top: 0;
             z-index: 100;
         }
-
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -75,46 +62,20 @@
             flex-wrap: wrap;
             gap: 1.2rem;
         }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .law-icon {
-            font-size: 2.5rem;
-            filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.2));
-            transition: var(--transition-smooth);
-        }
-
+        .logo-container { display: flex; align-items: center; gap: 1rem; }
+        .law-icon { font-size: 2.5rem; filter: drop-shadow(2px 2px 6px rgba(0,0,0,0.2)); transition: var(--transition-smooth); }
         .logo-text h1 {
             font-family: 'Cormorant Garamond', serif;
             font-size: clamp(1.2rem, 5vw, 1.8rem);
             font-weight: 700;
-            letter-spacing: -0.5px;
             background: linear-gradient(120deg, #fff, var(--law-gold));
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
         }
-
-        .logo-text .tagline {
-            font-size: clamp(0.7rem, 3vw, 0.85rem);
-            opacity: 0.85;
-            letter-spacing: 0.5px;
-        }
-
-        .header-search {
-            flex: 1;
-            max-width: 480px;
-            min-width: 200px;
-        }
-
-        .header-search-wrapper {
-            position: relative;
-        }
-
+        .logo-text .tagline { font-size: clamp(0.7rem, 3vw, 0.85rem); opacity: 0.85; }
+        .header-search { flex: 1; max-width: 480px; min-width: 200px; }
+        .header-search-wrapper { position: relative; }
         .header-search-input {
             width: 100%;
             padding: 0.9rem 1rem 0.9rem 3rem;
@@ -127,426 +88,96 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             transition: var(--transition-smooth);
         }
-
-        .header-search-input:focus {
-            outline: none;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(197, 165, 114, 0.4);
-        }
-
-        .header-search-icon {
-            position: absolute;
-            left: 1.2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--law-gold-dark);
-            font-size: 1.2rem;
-        }
-
+        .header-search-input:focus { outline: none; background: white; box-shadow: 0 0 0 3px rgba(197, 165, 114, 0.4); }
+        .header-search-icon { position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--law-gold-dark); font-size: 1.2rem; }
         .header-clear-search {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #e2e0db;
-            border: none;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            color: #4a3b28;
+            position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+            background: #e2e0db; border: none; border-radius: 50%; width: 24px; height: 24px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            transition: var(--transition-smooth); color: #4a3b28;
         }
-
-        .header-clear-search:hover {
-            background: var(--law-gold);
-            color: white;
-            transform: translateY(-50%) rotate(90deg);
-        }
-
+        .header-clear-search:hover { background: var(--law-gold); color: white; transform: translateY(-50%) rotate(90deg); }
         .refresh-button {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(197, 165, 114, 0.5);
-            padding: 0.7rem 1.3rem;
-            border-radius: 40px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            transition: var(--transition-smooth);
-            color: white;
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(4px);
+            border: 1px solid rgba(197, 165, 114, 0.5); padding: 0.7rem 1.3rem; border-radius: 40px;
+            font-weight: 600; display: flex; align-items: center; gap: 0.6rem;
+            transition: var(--transition-smooth); color: white; cursor: pointer;
             font-size: clamp(0.8rem, 3.5vw, 0.9rem);
         }
-
-        .refresh-button i {
-            transition: transform 0.4s ease;
-        }
-
-        .refresh-button:hover {
-            background: var(--law-gold);
-            border-color: white;
-            transform: translateY(-2px);
-        }
-
+        .refresh-button:hover { background: var(--law-gold); border-color: white; transform: translateY(-2px); }
         .legal-stats {
-            background: rgba(10, 28, 47, 0.75);
-            backdrop-filter: blur(8px);
-            border-radius: 60px;
-            padding: 0.6rem 1.5rem;
-            margin: 1.2rem 0 1.8rem 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            border-left: 4px solid var(--law-gold);
-            box-shadow: var(--shadow-sm);
+            background: rgba(10, 28, 47, 0.75); backdrop-filter: blur(8px);
+            border-radius: 60px; padding: 0.6rem 1.5rem; margin: 1.2rem 0 1.8rem 0;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+            gap: 1rem; border-left: 4px solid var(--law-gold); box-shadow: var(--shadow-sm);
             font-size: clamp(0.75rem, 3.5vw, 0.9rem);
         }
-
-        .stats-left {
-            display: flex;
-            gap: 1.8rem;
-            font-weight: 500;
-        }
-
-        .stats-left span i {
-            color: var(--law-gold);
-            margin-right: 6px;
-        }
-
-        .search-query-badge {
-            background: var(--law-gold);
-            padding: 0.2rem 1rem;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--law-navy);
-        }
-
-        .last-sync {
-            font-size: 0.7rem;
-            opacity: 0.9;
-            background: rgba(0,0,0,0.3);
-            padding: 0.2rem 0.8rem;
-            border-radius: 40px;
-        }
-
+        .stats-left { display: flex; gap: 1.8rem; font-weight: 500; }
+        .stats-left span i { color: var(--law-gold); margin-right: 6px; }
+        .search-query-badge { background: var(--law-gold); padding: 0.2rem 1rem; border-radius: 40px; font-size: 0.8rem; font-weight: 600; color: var(--law-navy); }
+        .last-sync { font-size: 0.7rem; opacity: 0.9; background: rgba(0,0,0,0.3); padding: 0.2rem 0.8rem; border-radius: 40px; }
         .profile-widget {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: rgba(255,255,255,0.08);
-            padding: 0.3rem 0.8rem 0.3rem 0.5rem;
-            border-radius: 50px;
-            backdrop-filter: blur(2px);
-            transition: var(--transition-smooth);
-            cursor: pointer;
+            display: flex; align-items: center; gap: 0.75rem; background: rgba(255,255,255,0.08);
+            padding: 0.3rem 0.8rem 0.3rem 0.5rem; border-radius: 50px; backdrop-filter: blur(2px);
+            transition: var(--transition-smooth); cursor: pointer;
         }
-        .profile-widget:hover {
-            background: rgba(255,255,255,0.2);
-            transform: scale(1.02);
-        }
-        .profile-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid var(--law-gold);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-            background: #f0e6d8;
-        }
-        .profile-info .name {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: white;
-        }
-        .profile-info .title {
-            font-size: 0.6rem;
-            color: var(--law-gold);
-        }
-
+        .profile-widget:hover { background: rgba(255,255,255,0.2); transform: scale(1.02); }
+        .profile-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--law-gold); background: #f0e6d8; }
+        .profile-info .name { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 0.9rem; color: white; }
+        .profile-info .title { font-size: 0.6rem; color: var(--law-gold); }
         @media (max-width: 780px) {
             .legal-stats { flex-direction: column; align-items: stretch; }
             .stats-left { justify-content: space-between; flex-wrap: wrap; }
         }
-
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(6px);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            overflow-y: auto;
-            padding: 2rem;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(6px); z-index: 1000;
+            justify-content: center; align-items: center; overflow-y: auto; padding: 2rem;
         }
         .modal.active { display: flex; }
-        .modal-content {
-            max-width: 800px;
-            width: 100%;
-            background: white;
-            border-radius: 2rem;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-            animation: modalFadeIn 0.3s ease;
-            max-height: 90vh;
-            display: flex;
-            flex-direction: column;
-        }
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .modal-image-container {
-            background: #1a2a3a;
-            text-align: center;
-            padding: 1.5rem;
-        }
-        .modal-image {
-            max-width: 100%;
-            max-height: 40vh;
-            border-radius: 1rem;
-            border: 3px solid var(--law-gold);
-        }
-        .modal-bio {
-            padding: 1.5rem 2rem;
-            overflow-y: auto;
-            color: var(--law-navy);
-            line-height: 1.6;
-        }
-        .modal-bio h3 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            color: var(--law-gold-dark);
-            border-left: 4px solid var(--law-gold);
-            padding-left: 1rem;
-        }
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            font-size: 2rem;
-            color: white;
-            background: rgba(0,0,0,0.5);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .modal-close:hover {
-            background: var(--law-gold);
-            transform: scale(1.1);
-        }
-
-        .pdf-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-            gap: 1.8rem;
-            margin-top: 1rem;
-        }
-        @media (max-width: 768px) {
-            .pdf-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
-        }
+        .modal-content { max-width: 800px; width: 100%; background: white; border-radius: 2rem; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); animation: modalFadeIn 0.3s ease; max-height: 90vh; display: flex; flex-direction: column; }
+        @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+        .modal-image-container { background: #1a2a3a; text-align: center; padding: 1.5rem; }
+        .modal-image { max-width: 100%; max-height: 40vh; border-radius: 1rem; border: 3px solid var(--law-gold); }
+        .modal-bio { padding: 1.5rem 2rem; overflow-y: auto; color: var(--law-navy); line-height: 1.6; }
+        .modal-bio h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--law-gold-dark); border-left: 4px solid var(--law-gold); padding-left: 1rem; }
+        .modal-close { position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; color: white; background: rgba(0,0,0,0.5); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
+        .modal-close:hover { background: var(--law-gold); transform: scale(1.1); }
+        .pdf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.8rem; margin-top: 1rem; }
+        @media (max-width: 768px) { .pdf-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; } }
         @media (max-width: 480px) { .pdf-grid { gap: 0.6rem; } }
-
         .pdf-card {
-            background: white;
-            border-radius: var(--border-radius-card);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: var(--transition-smooth);
-            border: 1px solid rgba(197, 165, 114, 0.3);
-            display: flex;
-            flex-direction: column;
-            animation: fadeSlideUp 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
-            cursor: pointer;
+            background: white; border-radius: var(--border-radius-card); overflow: hidden;
+            box-shadow: var(--shadow-sm); transition: var(--transition-smooth);
+            border: 1px solid rgba(197, 165, 114, 0.3); display: flex; flex-direction: column;
+            animation: fadeSlideUp 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards; cursor: pointer;
         }
-        .pdf-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            border-color: var(--law-gold);
-        }
-
+        .pdf-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--law-gold); }
         .pdf-card-header {
             background: linear-gradient(115deg, var(--law-navy) 0%, #1f3a4e 100%);
-            padding: clamp(0.8rem, 3vw, 1.2rem);
-            position: relative;
+            padding: clamp(0.8rem, 3vw, 1.2rem); position: relative;
         }
-        .pdf-card-header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 15px;
-            right: 15px;
-            height: 2px;
-            background: linear-gradient(90deg, var(--law-gold), transparent);
-        }
-        .pdf-category {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(197, 165, 114, 0.2);
-            backdrop-filter: blur(2px);
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            font-size: clamp(0.6rem, 2.8vw, 0.7rem);
-            font-weight: 600;
-            color: #f3e1be;
-            margin-bottom: 0.6rem;
-        }
-        .pdf-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: clamp(0.9rem, 4vw, 1.25rem);
-            font-weight: 700;
-            margin: 0.3rem 0 0.2rem;
-            line-height: 1.3;
-            color: white;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .pleading-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
-            font-size: clamp(0.55rem, 2.5vw, 0.7rem);
-            color: #d4cdb2;
-        }
-        .pdf-card-body {
-            padding: clamp(0.7rem, 3vw, 1.2rem);
-            flex-grow: 1;
-            background: white;
-        }
-        .pdf-description {
-            color: #2c3e4e;
-            font-size: clamp(0.65rem, 3vw, 0.85rem);
-            line-height: 1.4;
-            margin-bottom: 0.8rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .case-details {
-            background: #f8f4ec;
-            border-radius: 20px;
-            padding: 0.5rem 0.7rem;
-            margin-bottom: 0.6rem;
-            font-size: 0.7rem;
-            color: #3a4a5f;
-        }
-        .case-details i {
-            color: var(--law-gold-dark);
-            width: 18px;
-        }
-        .pdf-details {
-            display: flex;
-            justify-content: space-between;
-            font-size: clamp(0.55rem, 2.5vw, 0.7rem);
-            background: #f8f4ec;
-            padding: 0.4rem 0.6rem;
-            border-radius: 40px;
-            color: #5e6f8d;
-            flex-wrap: wrap;
-        }
-        .pdf-button {
-            width: 100%;
-            border: none;
-            background: var(--law-navy);
-            color: white;
-            font-weight: 600;
-            padding: clamp(0.5rem, 2.5vw, 0.9rem);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            transition: var(--transition-smooth);
-            font-size: clamp(0.65rem, 3vw, 0.9rem);
-            border-top: 1px solid rgba(197, 165, 114, 0.3);
-            pointer-events: none;
-        }
-        .badge-doctype {
-            background: var(--law-gold);
-            color: var(--law-navy);
-            font-weight: bold;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-size: 0.6rem;
-            display: inline-block;
-        }
-        .empty-state, .error-state {
-            text-align: center;
-            padding: 3rem 1.5rem;
-            background: rgba(255, 248, 235, 0.9);
-            border-radius: 2rem;
-            margin: 1rem auto;
-            border: 1px dashed var(--law-gold);
-            grid-column: 1 / -1;
-        }
-        .loading {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 3rem;
-        }
-        .law-spinner {
-            display: inline-block;
-            width: 54px;
-            height: 54px;
-            border: 4px solid rgba(197, 165, 114, 0.3);
-            border-top: 4px solid var(--law-gold);
-            border-radius: 50%;
-            animation: spin 0.9s linear infinite;
-        }
+        .pdf-card-header::after { content: ''; position: absolute; bottom: 0; left: 15px; right: 15px; height: 2px; background: linear-gradient(90deg, var(--law-gold), transparent); }
+        .pdf-category { display: inline-flex; align-items: center; gap: 6px; background: rgba(197, 165, 114, 0.2); backdrop-filter: blur(2px); padding: 0.2rem 0.8rem; border-radius: 30px; font-size: clamp(0.6rem, 2.8vw, 0.7rem); font-weight: 600; color: #f3e1be; margin-bottom: 0.6rem; }
+        .pdf-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.9rem, 4vw, 1.25rem); font-weight: 700; margin: 0.3rem 0 0.2rem; line-height: 1.3; color: white; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .pleading-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; font-size: clamp(0.55rem, 2.5vw, 0.7rem); color: #d4cdb2; }
+        .pdf-card-body { padding: clamp(0.7rem, 3vw, 1.2rem); flex-grow: 1; background: white; }
+        .pdf-description { color: #2c3e4e; font-size: clamp(0.65rem, 3vw, 0.85rem); line-height: 1.4; margin-bottom: 0.8rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .case-details { background: #f8f4ec; border-radius: 20px; padding: 0.5rem 0.7rem; margin-bottom: 0.6rem; font-size: 0.7rem; color: #3a4a5f; }
+        .case-details i { color: var(--law-gold-dark); width: 18px; }
+        .pdf-details { display: flex; justify-content: space-between; font-size: clamp(0.55rem, 2.5vw, 0.7rem); background: #f8f4ec; padding: 0.4rem 0.6rem; border-radius: 40px; color: #5e6f8d; flex-wrap: wrap; }
+        .pdf-button { width: 100%; border: none; background: var(--law-navy); color: white; font-weight: 600; padding: clamp(0.5rem, 2.5vw, 0.9rem); display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: var(--transition-smooth); font-size: clamp(0.65rem, 3vw, 0.9rem); border-top: 1px solid rgba(197, 165, 114, 0.3); pointer-events: none; }
+        .badge-doctype { background: var(--law-gold); color: var(--law-navy); font-weight: bold; padding: 2px 8px; border-radius: 20px; font-size: 0.6rem; display: inline-block; }
+        .empty-state, .error-state { text-align: center; padding: 3rem 1.5rem; background: rgba(255, 248, 235, 0.9); border-radius: 2rem; margin: 1rem auto; border: 1px dashed var(--law-gold); grid-column: 1 / -1; }
+        .loading { grid-column: 1 / -1; text-align: center; padding: 3rem; }
+        .law-spinner { display: inline-block; width: 54px; height: 54px; border: 4px solid rgba(197, 165, 114, 0.3); border-top: 4px solid var(--law-gold); border-radius: 50%; animation: spin 0.9s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(18px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .site-footer {
-            background: var(--law-navy);
-            border-top: 4px solid var(--law-gold);
-            margin-top: 3rem;
-            padding: 2rem 1rem;
-        }
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-            color: #dddddd;
-        }
-        .footer-logo i {
-            font-size: 2rem;
-            color: var(--law-gold);
-        }
-        .highlight {
-            background: #fdebb3;
-            color: #2c3e2f;
-            padding: 0 2px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-        @media (max-width: 780px) {
-            .header-container { flex-direction: column; text-align: center; }
-            .header-search { max-width: 100%; width: 100%; }
-        }
+        @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .site-footer { background: var(--law-navy); border-top: 4px solid var(--law-gold); margin-top: 3rem; padding: 2rem 1rem; }
+        .footer-container { max-width: 1200px; margin: 0 auto; text-align: center; color: #dddddd; }
+        .footer-logo i { font-size: 2rem; color: var(--law-gold); }
+        .highlight { background: #fdebb3; color: #2c3e2f; padding: 0 2px; border-radius: 4px; font-weight: 600; }
+        @media (max-width: 780px) { .header-container { flex-direction: column; text-align: center; } .header-search { max-width: 100%; width: 100%; } }
     </style>
 </head>
 <body>
@@ -617,7 +248,7 @@
     <div class="modal-close" id="modalClose">&times;</div>
     <div class="modal-content">
         <div class="modal-image-container">
-            <img class="modal-image" id="modalImage" src="https://i.postimg.cc/mZ63fJ5n/Whats-App-Image-2026-04-18-at-16-29-32.jpg" alt="Baluti Bwanika Arthur">
+            <img class="modal-image" id="modalImage" src="https://i.postimg.cc/mZ63fJ5n/Whats-App-Image-2026-04-16-at-16-29-32.jpg" alt="Baluti Bwanika Arthur">
         </div>
         <div class="modal-bio" id="modalBio">
             <h3>Baluti Bwanika Arthur</h3>
@@ -631,9 +262,10 @@
 <script>
     // --------------------------------------------------------------
     // JURIS UGANDA - PLEADINGS VIEWER
-    // Fetches documents from "pleadings.json" (managed by admin panel)
-    // Supports full metadata: caseNumber, parties, documentType, court, etc.
+    // Fetches documents from "https://www.ldclionhunter.com/pleadings.json"
     // --------------------------------------------------------------
+    const PLEADINGS_JSON_URL = 'https://www.ldclionhunter.com/pleadings.json';  // <-- your custom domain
+
     const pdfGrid = document.getElementById('pdfGrid');
     const searchInput = document.getElementById('searchInput');
     const clearSearchBtn = document.getElementById('clearSearch');
@@ -657,21 +289,18 @@
     let debounceTimer;
     let isFetching = false;
 
-    // PLEADINGS DATA SOURCE: matches admin panel's default JSON file
-    const PLEADINGS_JSON_PATH = 'pleadings.json';
-
     async function fetchDocuments() {
         if (isFetching) return false;
         isFetching = true;
         try {
             showLoadingState();
             const cacheBuster = `?t=${Date.now()}`;
-            const response = await fetch(`${PLEADINGS_JSON_PATH}${cacheBuster}`, {
+            const response = await fetch(`${PLEADINGS_JSON_URL}${cacheBuster}`, {
                 cache: 'no-store',
                 headers: { 'Cache-Control': 'no-cache' }
             });
             if (!response.ok) {
-                if (response.status === 404) throw new Error(`pleadings.json not found. Please upload pleadings via the admin panel first.`);
+                if (response.status === 404) throw new Error(`pleadings.json not found at ${PLEADINGS_JSON_URL}. Please upload pleadings via the admin panel.`);
                 throw new Error(`HTTP ${response.status}: Unable to fetch pleadings.json`);
             }
             const data = await response.json();
@@ -744,7 +373,7 @@
                 <i class="fas fa-exclamation-triangle"></i>
                 <h3 style="color: var(--law-burgundy);">Pleading Index Unavailable</h3>
                 <p>${msg}</p>
-                <p style="margin-top: 0.8rem;">Make sure <strong>${PLEADINGS_JSON_PATH}</strong> exists and was created by the admin panel.</p>
+                <p style="margin-top: 0.8rem;">Make sure <strong>pleadings.json</strong> exists at <strong>${PLEADINGS_JSON_URL}</strong> and was created by the admin panel.</p>
                 <button onclick="location.reload()" class="refresh-button" style="margin-top: 1rem; background: var(--law-navy);"><i class="fas fa-redo-alt"></i> Retry</button>
             </div>`;
     }
