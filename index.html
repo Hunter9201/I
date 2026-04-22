@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>THE LION HUNTER – Passcode Protected</title>
+  <title>THE LION HUNTER – Legal Portal</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-site-verification" content="google47c9c1017e180e8f" />
   <meta name="description" content="The Lion Hunter – A jungle-themed portal for legal clarity, advocacy training, and nonstop discussion. Built for LDC students, designed for pride." />
@@ -45,107 +45,11 @@
 
     body { margin:0; font-family:'Poppins',sans-serif; background:#f7f9fc; color:#333; }
     
-    /* ---------- PASSCODE GATE ---------- */
-    #passcode-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #0a1c2f;
-      background-image: radial-gradient(circle at 10% 20%, rgba(197,165,114,0.1) 2%, transparent 2.5%);
-      background-size: 28px 28px;
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.5s ease;
-    }
-    #passcode-card {
-      background: white;
-      border-radius: 32px;
-      max-width: 400px;
-      width: 90%;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      box-shadow: 0 30px 50px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.6);
-      border: 1px solid rgba(197,165,114,0.5);
-      animation: fadeUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    #passcode-card .lion-icon {
-      font-size: 4rem;
-      margin-bottom: 0.5rem;
-    }
-    #passcode-card h2 {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 800;
-      color: #0f3057;
-      margin: 0.5rem 0 0.25rem;
-    }
-    #passcode-card .sub {
-      font-size: 0.85rem;
-      color: #64748b;
-      margin-bottom: 1.5rem;
-    }
-    #passcode-input {
-      width: 100%;
-      padding: 14px 16px;
-      font-size: 1.2rem;
-      text-align: center;
-      letter-spacing: 6px;
-      border: 2px solid #e2e8f0;
-      border-radius: 60px;
-      outline: none;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      background: #f8fafc;
-      transition: all 0.2s;
-    }
-    #passcode-input:focus {
-      border-color: #c5a572;
-      box-shadow: 0 0 0 3px rgba(197,165,114,0.2);
-    }
-    #passcode-btn {
-      background: #0f3057;
-      color: white;
-      border: none;
-      border-radius: 60px;
-      padding: 12px 20px;
-      width: 100%;
-      font-weight: 800;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.2s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    #passcode-btn:hover {
-      background: #c5a572;
-      transform: scale(1.02);
-    }
-    #passcode-error {
-      color: #c53030;
-      font-size: 0.8rem;
-      margin-top: 0.8rem;
-      min-height: 2rem;
-    }
-    /* Hide main content until unlocked */
+    /* Main content always visible (no passcode gate) */
     #main-content {
-      display: none;
-    }
-    /* Show when unlocked */
-    body.unlocked #main-content {
       display: block;
     }
-    body.unlocked #passcode-overlay {
-      opacity: 0;
-      pointer-events: none;
-      visibility: hidden;
-    }
-    /* Rest of original styles (kept intact) */
+
     header { position:relative; text-align:center; background:#0b64c0; }
     header img#heroImg{ width:100%; height:auto; display:block; transition:opacity .6s ease-in-out; opacity:1; background:#0b64c0; max-height:70vh; }
     .hero-fade-out{ opacity:0; }
@@ -245,20 +149,7 @@
 </head>
 <body>
 
-<!-- PASSCODE GATE (initial visible) -->
-<div id="passcode-overlay">
-  <div id="passcode-card">
-    <div class="lion-icon">🦁</div>
-    <h2>Enter The Den</h2>
-    <div class="sub">This portal is protected. Speak the sacred roar.</div>
-    <input type="password" id="passcode-input" placeholder="••••" maxlength="20" autocomplete="off" autofocus>
-    <button id="passcode-btn">Unlock 🔓</button>
-    <div id="passcode-error"></div>
-    <div class="sub" style="margin-top: 1rem; font-size: 0.7rem;">Hint: Ask the pride leader for the passcode</div>
-  </div>
-</div>
-
-<!-- MAIN WEBSITE CONTENT (hidden until unlock) -->
+<!-- MAIN WEBSITE CONTENT (always visible, no passcode gate) -->
 <div id="main-content">
 
   <!-- Alert -->
@@ -371,55 +262,10 @@
   </script>
 </div> <!-- end #main-content -->
 
-<!-- All JavaScript (passcode logic + existing site scripts) -->
+<!-- All JavaScript (no passcode logic) -->
 <script>
   // ------------------------------
-  // PASSCODE GATE (with session persistence)
-  // ------------------------------
-  (function() {
-    // ⚠️ CHANGE THIS PASSWORD AS NEEDED (CASE-SENSITIVE)
-    const SITE_PASSWORD = "Lion2025";   // <-- edit here for your custom passcode
-    const SESSION_KEY = "lion_hunter_unlocked";
-
-    // Check if already unlocked in this session
-    if (sessionStorage.getItem(SESSION_KEY) === "true") {
-      document.body.classList.add("unlocked");
-    }
-
-    const overlay = document.getElementById("passcode-overlay");
-    const inputEl = document.getElementById("passcode-input");
-    const errorDiv = document.getElementById("passcode-error");
-    const unlockBtn = document.getElementById("passcode-btn");
-
-    function unlockSite() {
-      const entered = inputEl.value.trim();
-      if (entered === SITE_PASSWORD) {
-        sessionStorage.setItem(SESSION_KEY, "true");
-        document.body.classList.add("unlocked");
-        errorDiv.textContent = "";
-        // optional: focus removal
-        if (overlay) overlay.style.pointerEvents = "none";
-      } else {
-        errorDiv.textContent = "❌ Wrong passcode. Try again.";
-        inputEl.value = "";
-        inputEl.focus();
-        // subtle shake effect
-        const card = document.getElementById("passcode-card");
-        if (card) {
-          card.style.transform = "translateX(4px)";
-          setTimeout(() => card.style.transform = "", 150);
-        }
-      }
-    }
-
-    unlockBtn.addEventListener("click", unlockSite);
-    inputEl.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") unlockSite();
-    });
-  })();
-
-  // ------------------------------
-  // EXISTING SITE SCRIPTS (merged)
+  // EXISTING SITE SCRIPTS (no gate)
   // ------------------------------
   function toggleMenu(){
     const menu = document.getElementById('navMenu');
@@ -573,7 +419,7 @@
       return m ? m[0] : null;
     }
     if (API_KEY && !API_KEY.startsWith("YOUR_")) {
-      // ... same as original but omitted for brevity; we use fallback
+      // would fetch real API but we skip
       setStatus("Use fallback agenda");
     }
     // fallback iframe
