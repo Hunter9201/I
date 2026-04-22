@@ -3,23 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Legal Workshops | PDF Library</title>
+    <title>Legal Workshops | PDF Library + Admin Panel</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #F4EFE9;
             font-family: 'Inter', sans-serif;
             color: #1E2A32;
             line-height: 1.5;
         }
-
         /* Header */
         .header {
             background: #0A2F3A;
@@ -30,7 +24,6 @@
             top: 0;
             z-index: 100;
         }
-
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -40,56 +33,23 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-
-        .logo h1 {
-            font-family: 'Inter', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .logo p {
-            font-size: 0.75rem;
-            opacity: 0.8;
-        }
-
-        .search-box {
-            flex: 1;
-            max-width: 400px;
-            position: relative;
-        }
-
+        .logo h1 { font-size: 1.5rem; font-weight: 700; }
+        .logo p { font-size: 0.75rem; opacity: 0.8; }
+        .search-box { flex: 1; max-width: 400px; position: relative; }
         .search-box input {
             width: 100%;
             padding: 0.7rem 1rem 0.7rem 2.5rem;
             border: none;
             border-radius: 40px;
             font-size: 0.9rem;
-            background: white;
         }
-
-        .search-box i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #8B3A3A;
-        }
-
+        .search-box i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #8B3A3A; }
         .search-box button {
-            position: absolute;
-            right: 0.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #ddd;
-            border: none;
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            cursor: pointer;
-            display: none;
+            position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%);
+            background: #ddd; border: none; border-radius: 50%; width: 22px; height: 22px;
+            cursor: pointer; display: none;
         }
-
-        .refresh-btn {
+        .refresh-btn, .admin-btn {
             background: rgba(255,255,255,0.15);
             border: 1px solid #D4AF37;
             padding: 0.5rem 1rem;
@@ -98,13 +58,7 @@
             cursor: pointer;
             transition: 0.2s;
         }
-
-        .refresh-btn:hover {
-            background: #D4AF37;
-            color: #0A2F3A;
-        }
-
-        /* Stats bar */
+        .refresh-btn:hover, .admin-btn:hover { background: #D4AF37; color: #0A2F3A; }
         .stats {
             max-width: 1400px;
             margin: 1rem auto 0;
@@ -116,12 +70,7 @@
             font-size: 0.85rem;
             color: #2C4A5E;
         }
-
-        .stats span i {
-            color: #D4AF37;
-            margin-right: 5px;
-        }
-
+        .stats span i { color: #D4AF37; margin-right: 5px; }
         .search-badge {
             background: #8B3A3A;
             color: white;
@@ -129,8 +78,6 @@
             border-radius: 30px;
             font-size: 0.75rem;
         }
-
-        /* Term filters */
         .term-filters {
             max-width: 1400px;
             margin: 1rem auto;
@@ -139,7 +86,6 @@
             gap: 1rem;
             flex-wrap: wrap;
         }
-
         .term-chip {
             background: #0A2F3A;
             color: white;
@@ -150,17 +96,7 @@
             font-size: 0.85rem;
             font-weight: 500;
         }
-
-        .term-chip.active {
-            background: #D4AF37;
-            color: #0A2F3A;
-        }
-
-        .term-chip:hover {
-            background: #8B3A3A;
-        }
-
-        /* PDF Grid - 3 columns on mobile */
+        .term-chip.active, .term-chip:hover { background: #D4AF37; color: #0A2F3A; }
         .pdf-grid {
             max-width: 1400px;
             margin: 1rem auto;
@@ -169,22 +105,10 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
         }
-
         @media (max-width: 768px) {
-            .pdf-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 0.8rem;
-                padding: 0 1rem;
-            }
+            .pdf-grid { grid-template-columns: repeat(3, 1fr); gap: 0.8rem; padding: 0 1rem; }
         }
-
-        @media (max-width: 500px) {
-            .pdf-grid {
-                gap: 0.6rem;
-            }
-        }
-
-        /* Card */
+        @media (max-width: 500px) { .pdf-grid { gap: 0.6rem; } }
         .pdf-card {
             background: white;
             border-radius: 1rem;
@@ -194,19 +118,12 @@
             cursor: pointer;
             border: 1px solid #e0d6c8;
         }
-
-        .pdf-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
-            border-color: #D4AF37;
-        }
-
+        .pdf-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); border-color: #D4AF37; }
         .card-header {
             background: #0A2F3A;
             padding: 0.8rem;
             position: relative;
         }
-
         .term-tag {
             position: absolute;
             top: 8px;
@@ -218,56 +135,12 @@
             padding: 2px 8px;
             border-radius: 20px;
         }
-
-        .subject-icon {
-            font-size: 1.6rem;
-            color: #D4AF37;
-            margin-bottom: 0.3rem;
-        }
-
-        .card-title {
-            font-weight: 700;
-            font-size: 1rem;
-            color: white;
-            margin: 0.2rem 0;
-            line-height: 1.3;
-        }
-
-        .subject-name {
-            font-size: 0.7rem;
-            color: #D4AF37;
-            margin-top: 4px;
-        }
-
-        .card-body {
-            padding: 0.7rem;
-        }
-
-        .workshop-desc {
-            font-size: 0.75rem;
-            color: #4A627A;
-            margin-bottom: 0.6rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .pdf-meta {
-            font-size: 0.65rem;
-            background: #F0EAE0;
-            padding: 0.3rem 0.5rem;
-            border-radius: 30px;
-            display: inline-block;
-            width: 100%;
-            text-align: center;
-        }
-
-        .pdf-meta i {
-            color: #8B3A3A;
-            margin-right: 4px;
-        }
-
+        .subject-icon { font-size: 1.6rem; color: #D4AF37; margin-bottom: 0.3rem; }
+        .card-title { font-weight: 700; font-size: 1rem; color: white; margin: 0.2rem 0; line-height: 1.3; }
+        .subject-name { font-size: 0.7rem; color: #D4AF37; margin-top: 4px; }
+        .card-body { padding: 0.7rem; }
+        .workshop-desc { font-size: 0.75rem; color: #4A627A; margin-bottom: 0.6rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .pdf-meta { font-size: 0.65rem; background: #F0EAE0; padding: 0.3rem 0.5rem; border-radius: 30px; display: inline-block; width: 100%; text-align: center; }
         .open-btn {
             width: 100%;
             border: none;
@@ -283,52 +156,59 @@
             border-top: 1px solid #e0d6c8;
             transition: 0.2s;
         }
-
-        .open-btn:hover {
-            background: #8B3A3A;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 3rem;
-            grid-column: 1 / -1;
-            background: #faf6ef;
-            border-radius: 2rem;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 3rem;
-            grid-column: 1 / -1;
-        }
-
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #D4AF37;
-            border-top-color: #0A2F3A;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
+        .open-btn:hover { background: #8B3A3A; }
+        .empty-state, .loading { text-align: center; padding: 3rem; grid-column: 1 / -1; background: #faf6ef; border-radius: 2rem; }
+        .spinner { width: 40px; height: 40px; border: 3px solid #D4AF37; border-top-color: #0A2F3A; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem; }
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            background: #0A2F3A;
-            color: white;
-            font-size: 0.75rem;
-            border-top: 3px solid #D4AF37;
+        footer { text-align: center; padding: 1.5rem; margin-top: 2rem; background: #0A2F3A; color: white; font-size: 0.75rem; border-top: 3px solid #D4AF37; }
+        .highlight { background: #FCE9B4; padding: 0 2px; border-radius: 4px; }
+        /* Admin Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
+            display: none; align-items: center; justify-content: center;
+            z-index: 2000;
         }
-
-        .highlight {
-            background: #FCE9B4;
-            padding: 0 2px;
-            border-radius: 4px;
+        .modal-container {
+            background: white; border-radius: 1.5rem; max-width: 700px; width: 90%;
+            max-height: 85vh; overflow-y: auto; padding: 1.5rem;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
         }
+        .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid #D4AF37; padding-bottom: 0.5rem; margin-bottom: 1rem;
+        }
+        .modal-header h2 { color: #0A2F3A; }
+        .modal-close { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #8B3A3A; }
+        .admin-form-group { margin-bottom: 1rem; }
+        .admin-form-group label { font-weight: 600; display: block; margin-bottom: 0.3rem; color: #0A2F3A; }
+        .admin-form-group input, .admin-form-group select, .admin-form-group textarea {
+            width: 100%; padding: 0.6rem; border: 1px solid #ccc; border-radius: 12px;
+            font-family: inherit;
+        }
+        .admin-btn-group { display: flex; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap; }
+        .btn-primary { background: #0A2F3A; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 40px; cursor: pointer; }
+        .btn-danger { background: #8B3A3A; }
+        .btn-warning { background: #D4AF37; color: #0A2F3A; }
+        .workshop-list-item {
+            border: 1px solid #e0d6c8; border-radius: 1rem; padding: 0.8rem; margin-bottom: 0.8rem;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+        }
+        .workshop-list-info { flex: 1; }
+        .workshop-list-actions button { margin-left: 0.5rem; padding: 0.3rem 0.8rem; border-radius: 30px; }
+        .token-status {
+            background: #e2e8f0; padding: 4px 12px; border-radius: 30px; font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+        .admin-floating-btn {
+            position: fixed; bottom: 20px; right: 20px;
+            background: #0A2F3A; color: #D4AF37; width: 55px; height: 55px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer;
+            z-index: 150; border: 2px solid #D4AF37; transition: 0.2s;
+        }
+        .admin-floating-btn:hover { transform: scale(1.05); background: #D4AF37; color: #0A2F3A; }
+        .repo-config { background: #f0eae0; padding: 0.8rem; border-radius: 1rem; margin-bottom: 1rem; }
     </style>
 </head>
 <body>
@@ -337,7 +217,7 @@
     <div class="header-container">
         <div class="logo">
             <h1><i class="fas fa-gavel"></i> LEGAL WORKSHOPS</h1>
-            <p>Civil Litigation · Land · Family · Corporate · Criminal</p>
+            <p>Civil · Land · Family · Corporate · Criminal</p>
         </div>
         <div class="search-box">
             <i class="fas fa-search"></i>
@@ -374,158 +254,192 @@
     <i class="fas fa-file-pdf"></i> All workshops are PDF documents — click to open or download.
 </footer>
 
+<!-- Admin Floating Button -->
+<div class="admin-floating-btn" id="adminFloatBtn">
+    <i class="fas fa-crown"></i>
+</div>
+
+<!-- Admin Modal -->
+<div id="adminModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2><i class="fas fa-tools"></i> Admin Panel – Manage Workshops</h2>
+            <button class="modal-close" id="closeAdminModal">&times;</button>
+        </div>
+        <div class="repo-config">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div><i class="fab fa-github"></i> GitHub Repo: <strong>Hunter9201/I</strong></div>
+                <div><span id="adminTokenStatus" class="token-status">⚠️ No token</span>
+                <button id="setTokenBtn" class="btn-primary" style="padding: 0.2rem 0.8rem;">Set Token</button></div>
+            </div>
+            <div style="font-size:0.7rem; margin-top:5px;">JSON: workshops.json | PDFs: workshops_pdfs/</div>
+        </div>
+        <div id="adminWorkshopList"></div>
+        <hr>
+        <h3>Add New Workshop</h3>
+        <div class="admin-form-group">
+            <label>Subject</label>
+            <select id="newSubject">
+                <option>Civil Litigation</option><option>Land Transactions</option><option>Family Law</option>
+                <option>Corporate and Commercial</option><option>Criminal Proceedings</option>
+            </select>
+        </div>
+        <div class="admin-form-group">
+            <label>Term</label>
+            <select id="newTerm"><option>Term 1</option><option>Term 2</option><option>Term 3</option></select>
+        </div>
+        <div class="admin-form-group"><label>Title</label><input id="newTitle" placeholder="Workshop title"></div>
+        <div class="admin-form-group"><label>Description</label><textarea id="newDesc" rows="2" placeholder="Brief description"></textarea></div>
+        <div class="admin-form-group"><label>PDF File (upload)</label><input type="file" id="newPdfFile" accept=".pdf"></div>
+        <div class="admin-btn-group">
+            <button id="addWorkshopBtn" class="btn-primary"><i class="fas fa-upload"></i> Add Workshop</button>
+        </div>
+        <div id="adminMsg" style="margin-top:1rem; font-size:0.8rem;"></div>
+    </div>
+</div>
+
+<!-- Token Modal (simple) -->
+<div id="tokenModal" class="modal-overlay" style="z-index:2100;">
+    <div class="modal-container" style="max-width:400px;">
+        <h3>GitHub Personal Access Token</h3>
+        <p>Needs <strong>repo</strong> scope (classic token).</p>
+        <input type="password" id="githubTokenInput" placeholder="github_pat_xxx..." style="width:100%; padding:8px; margin:10px 0;">
+        <div class="admin-btn-group">
+            <button id="saveTokenBtn" class="btn-primary">Save</button>
+            <button id="cancelTokenBtn" class="btn-warning">Cancel</button>
+        </div>
+    </div>
+</div>
+
 <script>
-    // ----- WORKSHOP DATA: 5 subjects × 3 terms × 2 workshops per term = 30 PDFs -----
-    const SUBJECTS = ["Civil Litigation", "Land Transactions", "Family Law", "Corporate and Commercial", "Criminal Proceedings"];
-    const TERMS = ["Term 1", "Term 2", "Term 3"];
+    // ===================== CONFIGURATION =====================
+    const REPO_OWNER = "hunter9201";
+    const REPO_NAME = "I";
+    const BRANCH = "main";
+    const JSON_PATH = "workshops.json";
+    const PDF_FOLDER = "workshops_pdfs/";
 
-    // Workshop titles per subject & term (exactly 2 per term)
-    const workshopTitles = {
-        "Civil Litigation": {
-            "Term 1": ["Pleadings & Case Management", "Evidence & Trial Advocacy"],
-            "Term 2": ["Interlocutory Applications", "Judgment Writing & Appeals"],
-            "Term 3": ["Alternative Dispute Resolution", "Execution & Enforcement"]
-        },
-        "Land Transactions": {
-            "Term 1": ["Land Registration & Due Diligence", "Sale Agreements & Conveyancing"],
-            "Term 2": ["Leases & Tenancies", "Land Disputes Resolution"],
-            "Term 3": ["Mortgages & Charges", "Land Administration & Reform"]
-        },
-        "Family Law": {
-            "Term 1": ["Marriage & Divorce Procedures", "Custody & Maintenance"],
-            "Term 2": ["Adoption & Guardianship", "Domestic Violence & Protection Orders"],
-            "Term 3": ["Matrimonial Property", "Inheritance & Succession"]
-        },
-        "Corporate and Commercial": {
-            "Term 1": ["Company Incorporation & Governance", "Commercial Contracts Drafting"],
-            "Term 2": ["Mergers & Acquisitions", "Insolvency & Restructuring"],
-            "Term 3": ["Intellectual Property Licensing", "Regulatory Compliance"]
-        },
-        "Criminal Proceedings": {
-            "Term 1": ["Arrest & Bail Applications", "Charge Sheets & Plea Bargaining"],
-            "Term 2": ["Trial Process & Cross-Examination", "Sentencing & Mitigation"],
-            "Term 3": ["Criminal Appeals & Reviews", "Cybercrime & Evidence"]
-        }
-    };
-
-    // Generate all workshops with PDF filenames (mocked, but real links would be actual PDFs)
+    let githubToken = localStorage.getItem("workshop_gh_token") || "";
     let allWorkshops = [];
-    let idCounter = 1;
-
-    function generateWorkshops() {
-        const workshops = [];
-        for (const subject of SUBJECTS) {
-            for (const term of TERMS) {
-                const titles = workshopTitles[subject][term];
-                if (titles) {
-                    for (let i = 0; i < titles.length; i++) {
-                        const title = titles[i];
-                        // Create a clean PDF filename
-                        const pdfFilename = `${subject.replace(/\s/g, '_')}_${term.replace(/\s/g, '')}_${title.replace(/\s/g, '_')}.pdf`;
-                        const shortDesc = `${subject} workshop on ${title} – practical guidance and procedural checklists.`;
-                        workshops.push({
-                            id: idCounter++,
-                            subject: subject,
-                            term: term,
-                            title: title,
-                            description: shortDesc,
-                            pdf: pdfFilename
-                        });
-                    }
-                }
-            }
-        }
-        return workshops;
-    }
-
-    allWorkshops = generateWorkshops();
-
-    // DOM elements
-    const grid = document.getElementById('pdfGrid');
-    const searchInput = document.getElementById('searchInput');
-    const clearBtn = document.getElementById('clearSearchBtn');
-    const refreshBtn = document.getElementById('refreshBtn');
-    const totalSpan = document.getElementById('totalCount');
-    const displayedSpan = document.getElementById('displayedCount');
-    const syncSpan = document.getElementById('syncTime');
-    const searchBadge = document.getElementById('searchBadge');
-    const searchTermSpan = document.getElementById('searchTerm');
-    const termChips = document.querySelectorAll('.term-chip');
-
-    let currentSearch = '';
-    let currentTerm = 'all';
+    let currentSearch = "", currentTerm = "all";
+    let editingId = null;
     let debounceTimer;
 
-    function updateSyncTime() {
-        syncSpan.innerHTML = `<i class="far fa-clock"></i> ${new Date().toLocaleTimeString()}`;
+    // Helper functions for GitHub API
+    function ghHeaders() {
+        const headers = { "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
+        if (githubToken) headers["Authorization"] = "Bearer " + githubToken;
+        return headers;
+    }
+    async function ghGetContents(path) {
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeURIComponent(path)}?ref=${BRANCH}`;
+        const res = await fetch(url, { headers: ghHeaders() });
+        if (res.status === 404) return null;
+        if (!res.ok) throw new Error(`GET ${path} failed: ${res.status}`);
+        return await res.json();
+    }
+    async function ghPutContents(path, contentBase64, message, sha = null) {
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeURIComponent(path)}`;
+        const body = { message, content: contentBase64, branch: BRANCH };
+        if (sha) body.sha = sha;
+        const res = await fetch(url, { method: "PUT", headers: { ...ghHeaders(), "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        if (!res.ok) throw new Error(`PUT ${path} failed: ${res.status}`);
+        return res.json();
+    }
+    async function uploadPDF(file, filename) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = async () => {
+                try {
+                    const base64 = btoa(new Uint8Array(reader.result).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+                    let sha = null;
+                    try { const existing = await ghGetContents(PDF_FOLDER + filename); if (existing && existing.sha) sha = existing.sha; } catch(e) {}
+                    await ghPutContents(PDF_FOLDER + filename, base64, `Upload ${filename}`, sha);
+                    resolve();
+                } catch (e) { reject(e); }
+            };
+            reader.onerror = reject;
+            reader.readAsArrayBuffer(file);
+        });
+    }
+    function toBase64(str) { return btoa(unescape(encodeURIComponent(str))); }
+    function fromBase64(b64) { return decodeURIComponent(escape(atob(b64))); }
+
+    // Load workshops from GitHub
+    async function loadWorkshopsFromGitHub() {
+        try {
+            const data = await ghGetContents(JSON_PATH);
+            if (!data) {
+                allWorkshops = [];
+                return [];
+            }
+            const content = fromBase64(data.content);
+            const workshops = JSON.parse(content);
+            allWorkshops = Array.isArray(workshops) ? workshops : [];
+            return allWorkshops;
+        } catch (err) {
+            console.error(err);
+            allWorkshops = [];
+            return [];
+        }
     }
 
+    // Save workshops to GitHub
+    async function saveWorkshopsToGitHub(workshops, msg = "Update workshops") {
+        const existing = await ghGetContents(JSON_PATH);
+        const sha = existing ? existing.sha : null;
+        const contentBase64 = toBase64(JSON.stringify(workshops, null, 2));
+        await ghPutContents(JSON_PATH, contentBase64, msg, sha);
+        allWorkshops = workshops;
+    }
+
+    // ----- UI RENDER (public grid) -----
     function getFiltered() {
         let filtered = [...allWorkshops];
-        if (currentSearch.trim() !== '') {
+        if (currentSearch.trim()) {
             const q = currentSearch.toLowerCase();
-            filtered = filtered.filter(w => 
-                w.title.toLowerCase().includes(q) ||
-                w.subject.toLowerCase().includes(q) ||
-                w.term.toLowerCase().includes(q) ||
-                w.description.toLowerCase().includes(q)
-            );
+            filtered = filtered.filter(w => w.title.toLowerCase().includes(q) || w.subject.toLowerCase().includes(q) || w.term.toLowerCase().includes(q) || (w.description && w.description.toLowerCase().includes(q)));
         }
-        if (currentTerm !== 'all') {
-            filtered = filtered.filter(w => w.term === currentTerm);
-        }
+        if (currentTerm !== 'all') filtered = filtered.filter(w => w.term === currentTerm);
         return filtered;
     }
-
     function updateStats() {
-        totalSpan.innerText = allWorkshops.length;
-        displayedSpan.innerText = getFiltered().length;
-        if (currentSearch.trim()) {
-            searchBadge.style.display = 'inline-block';
-            searchTermSpan.innerText = `“${currentSearch}”`;
-        } else {
-            searchBadge.style.display = 'none';
-        }
+        document.getElementById('totalCount').innerText = allWorkshops.length;
+        document.getElementById('displayedCount').innerText = getFiltered().length;
+        const badge = document.getElementById('searchBadge');
+        if (currentSearch.trim()) { badge.style.display = 'inline-block'; document.getElementById('searchTerm').innerText = `“${currentSearch}”`; }
+        else badge.style.display = 'none';
     }
-
     function highlightText(text, query) {
         if (!query || !text) return text;
         const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
         return text.replace(regex, '<span class="highlight">$1</span>');
     }
-
-    function openPDF(workshop) {
-        // In a real deployment, replace with actual PDF URL.
-        // For demo, we show an alert with the filename.
-        // To use real PDFs, uncomment the line below and place PDFs in a folder.
-        // window.open(`/pdfs/${workshop.pdf}`, '_blank');
-        alert(`Opening PDF: ${workshop.title}\nFile: ${workshop.pdf}\n\nIn a real deployment, this would open the actual PDF document. Replace the alert with window.open() pointing to your PDF files.`);
+    function openWorkshopPDF(ws) {
+        const pdfUrl = `https://${REPO_OWNER}.github.io/${REPO_NAME}/${PDF_FOLDER}${ws.pdfFile}`;
+        window.open(pdfUrl, '_blank');
     }
-
     function renderWorkshops() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
             const filtered = getFiltered();
-            if (filtered.length === 0) {
-                grid.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><h3>No workshops found</h3><p>Try a different term or search term.</p></div>`;
+            const grid = document.getElementById('pdfGrid');
+            if (!filtered.length) {
+                grid.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><h3>No workshops found</h3><p>Try different term or search.</p></div>`;
                 updateStats();
                 return;
             }
             grid.innerHTML = '';
             for (const ws of filtered) {
-                const card = document.createElement('div');
-                card.className = 'pdf-card';
-                // Icon based on subject
                 let iconClass = "fa-gavel";
                 if (ws.subject.includes("Civil")) iconClass = "fa-balance-scale";
                 else if (ws.subject.includes("Land")) iconClass = "fa-map";
                 else if (ws.subject.includes("Family")) iconClass = "fa-heart";
                 else if (ws.subject.includes("Corporate")) iconClass = "fa-building";
                 else if (ws.subject.includes("Criminal")) iconClass = "fa-handcuffs";
-                
                 const highlightedTitle = currentSearch ? highlightText(ws.title, currentSearch) : ws.title;
                 const highlightedDesc = currentSearch ? highlightText(ws.description, currentSearch) : ws.description;
-                
+                const card = document.createElement('div'); card.className = 'pdf-card';
                 card.innerHTML = `
                     <div class="card-header">
                         <div class="term-tag">${ws.term}</div>
@@ -535,68 +449,200 @@
                     </div>
                     <div class="card-body">
                         <div class="workshop-desc">${highlightedDesc}</div>
-                        <div class="pdf-meta"><i class="fas fa-file-pdf"></i> PDF document · ${ws.term}</div>
+                        <div class="pdf-meta"><i class="fas fa-file-pdf"></i> PDF · ${ws.term}</div>
                     </div>
                     <button class="open-btn"><i class="fas fa-download"></i> Open PDF</button>
                 `;
                 const btn = card.querySelector('.open-btn');
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    openPDF(ws);
-                });
-                card.addEventListener('click', () => openPDF(ws));
+                btn.addEventListener('click', (e) => { e.stopPropagation(); openWorkshopPDF(ws); });
+                card.addEventListener('click', () => openWorkshopPDF(ws));
                 grid.appendChild(card);
             }
             updateStats();
         }, 50);
     }
 
-    function refreshData() {
-        refreshBtn.disabled = true;
-        refreshBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Syncing...';
-        setTimeout(() => {
-            allWorkshops = generateWorkshops();
-            currentSearch = '';
-            searchInput.value = '';
-            clearBtn.style.display = 'none';
-            currentTerm = 'all';
-            termChips.forEach(chip => {
-                if (chip.getAttribute('data-term') === 'all') chip.classList.add('active');
-                else chip.classList.remove('active');
-            });
-            updateSyncTime();
+    // ----- Admin Panel Logic -----
+    async function renderAdminList() {
+        const container = document.getElementById('adminWorkshopList');
+        if (!container) return;
+        if (!allWorkshops.length) { container.innerHTML = '<p>No workshops yet. Add one below.</p>'; return; }
+        container.innerHTML = '';
+        for (const ws of allWorkshops) {
+            const div = document.createElement('div'); div.className = 'workshop-list-item';
+            div.innerHTML = `
+                <div class="workshop-list-info">
+                    <strong>${ws.title}</strong><br>
+                    <span style="font-size:0.7rem;">${ws.subject} | ${ws.term} | PDF: ${ws.pdfFile}</span>
+                </div>
+                <div class="workshop-list-actions">
+                    <button class="btn-warning edit-ws" data-id="${ws.id}">✏️ Edit</button>
+                    <button class="btn-danger delete-ws" data-id="${ws.id}">🗑️ Delete</button>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+        document.querySelectorAll('.edit-ws').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); startEditWorkshop(id); }));
+        document.querySelectorAll('.delete-ws').forEach(btn => btn.addEventListener('click', async (e) => { const id = parseInt(btn.dataset.id); await deleteWorkshop(id); }));
+    }
+    function startEditWorkshop(id) {
+        const ws = allWorkshops.find(w => w.id === id);
+        if (!ws) return;
+        document.getElementById('newSubject').value = ws.subject;
+        document.getElementById('newTerm').value = ws.term;
+        document.getElementById('newTitle').value = ws.title;
+        document.getElementById('newDesc').value = ws.description || '';
+        editingId = id;
+        const addBtn = document.getElementById('addWorkshopBtn');
+        addBtn.innerHTML = '<i class="fas fa-save"></i> Update Workshop';
+        addBtn.style.background = "#D4AF37";
+        document.getElementById('adminMsg').innerHTML = `<i class="fas fa-edit"></i> Editing: ${ws.title} — upload new PDF to replace file.`;
+    }
+    async function deleteWorkshop(id) {
+        if (!confirm("Delete this workshop permanently?")) return;
+        const ws = allWorkshops.find(w => w.id === id);
+        if (!ws) return;
+        const newList = allWorkshops.filter(w => w.id !== id);
+        try {
+            await saveWorkshopsToGitHub(newList, `Delete workshop ${ws.title}`);
+            await loadWorkshopsFromGitHub();
             renderWorkshops();
-            refreshBtn.disabled = false;
-            refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
-        }, 300);
+            renderAdminList();
+            document.getElementById('adminMsg').innerHTML = `✅ Deleted "${ws.title}"`;
+            if (editingId === id) resetAddForm();
+        } catch (err) { document.getElementById('adminMsg').innerHTML = `❌ Delete failed: ${err.message}`; }
+    }
+    function resetAddForm() {
+        document.getElementById('newTitle').value = '';
+        document.getElementById('newDesc').value = '';
+        document.getElementById('newPdfFile').value = '';
+        editingId = null;
+        const addBtn = document.getElementById('addWorkshopBtn');
+        addBtn.innerHTML = '<i class="fas fa-upload"></i> Add Workshop';
+        addBtn.style.background = "";
+        document.getElementById('adminMsg').innerHTML = '';
+    }
+    async function addOrUpdateWorkshop() {
+        if (!githubToken) { alert("Please set GitHub token first (Admin > Set Token)"); return; }
+        const subject = document.getElementById('newSubject').value;
+        const term = document.getElementById('newTerm').value;
+        const title = document.getElementById('newTitle').value.trim();
+        const description = document.getElementById('newDesc').value.trim();
+        const pdfFileInput = document.getElementById('newPdfFile');
+        if (!title) { alert("Title required"); return; }
+        let pdfFilename = null;
+        let uploadedPdfName = null;
+        if (pdfFileInput.files.length > 0) {
+            const file = pdfFileInput.files[0];
+            if (file.type !== 'application/pdf') { alert("Only PDF files allowed"); return; }
+            const timestamp = Date.now();
+            const safeName = `${timestamp}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+            await uploadPDF(file, safeName);
+            uploadedPdfName = safeName;
+        }
+        if (editingId !== null) {
+            // update existing
+            const index = allWorkshops.findIndex(w => w.id === editingId);
+            if (index !== -1) {
+                const updated = { ...allWorkshops[index], subject, term, title, description };
+                if (uploadedPdfName) updated.pdfFile = uploadedPdfName;
+                allWorkshops[index] = updated;
+                await saveWorkshopsToGitHub(allWorkshops, `Update workshop: ${title}`);
+                await loadWorkshopsFromGitHub();
+                renderWorkshops();
+                renderAdminList();
+                document.getElementById('adminMsg').innerHTML = `✅ Updated "${title}"`;
+                resetAddForm();
+            }
+        } else {
+            // add new
+            if (!uploadedPdfName) { alert("Please select a PDF file to upload."); return; }
+            const newId = allWorkshops.length ? Math.max(...allWorkshops.map(w => w.id)) + 1 : 1;
+            const newWorkshop = {
+                id: newId, subject, term, title, description,
+                pdfFile: uploadedPdfName
+            };
+            const newList = [...allWorkshops, newWorkshop];
+            await saveWorkshopsToGitHub(newList, `Add workshop: ${title}`);
+            await loadWorkshopsFromGitHub();
+            renderWorkshops();
+            renderAdminList();
+            document.getElementById('adminMsg').innerHTML = `✅ Added "${title}"`;
+            resetAddForm();
+        }
+        pdfFileInput.value = '';
     }
 
-    // Event listeners
-    searchInput.addEventListener('input', () => {
-        currentSearch = searchInput.value.trim();
-        clearBtn.style.display = currentSearch ? 'flex' : 'none';
-        renderWorkshops();
-    });
-    clearBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        currentSearch = '';
-        clearBtn.style.display = 'none';
-        renderWorkshops();
-        searchInput.focus();
-    });
-    refreshBtn.addEventListener('click', refreshData);
-    termChips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            termChips.forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
-            currentTerm = chip.getAttribute('data-term');
+    // Refresh from GitHub and update UI
+    async function refreshAll() {
+        document.getElementById('refreshBtn').disabled = true;
+        document.getElementById('refreshBtn').innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Syncing...';
+        try {
+            await loadWorkshopsFromGitHub();
             renderWorkshops();
-        });
-    });
+            document.getElementById('syncTime').innerHTML = `<i class="far fa-clock"></i> ${new Date().toLocaleTimeString()}`;
+            if (document.getElementById('adminModal').style.display === 'flex') await renderAdminList();
+        } catch (err) { console.error(err); }
+        document.getElementById('refreshBtn').disabled = false;
+        document.getElementById('refreshBtn').innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+    }
 
-    // Initial load
-    updateSyncTime();
-    renderWorkshops();
+    // Token management
+    function updateTokenUI() {
+        const has = githubToken && githubToken.length > 10;
+        const tokenSpan = document.getElementById('adminTokenStatus');
+        if (tokenSpan) tokenSpan.innerHTML = has ? "🔑 Token set" : "⚠️ No token";
+    }
+    function setTokenAndClose(token) {
+        githubToken = token;
+        localStorage.setItem("workshop_gh_token", token);
+        updateTokenUI();
+        document.getElementById('tokenModal').style.display = 'none';
+        refreshAll();
+    }
+    // Event bindings
+    document.addEventListener('DOMContentLoaded', async () => {
+        githubToken = localStorage.getItem("workshop_gh_token") || "";
+        updateTokenUI();
+        await loadWorkshopsFromGitHub();
+        renderWorkshops();
+        document.getElementById('syncTime').innerHTML = `<i class="far fa-clock"></i> ${new Date().toLocaleTimeString()}`;
+        // Search
+        const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearSearchBtn');
+        searchInput.addEventListener('input', () => { currentSearch = searchInput.value.trim(); clearBtn.style.display = currentSearch ? 'flex' : 'none'; renderWorkshops(); });
+        clearBtn.addEventListener('click', () => { searchInput.value = ''; currentSearch = ''; clearBtn.style.display = 'none'; renderWorkshops(); });
+        document.querySelectorAll('.term-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.term-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentTerm = chip.getAttribute('data-term');
+                renderWorkshops();
+            });
+        });
+        document.getElementById('refreshBtn').addEventListener('click', refreshAll);
+        // Admin modal
+        const adminModal = document.getElementById('adminModal');
+        const adminFloat = document.getElementById('adminFloatBtn');
+        const closeAdmin = document.getElementById('closeAdminModal');
+        adminFloat.addEventListener('click', async () => {
+            await refreshAll();
+            await renderAdminList();
+            adminModal.style.display = 'flex';
+        });
+        closeAdmin.addEventListener('click', () => { adminModal.style.display = 'none'; resetAddForm(); });
+        document.getElementById('addWorkshopBtn').addEventListener('click', addOrUpdateWorkshop);
+        // Token modal
+        const setTokenBtn = document.getElementById('setTokenBtn');
+        const tokenModal = document.getElementById('tokenModal');
+        const saveToken = document.getElementById('saveTokenBtn');
+        const cancelToken = document.getElementById('cancelTokenBtn');
+        const tokenInput = document.getElementById('githubTokenInput');
+        setTokenBtn.addEventListener('click', () => { tokenModal.style.display = 'flex'; });
+        saveToken.addEventListener('click', () => { const tok = tokenInput.value.trim(); if(tok) setTokenAndClose(tok); else alert("Enter token"); });
+        cancelToken.addEventListener('click', () => { tokenModal.style.display = 'none'; });
+        window.addEventListener('click', (e) => { if (e.target === tokenModal) tokenModal.style.display = 'none'; if (e.target === adminModal) adminModal.style.display = 'none'; });
+    });
 </script>
 </body>
 </html>
