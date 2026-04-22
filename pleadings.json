@@ -32,5 +32,25 @@
     "date": "2026-04-22T11:15:04.596Z",
     "category": "procedure",
     "url": "https://hunter9201.github.io/I/APPLICATION%20FOR%20GARNISHEE.pdf"
+  },
+  {
+    "id": 3,
+    "title": "CONTEMPT",
+    "description": "Pleading document: CONTEMPT.pdf",
+    "filename": "CONTEMPT.pdf",
+    "documentType": "Notice of Motion",
+    "caseNumber": "",
+    "parties": "",
+    "court": "",
+    "documentDate": "2026-04-22",
+    "size": "0.47",
+    "pages": "?",
+    "year": 2026,
+    "date": "2026-04-22T15:54:04.630Z",
+    "category": "procedure",
+    "url": "https://hunter9201.github.io/I/CONTEMPT.pdf",
+    "procedure": "Section 37 of the Judicature Cap 16 , Section 98 of the CPA, Order 23 RULES 1 & 10 OF THEE Civil Procedure Rules.",
+    "locusClassicus": "Florence Dawaru vs Angumale ALBINO& Another (HCMA NO.0096 OF 2016) where Justice Mubiru defined it as any conduct that scandalizes the court, prejudices judical proceedings , or interferes with the adminstration of Justice",
+    "filingFees": ""
   }
 ]
