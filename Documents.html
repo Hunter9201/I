@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-    <title>Juris Uganda | Pleadings Vault – Motions, Affidavits & Petitions</title>
+    <title>Juris Uganda | Pleadings Vault – Motions, Affidavits & Petitions (Full Legal Metadata)</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -143,14 +143,15 @@
         .modal-bio h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--law-gold-dark); border-left: 4px solid var(--law-gold); padding-left: 1rem; }
         .modal-close { position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; color: white; background: rgba(0,0,0,0.5); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
         .modal-close:hover { background: var(--law-gold); transform: scale(1.1); }
-        .pdf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.8rem; margin-top: 1rem; }
-        @media (max-width: 768px) { .pdf-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; } }
-        @media (max-width: 480px) { .pdf-grid { gap: 0.6rem; } }
+        .pdf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.8rem; margin-top: 1rem; }
+        @media (max-width: 768px) { .pdf-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; } }
+        @media (max-width: 480px) { .pdf-grid { gap: 0.8rem; } }
         .pdf-card {
             background: white; border-radius: var(--border-radius-card); overflow: hidden;
             box-shadow: var(--shadow-sm); transition: var(--transition-smooth);
             border: 1px solid rgba(197, 165, 114, 0.3); display: flex; flex-direction: column;
             animation: fadeSlideUp 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards; cursor: pointer;
+            height: 100%; /* ensures cards in same row have equal height, but content will determine */
         }
         .pdf-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--law-gold); }
         .pdf-card-header {
@@ -161,12 +162,73 @@
         .pdf-category { display: inline-flex; align-items: center; gap: 6px; background: rgba(197, 165, 114, 0.2); backdrop-filter: blur(2px); padding: 0.2rem 0.8rem; border-radius: 30px; font-size: clamp(0.6rem, 2.8vw, 0.7rem); font-weight: 600; color: #f3e1be; margin-bottom: 0.6rem; }
         .pdf-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(0.9rem, 4vw, 1.25rem); font-weight: 700; margin: 0.3rem 0 0.2rem; line-height: 1.3; color: white; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .pleading-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; font-size: clamp(0.55rem, 2.5vw, 0.7rem); color: #d4cdb2; }
-        .pdf-card-body { padding: clamp(0.7rem, 3vw, 1.2rem); flex-grow: 1; background: white; }
+        .pdf-card-body { padding: clamp(0.7rem, 3vw, 1.2rem); flex-grow: 1; background: white; display: flex; flex-direction: column; }
         .pdf-description { color: #2c3e4e; font-size: clamp(0.65rem, 3vw, 0.85rem); line-height: 1.4; margin-bottom: 0.8rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .case-details { background: #f8f4ec; border-radius: 20px; padding: 0.5rem 0.7rem; margin-bottom: 0.6rem; font-size: 0.7rem; color: #3a4a5f; }
         .case-details i { color: var(--law-gold-dark); width: 18px; }
-        .pdf-details { display: flex; justify-content: space-between; font-size: clamp(0.55rem, 2.5vw, 0.7rem); background: #f8f4ec; padding: 0.4rem 0.6rem; border-radius: 40px; color: #5e6f8d; flex-wrap: wrap; }
-        .pdf-button { width: 100%; border: none; background: var(--law-navy); color: white; font-weight: 600; padding: clamp(0.5rem, 2.5vw, 0.9rem); display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: var(--transition-smooth); font-size: clamp(0.65rem, 3vw, 0.9rem); border-top: 1px solid rgba(197, 165, 114, 0.3); pointer-events: none; }
+        .legal-annotations {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.5rem 0 0.6rem;
+            font-size: 0.65rem;
+            background: #f2ede5;
+            padding: 0.4rem 0.6rem;
+            border-radius: 14px;
+            border-left: 2px solid var(--law-gold);
+        }
+        .legal-annotations .legal-item {
+            flex: 1 1 auto;
+            min-width: 100px;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            flex-wrap: wrap;
+            color: #2c3e2f;
+            line-height: 1.3;
+        }
+        .legal-annotations i {
+            color: var(--law-gold-dark);
+            width: 18px;
+            font-size: 0.7rem;
+        }
+        .legal-annotations strong {
+            font-weight: 700;
+            font-size: 0.65rem;
+            letter-spacing: 0.3px;
+        }
+        .legal-text {
+            word-break: break-word;
+            overflow-wrap: break-word;
+            display: inline;
+        }
+        .pdf-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: clamp(0.55rem, 2.5vw, 0.7rem);
+            background: #f8f4ec;
+            padding: 0.4rem 0.6rem;
+            border-radius: 40px;
+            color: #5e6f8d;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+        .pdf-button {
+            width: 100%;
+            border: none;
+            background: var(--law-navy);
+            color: white;
+            font-weight: 600;
+            padding: clamp(0.5rem, 2.5vw, 0.9rem);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition-smooth);
+            font-size: clamp(0.65rem, 3vw, 0.9rem);
+            border-top: 1px solid rgba(197, 165, 114, 0.3);
+            pointer-events: none;
+        }
         .badge-doctype { background: var(--law-gold); color: var(--law-navy); font-weight: bold; padding: 2px 8px; border-radius: 20px; font-size: 0.6rem; display: inline-block; }
         .empty-state, .error-state { text-align: center; padding: 3rem 1.5rem; background: rgba(255, 248, 235, 0.9); border-radius: 2rem; margin: 1rem auto; border: 1px dashed var(--law-gold); grid-column: 1 / -1; }
         .loading { grid-column: 1 / -1; text-align: center; padding: 3rem; }
@@ -194,7 +256,7 @@
         <div class="header-search">
             <div class="header-search-wrapper">
                 <i class="fas fa-search header-search-icon"></i>
-                <input type="text" class="header-search-input" id="searchInput" placeholder="Search by case number, parties, title, document type...">
+                <input type="text" class="header-search-input" id="searchInput" placeholder="Search by case, parties, title, procedure, locus classicus...">
                 <button class="header-clear-search" id="clearSearch" style="display: none;" aria-label="Clear">×</button>
             </div>
         </div>
@@ -237,6 +299,7 @@
             <i class="fas fa-gavel"></i><i class="fas fa-scale-balanced"></i>
             <h3>Uganda Pleadings Repository</h3>
             <p>Authoritative collection of motions, affidavits, petitions & court process documents</p>
+            <p style="font-size:0.75rem; margin-top:6px;"><i class="fas fa-info-circle"></i> Each entry includes procedure, locus classicus & filing fees</p>
         </div>
         <div class="copyright">
             © 2025 Juris Uganda — Data sourced from <strong>pleadings.json</strong> (managed via admin panel) · <i class="fab fa-github"></i> GitHub Pages sync
@@ -261,10 +324,10 @@
 
 <script>
     // --------------------------------------------------------------
-    // JURIS UGANDA - PLEADINGS VIEWER
+    // JURIS UGANDA - PLEADINGS VIEWER (ENHANCED WITH PROCEDURE, LOCUS, FEES)
     // Fetches documents from "https://www.ldclionhunter.com/pleadings.json"
     // --------------------------------------------------------------
-    const PLEADINGS_JSON_URL = 'https://www.ldclionhunter.com/pleadings.json';  // <-- your custom domain
+    const PLEADINGS_JSON_URL = 'https://www.ldclionhunter.com/pleadings.json';
 
     const pdfGrid = document.getElementById('pdfGrid');
     const searchInput = document.getElementById('searchInput');
@@ -288,6 +351,19 @@
     let currentSearch = '';
     let debounceTimer;
     let isFetching = false;
+
+    // Helper: escape HTML to avoid injection
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
 
     async function fetchDocuments() {
         if (isFetching) return false;
@@ -322,7 +398,11 @@
                 date: doc.date || new Date().toISOString(),
                 category: doc.category || mapDocTypeToCategory(doc.documentType),
                 url: doc.url || `./${encodeURIComponent(doc.filename)}`,
-                updated: doc.updated || false
+                updated: doc.updated || false,
+                // NEW LEGAL FIELDS: procedure, locusClassicus, filingFees
+                procedure: doc.procedure || '',
+                locusClassicus: doc.locusClassicus || '',
+                filingFees: doc.filingFees || ''
             }));
             if (validDocs.length === 0 && data.length > 0) console.warn('Some documents missing required fields');
             allDocuments = validDocs;
@@ -372,7 +452,7 @@
             <div class="error-state">
                 <i class="fas fa-exclamation-triangle"></i>
                 <h3 style="color: var(--law-burgundy);">Pleading Index Unavailable</h3>
-                <p>${msg}</p>
+                <p>${escapeHtml(msg)}</p>
                 <p style="margin-top: 0.8rem;">Make sure <strong>pleadings.json</strong> exists at <strong>${PLEADINGS_JSON_URL}</strong> and was created by the admin panel.</p>
                 <button onclick="location.reload()" class="refresh-button" style="margin-top: 1rem; background: var(--law-navy);"><i class="fas fa-redo-alt"></i> Retry</button>
             </div>`;
@@ -407,14 +487,18 @@
             (doc.caseNumber?.toLowerCase().includes(term)) ||
             (doc.parties?.toLowerCase().includes(term)) ||
             (doc.court?.toLowerCase().includes(term)) ||
-            (doc.year?.toString().includes(term))
+            (doc.year?.toString().includes(term)) ||
+            (doc.procedure?.toLowerCase().includes(term)) ||
+            (doc.locusClassicus?.toLowerCase().includes(term)) ||
+            (doc.filingFees?.toLowerCase().includes(term))
         );
     }
 
     function highlightText(text, term) {
-        if (!term || !text) return text || '';
+        if (!term || !text) return escapeHtml(text);
+        const escapedText = escapeHtml(text);
         const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-        return text.toString().replace(regex, '<span class="highlight">$1</span>');
+        return escapedText.replace(regex, '<span class="highlight">$1</span>');
     }
 
     function openPDF(doc) {
@@ -427,7 +511,7 @@
         debounceTimer = setTimeout(() => {
             const filtered = getFilteredDocuments();
             if (filtered.length === 0 && allDocuments.length > 0) {
-                pdfGrid.innerHTML = `<div class="empty-state"><i class="fas fa-search"></i><h3>No matching pleadings</h3><p>No document found for “${currentSearch}”. Try case number, party name or document type.</p></div>`;
+                pdfGrid.innerHTML = `<div class="empty-state"><i class="fas fa-search"></i><h3>No matching pleadings</h3><p>No document found for “${escapeHtml(currentSearch)}”. Try case number, party name, document type, procedure or locus classicus.</p></div>`;
                 updateStatsUI();
                 return;
             }
@@ -445,35 +529,49 @@
                 card.addEventListener('click', () => openPDF(doc));
 
                 const typeIcon = getTypeIcon(doc.documentType);
-                const highlightedTitle = currentSearch ? highlightText(doc.title, currentSearch) : doc.title;
-                const highlightedDesc = currentSearch ? highlightText(doc.description, currentSearch) : doc.description;
+                const highlightedTitle = currentSearch ? highlightText(doc.title, currentSearch) : escapeHtml(doc.title);
+                const highlightedDesc = currentSearch ? highlightText(doc.description, currentSearch) : escapeHtml(doc.description);
                 const displayDate = doc.documentDate ? new Date(doc.documentDate).toLocaleDateString('en-GB', { year:'numeric', month:'short', day:'numeric' }) : doc.year;
                 
                 let caseBlock = '';
                 if (doc.caseNumber || doc.parties || doc.court) {
                     caseBlock = `<div class="case-details">
-                        ${doc.caseNumber ? `<div><i class="fas fa-hashtag"></i> <strong>Case:</strong> ${highlightText(doc.caseNumber, currentSearch)}</div>` : ''}
-                        ${doc.parties ? `<div><i class="fas fa-users"></i> <strong>Parties:</strong> ${highlightText(doc.parties, currentSearch)}</div>` : ''}
-                        ${doc.court ? `<div><i class="fas fa-gavel"></i> <strong>Court:</strong> ${highlightText(doc.court, currentSearch)}</div>` : ''}
+                        ${doc.caseNumber ? `<div><i class="fas fa-hashtag"></i> <strong>Case:</strong> ${currentSearch ? highlightText(doc.caseNumber, currentSearch) : escapeHtml(doc.caseNumber)}</div>` : ''}
+                        ${doc.parties ? `<div><i class="fas fa-users"></i> <strong>Parties:</strong> ${currentSearch ? highlightText(doc.parties, currentSearch) : escapeHtml(doc.parties)}</div>` : ''}
+                        ${doc.court ? `<div><i class="fas fa-gavel"></i> <strong>Court:</strong> ${currentSearch ? highlightText(doc.court, currentSearch) : escapeHtml(doc.court)}</div>` : ''}
+                    </div>`;
+                }
+
+                // Build legal annotations block (procedure, locus classicus, filing fees)
+                let legalAnnotations = '';
+                const hasProcedure = doc.procedure && doc.procedure.trim() !== '';
+                const hasLocus = doc.locusClassicus && doc.locusClassicus.trim() !== '';
+                const hasFees = doc.filingFees && doc.filingFees.trim() !== '';
+                if (hasProcedure || hasLocus || hasFees) {
+                    legalAnnotations = `<div class="legal-annotations">
+                        ${hasProcedure ? `<div class="legal-item"><i class="fas fa-gavel"></i> <strong>Procedure:</strong> <span class="legal-text" title="${escapeHtml(doc.procedure)}">${currentSearch ? highlightText(doc.procedure, currentSearch) : escapeHtml(doc.procedure).substring(0, 70)}${escapeHtml(doc.procedure).length > 70 ? '…' : ''}</span></div>` : ''}
+                        ${hasLocus ? `<div class="legal-item"><i class="fas fa-book"></i> <strong>Locus:</strong> <span class="legal-text" title="${escapeHtml(doc.locusClassicus)}">${currentSearch ? highlightText(doc.locusClassicus, currentSearch) : escapeHtml(doc.locusClassicus).substring(0, 65)}${escapeHtml(doc.locusClassicus).length > 65 ? '…' : ''}</span></div>` : ''}
+                        ${hasFees ? `<div class="legal-item"><i class="fas fa-coins"></i> <strong>Fees:</strong> <span class="legal-text">${currentSearch ? highlightText(doc.filingFees, currentSearch) : escapeHtml(doc.filingFees)}</span></div>` : ''}
                     </div>`;
                 }
 
                 card.innerHTML = `
                     <div class="pdf-card-header">
                         ${doc.updated ? '<span class="badge-doctype" style="position:absolute; top:10px; right:10px;"><i class="fas fa-sync-alt"></i> Amended</span>' : ''}
-                        <div class="pdf-category"><i class="fas ${typeIcon}"></i> ${doc.documentType || 'Pleading'}</div>
+                        <div class="pdf-category"><i class="fas ${typeIcon}"></i> ${escapeHtml(doc.documentType || 'Pleading')}</div>
                         <h3 class="pdf-title">${highlightedTitle}</h3>
                         <div class="pleading-meta">
                             <span><i class="fas fa-calendar-alt"></i> ${displayDate || '—'}</span>
-                            <span><i class="fas fa-file-pdf"></i> ${doc.size || '—'}</span>
+                            <span><i class="fas fa-file-pdf"></i> ${escapeHtml(doc.size || '—')}</span>
                             <span><i class="fas fa-receipt"></i> ${doc.pages} pgs</span>
                         </div>
                     </div>
                     <div class="pdf-card-body">
                         <p class="pdf-description">${highlightedDesc}</p>
                         ${caseBlock}
+                        ${legalAnnotations}
                         <div class="pdf-details">
-                            <span><i class="fas fa-tag"></i> ${doc.documentType}</span>
+                            <span><i class="fas fa-tag"></i> ${escapeHtml(doc.documentType)}</span>
                             <span><i class="fas fa-folder-open"></i> ${doc.caseNumber ? 'Cause listed' : 'General pleading'}</span>
                         </div>
                     </div>
