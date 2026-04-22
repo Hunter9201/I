@@ -159,7 +159,19 @@
   </div>
 
   <header>
-    
+    <div class="menu-icon" onclick="toggleMenu()" aria-label="Toggle menu">☰</div>
+    <img id="heroImg" src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" alt="LDC LEGAL COMPANION" loading="eager" decoding="async" fetchpriority="high" />
+    <a href="login.html" class="login-hero-btn" id="login-hero-btn">Login</a>
+    <div class="timetable-wrap" id="timetableWrap" aria-haspopup="true" aria-expanded="false">
+      <div class="timetable-badge" id="timetableBtn">
+        <span class="timetable-dot"></span>
+        Timetables
+      </div>
+      <div class="timetable-pop" id="timetablePop">
+        <h4>Weekly Timetables</h4>
+        <div class="timetable-list" id="timetableList"></div>
+      </div>
+    </div>
   </header>
 
   <nav id="navMenu" class="nav-container" aria-label="Primary">
