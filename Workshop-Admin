@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Admin Portal | Workshop Manager (Edit & Delete)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #F4EFE9;
+            font-family: 'Inter', sans-serif;
+            color: #1E2A32;
+            line-height: 1.5;
+        }
+        .header {
+            background: #0A2F3A;
+            color: white;
+            border-bottom: 3px solid #D4AF37;
+            padding: 1rem 2rem;
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo h1 { font-size: 1.5rem; font-weight: 700; }
+        .logo p { font-size: 0.75rem; opacity: 0.8; }
+        .token-status {
+            background: rgba(255,255,255,0.15);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .admin-card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        .card-header {
+            background: #0A2F3A;
+            color: white;
+            padding: 1rem 1.5rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #D4AF37;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card-body { padding: 1.5rem; }
+        .form-group { margin-bottom: 1rem; }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #0A2F3A;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+        button {
+            background: #0A2F3A;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        button:hover { background: #D4AF37; color: #0A2F3A; transform: translateY(-1px); }
+        .btn-danger { background: #8B3A3A; }
+        .btn-danger:hover { background: #a04040; color: white; }
+        .btn-outline { background: white; border: 1px solid #0A2F3A; color: #0A2F3A; }
+        .btn-outline:hover { background: #0A2F3A; color: white; }
+        .btn-warning { background: #D4AF37; color: #0A2F3A; }
+        .btn-warning:hover { background: #c49b2f; }
+        .grid-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .doc-item {
+            background: #fefcf9;
+            border: 1px solid #e0d6c8;
+            border-radius: 1rem;
+            padding: 1rem;
+            transition: 0.2s;
+        }
+        .doc-item:hover { box-shadow: 0 6px 14px rgba(0,0,0,0.1); }
+        .doc-title { font-weight: 700; font-size: 1rem; margin-bottom: 0.3rem; }
+        .doc-meta { font-size: 0.7rem; color: #6b5e4a; margin: 0.3rem 0; }
+        .doc-actions { display: flex; gap: 0.5rem; margin-top: 0.8rem; justify-content: flex-end; }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0d6c8;
+            border-radius: 3px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #D4AF37;
+            transition: width 0.2s;
+        }
+        .alert {
+            padding: 0.8rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        .alert-success { background: #d1e7dd; color: #0a3622; border-left: 4px solid #2b6e3c; }
+        .alert-error { background: #f8d7da; color: #842029; border-left: 4px solid #b91c1c; }
+        .alert-info { background: #cfe4ff; color: #084298; border-left: 4px solid #0d6efd; }
+        .token-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        .token-card {
+            background: white;
+            max-width: 450px;
+            width: 90%;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+        }
+        .flex-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .repo-badge {
+            background: #F0EAE0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+        }
+        hr { margin: 1rem 0; border: none; border-top: 1px solid #e0d6c8; }
+        .edit-mode-badge {
+            background: #D4AF37;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 1rem;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 0 1rem; }
+            .grid-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <h1><i class="fas fa-crown"></i> Admin Portal | Workshop Manager</h1>
+            <p>Upload, edit, delete workshop PDFs → syncs with GitHub (Hunter9201/I)</p>
+        </div>
+        <div class="token-status" id="tokenStatusDisplay">
+            <i class="fas fa-key"></i> <span id="tokenIndicator">No token</span>
+            <button id="showTokenBtn" class="btn-outline" style="margin-left: 10px; padding: 0.2rem 0.8rem;">Set Token</button>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <!-- Token Modal -->
+    <div id="tokenModal" class="token-modal">
+        <div class="token-card">
+            <h3><i class="fab fa-github"></i> GitHub Personal Access Token</h3>
+            <p style="font-size: 0.8rem; margin: 8px 0;">Classic token with <strong>repo</strong> scope. Required to upload/update files.</p>
+            <input type="password" id="tokenInput" placeholder="github_pat_xxx..." style="width:100%; margin:10px 0;">
+            <div class="flex-between">
+                <button id="saveTokenBtn" class="btn-outline">Save Token</button>
+                <button id="cancelTokenBtn" class="btn-outline">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload / Edit Form -->
+    <div class="admin-card">
+        <div class="card-header">
+            <span><i class="fas fa-cloud-upload-alt"></i> Upload / Edit Workshop</span>
+            <span id="editModeBadge" class="edit-mode-badge" style="display: none;">Editing mode</span>
+        </div>
+        <div class="card-body">
+            <div id="formAlert"></div>
+            <div class="form-group">
+                <label>Subject</label>
+                <select id="docSubject">
+                    <option>Civil Litigation</option><option>Land Transactions</option>
+                    <option>Family Law</option><option>Corporate and Commercial</option>
+                    <option>Criminal Proceedings</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Term</label>
+                <select id="docTerm">
+                    <option>Term 1</option><option>Term 2</option><option>Term 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Workshop Title *</label>
+                <input type="text" id="docTitle" placeholder="e.g., Pleadings & Case Management">
+            </div>
+            <div class="form-group">
+                <label>Description (short)</label>
+                <textarea id="docDesc" rows="2" placeholder="Brief summary of the workshop content"></textarea>
+            </div>
+            <div class="form-group">
+                <label>PDF File (for new upload or replace)</label>
+                <input type="file" id="docPdf" accept=".pdf">
+                <div class="progress-bar" id="uploadProgressBar" style="display: none;">
+                    <div class="progress-fill" id="uploadProgressFill"></div>
+                </div>
+                <small id="pdfHelpText" style="color: #6b5e4a;">Select a PDF to upload. When editing, leave empty to keep existing PDF.</small>
+            </div>
+            <div>
+                <button id="submitBtn"><i class="fas fa-upload"></i> Add Workshop</button>
+                <button id="cancelEditBtn" class="btn-outline" style="display: none;"><i class="fas fa-times"></i> Cancel Edit</button>
+                <button id="resetFormBtn" class="btn-outline"><i class="fas fa-undo-alt"></i> Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Documents List -->
+    <div class="admin-card">
+        <div class="card-header">
+            <span><i class="fas fa-database"></i> All Workshop Documents</span>
+            <button id="refreshListBtn" class="btn-outline" style="background:white;"><i class="fas fa-sync-alt"></i> Refresh</button>
+        </div>
+        <div class="card-body">
+            <div id="documentsList" class="grid-list">
+                <div style="text-align:center; padding:2rem;">Loading documents...</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="repo-badge" style="text-align:center; margin-top:1rem;">
+        <i class="fab fa-github"></i> Repository: <strong>Hunter9201/I</strong> · JSON: workshops.json · PDFs: workshops_pdfs/
+    </div>
+</div>
+
+<script>
+    // ==================== CONFIGURATION ====================
+    const REPO_OWNER = "hunter9201";
+    const REPO_NAME = "I";
+    const BRANCH = "main";
+    const JSON_PATH = "workshops.json";
+    const PDF_FOLDER = "workshops_pdfs/";
+
+    let githubToken = localStorage.getItem("workshop_admin_token") || "";
+    let allDocuments = [];
+    let editingId = null;      // null = add mode, number = edit mode
+
+    // DOM elements
+    const tokenIndicator = document.getElementById("tokenIndicator");
+    const tokenModal = document.getElementById("tokenModal");
+    const tokenInput = document.getElementById("tokenInput");
+    const saveTokenBtn = document.getElementById("saveTokenBtn");
+    const cancelTokenBtn = document.getElementById("cancelTokenBtn");
+    const showTokenBtn = document.getElementById("showTokenBtn");
+    const submitBtn = document.getElementById("submitBtn");
+    const cancelEditBtn = document.getElementById("cancelEditBtn");
+    const resetFormBtn = document.getElementById("resetFormBtn");
+    const refreshListBtn = document.getElementById("refreshListBtn");
+    const documentsListDiv = document.getElementById("documentsList");
+    const formAlert = document.getElementById("formAlert");
+    const uploadProgressBar = document.getElementById("uploadProgressBar");
+    const uploadProgressFill = document.getElementById("uploadProgressFill");
+    const editModeBadge = document.getElementById("editModeBadge");
+    const pdfHelpText = document.getElementById("pdfHelpText");
+
+    // Form fields
+    const docSubject = document.getElementById("docSubject");
+    const docTerm = document.getElementById("docTerm");
+    const docTitle = document.getElementById("docTitle");
+    const docDesc = document.getElementById("docDesc");
+    const docPdf = document.getElementById("docPdf");
+
+    // Helper: update token UI
+    function updateTokenUI() {
+        const hasToken = githubToken && githubToken.length > 10;
+        tokenIndicator.innerText = hasToken ? "Token set" : "No token";
+        tokenIndicator.style.background = hasToken ? "#2b6e3c" : "";
+    }
+
+    // GitHub API helpers
+    function ghHeaders() {
+        const headers = { "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
+        if (githubToken) headers["Authorization"] = "Bearer " + githubToken;
+        return headers;
+    }
+
+    async function ghGetContents(path) {
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeURIComponent(path)}?ref=${BRANCH}`;
+        const res = await fetch(url, { headers: ghHeaders() });
+        if (res.status === 404) return null;
+        if (!res.ok) throw new Error(`GET ${path} failed: ${res.status}`);
+        return res.json();
+    }
+
+    async function ghPutContents(path, contentBase64, message, sha = null) {
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeURIComponent(path)}`;
+        const body = { message, content: contentBase64, branch: BRANCH };
+        if (sha) body.sha = sha;
+        const res = await fetch(url, { method: "PUT", headers: { ...ghHeaders(), "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        if (!res.ok) throw new Error(`PUT ${path} failed: ${res.status}`);
+        return res.json();
+    }
+
+    async function uploadPDF(file, filename, onProgress) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = async () => {
+                try {
+                    const base64 = btoa(new Uint8Array(reader.result).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+                    let sha = null;
+                    try { const existing = await ghGetContents(PDF_FOLDER + filename); if (existing && existing.sha) sha = existing.sha; } catch(e) {}
+                    await ghPutContents(PDF_FOLDER + filename, base64, `Upload ${filename}`, sha);
+                    resolve();
+                } catch (e) { reject(e); }
+            };
+            reader.onerror = reject;
+            reader.readAsArrayBuffer(file);
+        });
+    }
+
+    function toBase64(str) { return btoa(unescape(encodeURIComponent(str))); }
+    function fromBase64(b64) { return decodeURIComponent(escape(atob(b64))); }
+
+    // Load documents from GitHub
+    async function loadDocuments() {
+        try {
+            const data = await ghGetContents(JSON_PATH);
+            if (!data) {
+                allDocuments = [];
+                return [];
+            }
+            const content = fromBase64(data.content);
+            const docs = JSON.parse(content);
+            allDocuments = Array.isArray(docs) ? docs : [];
+            return allDocuments;
+        } catch (err) {
+            console.error(err);
+            allDocuments = [];
+            return [];
+        }
+    }
+
+    // Save documents to GitHub
+    async function saveDocuments(documents, msg = "Update workshops") {
+        const existing = await ghGetContents(JSON_PATH);
+        const sha = existing ? existing.sha : null;
+        const contentBase64 = toBase64(JSON.stringify(documents, null, 2));
+        await ghPutContents(JSON_PATH, contentBase64, msg, sha);
+        allDocuments = documents;
+    }
+
+    // Render admin list with edit & delete buttons
+    async function renderAdminList() {
+        if (!documentsListDiv) return;
+        if (!allDocuments.length) {
+            documentsListDiv.innerHTML = '<div class="empty-state" style="text-align:center; padding:2rem;">📭 No workshops yet. Add one above.</div>';
+            return;
+        }
+        documentsListDiv.innerHTML = '';
+        for (const doc of allDocuments) {
+            const div = document.createElement('div'); div.className = 'doc-item';
+            div.innerHTML = `
+                <div class="doc-title"><i class="fas fa-file-pdf"></i> ${escapeHtml(doc.title)}</div>
+                <div class="doc-meta">${escapeHtml(doc.subject)} | ${doc.term} | PDF: ${doc.pdfFile}</div>
+                <div class="doc-actions">
+                    <button class="edit-doc btn-warning" data-id="${doc.id}"><i class="fas fa-edit"></i> Edit</button>
+                    <button class="delete-doc btn-danger" data-id="${doc.id}"><i class="fas fa-trash"></i> Delete</button>
+                </div>
+            `;
+            documentsListDiv.appendChild(div);
+        }
+        // Attach event listeners
+        document.querySelectorAll('.edit-doc').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); startEditMode(id); }));
+        document.querySelectorAll('.delete-doc').forEach(btn => btn.addEventListener('click', async (e) => { const id = parseInt(btn.dataset.id); await deleteDocument(id); }));
+    }
+
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+    // Switch to edit mode
+    function startEditMode(id) {
+        const doc = allDocuments.find(d => d.id === id);
+        if (!doc) return;
+        editingId = id;
+        docSubject.value = doc.subject;
+        docTerm.value = doc.term;
+        docTitle.value = doc.title;
+        docDesc.value = doc.description || '';
+        docPdf.value = '';  // clear file input
+        submitBtn.innerHTML = '<i class="fas fa-save"></i> Update Workshop';
+        cancelEditBtn.style.display = 'inline-flex';
+        editModeBadge.style.display = 'inline-block';
+        pdfHelpText.innerText = 'Select a new PDF to replace the existing file. Leave empty to keep current PDF.';
+        formAlert.innerHTML = `<div class="alert alert-info">✏️ Editing: ${doc.title}</div>`;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Cancel edit mode
+    function cancelEditMode() {
+        editingId = null;
+        resetForm();
+        submitBtn.innerHTML = '<i class="fas fa-upload"></i> Add Workshop';
+        cancelEditBtn.style.display = 'none';
+        editModeBadge.style.display = 'none';
+        pdfHelpText.innerText = 'Select a PDF to upload. When editing, leave empty to keep existing PDF.';
+        formAlert.innerHTML = '';
+    }
+
+    // Reset form completely
+    function resetForm() {
+        docSubject.value = "Civil Litigation";
+        docTerm.value = "Term 1";
+        docTitle.value = "";
+        docDesc.value = "";
+        docPdf.value = "";
+        if (editingId === null) {
+            // if not editing, just clear
+            formAlert.innerHTML = '';
+        } else {
+            cancelEditMode();
+        }
+    }
+
+    // Delete document
+    async function deleteDocument(id) {
+        if (!confirm("⚠️ Delete this workshop permanently? This action cannot be undone.")) return;
+        const doc = allDocuments.find(d => d.id === id);
+        if (!doc) return;
+        const newList = allDocuments.filter(d => d.id !== id);
+        try {
+            await saveDocuments(newList, `Delete workshop "${doc.title}"`);
+            await loadDocuments();
+            await renderAdminList();
+            formAlert.innerHTML = `<div class="alert alert-success">✅ Deleted "${doc.title}"</div>`;
+            if (editingId === id) cancelEditMode();
+            setTimeout(() => { if (formAlert.innerHTML.includes("Deleted")) formAlert.innerHTML = ''; }, 3000);
+        } catch (err) {
+            formAlert.innerHTML = `<div class="alert alert-error">❌ Delete failed: ${err.message}</div>`;
+        }
+    }
+
+    // Handle submit (add or update)
+    async function handleSubmit() {
+        if (!githubToken) { alert("Please set GitHub token first"); return; }
+        const subject = docSubject.value;
+        const term = docTerm.value;
+        const title = docTitle.value.trim();
+        const description = docDesc.value.trim();
+        const pdfFile = docPdf.files[0];
+
+        if (!title) { alert("Title is required"); return; }
+
+        let uploadedPdfName = null;
+        if (pdfFile) {
+            if (pdfFile.type !== 'application/pdf') { alert("Only PDF files allowed"); return; }
+            const timestamp = Date.now();
+            const safeName = `${timestamp}_${pdfFile.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+            uploadProgressBar.style.display = 'block';
+            uploadProgressFill.style.width = '0%';
+            try {
+                await uploadPDF(pdfFile, safeName);
+                uploadProgressFill.style.width = '100%';
+                setTimeout(() => { uploadProgressBar.style.display = 'none'; uploadProgressFill.style.width = '0%'; }, 500);
+                uploadedPdfName = safeName;
+            } catch (err) {
+                formAlert.innerHTML = `<div class="alert alert-error">❌ PDF upload failed: ${err.message}</div>`;
+                uploadProgressBar.style.display = 'none';
+                return;
+            }
+        }
+
+        if (editingId !== null) {
+            // Update existing
+            const index = allDocuments.findIndex(d => d.id === editingId);
+            if (index === -1) { alert("Document not found"); cancelEditMode(); return; }
+            const updated = { ...allDocuments[index], subject, term, title, description };
+            if (uploadedPdfName) updated.pdfFile = uploadedPdfName;
+            allDocuments[index] = updated;
+            try {
+                await saveDocuments(allDocuments, `Update workshop: ${title}`);
+                await loadDocuments();
+                await renderAdminList();
+                formAlert.innerHTML = `<div class="alert alert-success">✅ Updated "${title}"</div>`;
+                cancelEditMode();
+                setTimeout(() => { if (formAlert.innerHTML.includes("Updated")) formAlert.innerHTML = ''; }, 3000);
+            } catch (err) {
+                formAlert.innerHTML = `<div class="alert alert-error">❌ Update failed: ${err.message}</div>`;
+            }
+        } else {
+            // Add new
+            if (!uploadedPdfName) { alert("Please select a PDF file to upload."); return; }
+            const newId = allDocuments.length ? Math.max(...allDocuments.map(d => d.id)) + 1 : 1;
+            const newDoc = {
+                id: newId, subject, term, title, description,
+                pdfFile: uploadedPdfName
+            };
+            const newList = [...allDocuments, newDoc];
+            try {
+                await saveDocuments(newList, `Add workshop: ${title}`);
+                await loadDocuments();
+                await renderAdminList();
+                formAlert.innerHTML = `<div class="alert alert-success">✅ Added "${title}"</div>`;
+                resetForm();
+                setTimeout(() => { if (formAlert.innerHTML.includes("Added")) formAlert.innerHTML = ''; }, 3000);
+            } catch (err) {
+                formAlert.innerHTML = `<div class="alert alert-error">❌ Add failed: ${err.message}</div>`;
+            }
+        }
+        docPdf.value = '';
+    }
+
+    // Refresh everything
+    async function refreshAll() {
+        refreshListBtn.disabled = true;
+        refreshListBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Refreshing...';
+        try {
+            await loadDocuments();
+            await renderAdminList();
+            formAlert.innerHTML = `<div class="alert alert-success">✅ Data refreshed from GitHub</div>`;
+            setTimeout(() => { if (formAlert.innerHTML.includes("refreshed")) formAlert.innerHTML = ''; }, 2000);
+        } catch (err) {
+            formAlert.innerHTML = `<div class="alert alert-error">❌ Refresh failed: ${err.message}</div>`;
+        }
+        refreshListBtn.disabled = false;
+        refreshListBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+    }
+
+    // Token management
+    function setTokenAndClose(token) {
+        githubToken = token;
+        localStorage.setItem("workshop_admin_token", token);
+        updateTokenUI();
+        tokenModal.style.display = 'none';
+        refreshAll();
+    }
+
+    // Event listeners
+    showTokenBtn.addEventListener('click', () => { tokenModal.style.display = 'flex'; });
+    saveTokenBtn.addEventListener('click', () => { const tok = tokenInput.value.trim(); if(tok) setTokenAndClose(tok); else alert("Enter token"); });
+    cancelTokenBtn.addEventListener('click', () => { tokenModal.style.display = 'none'; });
+    window.addEventListener('click', (e) => { if (e.target === tokenModal) tokenModal.style.display = 'none'; });
+
+    submitBtn.addEventListener('click', handleSubmit);
+    cancelEditBtn.addEventListener('click', cancelEditMode);
+    resetFormBtn.addEventListener('click', () => { if (editingId !== null) cancelEditMode(); else resetForm(); });
+    refreshListBtn.addEventListener('click', refreshAll);
+
+    // Initial load
+    updateTokenUI();
+    refreshAll();
+</script>
+</body>
+</html>
