@@ -1,111 +1,768 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCLCFN2CV4"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-KCLCFN2CV4');
-  </script>
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🦁 Workshops Cases 2025</title>
-  <style>
-    :root {
-      --brand:#0f766e; --bg:#0b1220; --card:#0f172a; --muted:#94a3b8; --text:#e2e8f0; --border:#1f2937;
-    }
-    * { box-sizing: border-box; }
-    html, body {
-      height: 100%; margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--bg); color: var(--text);
-    }
-
-    a { color: #93c5fd; text-decoration: none; transition: color 0.3s ease; }
-    a:hover { color: #38bdf8; }
-
-    header {
-      position: sticky; top: 0; z-index: 10;
-      background: rgba(15,23,42,.85); backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-    }
-    .bar {
-      max-width: 1100px; margin: 0 auto; padding: 14px 16px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .title { font-size: 18px; color: #a7f3d0; font-weight: 700; }
-    .btn {
-      appearance: none; border: 1px solid var(--border); background: #0b1324;
-      color: var(--text); border-radius: 10px; padding: 10px 12px;
-      cursor: pointer; text-decoration: none; transition: background 0.3s ease;
-    }
-    .btn:hover { background: #111827; }
-
-    h1 {
-      max-width: 1100px; margin: 24px auto 16px; padding: 0 16px;
-      font-size: 24px; color: #e5f3ff;
-    }
-
-    .wrap {
-      max-width: 1100px; margin: 0 auto; padding: 0 16px;
-    }
-
-    .panel {
-      background: linear-gradient(180deg,#0f172a,#0b1324);
-      border: 1px solid var(--border); border-radius: 16px;
-      padding: 20px; margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
-      transition: transform 0.2s ease;
-    }
-    .panel:hover { transform: translateY(-2px); }
-
-    .panel h2 {
-      margin: 0 0 10px; font-size: 18px; color: #e5f3ff;
-    }
-    .panel p {
-      margin: 0 0 14px; color: var(--muted); font-size: 14px;
-    }
-
-    .link-btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--brand); color: white;
-      padding: 10px 14px; border-radius: 10px;
-      text-decoration: none; font-weight: 500;
-      transition: background 0.3s ease;
-    }
-    .link-btn:hover { background: #0d9488; }
-
-    footer {
-      text-align: center; padding: 16px; font-size: 0.9rem;
-      color: var(--muted); border-top: 1px solid var(--border);
-      margin-top: 40px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Case Library | Law Reports + Admin Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #F4EFE9;
+            font-family: 'Inter', sans-serif;
+            color: #1E2A32;
+            line-height: 1.5;
+        }
+        .header {
+            background: #0A2F3A;
+            color: white;
+            border-bottom: 3px solid #D4AF37;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo h1 { font-size: 1.5rem; font-weight: 700; }
+        .logo p { font-size: 0.75rem; opacity: 0.8; }
+        .search-box { flex: 1; max-width: 400px; position: relative; }
+        .search-box input {
+            width: 100%;
+            padding: 0.7rem 1rem 0.7rem 2.5rem;
+            border: none;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
+        .search-box i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #8B3A3A; }
+        .search-box button {
+            position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%);
+            background: #ddd; border: none; border-radius: 50%; width: 22px; height: 22px;
+            cursor: pointer; display: none;
+        }
+        .refresh-btn, .admin-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid #D4AF37;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .refresh-btn:hover, .admin-btn:hover { background: #D4AF37; color: #0A2F3A; }
+        .stats {
+            max-width: 1400px;
+            margin: 1rem auto 0;
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #2C4A5E;
+        }
+        .stats span i { color: #D4AF37; margin-right: 5px; }
+        .search-badge {
+            background: #8B3A3A;
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+        }
+        .report-filters {
+            max-width: 1400px;
+            margin: 1rem auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .filter-chip {
+            background: #0A2F3A;
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .filter-chip.active, .filter-chip:hover { background: #D4AF37; color: #0A2F3A; }
+        .cases-grid {
+            max-width: 1400px;
+            margin: 1rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .cases-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; padding: 0 1rem; }
+        }
+        .case-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: 0.2s;
+            cursor: pointer;
+            border: 1px solid #e0d6c8;
+            display: flex;
+            flex-direction: column;
+        }
+        .case-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); border-color: #D4AF37; }
+        .card-header {
+            background: #0A2F3A;
+            padding: 0.9rem;
+            position: relative;
+        }
+        .report-badge {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: #D4AF37;
+            color: #0A2F3A;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-family: monospace;
+            max-width: 50%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .report-icon { font-size: 1.6rem; color: #D4AF37; margin-bottom: 0.3rem; }
+        .case-title { font-weight: 700; font-size: 1rem; color: white; margin: 0.2rem 0; line-height: 1.3; }
+        .report-name { font-size: 0.7rem; color: #D4AF37; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .card-body { padding: 0.8rem; flex: 1; }
+        .citation-text {
+            font-family: 'Courier New', monospace;
+            background: #F0EAE0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 8px;
+            color: #1E2A32;
+        }
+        .case-desc { font-size: 0.75rem; color: #4A627A; margin: 0.5rem 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .case-meta { font-size: 0.65rem; background: #F0EAE0; padding: 0.3rem 0.5rem; border-radius: 30px; display: inline-block; width: 100%; text-align: center; margin-top: 0.4rem; }
+        .open-btn {
+            width: 100%;
+            border: none;
+            background: #0A2F3A;
+            color: white;
+            padding: 0.7rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border-top: 1px solid #e0d6c8;
+            transition: 0.2s;
+            margin-top: auto;
+        }
+        .open-btn:hover { background: #8B3A3A; }
+        .empty-state, .loading { text-align: center; padding: 3rem; grid-column: 1 / -1; background: #faf6ef; border-radius: 2rem; }
+        .spinner { width: 40px; height: 40px; border: 3px solid #D4AF37; border-top-color: #0A2F3A; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        footer { text-align: center; padding: 1.5rem; margin-top: 2rem; background: #0A2F3A; color: white; font-size: 0.75rem; border-top: 3px solid #D4AF37; }
+        .highlight { background: #FCE9B4; padding: 0 2px; border-radius: 4px; }
+        /* Admin Modal */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
+            display: none; align-items: center; justify-content: center;
+            z-index: 2000;
+        }
+        .modal-container {
+            background: white; border-radius: 1.5rem; max-width: 750px; width: 90%;
+            max-height: 85vh; overflow-y: auto; padding: 1.5rem;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+        }
+        .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid #D4AF37; padding-bottom: 0.5rem; margin-bottom: 1rem;
+        }
+        .modal-header h2 { color: #0A2F3A; }
+        .modal-close { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #8B3A3A; }
+        .admin-form-group { margin-bottom: 1rem; }
+        .admin-form-group label { font-weight: 600; display: block; margin-bottom: 0.3rem; color: #0A2F3A; }
+        .admin-form-group input, .admin-form-group select, .admin-form-group textarea {
+            width: 100%; padding: 0.7rem; border: 1px solid #ccc; border-radius: 14px;
+            font-family: inherit;
+        }
+        .admin-btn-group { display: flex; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap; }
+        .btn-primary { background: #0A2F3A; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 40px; cursor: pointer; }
+        .btn-danger { background: #8B3A3A; }
+        .btn-warning { background: #D4AF37; color: #0A2F3A; }
+        .case-list-item {
+            border: 1px solid #e0d6c8; border-radius: 1rem; padding: 0.8rem; margin-bottom: 0.8rem;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+        }
+        .case-list-info { flex: 1; }
+        .case-list-actions button { margin-left: 0.5rem; padding: 0.3rem 0.8rem; border-radius: 30px; }
+        .token-status {
+            background: #e2e8f0; padding: 4px 12px; border-radius: 30px; font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+        .admin-floating-btn {
+            position: fixed; bottom: 20px; right: 20px;
+            background: #0A2F3A; color: #D4AF37; width: 55px; height: 55px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer;
+            z-index: 150; border: 2px solid #D4AF37; transition: 0.2s;
+        }
+        .admin-floating-btn:hover { transform: scale(1.05); background: #D4AF37; color: #0A2F3A; }
+        .repo-config { background: #f0eae0; padding: 0.8rem; border-radius: 1rem; margin-bottom: 1rem; }
+        hr { margin: 1rem 0; }
+        .required-star { color: #8B3A3A; margin-left: 2px; }
+        .inline-help { font-size: 0.7rem; color: #5b6e8c; margin-top: 4px; }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div class="bar">
-      <div class="title">Workshop Case Archive</div>
-      <a href="index.html" class="btn">⬅ Return</a>
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <h1><i class="fas fa-book"></i> CASE LAW REPOSITORY</h1>
+            <p>Organized by Law Report Series</p>
+        </div>
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search by citation, case name, or law report...">
+            <button id="clearSearchBtn">×</button>
+        </div>
+        <button id="refreshBtn" class="refresh-btn"><i class="fas fa-sync-alt"></i> Refresh</button>
     </div>
-  </header>
+</header>
 
-  <h1>🦁 All Workshop Cases – 2025</h1>
+<div class="stats">
+    <div>
+        <span><i class="fas fa-gavel"></i> <strong id="totalCount">0</strong> Cases</span>
+        <span style="margin-left: 1rem;"><i class="fas fa-eye"></i> <span id="displayedCount">0</span> displayed</span>
+        <span id="syncTime" style="margin-left: 1rem; font-size: 0.7rem;"><i class="far fa-clock"></i> never</span>
+    </div>
+    <div id="searchBadge" class="search-badge" style="display: none;">
+        <i class="fas fa-filter"></i> <span id="searchTerm"></span>
+    </div>
+</div>
 
-  <div class="wrap">
-    <section class="panel">
-      <h2>Civil  • Family • Criminal • Land & Corporate </h2>
-      <p>Access all cases for all workshops on the 2025 reading lists.</p>
-      <a class="link-btn" href="https://drive.google.com/drive/folders/1Ldp4EgTV1eeoZKN4RXBtMiKBwQWUzJWu?usp=drive_link" target="_blank" rel="noopener noreferrer">📁 All Workshop Cases Folder</a>
-    </section>
-  </div>
+<div class="report-filters">
+    <div class="filter-chip active" data-report="all">All Law Reports</div>
+    <div class="filter-chip" data-report="All England Law Reports">All ER</div>
+    <div class="filter-chip" data-report="Weekly Law Reports">WLR</div>
+    <div class="filter-chip" data-report="Supreme Court Reports">SCR</div>
+    <div class="filter-chip" data-report="Family Law Reports">FLR</div>
+    <div class="filter-chip" data-report="Criminal Appeal Reports">Cr App R</div>
+    <div class="filter-chip" data-report="Lloyd's Law Reports">Lloyd's Rep</div>
+    <div class="filter-chip" data-report="Butterworths">Butterworths</div>
+</div>
 
-  <footer>
-    LionHunterworkshopCases2025@ldcLionhunter.com • &copy;  🦁
-  </footer>
+<div class="cases-grid" id="casesGrid">
+    <div class="loading"><div class="spinner"></div><p>Loading case library...</p></div>
+</div>
+
+<footer>
+    <i class="fas fa-balance-scale"></i> All cases organized by law report series — click to read full judgment PDF.
+</footer>
+
+<!-- Admin Floating Button -->
+<div class="admin-floating-btn" id="adminFloatBtn">
+    <i class="fas fa-crown"></i>
+</div>
+
+<!-- Admin Modal -->
+<div id="adminModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2><i class="fas fa-tools"></i> Admin Panel – Manage Cases (by Law Report)</h2>
+            <button class="modal-close" id="closeAdminModal">&times;</button>
+        </div>
+        <div class="repo-config">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div><i class="fab fa-github"></i> GitHub Repo: <strong>hunter9201/I</strong></div>
+                <div><span id="adminTokenStatus" class="token-status">⚠️ No token</span>
+                <button id="setTokenBtn" class="btn-primary" style="padding: 0.2rem 0.8rem;">Set Token</button></div>
+            </div>
+            <div style="font-size:0.7rem; margin-top:5px;">JSON: cases.json | PDFs: cases_pdfs/ (needs repo scope token)</div>
+        </div>
+        <div id="adminCaseList"></div>
+        <hr>
+        <h3>➕ Add / Edit Case</h3>
+        <div class="admin-form-group">
+            <label>📜 Full Case Citation <span class="required-star">*</span></label>
+            <input id="caseCitation" placeholder="e.g., Donoghue v. Stevenson [1932] AC 562" required>
+            <div class="inline-help">Include neutral citation or law report reference</div>
+        </div>
+        <div class="admin-form-group">
+            <label>📚 Law Report Series <span class="required-star">*</span></label>
+            <select id="caseReport">
+                <option value="All England Law Reports">All England Law Reports (All ER)</option>
+                <option value="Weekly Law Reports">Weekly Law Reports (WLR)</option>
+                <option value="Supreme Court Reports">Supreme Court Reports (SCR)</option>
+                <option value="Family Law Reports">Family Law Reports (FLR)</option>
+                <option value="Criminal Appeal Reports">Criminal Appeal Reports (Cr App R)</option>
+                <option value="Lloyd's Law Reports">Lloyd's Law Reports (Lloyd's Rep)</option>
+                <option value="Butterworths">Butterworths</option>
+                <option value="Other">Other (specify)</option>
+            </select>
+        </div>
+        <div class="admin-form-group" id="customReportGroup" style="display: none;">
+            <label>Custom Law Report Name</label>
+            <input id="customReportInput" placeholder="e.g., Irish Reports, South African Law Reports">
+        </div>
+        <div class="admin-form-group">
+            <label>📌 Case Name / Style of Cause</label>
+            <input id="caseTitle" placeholder="Full case name (e.g., R v. Oakes)">
+        </div>
+        <div class="admin-form-group">
+            <label>📄 Summary / Headnotes</label>
+            <textarea id="caseDesc" rows="2" placeholder="Key legal principles, facts, holding..."></textarea>
+        </div>
+        <div class="admin-form-group">
+            <label>📁 PDF Judgment (upload)</label>
+            <input type="file" id="casePdfFile" accept=".pdf">
+            <div class="inline-help">Upload PDF for new case; leave empty to keep existing file when editing.</div>
+        </div>
+        <div class="admin-btn-group">
+            <button id="addCaseBtn" class="btn-primary"><i class="fas fa-upload"></i> Save Case</button>
+            <button id="cancelEditBtn" class="btn-warning"><i class="fas fa-times"></i> Cancel Edit</button>
+        </div>
+        <div id="adminMsg" style="margin-top:1rem; font-size:0.8rem;"></div>
+    </div>
+</div>
+
+<!-- Token Modal -->
+<div id="tokenModal" class="modal-overlay" style="z-index:2100;">
+    <div class="modal-container" style="max-width:400px;">
+        <h3>GitHub Personal Access Token</h3>
+        <p>Requires <strong>repo</strong> scope (classic token). Stored locally.</p>
+        <input type="password" id="githubTokenInput" placeholder="github_pat_xxx..." style="width:100%; padding:8px; margin:10px 0;">
+        <div class="admin-btn-group">
+            <button id="saveTokenBtn" class="btn-primary">Save</button>
+            <button id="cancelTokenBtn" class="btn-warning">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ===================== CONFIGURATION =====================
+    const REPO_OWNER = "hunter9201";
+    const REPO_NAME = "I";
+    const BRANCH = "main";
+    const JSON_PATH = "cases.json";
+    const PDF_FOLDER = "cases_pdfs/";
+
+    let githubToken = localStorage.getItem("case_gh_token") || "";
+    let allCases = [];           // each case: { id, citation, title, lawReport, description, pdfFile, addedDate }
+    let currentSearch = "", currentReport = "all";
+    let editingId = null;
+    let debounceTimer;
+
+    // Helper: GitHub API with token
+    function ghHeaders() {
+        const headers = { "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
+        if (githubToken) headers["Authorization"] = "Bearer " + githubToken;
+        return headers;
+    }
+    async function ghGetContents(path) {
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeURIComponent(path)}?ref=${BRANCH}`;
+        const res = await fetch(url, { headers: ghHeaders() });
+        if (res.status === 404) return null;
+        if (!res.ok) throw new Error(`GET ${path} failed: ${res.status}`);
+        return await res.json();
+    }
+    async function ghPutContents(path, contentBase64, message, sha = null) {
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeURIComponent(path)}`;
+        const body = { message, content: contentBase64, branch: BRANCH };
+        if (sha) body.sha = sha;
+        const res = await fetch(url, { method: "PUT", headers: { ...ghHeaders(), "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        if (!res.ok) throw new Error(`PUT ${path} failed: ${res.status}`);
+        return res.json();
+    }
+    async function uploadPDF(file, filename) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = async () => {
+                try {
+                    const binary = reader.result;
+                    const base64 = btoa(new Uint8Array(binary).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+                    let sha = null;
+                    try { const existing = await ghGetContents(PDF_FOLDER + filename); if (existing && existing.sha) sha = existing.sha; } catch(e) {}
+                    await ghPutContents(PDF_FOLDER + filename, base64, `Upload case PDF: ${filename}`, sha);
+                    resolve();
+                } catch (e) { reject(e); }
+            };
+            reader.onerror = reject;
+            reader.readAsArrayBuffer(file);
+        });
+    }
+    function toBase64(str) { return btoa(unescape(encodeURIComponent(str))); }
+    function fromBase64(b64) { return decodeURIComponent(escape(atob(b64))); }
+
+    // Load cases from cases.json
+    async function loadCasesFromGitHub() {
+        try {
+            const data = await ghGetContents(JSON_PATH);
+            if (!data || !data.content) {
+                allCases = [];
+                return [];
+            }
+            const content = fromBase64(data.content);
+            const casesArr = JSON.parse(content);
+            allCases = Array.isArray(casesArr) ? casesArr : [];
+            return allCases;
+        } catch (err) {
+            console.error("Load cases error:", err);
+            allCases = [];
+            return [];
+        }
+    }
+
+    // Save cases array to GitHub
+    async function saveCasesToGitHub(casesArray, commitMsg = "Update cases") {
+        const existing = await ghGetContents(JSON_PATH);
+        const sha = existing ? existing.sha : null;
+        const contentBase64 = toBase64(JSON.stringify(casesArray, null, 2));
+        await ghPutContents(JSON_PATH, contentBase64, commitMsg, sha);
+        allCases = casesArray;
+    }
+
+    // Helper: check citation uniqueness (excluding current editing)
+    function isCitationUnique(citation, excludeId = null) {
+        const lower = citation.trim().toLowerCase();
+        return !allCases.some(c => c.citation.toLowerCase() === lower && (excludeId === null || c.id !== excludeId));
+    }
+
+    // ----- UI Public Render (by Law Report) -----
+    function getFilteredCases() {
+        let filtered = [...allCases];
+        if (currentSearch.trim()) {
+            const q = currentSearch.toLowerCase();
+            filtered = filtered.filter(c => 
+                c.citation.toLowerCase().includes(q) ||
+                c.title.toLowerCase().includes(q) ||
+                (c.lawReport && c.lawReport.toLowerCase().includes(q)) ||
+                (c.description && c.description.toLowerCase().includes(q))
+            );
+        }
+        if (currentReport !== 'all') filtered = filtered.filter(c => c.lawReport === currentReport);
+        return filtered;
+    }
+
+    function updateStats() {
+        document.getElementById('totalCount').innerText = allCases.length;
+        document.getElementById('displayedCount').innerText = getFilteredCases().length;
+        const badge = document.getElementById('searchBadge');
+        if (currentSearch.trim()) { badge.style.display = 'inline-block'; document.getElementById('searchTerm').innerText = `“${currentSearch}”`; }
+        else badge.style.display = 'none';
+    }
+
+    function highlightText(text, query) {
+        if (!query || !text) return text;
+        const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    function openCasePDF(caseItem) {
+        const pdfUrl = `https://${REPO_OWNER}.github.io/${REPO_NAME}/${PDF_FOLDER}${caseItem.pdfFile}`;
+        window.open(pdfUrl, '_blank');
+    }
+
+    function getIconForReport(report) {
+        const r = (report || "").toLowerCase();
+        if (r.includes("all england") || r.includes("all er")) return "fa-book";
+        if (r.includes("wlr") || r.includes("weekly")) return "fa-newspaper";
+        if (r.includes("scr") || r.includes("supreme court")) return "fa-gavel";
+        if (r.includes("flr") || r.includes("family")) return "fa-heart";
+        if (r.includes("criminal") || r.includes("cr app")) return "fa-handcuffs";
+        if (r.includes("lloyd")) return "fa-ship";
+        return "fa-balance-scale";
+    }
+
+    function renderCases() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const filtered = getFilteredCases();
+            const grid = document.getElementById('casesGrid');
+            if (!filtered.length) {
+                grid.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><h3>No cases found</h3><p>Adjust filters or add cases via admin panel.</p></div>`;
+                updateStats();
+                return;
+            }
+            grid.innerHTML = '';
+            for (const c of filtered) {
+                const iconClass = getIconForReport(c.lawReport);
+                const highlightedTitle = currentSearch ? highlightText(c.title, currentSearch) : c.title;
+                const highlightedCitation = currentSearch ? highlightText(c.citation, currentSearch) : c.citation;
+                const highlightedDesc = currentSearch && c.description ? highlightText(c.description, currentSearch) : (c.description || "No headnotes provided.");
+                const displayReport = c.lawReport && c.lawReport !== "Other" ? c.lawReport : (c.customReport || c.lawReport || "Law Report");
+                
+                const card = document.createElement('div'); card.className = 'case-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="report-badge" title="${escapeHtml(displayReport)}">📖 ${escapeHtml(displayReport.length > 28 ? displayReport.substring(0,26)+'…' : displayReport)}</div>
+                        <div class="report-icon"><i class="fas ${iconClass}"></i></div>
+                        <div class="case-title">${highlightedTitle}</div>
+                        <div class="report-name">${escapeHtml(displayReport)}</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="citation-text"><i class="fas fa-quote-left"></i> ${highlightedCitation}</div>
+                        <div class="case-desc">${highlightedDesc}</div>
+                        <div class="case-meta"><i class="fas fa-file-pdf"></i> Judgment PDF · ${new Date(c.addedDate || Date.now()).toLocaleDateString()}</div>
+                    </div>
+                    <button class="open-btn"><i class="fas fa-download"></i> Read Full Case</button>
+                `;
+                const btn = card.querySelector('.open-btn');
+                btn.addEventListener('click', (e) => { e.stopPropagation(); openCasePDF(c); });
+                card.addEventListener('click', () => openCasePDF(c));
+                grid.appendChild(card);
+            }
+            updateStats();
+        }, 50);
+    }
+
+    // ----- Admin Management (Law Report based) -----
+    async function renderAdminCaseList() {
+        const container = document.getElementById('adminCaseList');
+        if (!container) return;
+        if (!allCases.length) { container.innerHTML = '<p>📭 No cases in library. Add your first case below.</p>'; return; }
+        container.innerHTML = '';
+        for (const c of allCases) {
+            const div = document.createElement('div'); div.className = 'case-list-item';
+            div.innerHTML = `
+                <div class="case-list-info">
+                    <strong>${escapeHtml(c.citation)}</strong><br>
+                    <span style="font-size:0.7rem;">${escapeHtml(c.title)} | ${escapeHtml(c.lawReport)} | PDF: ${c.pdfFile}</span>
+                </div>
+                <div class="case-list-actions">
+                    <button class="btn-warning edit-case" data-id="${c.id}">✏️ Edit</button>
+                    <button class="btn-danger delete-case" data-id="${c.id}">🗑️ Delete</button>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+        document.querySelectorAll('.edit-case').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); startEditCase(id); }));
+        document.querySelectorAll('.delete-case').forEach(btn => btn.addEventListener('click', async (e) => { const id = parseInt(btn.dataset.id); await deleteCaseById(id); }));
+    }
+
+    function startEditCase(id) {
+        const caseItem = allCases.find(c => c.id === id);
+        if (!caseItem) return;
+        document.getElementById('caseCitation').value = caseItem.citation;
+        document.getElementById('caseReport').value = caseItem.lawReport === "Other" ? "Other" : caseItem.lawReport;
+        document.getElementById('caseTitle').value = caseItem.title;
+        document.getElementById('caseDesc').value = caseItem.description || '';
+        document.getElementById('casePdfFile').value = '';
+        if (caseItem.lawReport === "Other" && caseItem.customReport) {
+            document.getElementById('customReportGroup').style.display = 'block';
+            document.getElementById('customReportInput').value = caseItem.customReport;
+        } else {
+            document.getElementById('customReportGroup').style.display = 'none';
+            document.getElementById('customReportInput').value = '';
+        }
+        editingId = id;
+        const addBtn = document.getElementById('addCaseBtn');
+        addBtn.innerHTML = '<i class="fas fa-save"></i> Update Case';
+        addBtn.style.background = "#D4AF37";
+        document.getElementById('adminMsg').innerHTML = `<i class="fas fa-edit"></i> Editing: <strong>${caseItem.citation}</strong> — upload new PDF to replace file.`;
+    }
+
+    async function deleteCaseById(id) {
+        if (!confirm("Permanently delete this case? Citation will be removed.")) return;
+        const caseItem = allCases.find(c => c.id === id);
+        if (!caseItem) return;
+        const newList = allCases.filter(c => c.id !== id);
+        try {
+            await saveCasesToGitHub(newList, `Delete case: ${caseItem.citation}`);
+            await loadCasesFromGitHub();
+            renderCases();
+            renderAdminCaseList();
+            document.getElementById('adminMsg').innerHTML = `✅ Deleted "${caseItem.citation}"`;
+            if (editingId === id) resetCaseForm();
+        } catch (err) { document.getElementById('adminMsg').innerHTML = `❌ Delete failed: ${err.message}`; }
+    }
+
+    function resetCaseForm() {
+        document.getElementById('caseCitation').value = '';
+        document.getElementById('caseReport').value = 'All England Law Reports';
+        document.getElementById('caseTitle').value = '';
+        document.getElementById('caseDesc').value = '';
+        document.getElementById('casePdfFile').value = '';
+        document.getElementById('customReportGroup').style.display = 'none';
+        document.getElementById('customReportInput').value = '';
+        editingId = null;
+        const addBtn = document.getElementById('addCaseBtn');
+        addBtn.innerHTML = '<i class="fas fa-upload"></i> Save Case';
+        addBtn.style.background = "";
+        document.getElementById('adminMsg').innerHTML = '';
+    }
+
+    async function saveCaseHandler() {
+        if (!githubToken) { alert("🔐 Please set GitHub token first (Admin panel > Set Token)."); return; }
+        const citation = document.getElementById('caseCitation').value.trim();
+        let lawReport = document.getElementById('caseReport').value;
+        const customReport = document.getElementById('customReportInput').value.trim();
+        const title = document.getElementById('caseTitle').value.trim();
+        const description = document.getElementById('caseDesc').value.trim();
+        const pdfFileInput = document.getElementById('casePdfFile');
+        
+        if (!citation) { alert("❌ Case citation is required."); return; }
+        if (!title) { alert("❌ Case name / title is required."); return; }
+        
+        let finalLawReport = lawReport;
+        let finalCustom = null;
+        if (lawReport === "Other") {
+            if (!customReport) { alert("Please enter the custom law report name."); return; }
+            finalLawReport = "Other";
+            finalCustom = customReport;
+        }
+        
+        // uniqueness check
+        if (!isCitationUnique(citation, editingId)) {
+            alert(`⚠️ Citation "${citation}" already exists. Use a unique citation.`);
+            return;
+        }
+        
+        let uploadedPdfName = null;
+        if (pdfFileInput.files.length > 0) {
+            const file = pdfFileInput.files[0];
+            if (file.type !== 'application/pdf') { alert("Only PDF files allowed."); return; }
+            const timestamp = Date.now();
+            const safeName = `${timestamp}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+            await uploadPDF(file, safeName);
+            uploadedPdfName = safeName;
+        }
+        
+        if (editingId !== null) {
+            const index = allCases.findIndex(c => c.id === editingId);
+            if (index !== -1) {
+                const updated = { ...allCases[index], citation, lawReport: finalLawReport, title, description };
+                if (finalLawReport === "Other") updated.customReport = finalCustom;
+                else delete updated.customReport;
+                if (uploadedPdfName) updated.pdfFile = uploadedPdfName;
+                allCases[index] = updated;
+                await saveCasesToGitHub(allCases, `Update case: ${citation}`);
+                await loadCasesFromGitHub();
+                renderCases();
+                await renderAdminCaseList();
+                document.getElementById('adminMsg').innerHTML = `✅ Case "${citation}" updated.`;
+                resetCaseForm();
+            }
+        } else {
+            if (!uploadedPdfName) { alert("Please select a PDF file for the new case."); return; }
+            const newId = allCases.length ? Math.max(...allCases.map(c => c.id)) + 1 : 1;
+            const newCase = {
+                id: newId,
+                citation,
+                title,
+                lawReport: finalLawReport,
+                description: description || "",
+                pdfFile: uploadedPdfName,
+                addedDate: Date.now()
+            };
+            if (finalLawReport === "Other") newCase.customReport = finalCustom;
+            const newList = [...allCases, newCase];
+            await saveCasesToGitHub(newList, `Add case: ${citation}`);
+            await loadCasesFromGitHub();
+            renderCases();
+            await renderAdminCaseList();
+            document.getElementById('adminMsg').innerHTML = `✅ Added case "${citation}" under ${finalLawReport === "Other" ? finalCustom : finalLawReport}.`;
+            resetCaseForm();
+        }
+        pdfFileInput.value = '';
+    }
+
+    async function refreshAll() {
+        const refreshBtn = document.getElementById('refreshBtn');
+        refreshBtn.disabled = true;
+        refreshBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Syncing...';
+        try {
+            await loadCasesFromGitHub();
+            renderCases();
+            document.getElementById('syncTime').innerHTML = `<i class="far fa-clock"></i> ${new Date().toLocaleTimeString()}`;
+            if (document.getElementById('adminModal').style.display === 'flex') await renderAdminCaseList();
+        } catch (err) { console.error(err); alert("Sync error: " + err.message); }
+        refreshBtn.disabled = false;
+        refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+    }
+
+    function updateTokenUI() {
+        const has = githubToken && githubToken.length > 10;
+        const span = document.getElementById('adminTokenStatus');
+        if (span) span.innerHTML = has ? "🔑 Token active" : "⚠️ No token";
+    }
+
+    // Show/hide custom report input
+    function toggleCustomReport() {
+        const select = document.getElementById('caseReport');
+        const customGroup = document.getElementById('customReportGroup');
+        if (select.value === "Other") customGroup.style.display = 'block';
+        else customGroup.style.display = 'none';
+    }
+
+    // Event binding
+    document.addEventListener('DOMContentLoaded', async () => {
+        githubToken = localStorage.getItem("case_gh_token") || "";
+        updateTokenUI();
+        await loadCasesFromGitHub();
+        renderCases();
+        document.getElementById('syncTime').innerHTML = `<i class="far fa-clock"></i> ${new Date().toLocaleTimeString()}`;
+        
+        const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearSearchBtn');
+        searchInput.addEventListener('input', () => { currentSearch = searchInput.value.trim(); clearBtn.style.display = currentSearch ? 'flex' : 'none'; renderCases(); });
+        clearBtn.addEventListener('click', () => { searchInput.value = ''; currentSearch = ''; clearBtn.style.display = 'none'; renderCases(); });
+        
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentReport = chip.getAttribute('data-report');
+                renderCases();
+            });
+        });
+        
+        document.getElementById('refreshBtn').addEventListener('click', refreshAll);
+        
+        const adminModal = document.getElementById('adminModal');
+        const floatBtn = document.getElementById('adminFloatBtn');
+        const closeAdmin = document.getElementById('closeAdminModal');
+        floatBtn.addEventListener('click', async () => {
+            await refreshAll();
+            await renderAdminCaseList();
+            adminModal.style.display = 'flex';
+        });
+        closeAdmin.addEventListener('click', () => { adminModal.style.display = 'none'; resetCaseForm(); });
+        document.getElementById('addCaseBtn').addEventListener('click', saveCaseHandler);
+        document.getElementById('cancelEditBtn').addEventListener('click', resetCaseForm);
+        document.getElementById('caseReport').addEventListener('change', toggleCustomReport);
+        
+        const setTokenBtn = document.getElementById('setTokenBtn');
+        const tokenModal = document.getElementById('tokenModal');
+        const saveToken = document.getElementById('saveTokenBtn');
+        const cancelToken = document.getElementById('cancelTokenBtn');
+        const tokenInput = document.getElementById('githubTokenInput');
+        setTokenBtn.addEventListener('click', () => { tokenModal.style.display = 'flex'; });
+        saveToken.addEventListener('click', () => { const tok = tokenInput.value.trim(); if(tok) { githubToken = tok; localStorage.setItem("case_gh_token", tok); updateTokenUI(); tokenModal.style.display = 'none'; refreshAll(); } else alert("Enter token"); });
+        cancelToken.addEventListener('click', () => { tokenModal.style.display = 'none'; });
+        window.addEventListener('click', (e) => { if (e.target === tokenModal) tokenModal.style.display = 'none'; if (e.target === adminModal) adminModal.style.display = 'none'; });
+    });
+    
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m) { if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m; }); }
+</script>
 </body>
 </html>
