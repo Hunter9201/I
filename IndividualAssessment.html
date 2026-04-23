@@ -1,139 +1,777 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Weekly Assessments – Drive Folder Viewer</title>
-  <style>
-    :root{
-      --brand:#0f766e; --bg:#0b1220; --card:#0f172a; --muted:#94a3b8; --text:#e2e8f0; --border:#1f2937;
-      --ok:#10b981; --warn:#f59e0b; --bad:#ef4444;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-    header{position:sticky;top:0;z-index:10;background:rgba(15,23,42,.8);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
-    .bar{max-width:1100px;margin:0 auto;padding:14px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between}
-    .title{font-size:18px;color:#a7f3d0;font-weight:700}
-    .note{font-size:12px;color:var(--muted)}
-    .wrap{max-width:1100px;margin:18px auto;padding:0 16px}
-    .panel{background:linear-gradient(180deg,#0f172a,#0b1324);border:1px solid var(--border);border-radius:16px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
-    .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-    .btn{appearance:none;border:1px solid var(--border);background:#0b1324;color:var(--text);border-radius:10px;padding:10px 12px;cursor:pointer;text-decoration:none;text-align:center}
-    .btn:hover{border-color:#263141}
-    .primary{background:var(--brand);border-color:transparent;color:white}
-    .pill{font-size:12px;border:1px solid var(--border);padding:4px 8px;border-radius:999px}
-    .pill.ok{color:#a7f3d0}
-    .pill.warn{color:#fcd34d}
-    .pill.bad{color:#fecaca}
-    .frame-wrap{position:relative;border:1px solid var(--border);border-radius:14px;overflow:hidden;background:#000}
-    .frame-top{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--border);background:#0c1323}
-    iframe{display:block;width:100%;height:70vh;border:0}
-    .skeleton{position:absolute;inset:0;background:linear-gradient(90deg, rgba(255,255,255,.05) 25%, rgba(255,255,255,.08) 37%, rgba(255,255,255,.05) 63%);background-size:400% 100%;animation:shimmer 1.8s linear infinite}
-    @keyframes shimmer{0%{background-position:100% 0}100%{background-position:-100% 0}}
-    .error{margin-top:12px;border:1px solid #3f1d1d;background:#1a0f0f;color:#fecaca;border-radius:12px;padding:12px}
-    .error a{color:#93c5fd}
-    .shield{position:absolute;inset:0;pointer-events:none}
-    .shield::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.04) 0 12px,transparent 12px 24px);animation: drift 16s linear infinite;pointer-events:none}
-    @keyframes drift{from{transform:translateX(0)}to{transform:translateX(24px)}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Assessment Hub | Individual Tests + Admin Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #F4EFE9;
+            font-family: 'Inter', sans-serif;
+            color: #1E2A32;
+            line-height: 1.5;
+        }
+        .header {
+            background: #0A2F3A;
+            color: white;
+            border-bottom: 3px solid #D4AF37;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .logo h1 { font-size: 1.5rem; font-weight: 700; }
+        .logo p { font-size: 0.75rem; opacity: 0.8; }
+        .search-box { flex: 1; max-width: 400px; position: relative; }
+        .search-box input {
+            width: 100%;
+            padding: 0.7rem 1rem 0.7rem 2.5rem;
+            border: none;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
+        .search-box i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #8B3A3A; }
+        .search-box button {
+            position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%);
+            background: #ddd; border: none; border-radius: 50%; width: 22px; height: 22px;
+            cursor: pointer; display: none;
+        }
+        .refresh-btn, .admin-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid #D4AF37;
+            padding: 0.5rem 1rem;
+            border-radius: 40px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .refresh-btn:hover, .admin-btn:hover { background: #D4AF37; color: #0A2F3A; }
+        .stats {
+            max-width: 1400px;
+            margin: 1rem auto 0;
+            padding: 0.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #2C4A5E;
+        }
+        .stats span i { color: #D4AF37; margin-right: 5px; }
+        .search-badge {
+            background: #8B3A3A;
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+        }
+        .report-filters {
+            max-width: 1400px;
+            margin: 1rem auto;
+            padding: 0 2rem;
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .filter-chip {
+            background: #0A2F3A;
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .filter-chip.active, .filter-chip:hover { background: #D4AF37; color: #0A2F3A; }
+        .tests-grid {
+            max-width: 1400px;
+            margin: 1rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .tests-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; padding: 0 1rem; }
+        }
+        .test-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: 0.2s;
+            cursor: pointer;
+            border: 1px solid #e0d6c8;
+            display: flex;
+            flex-direction: column;
+        }
+        .test-card:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); border-color: #D4AF37; }
+        .card-header {
+            background: #0A2F3A;
+            padding: 0.9rem;
+            position: relative;
+        }
+        .subject-badge {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: #D4AF37;
+            color: #0A2F3A;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-family: monospace;
+            max-width: 50%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .subject-icon { font-size: 1.6rem; color: #D4AF37; margin-bottom: 0.3rem; }
+        .test-title { font-weight: 700; font-size: 1rem; color: white; margin: 0.2rem 0; line-height: 1.3; }
+        .test-subject { font-size: 0.7rem; color: #D4AF37; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .card-body { padding: 0.8rem; flex: 1; }
+        .code-text {
+            font-family: 'Courier New', monospace;
+            background: #F0EAE0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 8px;
+            color: #1E2A32;
+        }
+        .test-desc { font-size: 0.75rem; color: #4A627A; margin: 0.5rem 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .test-meta { font-size: 0.65rem; background: #F0EAE0; padding: 0.3rem 0.5rem; border-radius: 30px; display: inline-block; width: 100%; text-align: center; margin-top: 0.4rem; }
+        .open-btn {
+            width: 100%;
+            border: none;
+            background: #0A2F3A;
+            color: white;
+            padding: 0.7rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border-top: 1px solid #e0d6c8;
+            transition: 0.2s;
+            margin-top: auto;
+        }
+        .open-btn:hover { background: #8B3A3A; }
+        .empty-state, .loading { text-align: center; padding: 3rem; grid-column: 1 / -1; background: #faf6ef; border-radius: 2rem; }
+        .spinner { width: 40px; height: 40px; border: 3px solid #D4AF37; border-top-color: #0A2F3A; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        footer { text-align: center; padding: 1.5rem; margin-top: 2rem; background: #0A2F3A; color: white; font-size: 0.75rem; border-top: 3px solid #D4AF37; }
+        .highlight { background: #FCE9B4; padding: 0 2px; border-radius: 4px; }
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
+            display: none; align-items: center; justify-content: center;
+            z-index: 2000;
+        }
+        .modal-container {
+            background: white; border-radius: 1.5rem; max-width: 750px; width: 90%;
+            max-height: 85vh; overflow-y: auto; padding: 1.5rem;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+        }
+        .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid #D4AF37; padding-bottom: 0.5rem; margin-bottom: 1rem;
+        }
+        .modal-header h2 { color: #0A2F3A; }
+        .modal-close { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #8B3A3A; }
+        .admin-form-group { margin-bottom: 1rem; }
+        .admin-form-group label { font-weight: 600; display: block; margin-bottom: 0.3rem; color: #0A2F3A; }
+        .admin-form-group input, .admin-form-group select, .admin-form-group textarea {
+            width: 100%; padding: 0.7rem; border: 1px solid #ccc; border-radius: 14px;
+            font-family: inherit;
+        }
+        .admin-btn-group { display: flex; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap; }
+        .btn-primary { background: #0A2F3A; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 40px; cursor: pointer; }
+        .btn-danger { background: #8B3A3A; }
+        .btn-warning { background: #D4AF37; color: #0A2F3A; }
+        .test-list-item {
+            border: 1px solid #e0d6c8; border-radius: 1rem; padding: 0.8rem; margin-bottom: 0.8rem;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+        }
+        .test-list-info { flex: 1; }
+        .test-list-actions button { margin-left: 0.5rem; padding: 0.3rem 0.8rem; border-radius: 30px; }
+        .token-status {
+            background: #e2e8f0; padding: 4px 12px; border-radius: 30px; font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+        .admin-floating-btn {
+            position: fixed; bottom: 20px; right: 20px;
+            background: #0A2F3A; color: #D4AF37; width: 55px; height: 55px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer;
+            z-index: 150; border: 2px solid #D4AF37; transition: 0.2s;
+        }
+        .admin-floating-btn:hover { transform: scale(1.05); background: #D4AF37; color: #0A2F3A; }
+        .repo-config { background: #f0eae0; padding: 0.8rem; border-radius: 1rem; margin-bottom: 1rem; }
+        hr { margin: 1rem 0; }
+        .required-star { color: #8B3A3A; margin-left: 2px; }
+        .inline-help { font-size: 0.7rem; color: #5b6e8c; margin-top: 4px; }
+    </style>
 </head>
 <body>
-  <header>
-    <div class="bar">
-      <div>
-        <div class="title">Weekly Individual Assessments</div>
-        <div class="note">Better display • Link-only setup • Picture-style grid from Drive</div>
-      </div>
-      <a href="index.html" class="btn">⬅ Return</a>
-    </div>
-  </header>
 
-  <div class="wrap">
-    <div class="panel">
-      <div class="controls">
-        <button id="gridBtn" class="btn primary">Grid view</button>
-        <button id="listBtn" class="btn">List view</button>
-        <span id="statusBadge" class="pill ok">Status: ready</span>
-      </div>
-      <div class="frame-wrap" style="margin-top:12px">
-        <div class="frame-top">
-          <div class="note">Public Drive folder preview (embedded)</div>
-          <div class="pill" id="modeLabel">Grid</div>
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <h1><i class="fas fa-pen-ruler"></i> INDIVIDUAL ASSESSMENT TESTS</h1>
+            <p>Curated test library | Subject-based taxonomy</p>
         </div>
-        <div id="skeleton" class="skeleton" aria-hidden="true"></div>
-        <iframe id="driveFrame" src="" referrerpolicy="no-referrer"></iframe>
-        <div class="shield" aria-hidden="true"></div>
-      </div>
-      <div id="errorBox" class="error" style="display:none"></div>
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search by test code, name, subject or description...">
+            <button id="clearSearchBtn">×</button>
+        </div>
+        <button id="refreshBtn" class="refresh-btn"><i class="fas fa-sync-alt"></i> Refresh</button>
     </div>
-  </div>
+</header>
 
-  <script>
-    const DRIVE_FOLDER_ID = "1b4GCLAr4P32hVVNJSaZZRyy0YmazJql6";
-    const EMBED = (mode)=> `https://drive.google.com/embeddedfolderview?id=${DRIVE_FOLDER_ID}${mode==='list'?'#list':'#grid'}`;
-    const FOLDER = `https://drive.google.com/drive/folders/${DRIVE_FOLDER_ID}?usp=sharing`;
-    const frame = document.getElementById('driveFrame');
-    const gridBtn = document.getElementById('gridBtn');
-    const listBtn = document.getElementById('listBtn');
-    const modeLabel = document.getElementById('modeLabel');
-    const statusBadge = document.getElementById('statusBadge');
-    const errorBox = document.getElementById('errorBox');
-    const skeleton = document.getElementById('skeleton');
-    function setOnlineStatus(){
-      if (navigator.onLine) {
-        statusBadge.textContent = 'Status: online';
-        statusBadge.className = 'pill ok';
-      } else {
-        statusBadge.textContent = 'Status: offline';
-        statusBadge.className = 'pill bad';
-      }
+<div class="stats">
+    <div>
+        <span><i class="fas fa-file-alt"></i> <strong id="totalCount">0</strong> Tests</span>
+        <span style="margin-left: 1rem;"><i class="fas fa-eye"></i> <span id="displayedCount">0</span> displayed</span>
+        <span id="syncTime" style="margin-left: 1rem; font-size: 0.7rem;"><i class="far fa-clock"></i> never</span>
+    </div>
+    <div id="searchBadge" class="search-badge" style="display: none;">
+        <i class="fas fa-filter"></i> <span id="searchTerm"></span>
+    </div>
+</div>
+
+<div class="report-filters" id="filterContainer">
+    <!-- dynamic filter chips will be injected here -->
+</div>
+
+<div class="tests-grid" id="testsGrid">
+    <div class="loading"><div class="spinner"></div><p>Loading test library...</p></div>
+</div>
+
+<footer>
+    <i class="fas fa-chalkboard-user"></i> Individual assessment tests — click any card to open the PDF test paper.
+</footer>
+
+<div class="admin-floating-btn" id="adminFloatBtn">
+    <i class="fas fa-crown"></i>
+</div>
+
+<div id="adminModal" class="modal-overlay">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2><i class="fas fa-tasks"></i> Admin Panel – Manage Assessment Tests</h2>
+            <button class="modal-close" id="closeAdminModal">&times;</button>
+        </div>
+        <div class="repo-config">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div><i class="fab fa-github"></i> GitHub Repo: <strong>hunter9201/I</strong></div>
+                <div><span id="adminTokenStatus" class="token-status">⚠️ No token</span>
+                <button id="setTokenBtn" class="btn-primary" style="padding: 0.2rem 0.8rem;">Set Token</button></div>
+            </div>
+            <div style="font-size:0.7rem; margin-top:5px;">JSON: tests.json | PDFs: tests_pdfs/ (requires repo scope token)</div>
+        </div>
+        <div id="adminTestList"></div>
+        <hr>
+        <h3>➕ Add / Edit Assessment Test</h3>
+        <div class="admin-form-group">
+            <label>📝 Test Code (Unique) <span class="required-star">*</span></label>
+            <input id="testCode" placeholder="e.g., MATH-101, ENG-2023" required>
+            <div class="inline-help">Unique identifier — used for citation and search</div>
+        </div>
+        <div class="admin-form-group">
+            <label>📌 Full Test Name <span class="required-star">*</span></label>
+            <input id="testName" placeholder="e.g., Algebra & Linear Equations Assessment">
+        </div>
+        <div class="admin-form-group">
+            <label>📚 Subject Area <span class="required-star">*</span></label>
+            <select id="testSubject">
+                <option value="Mathematics">Mathematics</option>
+                <option value="English Language">English Language</option>
+                <option value="Science">Science</option>
+                <option value="History">History</option>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Other">Other (custom subject)</option>
+            </select>
+        </div>
+        <div class="admin-form-group" id="customSubjectGroup" style="display: none;">
+            <label>Custom Subject Name</label>
+            <input id="customSubjectInput" placeholder="e.g., Psychology, Economics">
+        </div>
+        <div class="admin-form-group">
+            <label>📄 Description / Syllabus Notes</label>
+            <textarea id="testDesc" rows="2" placeholder="Key topics, skills measured, difficulty level..."></textarea>
+        </div>
+        <div class="admin-form-group">
+            <label>📁 Test Paper PDF (upload)</label>
+            <input type="file" id="testPdfFile" accept=".pdf">
+            <div class="inline-help">Upload PDF for new test; leave empty to keep existing file when editing.</div>
+        </div>
+        <div class="admin-btn-group">
+            <button id="addTestBtn" class="btn-primary"><i class="fas fa-upload"></i> Save Test</button>
+            <button id="cancelEditBtn" class="btn-warning"><i class="fas fa-times"></i> Cancel Edit</button>
+        </div>
+        <div id="adminMsg" style="margin-top:1rem; font-size:0.8rem;"></div>
+    </div>
+</div>
+
+<div id="tokenModal" class="modal-overlay" style="z-index:2100;">
+    <div class="modal-container" style="max-width:400px;">
+        <h3>GitHub Personal Access Token</h3>
+        <p>Requires <strong>repo</strong> scope (classic token). Stored locally.</p>
+        <input type="password" id="githubTokenInput" placeholder="github_pat_xxx..." style="width:100%; padding:8px; margin:10px 0;">
+        <div class="admin-btn-group">
+            <button id="saveTokenBtn" class="btn-primary">Save</button>
+            <button id="cancelTokenBtn" class="btn-warning">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ==================== ASSESSMENT TEST CONFIGURATION ====================
+    const REPO_OWNER = "hunter9201";
+    const REPO_NAME = "I";
+    const BRANCH = "main";
+    const JSON_PATH = "tests.json";
+    const PDF_FOLDER = "tests_pdfs/";
+
+    let githubToken = localStorage.getItem("test_gh_token") || "";
+    let allTests = [];          // each test: { id, testCode, testName, subject, description, pdfFile, addedDate, customSubject? }
+    let currentSearch = "", currentSubject = "all";
+    let editingId = null;
+    let debounceTimer;
+
+    // Helper: GitHub API with token
+    function ghHeaders() {
+        const headers = { "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
+        if (githubToken) headers["Authorization"] = "Bearer " + githubToken;
+        return headers;
     }
-    window.addEventListener('online', setOnlineStatus);
-    window.addEventListener('offline', setOnlineStatus);
-    let currentMode = 'grid';
-    let loadTimer = null;
-    function showError(msg){
-      errorBox.style.display = 'block';
-      errorBox.innerHTML = `<strong>Can’t display the documents here.</strong><br/><div style="margin-top:6px">${escapeHTML(msg)}</div><div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="${FOLDER}" target="_blank" rel="noopener">Open in Google Drive</a><button class="btn" onclick="retry()">Retry</button><button class="btn" onclick="toggleMode()">Try ${currentMode==='grid'?'List':'Grid'} mode</button></div>`;
+    async function ghGetContents(path) {
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeURIComponent(path)}?ref=${BRANCH}`;
+        const res = await fetch(url, { headers: ghHeaders() });
+        if (res.status === 404) return null;
+        if (!res.ok) throw new Error(`GET ${path} failed: ${res.status}`);
+        return await res.json();
     }
-    function clearError(){
-      errorBox.style.display = 'none';
-      errorBox.innerHTML = '';
+    async function ghPutContents(path, contentBase64, message, sha = null) {
+        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeURIComponent(path)}`;
+        const body = { message, content: contentBase64, branch: BRANCH };
+        if (sha) body.sha = sha;
+        const res = await fetch(url, { method: "PUT", headers: { ...ghHeaders(), "Content-Type": "application/json" }, body: JSON.stringify(body) });
+        if (!res.ok) throw new Error(`PUT ${path} failed: ${res.status}`);
+        return res.json();
     }
-    function resetFrame(url){
-      clearTimeout(loadTimer);
-      skeleton.style.display = 'block';
-      frame.src = url;
-      loadTimer = setTimeout(()=>{
-        skeleton.style.display = 'none';
-        showError('The embedded preview is not loading. This can happen if Google temporarily blocks embeds or if the folder sharing settings are too strict.');
-      }, 7000);
+    async function uploadPDF(file, filename) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = async () => {
+                try {
+                    const binary = reader.result;
+                    const base64 = btoa(new Uint8Array(binary).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+                    let sha = null;
+                    try { const existing = await ghGetContents(PDF_FOLDER + filename); if (existing && existing.sha) sha = existing.sha; } catch(e) {}
+                    await ghPutContents(PDF_FOLDER + filename, base64, `Upload test PDF: ${filename}`, sha);
+                    resolve();
+                } catch (e) { reject(e); }
+            };
+            reader.onerror = reject;
+            reader.readAsArrayBuffer(file);
+        });
     }
-    frame.addEventListener('load', ()=>{
-      skeleton.style.display = 'none';
-      clearTimeout(loadTimer);
-      clearError();
+    function toBase64(str) { return btoa(unescape(encodeURIComponent(str))); }
+    function fromBase64(b64) { return decodeURIComponent(escape(atob(b64))); }
+
+    // Load tests from tests.json
+    async function loadTestsFromGitHub() {
+        try {
+            const data = await ghGetContents(JSON_PATH);
+            if (!data || !data.content) {
+                allTests = [];
+                return [];
+            }
+            const content = fromBase64(data.content);
+            const testsArr = JSON.parse(content);
+            allTests = Array.isArray(testsArr) ? testsArr : [];
+            return allTests;
+        } catch (err) {
+            console.error("Load tests error:", err);
+            allTests = [];
+            return [];
+        }
+    }
+
+    async function saveTestsToGitHub(testsArray, commitMsg = "Update tests") {
+        const existing = await ghGetContents(JSON_PATH);
+        const sha = existing ? existing.sha : null;
+        const contentBase64 = toBase64(JSON.stringify(testsArray, null, 2));
+        await ghPutContents(JSON_PATH, contentBase64, commitMsg, sha);
+        allTests = testsArray;
+    }
+
+    function isTestCodeUnique(code, excludeId = null) {
+        const lower = code.trim().toLowerCase();
+        return !allTests.some(t => t.testCode.toLowerCase() === lower && (excludeId === null || t.id !== excludeId));
+    }
+
+    // Dynamic filter chips based on existing subjects
+    function rebuildFilterChips() {
+        const container = document.getElementById('filterContainer');
+        if (!container) return;
+        const subjectsSet = new Set();
+        allTests.forEach(t => { if (t.subject) subjectsSet.add(t.subject); });
+        const subjects = Array.from(subjectsSet).sort();
+        let html = `<div class="filter-chip active" data-subject="all">All Subjects</div>`;
+        subjects.forEach(sub => {
+            html += `<div class="filter-chip" data-subject="${escapeHtml(sub)}">${escapeHtml(sub)}</div>`;
+        });
+        container.innerHTML = html;
+        // attach events
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentSubject = chip.getAttribute('data-subject');
+                renderTests();
+            });
+        });
+    }
+
+    function getFilteredTests() {
+        let filtered = [...allTests];
+        if (currentSearch.trim()) {
+            const q = currentSearch.toLowerCase();
+            filtered = filtered.filter(t => 
+                t.testCode.toLowerCase().includes(q) ||
+                t.testName.toLowerCase().includes(q) ||
+                (t.subject && t.subject.toLowerCase().includes(q)) ||
+                (t.description && t.description.toLowerCase().includes(q))
+            );
+        }
+        if (currentSubject !== 'all') filtered = filtered.filter(t => t.subject === currentSubject);
+        return filtered;
+    }
+
+    function updateStats() {
+        document.getElementById('totalCount').innerText = allTests.length;
+        document.getElementById('displayedCount').innerText = getFilteredTests().length;
+        const badge = document.getElementById('searchBadge');
+        if (currentSearch.trim()) { badge.style.display = 'inline-block'; document.getElementById('searchTerm').innerText = `“${currentSearch}”`; }
+        else badge.style.display = 'none';
+    }
+
+    function highlightText(text, query) {
+        if (!query || !text) return text;
+        const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    function openTestPDF(testItem) {
+        const pdfUrl = `https://${REPO_OWNER}.github.io/${REPO_NAME}/${PDF_FOLDER}${testItem.pdfFile}`;
+        window.open(pdfUrl, '_blank');
+    }
+
+    function getIconForSubject(subject) {
+        const sub = (subject || "").toLowerCase();
+        if (sub.includes("math")) return "fa-calculator";
+        if (sub.includes("english")) return "fa-language";
+        if (sub.includes("science")) return "fa-flask";
+        if (sub.includes("history")) return "fa-landmark";
+        if (sub.includes("computer")) return "fa-laptop-code";
+        return "fa-clipboard-list";
+    }
+
+    function renderTests() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            const filtered = getFilteredTests();
+            const grid = document.getElementById('testsGrid');
+            if (!filtered.length) {
+                grid.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><h3>No tests found</h3><p>Add your first assessment test via admin panel.</p></div>`;
+                updateStats();
+                return;
+            }
+            grid.innerHTML = '';
+            for (const t of filtered) {
+                const iconClass = getIconForSubject(t.subject);
+                const highlightedName = currentSearch ? highlightText(t.testName, currentSearch) : t.testName;
+                const highlightedCode = currentSearch ? highlightText(t.testCode, currentSearch) : t.testCode;
+                const highlightedDesc = currentSearch && t.description ? highlightText(t.description, currentSearch) : (t.description || "No description provided.");
+                const displaySubject = t.subject || "General";
+                
+                const card = document.createElement('div'); card.className = 'test-card';
+                card.innerHTML = `
+                    <div class="card-header">
+                        <div class="subject-badge" title="${escapeHtml(displaySubject)}">📖 ${escapeHtml(displaySubject.length > 28 ? displaySubject.substring(0,26)+'…' : displaySubject)}</div>
+                        <div class="subject-icon"><i class="fas ${iconClass}"></i></div>
+                        <div class="test-title">${highlightedName}</div>
+                        <div class="test-subject">${escapeHtml(displaySubject)}</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="code-text"><i class="fas fa-hashtag"></i> ${highlightedCode}</div>
+                        <div class="test-desc">${highlightedDesc}</div>
+                        <div class="test-meta"><i class="fas fa-file-pdf"></i> Test paper · ${new Date(t.addedDate || Date.now()).toLocaleDateString()}</div>
+                    </div>
+                    <button class="open-btn"><i class="fas fa-download"></i> Start Assessment</button>
+                `;
+                const btn = card.querySelector('.open-btn');
+                btn.addEventListener('click', (e) => { e.stopPropagation(); openTestPDF(t); });
+                card.addEventListener('click', () => openTestPDF(t));
+                grid.appendChild(card);
+            }
+            updateStats();
+        }, 50);
+    }
+
+    // Admin UI rendering (tests list)
+    async function renderAdminTestList() {
+        const container = document.getElementById('adminTestList');
+        if (!container) return;
+        if (!allTests.length) { container.innerHTML = '<p>📭 No tests in library. Create your first assessment below.</p>'; return; }
+        container.innerHTML = '';
+        for (const t of allTests) {
+            const div = document.createElement('div'); div.className = 'test-list-item';
+            div.innerHTML = `
+                <div class="test-list-info">
+                    <strong>${escapeHtml(t.testCode)}</strong> — ${escapeHtml(t.testName)}<br>
+                    <span style="font-size:0.7rem;">Subject: ${escapeHtml(t.subject)} | PDF: ${t.pdfFile}</span>
+                </div>
+                <div class="test-list-actions">
+                    <button class="btn-warning edit-test" data-id="${t.id}">✏️ Edit</button>
+                    <button class="btn-danger delete-test" data-id="${t.id}">🗑️ Delete</button>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+        document.querySelectorAll('.edit-test').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); startEditTest(id); }));
+        document.querySelectorAll('.delete-test').forEach(btn => btn.addEventListener('click', async (e) => { const id = parseInt(btn.dataset.id); await deleteTestById(id); }));
+    }
+
+    function startEditTest(id) {
+        const testItem = allTests.find(t => t.id === id);
+        if (!testItem) return;
+        document.getElementById('testCode').value = testItem.testCode;
+        document.getElementById('testName').value = testItem.testName;
+        const subjectSelect = document.getElementById('testSubject');
+        if (subjectSelect.querySelector(`option[value="${testItem.subject}"]`)) {
+            subjectSelect.value = testItem.subject;
+            document.getElementById('customSubjectGroup').style.display = 'none';
+        } else {
+            subjectSelect.value = "Other";
+            document.getElementById('customSubjectGroup').style.display = 'block';
+            document.getElementById('customSubjectInput').value = testItem.subject;
+        }
+        document.getElementById('testDesc').value = testItem.description || '';
+        document.getElementById('testPdfFile').value = '';
+        editingId = id;
+        const addBtn = document.getElementById('addTestBtn');
+        addBtn.innerHTML = '<i class="fas fa-save"></i> Update Test';
+        addBtn.style.background = "#D4AF37";
+        document.getElementById('adminMsg').innerHTML = `<i class="fas fa-edit"></i> Editing: <strong>${testItem.testCode}</strong> — upload new PDF to replace file.`;
+    }
+
+    async function deleteTestById(id) {
+        if (!confirm("Permanently delete this assessment test?")) return;
+        const testItem = allTests.find(t => t.id === id);
+        if (!testItem) return;
+        const newList = allTests.filter(t => t.id !== id);
+        try {
+            await saveTestsToGitHub(newList, `Delete test: ${testItem.testCode}`);
+            await loadTestsFromGitHub();
+            rebuildFilterChips();
+            renderTests();
+            renderAdminTestList();
+            document.getElementById('adminMsg').innerHTML = `✅ Deleted "${testItem.testCode}"`;
+            if (editingId === id) resetTestForm();
+        } catch (err) { document.getElementById('adminMsg').innerHTML = `❌ Delete failed: ${err.message}`; }
+    }
+
+    function resetTestForm() {
+        document.getElementById('testCode').value = '';
+        document.getElementById('testName').value = '';
+        document.getElementById('testSubject').value = 'Mathematics';
+        document.getElementById('testDesc').value = '';
+        document.getElementById('testPdfFile').value = '';
+        document.getElementById('customSubjectGroup').style.display = 'none';
+        document.getElementById('customSubjectInput').value = '';
+        editingId = null;
+        const addBtn = document.getElementById('addTestBtn');
+        addBtn.innerHTML = '<i class="fas fa-upload"></i> Save Test';
+        addBtn.style.background = "";
+        document.getElementById('adminMsg').innerHTML = '';
+    }
+
+    async function saveTestHandler() {
+        if (!githubToken) { alert("🔐 Please set GitHub token first (Admin panel > Set Token)."); return; }
+        const testCode = document.getElementById('testCode').value.trim();
+        let subjectRaw = document.getElementById('testSubject').value;
+        const customSubject = document.getElementById('customSubjectInput').value.trim();
+        const testName = document.getElementById('testName').value.trim();
+        const description = document.getElementById('testDesc').value.trim();
+        const pdfFileInput = document.getElementById('testPdfFile');
+        
+        if (!testCode) { alert("❌ Test code is required."); return; }
+        if (!testName) { alert("❌ Test name is required."); return; }
+        
+        let finalSubject = subjectRaw;
+        if (subjectRaw === "Other") {
+            if (!customSubject) { alert("Please enter a custom subject name."); return; }
+            finalSubject = customSubject;
+        }
+        
+        if (!isTestCodeUnique(testCode, editingId)) {
+            alert(`⚠️ Test code "${testCode}" already exists. Use a unique code.`);
+            return;
+        }
+        
+        let uploadedPdfName = null;
+        if (pdfFileInput.files.length > 0) {
+            const file = pdfFileInput.files[0];
+            if (file.type !== 'application/pdf') { alert("Only PDF files allowed."); return; }
+            const timestamp = Date.now();
+            const safeName = `${timestamp}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+            await uploadPDF(file, safeName);
+            uploadedPdfName = safeName;
+        }
+        
+        if (editingId !== null) {
+            const index = allTests.findIndex(t => t.id === editingId);
+            if (index !== -1) {
+                const updated = { ...allTests[index], testCode, testName, subject: finalSubject, description };
+                if (uploadedPdfName) updated.pdfFile = uploadedPdfName;
+                allTests[index] = updated;
+                await saveTestsToGitHub(allTests, `Update test: ${testCode}`);
+                await loadTestsFromGitHub();
+                rebuildFilterChips();
+                renderTests();
+                await renderAdminTestList();
+                document.getElementById('adminMsg').innerHTML = `✅ Test "${testCode}" updated.`;
+                resetTestForm();
+            }
+        } else {
+            if (!uploadedPdfName) { alert("Please select a PDF file for the new test."); return; }
+            const newId = allTests.length ? Math.max(...allTests.map(t => t.id)) + 1 : 1;
+            const newTest = {
+                id: newId,
+                testCode,
+                testName,
+                subject: finalSubject,
+                description: description || "",
+                pdfFile: uploadedPdfName,
+                addedDate: Date.now()
+            };
+            const newList = [...allTests, newTest];
+            await saveTestsToGitHub(newList, `Add test: ${testCode}`);
+            await loadTestsFromGitHub();
+            rebuildFilterChips();
+            renderTests();
+            await renderAdminTestList();
+            document.getElementById('adminMsg').innerHTML = `✅ Added test "${testCode}" under ${finalSubject}.`;
+            resetTestForm();
+        }
+        pdfFileInput.value = '';
+    }
+
+    async function refreshAll() {
+        const refreshBtn = document.getElementById('refreshBtn');
+        refreshBtn.disabled = true;
+        refreshBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Syncing...';
+        try {
+            await loadTestsFromGitHub();
+            rebuildFilterChips();
+            renderTests();
+            document.getElementById('syncTime').innerHTML = `<i class="far fa-clock"></i> ${new Date().toLocaleTimeString()}`;
+            if (document.getElementById('adminModal').style.display === 'flex') await renderAdminTestList();
+        } catch (err) { console.error(err); alert("Sync error: " + err.message); }
+        refreshBtn.disabled = false;
+        refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+    }
+
+    function updateTokenUI() {
+        const has = githubToken && githubToken.length > 10;
+        const span = document.getElementById('adminTokenStatus');
+        if (span) span.innerHTML = has ? "🔑 Token active" : "⚠️ No token";
+    }
+
+    function toggleCustomSubject() {
+        const select = document.getElementById('testSubject');
+        const customGroup = document.getElementById('customSubjectGroup');
+        if (select.value === "Other") customGroup.style.display = 'block';
+        else customGroup.style.display = 'none';
+    }
+
+    // Seeder for initial demo (if no tests exist)
+    async function seedInitialTestsIfEmpty() {
+        if (allTests.length === 0) {
+            const sampleTests = [
+                { id: 1, testCode: "MATH-ALG-01", testName: "Algebra Fundamentals Assessment", subject: "Mathematics", description: "Linear equations, exponents, polynomial factoring.", pdfFile: "sample_math_placeholder.pdf", addedDate: Date.now() },
+                { id: 2, testCode: "ENG-READ-02", testName: "Reading Comprehension: Critical Analysis", subject: "English Language", description: "Passage analysis, inference, vocabulary.", pdfFile: "sample_eng_placeholder.pdf", addedDate: Date.now() },
+                { id: 3, testCode: "SCI-BIO-03", testName: "Cell Biology & Genetics Quiz", subject: "Science", description: "Mitosis, meiosis, DNA structure, heredity.", pdfFile: "sample_sci_placeholder.pdf", addedDate: Date.now() }
+            ];
+            allTests = sampleTests;
+            await saveTestsToGitHub(allTests, "Seed initial assessment tests");
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        githubToken = localStorage.getItem("test_gh_token") || "";
+        updateTokenUI();
+        await loadTestsFromGitHub();
+        if (allTests.length === 0) await seedInitialTestsIfEmpty();
+        rebuildFilterChips();
+        renderTests();
+        document.getElementById('syncTime').innerHTML = `<i class="far fa-clock"></i> ${new Date().toLocaleTimeString()}`;
+        
+        const searchInput = document.getElementById('searchInput');
+        const clearBtn = document.getElementById('clearSearchBtn');
+        searchInput.addEventListener('input', () => { currentSearch = searchInput.value.trim(); clearBtn.style.display = currentSearch ? 'flex' : 'none'; renderTests(); });
+        clearBtn.addEventListener('click', () => { searchInput.value = ''; currentSearch = ''; clearBtn.style.display = 'none'; renderTests(); });
+        
+        document.getElementById('refreshBtn').addEventListener('click', refreshAll);
+        
+        const adminModal = document.getElementById('adminModal');
+        const floatBtn = document.getElementById('adminFloatBtn');
+        const closeAdmin = document.getElementById('closeAdminModal');
+        floatBtn.addEventListener('click', async () => {
+            await refreshAll();
+            await renderAdminTestList();
+            adminModal.style.display = 'flex';
+        });
+        closeAdmin.addEventListener('click', () => { adminModal.style.display = 'none'; resetTestForm(); });
+        document.getElementById('addTestBtn').addEventListener('click', saveTestHandler);
+        document.getElementById('cancelEditBtn').addEventListener('click', resetTestForm);
+        document.getElementById('testSubject').addEventListener('change', toggleCustomSubject);
+        
+        const setTokenBtn = document.getElementById('setTokenBtn');
+        const tokenModal = document.getElementById('tokenModal');
+        const saveToken = document.getElementById('saveTokenBtn');
+        const cancelToken = document.getElementById('cancelTokenBtn');
+        const tokenInput = document.getElementById('githubTokenInput');
+        setTokenBtn.addEventListener('click', () => { tokenModal.style.display = 'flex'; });
+        saveToken.addEventListener('click', () => { const tok = tokenInput.value.trim(); if(tok) { githubToken = tok; localStorage.setItem("test_gh_token", tok); updateTokenUI(); tokenModal.style.display = 'none'; refreshAll(); } else alert("Enter token"); });
+        cancelToken.addEventListener('click', () => { tokenModal.style.display = 'none'; });
+        window.addEventListener('click', (e) => { if (e.target === tokenModal) tokenModal.style.display = 'none'; if (e.target === adminModal) adminModal.style.display = 'none'; });
     });
-    function setMode(mode){
-      currentMode = mode;
-      modeLabel.textContent = mode === 'list' ? 'List' : 'Grid';
-      gridBtn.classList.toggle('primary', mode==='grid');
-      listBtn.classList.toggle('primary', mode==='list');
-      resetFrame(EMBED(mode));
-    }
-    function toggleMode(){ setMode(currentMode==='grid' ? 'list' : 'grid'); }
-    function retry(){ resetFrame(EMBED(currentMode)); }
-    gridBtn.addEventListener('click', ()=> setMode('grid'));
-    listBtn.addEventListener('click', ()=> setMode('list'));
-    setOnlineStatus();
-    const params = new URLSearchParams(location.search);
-    const startMode = params.get('mode') === 'list' ? 'list' : 'grid';
-    setMode(startMode);
-    window.addEventListener('contextmenu', e=> e.preventDefault());
-    function escapeHTML(s){
-      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
-    }
-  </script>
+    
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m) { if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m; }); }
+</script>
 </body>
 </html>
