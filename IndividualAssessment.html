@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Assessment Hub | Individual Tests + Admin Portal</title>
+    <title>Law Assessment Library | Individual Test Papers</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -48,7 +48,7 @@
             background: #ddd; border: none; border-radius: 50%; width: 22px; height: 22px;
             cursor: pointer; display: none;
         }
-        .refresh-btn, .admin-btn {
+        .refresh-btn {
             background: rgba(255,255,255,0.15);
             border: 1px solid #D4AF37;
             padding: 0.5rem 1rem;
@@ -57,7 +57,7 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .refresh-btn:hover, .admin-btn:hover { background: #D4AF37; color: #0A2F3A; }
+        .refresh-btn:hover { background: #D4AF37; color: #0A2F3A; }
         .stats {
             max-width: 1400px;
             margin: 1rem auto 0;
@@ -77,7 +77,7 @@
             border-radius: 30px;
             font-size: 0.75rem;
         }
-        .report-filters {
+        .subjects-filter {
             max-width: 1400px;
             margin: 1rem auto;
             padding: 0 2rem;
@@ -180,55 +180,6 @@
         @keyframes spin { to { transform: rotate(360deg); } }
         footer { text-align: center; padding: 1.5rem; margin-top: 2rem; background: #0A2F3A; color: white; font-size: 0.75rem; border-top: 3px solid #D4AF37; }
         .highlight { background: #FCE9B4; padding: 0 2px; border-radius: 4px; }
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
-            display: none; align-items: center; justify-content: center;
-            z-index: 2000;
-        }
-        .modal-container {
-            background: white; border-radius: 1.5rem; max-width: 750px; width: 90%;
-            max-height: 85vh; overflow-y: auto; padding: 1.5rem;
-            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
-        }
-        .modal-header {
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 2px solid #D4AF37; padding-bottom: 0.5rem; margin-bottom: 1rem;
-        }
-        .modal-header h2 { color: #0A2F3A; }
-        .modal-close { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #8B3A3A; }
-        .admin-form-group { margin-bottom: 1rem; }
-        .admin-form-group label { font-weight: 600; display: block; margin-bottom: 0.3rem; color: #0A2F3A; }
-        .admin-form-group input, .admin-form-group select, .admin-form-group textarea {
-            width: 100%; padding: 0.7rem; border: 1px solid #ccc; border-radius: 14px;
-            font-family: inherit;
-        }
-        .admin-btn-group { display: flex; gap: 0.8rem; margin-top: 1rem; flex-wrap: wrap; }
-        .btn-primary { background: #0A2F3A; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 40px; cursor: pointer; }
-        .btn-danger { background: #8B3A3A; }
-        .btn-warning { background: #D4AF37; color: #0A2F3A; }
-        .test-list-item {
-            border: 1px solid #e0d6c8; border-radius: 1rem; padding: 0.8rem; margin-bottom: 0.8rem;
-            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
-        }
-        .test-list-info { flex: 1; }
-        .test-list-actions button { margin-left: 0.5rem; padding: 0.3rem 0.8rem; border-radius: 30px; }
-        .token-status {
-            background: #e2e8f0; padding: 4px 12px; border-radius: 30px; font-size: 0.7rem;
-            margin-left: 0.5rem;
-        }
-        .admin-floating-btn {
-            position: fixed; bottom: 20px; right: 20px;
-            background: #0A2F3A; color: #D4AF37; width: 55px; height: 55px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 1.8rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer;
-            z-index: 150; border: 2px solid #D4AF37; transition: 0.2s;
-        }
-        .admin-floating-btn:hover { transform: scale(1.05); background: #D4AF37; color: #0A2F3A; }
-        .repo-config { background: #f0eae0; padding: 0.8rem; border-radius: 1rem; margin-bottom: 1rem; }
-        hr { margin: 1rem 0; }
-        .required-star { color: #8B3A3A; margin-left: 2px; }
-        .inline-help { font-size: 0.7rem; color: #5b6e8c; margin-top: 4px; }
     </style>
 </head>
 <body>
@@ -236,8 +187,8 @@
 <header class="header">
     <div class="header-container">
         <div class="logo">
-            <h1><i class="fas fa-pen-ruler"></i> INDIVIDUAL ASSESSMENT TESTS</h1>
-            <p>Curated test library | Subject-based taxonomy</p>
+            <h1><i class="fas fa-gavel"></i> LAW ASSESSMENT LIBRARY</h1>
+            <p>Civil • Corporate • Land • Criminal • Family</p>
         </div>
         <div class="search-box">
             <i class="fas fa-search"></i>
@@ -259,157 +210,43 @@
     </div>
 </div>
 
-<div class="report-filters" id="filterContainer">
+<div class="subjects-filter" id="filterContainer">
     <!-- dynamic filter chips will be injected here -->
 </div>
 
 <div class="tests-grid" id="testsGrid">
-    <div class="loading"><div class="spinner"></div><p>Loading test library...</p></div>
+    <div class="loading"><div class="spinner"></div><p>Loading law assessments...</p></div>
 </div>
 
 <footer>
-    <i class="fas fa-chalkboard-user"></i> Individual assessment tests — click any card to open the PDF test paper.
+    <i class="fas fa-balance-scale"></i> Official assessment papers for legal training — click any card to open the PDF.
 </footer>
 
-<div class="admin-floating-btn" id="adminFloatBtn">
-    <i class="fas fa-crown"></i>
-</div>
-
-<div id="adminModal" class="modal-overlay">
-    <div class="modal-container">
-        <div class="modal-header">
-            <h2><i class="fas fa-tasks"></i> Admin Panel – Manage Assessment Tests</h2>
-            <button class="modal-close" id="closeAdminModal">&times;</button>
-        </div>
-        <div class="repo-config">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div><i class="fab fa-github"></i> GitHub Repo: <strong>hunter9201/I</strong></div>
-                <div><span id="adminTokenStatus" class="token-status">⚠️ No token</span>
-                <button id="setTokenBtn" class="btn-primary" style="padding: 0.2rem 0.8rem;">Set Token</button></div>
-            </div>
-            <div style="font-size:0.7rem; margin-top:5px;">JSON: tests.json | PDFs: tests_pdfs/ (requires repo scope token)</div>
-        </div>
-        <div id="adminTestList"></div>
-        <hr>
-        <h3>➕ Add / Edit Assessment Test</h3>
-        <div class="admin-form-group">
-            <label>📝 Test Code (Unique) <span class="required-star">*</span></label>
-            <input id="testCode" placeholder="e.g., MATH-101, ENG-2023" required>
-            <div class="inline-help">Unique identifier — used for citation and search</div>
-        </div>
-        <div class="admin-form-group">
-            <label>📌 Full Test Name <span class="required-star">*</span></label>
-            <input id="testName" placeholder="e.g., Algebra & Linear Equations Assessment">
-        </div>
-        <div class="admin-form-group">
-            <label>📚 Subject Area <span class="required-star">*</span></label>
-            <select id="testSubject">
-                <option value="Mathematics">Mathematics</option>
-                <option value="English Language">English Language</option>
-                <option value="Science">Science</option>
-                <option value="History">History</option>
-                <option value="Computer Science">Computer Science</option>
-                <option value="Other">Other (custom subject)</option>
-            </select>
-        </div>
-        <div class="admin-form-group" id="customSubjectGroup" style="display: none;">
-            <label>Custom Subject Name</label>
-            <input id="customSubjectInput" placeholder="e.g., Psychology, Economics">
-        </div>
-        <div class="admin-form-group">
-            <label>📄 Description / Syllabus Notes</label>
-            <textarea id="testDesc" rows="2" placeholder="Key topics, skills measured, difficulty level..."></textarea>
-        </div>
-        <div class="admin-form-group">
-            <label>📁 Test Paper PDF (upload)</label>
-            <input type="file" id="testPdfFile" accept=".pdf">
-            <div class="inline-help">Upload PDF for new test; leave empty to keep existing file when editing.</div>
-        </div>
-        <div class="admin-btn-group">
-            <button id="addTestBtn" class="btn-primary"><i class="fas fa-upload"></i> Save Test</button>
-            <button id="cancelEditBtn" class="btn-warning"><i class="fas fa-times"></i> Cancel Edit</button>
-        </div>
-        <div id="adminMsg" style="margin-top:1rem; font-size:0.8rem;"></div>
-    </div>
-</div>
-
-<div id="tokenModal" class="modal-overlay" style="z-index:2100;">
-    <div class="modal-container" style="max-width:400px;">
-        <h3>GitHub Personal Access Token</h3>
-        <p>Requires <strong>repo</strong> scope (classic token). Stored locally.</p>
-        <input type="password" id="githubTokenInput" placeholder="github_pat_xxx..." style="width:100%; padding:8px; margin:10px 0;">
-        <div class="admin-btn-group">
-            <button id="saveTokenBtn" class="btn-primary">Save</button>
-            <button id="cancelTokenBtn" class="btn-warning">Cancel</button>
-        </div>
-    </div>
-</div>
-
 <script>
-    // ==================== ASSESSMENT TEST CONFIGURATION ====================
+    // ==================== PUBLIC ASSESSMENT LIBRARY (No Admin) ====================
     const REPO_OWNER = "hunter9201";
     const REPO_NAME = "I";
     const BRANCH = "main";
     const JSON_PATH = "tests.json";
     const PDF_FOLDER = "tests_pdfs/";
 
-    let githubToken = localStorage.getItem("test_gh_token") || "";
-    let allTests = [];          // each test: { id, testCode, testName, subject, description, pdfFile, addedDate, customSubject? }
+    let allTests = [];          // each test: { id, testCode, testName, subject, description, pdfFile, addedDate }
     let currentSearch = "", currentSubject = "all";
-    let editingId = null;
     let debounceTimer;
 
-    // Helper: GitHub API with token
-    function ghHeaders() {
-        const headers = { "Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
-        if (githubToken) headers["Authorization"] = "Bearer " + githubToken;
-        return headers;
-    }
-    async function ghGetContents(path) {
-        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeURIComponent(path)}?ref=${BRANCH}`;
-        const res = await fetch(url, { headers: ghHeaders() });
-        if (res.status === 404) return null;
-        if (!res.ok) throw new Error(`GET ${path} failed: ${res.status}`);
-        return await res.json();
-    }
-    async function ghPutContents(path, contentBase64, message, sha = null) {
-        const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${encodeURIComponent(path)}`;
-        const body = { message, content: contentBase64, branch: BRANCH };
-        if (sha) body.sha = sha;
-        const res = await fetch(url, { method: "PUT", headers: { ...ghHeaders(), "Content-Type": "application/json" }, body: JSON.stringify(body) });
-        if (!res.ok) throw new Error(`PUT ${path} failed: ${res.status}`);
-        return res.json();
-    }
-    async function uploadPDF(file, filename) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = async () => {
-                try {
-                    const binary = reader.result;
-                    const base64 = btoa(new Uint8Array(binary).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-                    let sha = null;
-                    try { const existing = await ghGetContents(PDF_FOLDER + filename); if (existing && existing.sha) sha = existing.sha; } catch(e) {}
-                    await ghPutContents(PDF_FOLDER + filename, base64, `Upload test PDF: ${filename}`, sha);
-                    resolve();
-                } catch (e) { reject(e); }
-            };
-            reader.onerror = reject;
-            reader.readAsArrayBuffer(file);
-        });
-    }
-    function toBase64(str) { return btoa(unescape(encodeURIComponent(str))); }
-    function fromBase64(b64) { return decodeURIComponent(escape(atob(b64))); }
-
-    // Load tests from tests.json
+    // Load tests from tests.json (public, no token needed)
     async function loadTestsFromGitHub() {
         try {
-            const data = await ghGetContents(JSON_PATH);
-            if (!data || !data.content) {
-                allTests = [];
-                return [];
+            const url = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${JSON_PATH}`;
+            const res = await fetch(url);
+            if (!res.ok) {
+                if (res.status === 404) {
+                    allTests = [];
+                    return [];
+                }
+                throw new Error(`HTTP ${res.status}`);
             }
-            const content = fromBase64(data.content);
-            const testsArr = JSON.parse(content);
+            const testsArr = await res.json();
             allTests = Array.isArray(testsArr) ? testsArr : [];
             return allTests;
         } catch (err) {
@@ -417,19 +254,6 @@
             allTests = [];
             return [];
         }
-    }
-
-    async function saveTestsToGitHub(testsArray, commitMsg = "Update tests") {
-        const existing = await ghGetContents(JSON_PATH);
-        const sha = existing ? existing.sha : null;
-        const contentBase64 = toBase64(JSON.stringify(testsArray, null, 2));
-        await ghPutContents(JSON_PATH, contentBase64, commitMsg, sha);
-        allTests = testsArray;
-    }
-
-    function isTestCodeUnique(code, excludeId = null) {
-        const lower = code.trim().toLowerCase();
-        return !allTests.some(t => t.testCode.toLowerCase() === lower && (excludeId === null || t.id !== excludeId));
     }
 
     // Dynamic filter chips based on existing subjects
@@ -444,7 +268,6 @@
             html += `<div class="filter-chip" data-subject="${escapeHtml(sub)}">${escapeHtml(sub)}</div>`;
         });
         container.innerHTML = html;
-        // attach events
         document.querySelectorAll('.filter-chip').forEach(chip => {
             chip.addEventListener('click', () => {
                 document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
@@ -485,12 +308,17 @@
     }
 
     function openTestPDF(testItem) {
-        const pdfUrl = `https://${REPO_OWNER}.github.io/${REPO_NAME}/${PDF_FOLDER}${testItem.pdfFile}`;
+        const pdfUrl = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${PDF_FOLDER}${testItem.pdfFile}`;
         window.open(pdfUrl, '_blank');
     }
 
     function getIconForSubject(subject) {
         const sub = (subject || "").toLowerCase();
+        if (sub.includes("civil")) return "fa-handshake";
+        if (sub.includes("corporate") || sub.includes("company")) return "fa-building";
+        if (sub.includes("land")) return "fa-tree";
+        if (sub.includes("criminal")) return "fa-gavel";
+        if (sub.includes("family")) return "fa-heart";
         if (sub.includes("math")) return "fa-calculator";
         if (sub.includes("english")) return "fa-language";
         if (sub.includes("science")) return "fa-flask";
@@ -505,7 +333,7 @@
             const filtered = getFilteredTests();
             const grid = document.getElementById('testsGrid');
             if (!filtered.length) {
-                grid.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><h3>No tests found</h3><p>Add your first assessment test via admin panel.</p></div>`;
+                grid.innerHTML = `<div class="empty-state"><i class="fas fa-folder-open"></i><h3>No tests found</h3><p>Check back later for new assessment papers.</p></div>`;
                 updateStats();
                 return;
             }
@@ -520,17 +348,17 @@
                 const card = document.createElement('div'); card.className = 'test-card';
                 card.innerHTML = `
                     <div class="card-header">
-                        <div class="subject-badge" title="${escapeHtml(displaySubject)}">📖 ${escapeHtml(displaySubject.length > 28 ? displaySubject.substring(0,26)+'…' : displaySubject)}</div>
+                        <div class="subject-badge" title="${escapeHtml(displaySubject)}">⚖️ ${escapeHtml(displaySubject.length > 28 ? displaySubject.substring(0,26)+'…' : displaySubject)}</div>
                         <div class="subject-icon"><i class="fas ${iconClass}"></i></div>
                         <div class="test-title">${highlightedName}</div>
                         <div class="test-subject">${escapeHtml(displaySubject)}</div>
                     </div>
                     <div class="card-body">
-                        <div class="code-text"><i class="fas fa-hashtag"></i> ${highlightedCode}</div>
+                        <div class="code-text"><i class="fas fa-tag"></i> ${highlightedCode}</div>
                         <div class="test-desc">${highlightedDesc}</div>
-                        <div class="test-meta"><i class="fas fa-file-pdf"></i> Test paper · ${new Date(t.addedDate || Date.now()).toLocaleDateString()}</div>
+                        <div class="test-meta"><i class="fas fa-file-pdf"></i> Assessment paper · ${new Date(t.addedDate || Date.now()).toLocaleDateString()}</div>
                     </div>
-                    <button class="open-btn"><i class="fas fa-download"></i> Start Assessment</button>
+                    <button class="open-btn"><i class="fas fa-download"></i> Open Question Paper</button>
                 `;
                 const btn = card.querySelector('.open-btn');
                 btn.addEventListener('click', (e) => { e.stopPropagation(); openTestPDF(t); });
@@ -539,155 +367,6 @@
             }
             updateStats();
         }, 50);
-    }
-
-    // Admin UI rendering (tests list)
-    async function renderAdminTestList() {
-        const container = document.getElementById('adminTestList');
-        if (!container) return;
-        if (!allTests.length) { container.innerHTML = '<p>📭 No tests in library. Create your first assessment below.</p>'; return; }
-        container.innerHTML = '';
-        for (const t of allTests) {
-            const div = document.createElement('div'); div.className = 'test-list-item';
-            div.innerHTML = `
-                <div class="test-list-info">
-                    <strong>${escapeHtml(t.testCode)}</strong> — ${escapeHtml(t.testName)}<br>
-                    <span style="font-size:0.7rem;">Subject: ${escapeHtml(t.subject)} | PDF: ${t.pdfFile}</span>
-                </div>
-                <div class="test-list-actions">
-                    <button class="btn-warning edit-test" data-id="${t.id}">✏️ Edit</button>
-                    <button class="btn-danger delete-test" data-id="${t.id}">🗑️ Delete</button>
-                </div>
-            `;
-            container.appendChild(div);
-        }
-        document.querySelectorAll('.edit-test').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); startEditTest(id); }));
-        document.querySelectorAll('.delete-test').forEach(btn => btn.addEventListener('click', async (e) => { const id = parseInt(btn.dataset.id); await deleteTestById(id); }));
-    }
-
-    function startEditTest(id) {
-        const testItem = allTests.find(t => t.id === id);
-        if (!testItem) return;
-        document.getElementById('testCode').value = testItem.testCode;
-        document.getElementById('testName').value = testItem.testName;
-        const subjectSelect = document.getElementById('testSubject');
-        if (subjectSelect.querySelector(`option[value="${testItem.subject}"]`)) {
-            subjectSelect.value = testItem.subject;
-            document.getElementById('customSubjectGroup').style.display = 'none';
-        } else {
-            subjectSelect.value = "Other";
-            document.getElementById('customSubjectGroup').style.display = 'block';
-            document.getElementById('customSubjectInput').value = testItem.subject;
-        }
-        document.getElementById('testDesc').value = testItem.description || '';
-        document.getElementById('testPdfFile').value = '';
-        editingId = id;
-        const addBtn = document.getElementById('addTestBtn');
-        addBtn.innerHTML = '<i class="fas fa-save"></i> Update Test';
-        addBtn.style.background = "#D4AF37";
-        document.getElementById('adminMsg').innerHTML = `<i class="fas fa-edit"></i> Editing: <strong>${testItem.testCode}</strong> — upload new PDF to replace file.`;
-    }
-
-    async function deleteTestById(id) {
-        if (!confirm("Permanently delete this assessment test?")) return;
-        const testItem = allTests.find(t => t.id === id);
-        if (!testItem) return;
-        const newList = allTests.filter(t => t.id !== id);
-        try {
-            await saveTestsToGitHub(newList, `Delete test: ${testItem.testCode}`);
-            await loadTestsFromGitHub();
-            rebuildFilterChips();
-            renderTests();
-            renderAdminTestList();
-            document.getElementById('adminMsg').innerHTML = `✅ Deleted "${testItem.testCode}"`;
-            if (editingId === id) resetTestForm();
-        } catch (err) { document.getElementById('adminMsg').innerHTML = `❌ Delete failed: ${err.message}`; }
-    }
-
-    function resetTestForm() {
-        document.getElementById('testCode').value = '';
-        document.getElementById('testName').value = '';
-        document.getElementById('testSubject').value = 'Mathematics';
-        document.getElementById('testDesc').value = '';
-        document.getElementById('testPdfFile').value = '';
-        document.getElementById('customSubjectGroup').style.display = 'none';
-        document.getElementById('customSubjectInput').value = '';
-        editingId = null;
-        const addBtn = document.getElementById('addTestBtn');
-        addBtn.innerHTML = '<i class="fas fa-upload"></i> Save Test';
-        addBtn.style.background = "";
-        document.getElementById('adminMsg').innerHTML = '';
-    }
-
-    async function saveTestHandler() {
-        if (!githubToken) { alert("🔐 Please set GitHub token first (Admin panel > Set Token)."); return; }
-        const testCode = document.getElementById('testCode').value.trim();
-        let subjectRaw = document.getElementById('testSubject').value;
-        const customSubject = document.getElementById('customSubjectInput').value.trim();
-        const testName = document.getElementById('testName').value.trim();
-        const description = document.getElementById('testDesc').value.trim();
-        const pdfFileInput = document.getElementById('testPdfFile');
-        
-        if (!testCode) { alert("❌ Test code is required."); return; }
-        if (!testName) { alert("❌ Test name is required."); return; }
-        
-        let finalSubject = subjectRaw;
-        if (subjectRaw === "Other") {
-            if (!customSubject) { alert("Please enter a custom subject name."); return; }
-            finalSubject = customSubject;
-        }
-        
-        if (!isTestCodeUnique(testCode, editingId)) {
-            alert(`⚠️ Test code "${testCode}" already exists. Use a unique code.`);
-            return;
-        }
-        
-        let uploadedPdfName = null;
-        if (pdfFileInput.files.length > 0) {
-            const file = pdfFileInput.files[0];
-            if (file.type !== 'application/pdf') { alert("Only PDF files allowed."); return; }
-            const timestamp = Date.now();
-            const safeName = `${timestamp}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
-            await uploadPDF(file, safeName);
-            uploadedPdfName = safeName;
-        }
-        
-        if (editingId !== null) {
-            const index = allTests.findIndex(t => t.id === editingId);
-            if (index !== -1) {
-                const updated = { ...allTests[index], testCode, testName, subject: finalSubject, description };
-                if (uploadedPdfName) updated.pdfFile = uploadedPdfName;
-                allTests[index] = updated;
-                await saveTestsToGitHub(allTests, `Update test: ${testCode}`);
-                await loadTestsFromGitHub();
-                rebuildFilterChips();
-                renderTests();
-                await renderAdminTestList();
-                document.getElementById('adminMsg').innerHTML = `✅ Test "${testCode}" updated.`;
-                resetTestForm();
-            }
-        } else {
-            if (!uploadedPdfName) { alert("Please select a PDF file for the new test."); return; }
-            const newId = allTests.length ? Math.max(...allTests.map(t => t.id)) + 1 : 1;
-            const newTest = {
-                id: newId,
-                testCode,
-                testName,
-                subject: finalSubject,
-                description: description || "",
-                pdfFile: uploadedPdfName,
-                addedDate: Date.now()
-            };
-            const newList = [...allTests, newTest];
-            await saveTestsToGitHub(newList, `Add test: ${testCode}`);
-            await loadTestsFromGitHub();
-            rebuildFilterChips();
-            renderTests();
-            await renderAdminTestList();
-            document.getElementById('adminMsg').innerHTML = `✅ Added test "${testCode}" under ${finalSubject}.`;
-            resetTestForm();
-        }
-        pdfFileInput.value = '';
     }
 
     async function refreshAll() {
@@ -699,41 +378,31 @@
             rebuildFilterChips();
             renderTests();
             document.getElementById('syncTime').innerHTML = `<i class="far fa-clock"></i> ${new Date().toLocaleTimeString()}`;
-            if (document.getElementById('adminModal').style.display === 'flex') await renderAdminTestList();
-        } catch (err) { console.error(err); alert("Sync error: " + err.message); }
+        } catch (err) {
+            console.error(err);
+            alert("Could not load tests. Please try again later.");
+        }
         refreshBtn.disabled = false;
         refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
     }
 
-    function updateTokenUI() {
-        const has = githubToken && githubToken.length > 10;
-        const span = document.getElementById('adminTokenStatus');
-        if (span) span.innerHTML = has ? "🔑 Token active" : "⚠️ No token";
-    }
-
-    function toggleCustomSubject() {
-        const select = document.getElementById('testSubject');
-        const customGroup = document.getElementById('customSubjectGroup');
-        if (select.value === "Other") customGroup.style.display = 'block';
-        else customGroup.style.display = 'none';
-    }
-
-    // Seeder for initial demo (if no tests exist)
+    // Seed example tests if none exist (for first-time setup)
     async function seedInitialTestsIfEmpty() {
         if (allTests.length === 0) {
             const sampleTests = [
-                { id: 1, testCode: "MATH-ALG-01", testName: "Algebra Fundamentals Assessment", subject: "Mathematics", description: "Linear equations, exponents, polynomial factoring.", pdfFile: "sample_math_placeholder.pdf", addedDate: Date.now() },
-                { id: 2, testCode: "ENG-READ-02", testName: "Reading Comprehension: Critical Analysis", subject: "English Language", description: "Passage analysis, inference, vocabulary.", pdfFile: "sample_eng_placeholder.pdf", addedDate: Date.now() },
-                { id: 3, testCode: "SCI-BIO-03", testName: "Cell Biology & Genetics Quiz", subject: "Science", description: "Mitosis, meiosis, DNA structure, heredity.", pdfFile: "sample_sci_placeholder.pdf", addedDate: Date.now() }
+                { id: 1, testCode: "CIV-PROC-001", testName: "Civil Procedure – Interim Relief Applications", subject: "Civil Law", description: "Applications for injunctions, summary judgment, case management.", pdfFile: "sample_civil.pdf", addedDate: Date.now() },
+                { id: 2, testCode: "CORP-DIR-002", testName: "Corporate Law – Directors' Duties & Liabilities", subject: "Corporate Law", description: "Fiduciary duties, business judgment rule, derivative actions.", pdfFile: "sample_corp.pdf", addedDate: Date.now() },
+                { id: 3, testCode: "LAND-TRUST-003", testName: "Land Law – Trusts of Land & Co-ownership", subject: "Land Law", description: "Trusts of Land and Appointment of Trustees Act 1996, disputes.", pdfFile: "sample_land.pdf", addedDate: Date.now() },
+                { id: 4, testCode: "CRIM-EVID-004", testName: "Criminal Evidence – Hearsay & Confessions", subject: "Criminal Law", description: "PACE 1984, hearsay exceptions, voir dire.", pdfFile: "sample_crim.pdf", addedDate: Date.now() },
+                { id: 5, testCode: "FAM-CHILD-005", testName: "Family Law – Child Arrangements Orders", subject: "Family Law", description: "Welfare principle, parental responsibility, CA 1989.", pdfFile: "sample_fam.pdf", addedDate: Date.now() }
             ];
             allTests = sampleTests;
-            await saveTestsToGitHub(allTests, "Seed initial assessment tests");
+            // Note: seeding does NOT upload to GitHub; it only fills the frontend.
+            // Real tests must be added via the separate admin portal.
         }
     }
 
     document.addEventListener('DOMContentLoaded', async () => {
-        githubToken = localStorage.getItem("test_gh_token") || "";
-        updateTokenUI();
         await loadTestsFromGitHub();
         if (allTests.length === 0) await seedInitialTestsIfEmpty();
         rebuildFilterChips();
@@ -746,29 +415,6 @@
         clearBtn.addEventListener('click', () => { searchInput.value = ''; currentSearch = ''; clearBtn.style.display = 'none'; renderTests(); });
         
         document.getElementById('refreshBtn').addEventListener('click', refreshAll);
-        
-        const adminModal = document.getElementById('adminModal');
-        const floatBtn = document.getElementById('adminFloatBtn');
-        const closeAdmin = document.getElementById('closeAdminModal');
-        floatBtn.addEventListener('click', async () => {
-            await refreshAll();
-            await renderAdminTestList();
-            adminModal.style.display = 'flex';
-        });
-        closeAdmin.addEventListener('click', () => { adminModal.style.display = 'none'; resetTestForm(); });
-        document.getElementById('addTestBtn').addEventListener('click', saveTestHandler);
-        document.getElementById('cancelEditBtn').addEventListener('click', resetTestForm);
-        document.getElementById('testSubject').addEventListener('change', toggleCustomSubject);
-        
-        const setTokenBtn = document.getElementById('setTokenBtn');
-        const tokenModal = document.getElementById('tokenModal');
-        const saveToken = document.getElementById('saveTokenBtn');
-        const cancelToken = document.getElementById('cancelTokenBtn');
-        const tokenInput = document.getElementById('githubTokenInput');
-        setTokenBtn.addEventListener('click', () => { tokenModal.style.display = 'flex'; });
-        saveToken.addEventListener('click', () => { const tok = tokenInput.value.trim(); if(tok) { githubToken = tok; localStorage.setItem("test_gh_token", tok); updateTokenUI(); tokenModal.style.display = 'none'; refreshAll(); } else alert("Enter token"); });
-        cancelToken.addEventListener('click', () => { tokenModal.style.display = 'none'; });
-        window.addEventListener('click', (e) => { if (e.target === tokenModal) tokenModal.style.display = 'none'; if (e.target === adminModal) adminModal.style.display = 'none'; });
     });
     
     function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m) { if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m; }); }
