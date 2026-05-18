@@ -132,5 +132,25 @@
     "procedure": "",
     "locusClassicus": "LAND ACT ,RTA ",
     "filingFees": ""
+  },
+  {
+    "id": 9,
+    "title": "FRAUD PLAINT ",
+    "description": "this plaint ,can be used for cases of fraud and one must particularize the act that amounted to fraud",
+    "filename": "Plaint Revocation.pdf",
+    "documentType": "Draft Pleading",
+    "caseNumber": "",
+    "parties": "",
+    "court": "",
+    "documentDate": "2026-05-18",
+    "size": "0.67",
+    "pages": "?",
+    "year": 2026,
+    "date": "2026-05-18T13:15:07.991Z",
+    "category": "other",
+    "url": "https://hunter9201.github.io/I/Plaint%20Revocation.pdf",
+    "procedure": "",
+    "locusClassicus": "",
+    "filingFees": "the fees depends on subject matter but amended plaint -6000"
   }
 ]
