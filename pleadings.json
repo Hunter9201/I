@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "title": "SECURITY FOR COSTS (1).docx",
+    "title": "SECURITY FOR COSTS",
     "description": "Pleading document: SECURITY FOR COSTS (1).docx",
     "filename": "SECURITY FOR COSTS (1).docx",
     "documentType": "Chamber Summons",
@@ -14,7 +14,10 @@
     "year": 2026,
     "date": "2026-04-18T00:48:39.639Z",
     "category": "procedure",
-    "url": "https://hunter9201.github.io/I/SECURITY%20FOR%20COSTS%20(1).docx"
+    "url": "https://hunter9201.github.io/I/SECURITY%20FOR%20COSTS%20(1).docx",
+    "procedure": "under order 26 rule 3 of civil procedure rules SI 71-1",
+    "locusClassicus": "GM Combined vs AK Detergents (u) ltd SCCA no.34/1995",
+    "filingFees": "200,OOOushs"
   },
   {
     "id": 2,
