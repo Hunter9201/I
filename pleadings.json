@@ -152,5 +152,25 @@
     "procedure": "",
     "locusClassicus": "",
     "filingFees": "the fees depends on subject matter but amended plaint -6000"
+  },
+  {
+    "id": 10,
+    "title": "FRAUD PLAINT",
+    "description": "in cases of fraud the plaint  to have particulars of fraud showing actions that amounted to it ",
+    "filename": "Plaint Revocation.pdf",
+    "documentType": "Draft Pleading",
+    "caseNumber": "",
+    "parties": "",
+    "court": "",
+    "documentDate": "2026-05-18",
+    "size": "0.67",
+    "pages": "?",
+    "year": 2026,
+    "date": "2026-05-18T13:27:09.096Z",
+    "category": "other",
+    "url": "https://hunter9201.github.io/I/Plaint%20Revocation.pdf",
+    "procedure": "",
+    "locusClassicus": "Order 7 of the civil procedure rules",
+    "filingFees": "it depends on the subject matter and for "
   }
 ]
