@@ -112,5 +112,25 @@
     "procedure": "",
     "locusClassicus": "Order 12 of civil procedure rules",
     "filingFees": "4800/=ugshs"
+  },
+  {
+    "id": 8,
+    "title": "_LAND_SALE_AGREEMENT1",
+    "description": "Pleading document: _LAND_SALE_AGREEMENT1.pdf",
+    "filename": "_LAND_SALE_AGREEMENT1.pdf",
+    "documentType": "Draft Pleading",
+    "caseNumber": "",
+    "parties": "",
+    "court": "",
+    "documentDate": "2026-05-18",
+    "size": "0.12",
+    "pages": "?",
+    "year": 2026,
+    "date": "2026-05-18T13:08:27.707Z",
+    "category": "other",
+    "url": "https://hunter9201.github.io/I/_LAND_SALE_AGREEMENT1.pdf",
+    "procedure": "",
+    "locusClassicus": "LAND ACT ,RTA ",
+    "filingFees": ""
   }
 ]
