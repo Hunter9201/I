@@ -9,7 +9,16 @@
   "updates": [
     {
       "lawyerId": 1,
-      "updates": []
+      "updates": [
+        {
+          "id": 1779557443872.0515,
+          "type": "text",
+          "content": "Every thing is possible",
+          "mediaUrl": null,
+          "timestamp": "2026-05-23T17:30:43.872Z",
+          "expiresAt": "2026-05-25T17:30:43.873Z"
+        }
+      ]
     }
   ]
 }
