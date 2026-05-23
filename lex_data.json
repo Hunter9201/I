@@ -141,20 +141,12 @@
       "lawyerId": 2,
       "updates": [
         {
-          "id": 1779558757414.583,
+          "id": 1779575487724.6033,
           "type": "text",
-          "content": "AM working on every one",
+          "content": "wow this thing has emotions",
           "mediaUrl": null,
-          "timestamp": "2026-05-23T17:52:37.414Z",
-          "expiresAt": "2026-05-25T17:52:37.414Z"
-        },
-        {
-          "id": 1779561043334.8286,
-          "type": "image",
-          "content": "the law",
-          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779561039610_ChatGPT_Image_Sep_15__2025__12_21_56_AM.png",
-          "timestamp": "2026-05-23T18:30:43.334Z",
-          "expiresAt": "2026-05-25T18:30:43.334Z"
+          "timestamp": "2026-05-23T22:31:27.724Z",
+          "expiresAt": "2026-05-25T22:31:27.724Z"
         },
         {
           "id": 1779562978411.7397,
@@ -165,12 +157,20 @@
           "expiresAt": "2026-05-25T19:02:58.411Z"
         },
         {
-          "id": 1779575487724.6033,
+          "id": 1779561043334.8286,
+          "type": "image",
+          "content": "the law",
+          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779561039610_ChatGPT_Image_Sep_15__2025__12_21_56_AM.png",
+          "timestamp": "2026-05-23T18:30:43.334Z",
+          "expiresAt": "2026-05-25T18:30:43.334Z"
+        },
+        {
+          "id": 1779558757414.583,
           "type": "text",
-          "content": "wow this thing has emotions",
+          "content": "AM working on every one",
           "mediaUrl": null,
-          "timestamp": "2026-05-23T22:31:27.724Z",
-          "expiresAt": "2026-05-25T22:31:27.724Z"
+          "timestamp": "2026-05-23T17:52:37.414Z",
+          "expiresAt": "2026-05-25T17:52:37.414Z"
         }
       ]
     }
