@@ -4,6 +4,11 @@
       "id": 1,
       "name": "ARTHUR",
       "initials": "ABB"
+    },
+    {
+      "id": 2,
+      "name": "ROXIE",
+      "initials": "OS"
     }
   ],
   "updates": [
@@ -43,6 +48,10 @@
           "expiresAt": "2026-05-25T17:48:51.108Z"
         }
       ]
+    },
+    {
+      "lawyerId": 2,
+      "updates": []
     }
   ]
 }
