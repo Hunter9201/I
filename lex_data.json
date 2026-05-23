@@ -51,7 +51,16 @@
     },
     {
       "lawyerId": 2,
-      "updates": []
+      "updates": [
+        {
+          "id": 1779558757414.583,
+          "type": "text",
+          "content": "AM working on every one",
+          "mediaUrl": null,
+          "timestamp": "2026-05-23T17:52:37.414Z",
+          "expiresAt": "2026-05-25T17:52:37.414Z"
+        }
+      ]
     }
   ]
 }
