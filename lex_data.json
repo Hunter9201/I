@@ -16,100 +16,12 @@
       "lawyerId": 1,
       "updates": [
         {
-          "id": 1779557443872.0515,
+          "id": 1779574385229.5642,
           "type": "text",
-          "content": "Every thing is possible",
+          "content": "Am the best lawyer",
           "mediaUrl": null,
-          "timestamp": "2026-05-23T17:30:43.872Z",
-          "expiresAt": "2026-05-25T17:30:43.873Z"
-        },
-        {
-          "id": 1779558177159.324,
-          "type": "text",
-          "content": "you guys am a genius",
-          "mediaUrl": null,
-          "timestamp": "2026-05-23T17:42:57.159Z",
-          "expiresAt": "2026-05-25T17:42:57.159Z"
-        },
-        {
-          "id": 1779558329232.9153,
-          "type": "text",
-          "content": "mwe this is true",
-          "mediaUrl": null,
-          "timestamp": "2026-05-23T17:45:29.232Z",
-          "expiresAt": "2026-05-25T17:45:29.232Z"
-        },
-        {
-          "id": 1779558531108.4824,
-          "type": "text",
-          "content": "WHO IS THE BEST LAWYER",
-          "mediaUrl": null,
-          "timestamp": "2026-05-23T17:48:51.108Z",
-          "expiresAt": "2026-05-25T17:48:51.108Z"
-        },
-        {
-          "id": 1779560299920.4648,
-          "type": "image",
-          "content": "Very true",
-          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779560297603_WhatsApp_Image_2026-04-16_at_16.29.32.jpeg",
-          "timestamp": "2026-05-23T18:18:19.920Z",
-          "expiresAt": "2026-05-25T18:18:19.920Z"
-        },
-        {
-          "id": 1779560685529.8503,
-          "type": "image",
-          "content": "alright get this",
-          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779560683635_WhatsApp_Image_2026-02-05_at_21.29.15.jpeg",
-          "timestamp": "2026-05-23T18:24:45.529Z",
-          "expiresAt": "2026-05-25T18:24:45.529Z"
-        },
-        {
-          "id": 1779561641505.3865,
-          "type": "video",
-          "content": "baddest",
-          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779561634879_WhatsApp_Video_2026-02-10_at_14.47.16.mp4",
-          "timestamp": "2026-05-23T18:40:41.505Z",
-          "expiresAt": "2026-05-25T18:40:41.505Z"
-        },
-        {
-          "id": 1779562367717.5862,
-          "type": "video",
-          "content": "baddest",
-          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779562364604_WhatsApp_Video_2026-02-10_at_14.47.16.mp4",
-          "timestamp": "2026-05-23T18:52:47.717Z",
-          "expiresAt": "2026-05-25T18:52:47.718Z"
-        },
-        {
-          "id": 1779562736457.0083,
-          "type": "image",
-          "content": "alriight",
-          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779562734659_WhatsApp_Image_2026-04-16_at_16.29.32.jpeg",
-          "timestamp": "2026-05-23T18:58:56.457Z",
-          "expiresAt": "2026-05-25T18:58:56.457Z"
-        },
-        {
-          "id": 1779562820015.9233,
-          "type": "image",
-          "content": "alright",
-          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779562818100_WhatsApp_Image_2026-04-16_at_16.29.32.jpeg",
-          "timestamp": "2026-05-23T19:00:20.015Z",
-          "expiresAt": "2026-05-25T19:00:20.015Z"
-        },
-        {
-          "id": 1779562940342.5771,
-          "type": "text",
-          "content": "iyaya",
-          "mediaUrl": null,
-          "timestamp": "2026-05-23T19:02:20.342Z",
-          "expiresAt": "2026-05-25T19:02:20.342Z"
-        },
-        {
-          "id": 1779572800160.9382,
-          "type": "text",
-          "content": "best",
-          "mediaUrl": null,
-          "timestamp": "2026-05-23T21:46:40.160Z",
-          "expiresAt": "2026-05-25T21:46:40.160Z"
+          "timestamp": "2026-05-23T22:13:05.229Z",
+          "expiresAt": "2026-05-25T22:13:05.229Z"
         },
         {
           "id": 1779572835749.3013,
@@ -120,12 +32,108 @@
           "expiresAt": "2026-05-25T21:47:15.749Z"
         },
         {
-          "id": 1779574385229.5642,
+          "id": 1779572800160.9382,
           "type": "text",
-          "content": "Am the best lawyer",
+          "content": "best",
           "mediaUrl": null,
-          "timestamp": "2026-05-23T22:13:05.229Z",
-          "expiresAt": "2026-05-25T22:13:05.229Z"
+          "timestamp": "2026-05-23T21:46:40.160Z",
+          "expiresAt": "2026-05-25T21:46:40.160Z"
+        },
+        {
+          "id": 1779562940342.5771,
+          "type": "text",
+          "content": "iyaya",
+          "mediaUrl": null,
+          "timestamp": "2026-05-23T19:02:20.342Z",
+          "expiresAt": "2026-05-25T19:02:20.342Z"
+        },
+        {
+          "id": 1779562820015.9233,
+          "type": "image",
+          "content": "alright",
+          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779562818100_WhatsApp_Image_2026-04-16_at_16.29.32.jpeg",
+          "timestamp": "2026-05-23T19:00:20.015Z",
+          "expiresAt": "2026-05-25T19:00:20.015Z"
+        },
+        {
+          "id": 1779562736457.0083,
+          "type": "image",
+          "content": "alriight",
+          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779562734659_WhatsApp_Image_2026-04-16_at_16.29.32.jpeg",
+          "timestamp": "2026-05-23T18:58:56.457Z",
+          "expiresAt": "2026-05-25T18:58:56.457Z"
+        },
+        {
+          "id": 1779562367717.5862,
+          "type": "video",
+          "content": "baddest",
+          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779562364604_WhatsApp_Video_2026-02-10_at_14.47.16.mp4",
+          "timestamp": "2026-05-23T18:52:47.717Z",
+          "expiresAt": "2026-05-25T18:52:47.718Z"
+        },
+        {
+          "id": 1779561641505.3865,
+          "type": "video",
+          "content": "baddest",
+          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779561634879_WhatsApp_Video_2026-02-10_at_14.47.16.mp4",
+          "timestamp": "2026-05-23T18:40:41.505Z",
+          "expiresAt": "2026-05-25T18:40:41.505Z"
+        },
+        {
+          "id": 1779560685529.8503,
+          "type": "image",
+          "content": "alright get this",
+          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779560683635_WhatsApp_Image_2026-02-05_at_21.29.15.jpeg",
+          "timestamp": "2026-05-23T18:24:45.529Z",
+          "expiresAt": "2026-05-25T18:24:45.529Z"
+        },
+        {
+          "id": 1779560299920.4648,
+          "type": "image",
+          "content": "Very true",
+          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1779560297603_WhatsApp_Image_2026-04-16_at_16.29.32.jpeg",
+          "timestamp": "2026-05-23T18:18:19.920Z",
+          "expiresAt": "2026-05-25T18:18:19.920Z"
+        },
+        {
+          "id": 1779558531108.4824,
+          "type": "text",
+          "content": "WHO IS THE BEST LAWYER",
+          "mediaUrl": null,
+          "timestamp": "2026-05-23T17:48:51.108Z",
+          "expiresAt": "2026-05-25T17:48:51.108Z"
+        },
+        {
+          "id": 1779558329232.9153,
+          "type": "text",
+          "content": "mwe this is true",
+          "mediaUrl": null,
+          "timestamp": "2026-05-23T17:45:29.232Z",
+          "expiresAt": "2026-05-25T17:45:29.232Z"
+        },
+        {
+          "id": 1779558177159.324,
+          "type": "text",
+          "content": "you guys am a genius",
+          "mediaUrl": null,
+          "timestamp": "2026-05-23T17:42:57.159Z",
+          "expiresAt": "2026-05-25T17:42:57.159Z"
+        },
+        {
+          "id": 1779557443872.0515,
+          "type": "text",
+          "content": "Every thing is possible",
+          "mediaUrl": null,
+          "timestamp": "2026-05-23T17:30:43.872Z",
+          "expiresAt": "2026-05-25T17:30:43.873Z"
+        },
+        {
+          "id": 1779580612305.435,
+          "type": "text",
+          "content": "am working on alot",
+          "mediaUrl": null,
+          "timestamp": "2026-05-23T23:56:52.305Z",
+          "expiresAt": "2026-05-25T23:56:52.305Z"
         }
       ]
     },
