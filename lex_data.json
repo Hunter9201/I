@@ -1,0 +1,15 @@
+{
+  "lawyers": [
+    {
+      "id": 1,
+      "name": "ARTHUR",
+      "initials": "ABB"
+    }
+  ],
+  "updates": [
+    {
+      "lawyerId": 1,
+      "updates": []
+    }
+  ]
+}
