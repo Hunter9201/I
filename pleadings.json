@@ -57,26 +57,6 @@
     "filingFees": ""
   },
   {
-    "id": 6,
-    "title": "affidavit of service",
-    "description": "Pleading document: affidavit of service.pdf",
-    "filename": "affidavit of service.pdf",
-    "documentType": "Draft Pleading",
-    "caseNumber": "",
-    "parties": "",
-    "court": "",
-    "documentDate": "2026-05-14",
-    "size": "0.06",
-    "pages": "?",
-    "year": 2026,
-    "date": "2026-05-14T14:59:56.131Z",
-    "category": "other",
-    "url": "https://hunter9201.github.io/I/affidavit%20of%20service.pdf",
-    "procedure": "after serving a party a legal document one is required to show court the process he /she used ",
-    "locusClassicus": "order 5 rule 16 of the civil procedure rules ",
-    "filingFees": "1500/="
-  },
-  {
     "id": 7,
     "title": "JOINT SCHEDULING MEMORANDUM ",
     "description": "After the scheduling conference of the two parties before the judical officer ,a party  is required to draft a memoradum. ",
