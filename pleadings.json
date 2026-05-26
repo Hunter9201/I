@@ -75,5 +75,25 @@
     "procedure": "",
     "locusClassicus": "",
     "filingFees": "1500 ug shs "
+  },
+  {
+    "id": 5,
+    "title": "Application for record of proceedings",
+    "description": "Pleading document: Application for record of proceedings.pdf",
+    "filename": "Application for record of proceedings.pdf",
+    "documentType": "Draft Pleading",
+    "caseNumber": "",
+    "parties": "",
+    "court": "",
+    "documentDate": "2026-05-26",
+    "size": "0.05",
+    "pages": "?",
+    "year": 2026,
+    "date": "2026-05-26T07:32:25.026Z",
+    "category": "other",
+    "url": "https://hunter9201.github.io/I/Application%20for%20record%20of%20proceedings.pdf",
+    "procedure": "",
+    "locusClassicus": "",
+    "filingFees": ""
   }
 ]
