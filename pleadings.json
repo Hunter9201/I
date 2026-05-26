@@ -155,5 +155,25 @@
     "procedure": "",
     "locusClassicus": "",
     "filingFees": ""
+  },
+  {
+    "id": 9,
+    "title": "caveat by registered prop",
+    "description": "Pleading document: caveat by registered prop.pdf",
+    "filename": "caveat by registered prop.pdf",
+    "documentType": "Draft Pleading",
+    "caseNumber": "",
+    "parties": "",
+    "court": "",
+    "documentDate": "2026-05-26",
+    "size": "0.05",
+    "pages": "?",
+    "year": 2026,
+    "date": "2026-05-26T07:42:10.450Z",
+    "category": "other",
+    "url": "https://hunter9201.github.io/I/caveat%20by%20registered%20prop.pdf",
+    "procedure": "",
+    "locusClassicus": "",
+    "filingFees": ""
   }
 ]
