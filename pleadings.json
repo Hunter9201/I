@@ -175,5 +175,25 @@
     "procedure": "",
     "locusClassicus": "",
     "filingFees": ""
+  },
+  {
+    "id": 10,
+    "title": "Hearing notice",
+    "description": "Pleading document: Hearing notice.pdf",
+    "filename": "Hearing notice.pdf",
+    "documentType": "Draft Pleading",
+    "caseNumber": "",
+    "parties": "",
+    "court": "",
+    "documentDate": "2026-05-26",
+    "size": "0.08",
+    "pages": "?",
+    "year": 2026,
+    "date": "2026-05-26T11:49:11.887Z",
+    "category": "other",
+    "url": "https://hunter9201.github.io/I/Hearing%20notice.pdf",
+    "procedure": "",
+    "locusClassicus": "",
+    "filingFees": ""
   }
 ]
