@@ -61,8 +61,8 @@
   },
   {
     "id": 4,
-    "title": "affidavit of service",
-    "description": "Pleading document: affidavit of service.pdf",
+    "title": "AFFIDAVIT OF SERVICE",
+    "description": "This is proof of service to be filed and showed to court",
     "filename": "affidavit of service.pdf",
     "documentType": "Affidavit",
     "caseNumber": "",
@@ -75,9 +75,9 @@
     "date": "2026-05-26T07:30:01.153Z",
     "category": "evidence",
     "url": "https://hunter9201.github.io/I/affidavit%20of%20service.pdf",
-    "procedure": "",
-    "locusClassicus": "",
-    "filingFees": "1500 ug shs "
+    "procedure": "1. service of legal document on  the other party\n2. draft the affidavit of service \n3.attach a copy of the received legal document  having signature or stamp",
+    "locusClassicus": "Order 5 rule 16 of the CIVIL PROCEDURE RULES",
+    "filingFees": "1500 ug shs"
   },
   {
     "id": 5,
