@@ -318,5 +318,25 @@
     "procedure": "",
     "locusClassicus": "",
     "filingFees": ""
+  },
+  {
+    "id": 17,
+    "title": "Decree",
+    "description": "Pleading document: Decree.pdf",
+    "filename": "Decree.pdf",
+    "documentType": "Decree",
+    "caseNumber": "",
+    "parties": "",
+    "court": "",
+    "documentDate": "2026-05-29",
+    "size": "0.06",
+    "pages": "?",
+    "year": 2026,
+    "date": "2026-05-29T07:59:40.662Z",
+    "category": "other",
+    "url": "https://hunter9201.github.io/I/Decree.pdf",
+    "procedure": "",
+    "locusClassicus": "",
+    "filingFees": "6000 UG shillings "
   }
 ]
