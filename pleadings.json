@@ -338,5 +338,25 @@
     "procedure": "",
     "locusClassicus": "",
     "filingFees": "6000 UG shillings "
+  },
+  {
+    "id": 18,
+    "title": "surrender deed",
+    "description": "Pleading document: surrender deed.pdf",
+    "filename": "surrender deed.pdf",
+    "documentType": "Notice of Motion",
+    "caseNumber": "",
+    "parties": "",
+    "court": "",
+    "documentDate": "2026-05-29",
+    "size": "0.09",
+    "pages": "?",
+    "year": 2026,
+    "date": "2026-05-29T08:03:53.797Z",
+    "category": "procedure",
+    "url": "https://hunter9201.github.io/I/surrender%20deed.pdf",
+    "procedure": "",
+    "locusClassicus": "",
+    "filingFees": ""
   }
 ]
