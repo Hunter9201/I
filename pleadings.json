@@ -235,5 +235,25 @@
     "procedure": "",
     "locusClassicus": "",
     "filingFees": ""
+  },
+  {
+    "id": 13,
+    "title": "POA",
+    "description": "Pleading document: POA.pdf",
+    "filename": "POA.pdf",
+    "documentType": "Draft Pleading",
+    "caseNumber": "",
+    "parties": "",
+    "court": "",
+    "documentDate": "2026-05-29",
+    "size": "0.04",
+    "pages": "?",
+    "year": 2026,
+    "date": "2026-05-29T06:39:01.506Z",
+    "category": "other",
+    "url": "https://hunter9201.github.io/I/POA.pdf",
+    "procedure": "",
+    "locusClassicus": "",
+    "filingFees": ""
   }
 ]
