@@ -22,19 +22,22 @@
   {
     "id": 2,
     "title": "APPLICATION FOR GARNISHEE",
-    "description": " APPLICATION FOR GARNISHEE",
+    "description": "APPLICATION FOR GARNISHEE ORDER",
     "filename": "APPLICATION FOR GARNISHEE.pdf",
     "documentType": "Chamber Summons",
-    "caseNumber": "",
-    "parties": "",
-    "court": "",
+    "caseNumber": "CIVIL SUIT NO.402/2012",
+    "parties": "UNIQUE HOLDINGS LTD Versus BUSINESS SKILLS TRUST LTD",
+    "court": "BY JUSTICE MADRAMA (as he was then )",
     "documentDate": "2026-04-22",
     "size": "0.71",
     "pages": "?",
     "year": 2026,
     "date": "2026-04-22T11:15:04.596Z",
     "category": "procedure",
-    "url": "https://hunter9201.github.io/I/APPLICATION%20FOR%20GARNISHEE.pdf"
+    "url": "https://hunter9201.github.io/I/APPLICATION%20FOR%20GARNISHEE.pdf",
+    "procedure": "1. file an application for a garnishee order nisi under order 23 rule 10 CPR by chamber summons supported by an affidavit ,accompanied by proof of payment.\n2. file the application in the relevant court registry .\n3. under order 23rule 1 CPR ,application will be heard exparte and if court is satisfied that not all issue a Garnishee order Nisi.\n4.the order to be served on the bank it saves to freeze the account till proceeding is concluded.\n5.file a return of service in according with order 5 rule 16 CPR\n6. If bank fails to show cause why money shouldn't be paid to the judgement debtor ,the order should be made absolute.\n7. order absolute compels the bank to pay the money on the account of judgment creditor.(order 23 rule 7)",
+    "locusClassicus": "under section 38(c) CIVIL PROCEEDING ACT  and Order 23 rule 1 CIVIL PROCEEDURE RULE",
+    "filingFees": "1500 UG SHILLINGS"
   },
   {
     "id": 3,
