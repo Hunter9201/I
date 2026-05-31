@@ -16,6 +16,14 @@
       "lawyerId": 1,
       "updates": [
         {
+          "id": 1780216545434.7927,
+          "type": "image",
+          "content": "",
+          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1780216511756_ChatGPT_Image_Sep_15__2025__12_21_56_AM.png",
+          "timestamp": "2026-05-31T08:35:45.434Z",
+          "expiresAt": "2026-06-02T08:35:45.441Z"
+        },
+        {
           "id": 1780175218295.2244,
           "type": "text",
           "content": "ARSENAL IS THE BEST TEAM",
@@ -32,12 +40,12 @@
           "expiresAt": "2026-06-01T20:50:08.870Z"
         },
         {
-          "id": 1780216545434.7927,
-          "type": "image",
+          "id": 1780218421145.6135,
+          "type": "video",
           "content": "",
-          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1780216511756_ChatGPT_Image_Sep_15__2025__12_21_56_AM.png",
-          "timestamp": "2026-05-31T08:35:45.434Z",
-          "expiresAt": "2026-06-02T08:35:45.441Z"
+          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1780218417340_WhatsApp_Video_2026-02-10_at_14.47.16.mp4",
+          "timestamp": "2026-05-31T09:07:01.145Z",
+          "expiresAt": "2026-06-02T09:07:01.145Z"
         }
       ]
     },
