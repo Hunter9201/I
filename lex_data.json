@@ -3,18 +3,36 @@
     {
       "id": 1,
       "name": "ARTHUR",
-      "initials": "ABB"
+      "initials": "ABB",
+      "profilePic": null
     },
     {
       "id": 2,
       "name": "ROXIE",
-      "initials": "OS"
+      "initials": "OS",
+      "profilePic": null
     }
   ],
   "updates": [
     {
       "lawyerId": 1,
       "updates": [
+        {
+          "id": 1780218516843.2407,
+          "type": "video",
+          "content": "",
+          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1780218512682_WhatsApp_Video_2026-02-10_at_14.47.16.mp4",
+          "timestamp": "2026-05-31T09:08:36.843Z",
+          "expiresAt": "2026-06-02T09:08:36.843Z"
+        },
+        {
+          "id": 1780218421145.6135,
+          "type": "video",
+          "content": "",
+          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1780218417340_WhatsApp_Video_2026-02-10_at_14.47.16.mp4",
+          "timestamp": "2026-05-31T09:07:01.145Z",
+          "expiresAt": "2026-06-02T09:07:01.145Z"
+        },
         {
           "id": 1780216545434.7927,
           "type": "image",
@@ -40,20 +58,12 @@
           "expiresAt": "2026-06-01T20:50:08.870Z"
         },
         {
-          "id": 1780218421145.6135,
-          "type": "video",
-          "content": "",
-          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1780218417340_WhatsApp_Video_2026-02-10_at_14.47.16.mp4",
-          "timestamp": "2026-05-31T09:07:01.145Z",
-          "expiresAt": "2026-06-02T09:07:01.145Z"
-        },
-        {
-          "id": 1780218516843.2407,
-          "type": "video",
-          "content": "",
-          "mediaUrl": "https://raw.githubusercontent.com/hunter9201/I/main/uploads/1780218512682_WhatsApp_Video_2026-02-10_at_14.47.16.mp4",
-          "timestamp": "2026-05-31T09:08:36.843Z",
-          "expiresAt": "2026-06-02T09:08:36.843Z"
+          "id": 1780333011300.166,
+          "type": "article",
+          "content": "The Law has A Soul.",
+          "mediaUrl": null,
+          "timestamp": "2026-06-01T16:56:51.300Z",
+          "expiresAt": "2026-06-03T16:56:51.301Z"
         }
       ]
     },
