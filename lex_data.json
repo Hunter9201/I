@@ -72,6 +72,14 @@
           "mediaUrl": null,
           "timestamp": "2026-06-01T19:17:43.245Z",
           "expiresAt": "2026-06-03T19:17:43.245Z"
+        },
+        {
+          "id": 1780341601417.4888,
+          "type": "article",
+          "content": "The law is a destiny.",
+          "mediaUrl": null,
+          "timestamp": "2026-06-01T19:20:01.417Z",
+          "expiresAt": "2026-06-03T19:20:01.417Z"
         }
       ]
     },
