@@ -202,12 +202,12 @@
   {
     "id": 11,
     "title": "SUMMONS TO FILE ADEFENCE",
-    "description": "Pleading document: SUMMONS TO FILE ADEFENCE.pdf",
+    "description": "it is issued by court to aparty directing them to file a defence as to the claim",
     "filename": "SUMMONS TO FILE ADEFENCE.pdf",
     "documentType": "Draft Pleading",
-    "caseNumber": "",
-    "parties": "",
-    "court": "",
+    "caseNumber": "[1971] HCB 225",
+    "parties": "EA plans ltd vs Roger Allan Birdford smith",
+    "court": "High Court",
     "documentDate": "2026-05-26",
     "size": "0.07",
     "pages": "?",
@@ -215,8 +215,8 @@
     "date": "2026-05-26T11:50:34.420Z",
     "category": "other",
     "url": "https://hunter9201.github.io/I/SUMMONS%20TO%20FILE%20ADEFENCE.pdf",
-    "procedure": "",
-    "locusClassicus": "",
+    "procedure": "it served to the respondant /defendant with plaint showing a claim on them and they must respond in 15 working days.",
+    "locusClassicus": "order 5 rule 1(5) of civil procedure rules",
     "filingFees": ""
   },
   {
