@@ -422,12 +422,12 @@
   {
     "id": 22,
     "title": "EXECUTION",
-    "description": "section 38 of civil procedure act cap 282 \norder 22 of civil procedure rules SI-71 ",
+    "description": "section 38 of civil procedure act cap 282 \norder 22 of civil procedure rules SI-71",
     "filename": "EXECUTION.pdf",
     "documentType": "Draft Pleading",
-    "caseNumber": "",
-    "parties": "",
-    "court": "",
+    "caseNumber": "[1991]HCB 72",
+    "parties": "PETER GUKIINA Vs PAUL KAWANGA",
+    "court": "High Court",
     "documentDate": "2026-06-04",
     "size": "0.10",
     "pages": "?",
@@ -435,9 +435,9 @@
     "date": "2026-06-04T13:47:13.476Z",
     "category": "other",
     "url": "https://hunter9201.github.io/I/EXECUTION.pdf",
-    "procedure": "",
+    "procedure": "1. write a demand letter\n2. choose the mode of execution \n3. make a formal application under order 22rule 8 of CPR\n4. issue notice to show cause why execution should not happen \n5. mind the limitation time",
     "locusClassicus": "UNIQUE HOLDINGS VS BUSINESS SKILLS TRUST LTD HCMA No.402 of 2012",
-    "filingFees": ""
+    "filingFees": "3000ugx"
   },
   {
     "id": 23,
