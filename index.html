@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>THE LION HUNTER – Legal Portal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="google-site-verification" content="google47c9c1017e180e8f" />
   <meta name="description" content="The Lion Hunter – A jungle-themed portal for legal clarity, advocacy training, and nonstop discussion. Built for LDC students, designed for pride." />
   <meta name="keywords" content="The Lion Hunter, Lion Hunter, legal education, LDC Uganda, advocacy, case summaries, jungle platform, Arthur Solutions" />
@@ -53,7 +53,7 @@
       min-height: 100vh;
     }
 
-    /* WATERMARK – using one of the newly uploaded images, clearly visible */
+    /* WATERMARK – visible and fixed */
     body::before {
       content: "";
       position: fixed;
@@ -89,6 +89,18 @@
       background:#0b64c0;
       max-height:70vh;
       object-fit: cover;
+      object-position: center;
+    }
+    /* responsive hero height for all devices */
+    @media (max-width: 768px) {
+      header img#heroImg {
+        max-height: 55vh;
+      }
+    }
+    @media (max-width: 480px) {
+      header img#heroImg {
+        max-height: 40vh;
+      }
     }
     .hero-fade-out{
       opacity:0;
@@ -155,7 +167,7 @@
       transform: scale(1.05);
       background: #0f3b35;
     }
-    /* Dancing animation (gentle bounce + rotate) */
+    /* Dancing animation */
     @keyframes lexDance {
       0% { transform: translateY(0px) rotate(0deg); }
       20% { transform: translateY(-6px) rotate(-5deg); }
@@ -289,106 +301,7 @@
     .nav-container a:hover {
       background:#2474a9;
     }
-    .login-hero-btn, .timetable-badge{
-      background: var(--brand);
-      color:#fff;
-      padding:8px 12px;
-      border-radius:999px;
-      font-weight:700;
-      font-size:14px;
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
-      box-shadow:0 10px 24px rgba(0,0,0,.22);
-      border:1px solid rgba(255,255,255,.12);
-      text-decoration:none;
-      cursor:pointer;
-      user-select:none;
-    }
-    .login-hero-btn:hover, .timetable-badge:hover {
-      filter:brightness(1.05);
-    }
-    .timetable-dot{
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      background:#f59e0b;
-      display:inline-block;
-    }
-    .login-hero-btn{
-      position:absolute;
-      top: 16px;
-      left: 80px;
-      z-index:1002;
-    }
-    .timetable-wrap{
-      position:absolute;
-      top: 58px;
-      left: 80px;
-      z-index:1002;
-      font-family: system-ui,-apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-    .timetable-pop{
-      position:absolute;
-      margin-top:10px;
-      width:300px;
-      background:#ffffff;
-      border:1px solid #e5e7eb;
-      border-radius:12px;
-      box-shadow:0 22px 48px rgba(0,0,0,.22);
-      padding:10px;
-      display:none;
-    }
-    .timetable-pop:before{
-      content:"";
-      position:absolute;
-      top:-8px;
-      left:22px;
-      width:14px;
-      height:14px;
-      background:#fff;
-      border-left:1px solid #e5e7eb;
-      border-top:1px solid #e5e7eb;
-      transform:rotate(45deg);
-    }
-    .timetable-pop h4{
-      margin:4px 8px 8px;
-      font-size:14px;
-      font-weight:800;
-      color:#111827;
-    }
-    .timetable-list{
-      max-height:260px;
-      overflow:auto;
-      margin:0;
-      padding:4px;
-    }
-    .timetable-item{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      padding:8px 10px;
-      border-radius:8px;
-      transition:background .15s ease;
-    }
-    .timetable-item:hover{
-      background:#f9fafb;
-    }
-    .timetable-item span{
-      font-size:13px;
-      color:#111827;
-      font-weight:600;
-    }
-    .timetable-item a{
-      font-size:12px;
-      text-decoration:none;
-      padding:6px 10px;
-      border-radius:8px;
-      background:#0ea5e9;
-      color:#fff;
-      font-weight:700;
-    }
+
     main {
       padding:24px 16px 8px;
       text-align:center;
@@ -636,7 +549,7 @@
       overflow:hidden;
     }
 
-    /* Bar Bites admin styles remain unchanged */
+    /* Bar Bites admin styles */
     #bb-admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;z-index:2000}
     #bb-admin{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:2001}
     #bb-card{width:min(820px,92vw); max-height:86vh; overflow:auto; background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; box-shadow:0 30px 80px rgba(0,0,0,.28); padding:18px; font:600 14px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#0f172a;}
@@ -670,17 +583,6 @@
   <header>
     <div class="menu-icon" onclick="toggleMenu()" aria-label="Toggle menu">☰</div>
     <img id="heroImg" src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" alt="LDC LEGAL COMPANION" loading="eager" decoding="async" fetchpriority="high" />
-    <a href="login.html" class="login-hero-btn" id="login-hero-btn">Login</a>
-    <div class="timetable-wrap" id="timetableWrap" aria-haspopup="true" aria-expanded="false">
-      <div class="timetable-badge" id="timetableBtn">
-        <span class="timetable-dot"></span>
-        Timetables
-      </div>
-      <div class="timetable-pop" id="timetablePop">
-        <h4>Weekly Timetables</h4>
-        <div class="timetable-list" id="timetableList"></div>
-      </div>
-    </div>
   </header>
 
   <nav id="navMenu" class="nav-container" aria-label="Primary">
@@ -793,7 +695,7 @@
 
 <script>
   // ------------------------------
-  // EXISTING SITE SCRIPTS
+  // SITE SCRIPTS
   // ------------------------------
   function toggleMenu(){
     const menu = document.getElementById('navMenu');
@@ -803,38 +705,6 @@
     document.querySelectorAll('#navMenu a').forEach(link => {
       link.addEventListener('click', () => document.getElementById('navMenu')?.classList.remove('open'));
     });
-  });
-
-  // Timetable
-  const WEEK_LINKS = [
-    { label: "Week 1 (Family)",    url: "https://drive.google.com/drive/folders/1p4CqiLEgrcY0m-yCBDDB0zbLBQh5nZia?usp=sharing" },
-    { label: "Week 2 (Civil)",     url: "https://drive.google.com/drive/folders/1KZAbnXqZKGKcyNow_tLrS0bSwDYPrH3l?usp=sharing" },
-    { label: "Week 3 (Corporate)", url: "https://drive.google.com/file/d/EXAMPLE3/preview" },
-    { label: "Week 4 (Criminal)",  url: "https://docs.google.com/document/d/EXAMPLE4/preview" },
-    { label: "Week 5 (Land)",      url: "https://docs.google.com/document/d/EXAMPLE5/preview" }
-  ];
-  const listEl = document.getElementById('timetableList');
-  if (listEl) {
-    WEEK_LINKS.forEach(item => {
-      const row = document.createElement('div'); row.className = 'timetable-item';
-      const title = document.createElement('span'); title.textContent = item.label;
-      const open = document.createElement('a'); open.textContent = 'Open'; open.href = item.url; open.target = '_blank'; open.rel = 'noopener';
-      row.appendChild(title); row.appendChild(open); listEl.appendChild(row);
-    });
-  }
-  const btn  = document.getElementById('timetableBtn');
-  const pop  = document.getElementById('timetablePop');
-  const wrap = document.getElementById('timetableWrap');
-  function openPop(){ if(pop) pop.style.display = 'block'; if(wrap) wrap.setAttribute('aria-expanded','true'); document.addEventListener('click', onClickAway, {capture:true}); document.addEventListener('keydown', onEsc); }
-  function closePop(){ if(pop) pop.style.display = 'none'; if(wrap) wrap.setAttribute('aria-expanded','false'); document.removeEventListener('click', onClickAway, {capture:true}); document.removeEventListener('keydown', onEsc); }
-  function onClickAway(e){ if(wrap && !wrap.contains(e.target)) closePop(); }
-  function onEsc(e){ if(e.key==='Escape') closePop(); }
-  if (btn) btn.addEventListener('click', e=>{ e.stopPropagation(); (pop && pop.style.display==='block') ? closePop() : openPop(); });
-
-  // Login lock
-  document.addEventListener('DOMContentLoaded', () => {
-    const loginBtn = document.getElementById('login-hero-btn');
-    loginBtn?.addEventListener('click', (e) => { e.preventDefault(); alert("🔒 Premium services coming soon!"); });
   });
 
   // Mini date
