@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
     <title>Juris Uganda | Pleadings Vault – Full Legal Metadata (Mobile 2-Column)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
             --law-navy: #0a1c2f;
@@ -169,6 +169,10 @@
             border-color: white;
             transform: translateY(-2px);
         }
+        .refresh-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
         .legal-stats {
             background: rgba(10, 28, 47, 0.75);
             backdrop-filter: blur(8px);
@@ -208,8 +212,6 @@
             padding: 0.2rem 0.8rem;
             border-radius: 40px;
         }
-
-        /* ---- Dual Profile Widgets ---- */
         .profile-group {
             display: flex;
             align-items: center;
@@ -288,7 +290,6 @@
                 font-size: 0.6rem;
             }
         }
-
         @media (max-width: 780px) {
             .legal-stats {
                 flex-direction: column;
@@ -300,6 +301,14 @@
             }
             .profile-group {
                 justify-content: flex-start;
+            }
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-search {
+                max-width: 100%;
+                width: 100%;
             }
         }
 
@@ -397,9 +406,6 @@
         .modal-close:hover {
             background: var(--law-gold);
             transform: scale(1.1);
-        }
-        .modal {
-            position: fixed;
         }
 
         /* ---- PDF Grid ---- */
@@ -549,7 +555,6 @@
         .legal-text {
             word-break: break-word;
             overflow-wrap: break-word;
-            display: inline;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -666,16 +671,6 @@
                 font-size: 0.6rem;
             }
         }
-        @media (max-width: 780px) {
-            .header-container {
-                flex-direction: column;
-                text-align: center;
-            }
-            .header-search {
-                max-width: 100%;
-                width: 100%;
-            }
-        }
     </style>
 </head>
 <body>
@@ -692,7 +687,7 @@
             <div class="header-search">
                 <div class="header-search-wrapper">
                     <i class="fas fa-search header-search-icon"></i>
-                    <input type="text" class="header-search-input" id="searchInput" placeholder="Search case, parties, procedure, locus..." />
+                    <input type="text" class="header-search-input" id="searchInput" placeholder="Search case, parties, procedure, locus...">
                     <button class="header-clear-search" id="clearSearch" style="display: none;" aria-label="Clear">×</button>
                 </div>
             </div>
@@ -711,19 +706,16 @@
                 <div id="activeSearchBadge" class="search-query-badge" style="display:none;">
                     <i class="fas fa-filter"></i> <span id="searchTermBadge"></span>
                 </div>
-                <!-- Dual Profile Widgets -->
                 <div class="profile-group">
-                    <!-- Arthur -->
                     <div class="profile-widget" id="profileWidgetArthur">
-                        <img class="profile-avatar" src="https://i.postimg.cc/mZ63fJ5n/Whats-App-Image-2026-04-16-at-16-29-32.jpg" alt="Baluti Bwanika Arthur" />
+                        <img class="profile-avatar" src="https://i.postimg.cc/mZ63fJ5n/Whats-App-Image-2026-04-16-at-16-29-32.jpg" alt="Baluti Bwanika Arthur">
                         <div class="profile-info">
                             <span class="name">Arthur B. Baluti</span>
                             <span class="title">Principal Legal Researcher</span>
                         </div>
                     </div>
-                    <!-- Sharifah -->
                     <div class="profile-widget" id="profileWidgetSharifah">
-                        <img class="profile-avatar" src="https://i.postimg.cc/G4ssjPhB/Whats-App-Image-2026-06-23-at-20-44-56.jpg" alt="Sharifah Ahmed Onen" />
+                        <img class="profile-avatar" src="https://i.postimg.cc/G4ssjPhB/Whats-App-Image-2026-06-23-at-20-44-56.jpg" alt="Sharifah Ahmed Onen">
                         <div class="profile-info">
                             <span class="name">Sharifah A. Onen</span>
                             <span class="title">Head of Legal Documentation</span>
@@ -760,9 +752,9 @@
         <button class="modal-close" id="modalCloseArthur">&times;</button>
         <div class="modal-content">
             <div class="modal-image-container">
-                <img class="modal-image" id="modalImageArthur" src="https://i.postimg.cc/mZ63fJ5n/Whats-App-Image-2026-04-16-at-16-29-32.jpg" alt="Baluti Bwanika Arthur" />
+                <img class="modal-image" src="https://i.postimg.cc/mZ63fJ5n/Whats-App-Image-2026-04-16-at-16-29-32.jpg" alt="Baluti Bwanika Arthur">
             </div>
-            <div class="modal-bio" id="modalBioArthur">
+            <div class="modal-bio">
                 <h3>Baluti Bwanika Arthur</h3>
                 <p>Baluti Bwanika Arthur is a forward-thinking legal professional whose practice reflects a strong convergence of law, technology and regulatory compliance. He holds a Diploma in Legal Practice from the Law Development Centre and a Bachelor of Laws (LLB) from the Islamic University in Uganda.</p>
                 <p>He currently serves as a Legal Assistant at NS-KIGOZI Advocates within the firm's corporate and commercial practice, providing transactional and regulatory support. His work includes drafting commercial agreements, pleadings, supporting business formation, land transactions, and in-depth legal research within complex regulatory frameworks.</p>
@@ -776,9 +768,9 @@
         <button class="modal-close" id="modalCloseSharifah">&times;</button>
         <div class="modal-content">
             <div class="modal-image-container">
-                <img class="modal-image" id="modalImageSharifah" src="https://i.postimg.cc/G4ssjPhB/Whats-App-Image-2026-06-23-at-20-44-56.jpg" alt="Sharifah Ahmed Onen" />
+                <img class="modal-image" src="https://i.postimg.cc/G4ssjPhB/Whats-App-Image-2026-06-23-at-20-44-56.jpg" alt="Sharifah Ahmed Onen">
             </div>
-            <div class="modal-bio" id="modalBioSharifah">
+            <div class="modal-bio">
                 <h3>Sharifah Ahmed Onen</h3>
                 <p><strong>Head of Legal Documentation | Pleadings Vault</strong></p>
                 <p>Sharifah holds an LLB from Islamic University In Uganda and a Diploma in Legal Practice from the Law Development Centre.</p>
@@ -792,8 +784,8 @@
 
     <script>
         // ============================================================
-        //  JURIS UGANDA – FULL FRONTEND
-        //  Dual profiles: Arthur + Sharifah
+        //  JURIS UGANDA – PLEADINGS VAULT with dual profiles
+        //  Ensures fetch from pleadings.json works with loading state
         // ============================================================
 
         (function() {
@@ -906,12 +898,16 @@
                         headers: { 'Cache-Control': 'no-cache' }
                     });
                     if (!response.ok) {
-                        if (response.status === 404) throw new Error('pleadings.json not found at ' + PLEADINGS_JSON_URL +
-                            '. Please upload pleadings via the admin panel.');
+                        if (response.status === 404) {
+                            throw new Error('pleadings.json not found at ' + PLEADINGS_JSON_URL +
+                                '. Please upload pleadings via the admin panel.');
+                        }
                         throw new Error('HTTP ' + response.status + ': Unable to fetch pleadings.json');
                     }
                     const data = await response.json();
-                    if (!Array.isArray(data)) throw new Error('Invalid format: expected array of pleadings');
+                    if (!Array.isArray(data)) {
+                        throw new Error('Invalid format: expected array of pleadings');
+                    }
 
                     const validDocs = data.filter(function(doc) {
                         return doc && doc.id && doc.title && doc.filename;
@@ -936,6 +932,7 @@
                             filingFees: doc.filingFees || ''
                         };
                     });
+
                     allDocuments = validDocs;
                     var now = new Date();
                     lastSyncSpan.innerHTML = '<i class="far fa-clock"></i> Last sync: ' + now.toLocaleTimeString();
@@ -954,7 +951,7 @@
 
             function showLoadingState() {
                 pdfGrid.innerHTML =
-                    '<div class="loading"><div class="law-spinner"></div><p><i class="fas fa-gavel"></i> Loading pleadings from repository...</p></div>';
+                    '<div class="loading"><div class="law-spinner"></div><p><i class="fas fa-landmark"></i> Fetching pleadings from repository (pleadings.json)...</p></div>';
             }
 
             function showErrorState(msg) {
@@ -962,7 +959,8 @@
                     '<div class="error-state"><i class="fas fa-exclamation-triangle"></i><h3 style="color: var(--law-burgundy);">Pleading Index Unavailable</h3><p>' +
                     escapeHtml(msg) +
                     '</p><p style="margin-top: 0.8rem;">Make sure <strong>pleadings.json</strong> exists at <strong>' +
-                    PLEADINGS_JSON_URL + '</strong> and was created by the admin panel.</p><button onclick="location.reload()" class="refresh-button" style="margin-top: 1rem; background: var(--law-navy);"><i class="fas fa-redo-alt"></i> Retry</button></div>';
+                    PLEADINGS_JSON_URL +
+                    '</strong> and was created by the admin panel.</p><button onclick="location.reload()" class="refresh-button" style="margin-top: 1rem; background: var(--law-navy); color: white; border: 1px solid var(--law-gold);"><i class="fas fa-redo-alt"></i> Retry</button></div>';
             }
 
             function updateStatsUI() {
@@ -1051,9 +1049,9 @@
                         else if (dt.indexOf('summons') !== -1) typeIcon = 'fa-bell';
 
                         var highlightedTitle = currentSearch ? highlightText(doc.title, currentSearch) : escapeHtml(doc
-                        .title);
-                        var highlightedDesc = currentSearch ? highlightText(doc.description, currentSearch) : escapeHtml(
-                            doc.description);
+                            .title);
+                        var highlightedDesc = currentSearch ? highlightText(doc.description, currentSearch) :
+                            escapeHtml(doc.description);
                         var displayDate = doc.documentDate ? new Date(doc.documentDate).toLocaleDateString('en-GB', {
                             year: 'numeric',
                             month: 'short',
@@ -1175,22 +1173,30 @@
                     searchInput.focus();
                 });
                 refreshBtn.addEventListener('click', hardRefresh);
+                // Auto-refresh every 3 minutes (only if not already fetching)
                 setInterval(function() {
-                    if (!isFetching) fetchDocuments().catch(console.warn);
+                    if (!isFetching) {
+                        fetchDocuments().catch(console.warn);
+                    }
                 }, 180000);
             }
 
             async function init() {
                 setupEvents();
+                // Show loading state immediately
+                showLoadingState();
                 await fetchDocuments();
-                if (allDocuments.length) renderDocuments(true);
+                if (allDocuments.length) {
+                    renderDocuments(true);
+                }
             }
 
-            // expose for inline retry
-            window.location.reload = function() {
+            // Expose reload for inline retry button
+            window.locationReload = function() {
                 window.location.reload();
             };
 
+            // Kick off
             init();
 
         })();
