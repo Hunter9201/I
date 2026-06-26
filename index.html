@@ -80,27 +80,14 @@
       text-align:center;
       background:#0b64c0;
     }
-    header img#heroImg{
-      width:100%;
-      height:auto;
-      display:block;
-      transition:opacity .6s ease-in-out;
-      opacity:1;
-      background:#0b64c0;
-      max-height:70vh;
-      object-fit: cover;
-      object-position: center;
-    }
-    /* responsive hero height for all devices */
-    @media (max-width: 768px) {
-      header img#heroImg {
-        max-height: 55vh;
-      }
-    }
-    @media (max-width: 480px) {
-      header img#heroImg {
-        max-height: 40vh;
-      }
+    /* Hero image – always full width, no cropping, natural height */
+    header img#heroImg {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: opacity .6s ease-in-out;
+      opacity: 1;
+      background: #0b64c0;
     }
     .hero-fade-out{
       opacity:0;
