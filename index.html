@@ -53,7 +53,7 @@
       min-height: 100vh;
     }
 
-    /* WATERMARK – visible and fixed */
+    /* WATERMARK – more visible (opacity 0.4) */
     body::before {
       content: "";
       position: fixed;
@@ -64,7 +64,7 @@
       background-image: url('https://i.postimg.cc/nMHqkXWf/Whats-App-Image-2026-06-19-at-17-25-14.jpg');
       background-repeat: repeat;
       background-size: 220px 220px;
-      opacity: 0.25;
+      opacity: 0.4;
       pointer-events: none;
       z-index: 0;
     }
@@ -80,7 +80,6 @@
       text-align:center;
       background:#0b64c0;
     }
-    /* Hero image – always full width, no cropping, natural height */
     header img#heroImg {
       width: 100%;
       height: auto;
@@ -98,11 +97,71 @@
       }
     }
 
+    /* PROFESSIONAL NAV OVERLAY – more transparent */
+    .hero-nav {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      transform: translateY(-50%);
+      background: rgba(10, 28, 47, 0.75);
+      backdrop-filter: blur(4px);
+      padding: 16px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 12px 28px;
+      border-top: 2px solid rgba(197, 165, 114, 0.4);
+      border-bottom: 2px solid rgba(197, 165, 114, 0.4);
+      box-sizing: border-box;
+      z-index: 10;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .hero-nav a {
+      color: #f0f4f8;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+      letter-spacing: 0.5px;
+    }
+    .hero-nav a:hover {
+      background: rgba(197, 165, 114, 0.2);
+      color: #ffffff;
+    }
+    @media (max-width: 768px) {
+      .hero-nav {
+        padding: 12px 12px;
+        gap: 8px 16px;
+        top: 45%;
+      }
+      .hero-nav a {
+        font-size: 13px;
+        padding: 4px 6px;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero-nav {
+        padding: 8px 6px;
+        gap: 4px 10px;
+        top: 40%;
+      }
+      .hero-nav a {
+        font-size: 10px;
+        padding: 3px 4px;
+        letter-spacing: 0.2px;
+      }
+    }
+
     #calendar-alert {
       background:linear-gradient(to right,#283e51,#4b79a1);
       color:#fff;
       border-radius:12px;
-      margin:12px auto;
+      margin:8px auto 12px;
       width:95%;
       max-width:1100px;
       padding:12px 16px;
@@ -124,7 +183,7 @@
       box-shadow:0 1px 4px rgba(0,0,0,.2);
     }
 
-    /* ===== LEX BUTTON (top‑left) with dancing animation ===== */
+    /* ===== LEX BUTTON ===== */
     .lex-icon {
       position: fixed;
       top: 16px;
@@ -154,7 +213,6 @@
       transform: scale(1.05);
       background: #0f3b35;
     }
-    /* Dancing animation */
     @keyframes lexDance {
       0% { transform: translateY(0px) rotate(0deg); }
       20% { transform: translateY(-6px) rotate(-5deg); }
@@ -166,8 +224,6 @@
     .lex-dancing {
       animation: lexDance 1.2s ease-in-out infinite;
     }
-
-    /* badge for story count */
     .lex-badge {
       position: absolute;
       top: -6px;
@@ -183,7 +239,7 @@
       box-shadow: 0 0 0 2px white;
     }
 
-    /* Modal for the Lex widget */
+    /* Lex modal */
     .lex-modal {
       position: fixed;
       top: 0;
@@ -249,142 +305,121 @@
       }
     }
 
-    .menu-icon {
-      position:absolute;
-      top:10px;
-      right:20px;
-      font-size:28px;
-      color:#fff;
-      background: var(--brand);
-      padding:8px 12px;
-      border-radius:8px;
-      cursor:pointer;
-      z-index:1001;
-      box-shadow:0 6px 18px rgba(0,0,0,.18);
-    }
-    .nav-container {
-      position:fixed;
-      top:0;
-      right:-260px;
-      width:260px;
-      height:100%;
-      background:#2e8bc0;
-      padding-top:60px;
-      transition:right .3s ease;
-      box-shadow:-4px 0 16px rgba(0,0,0,.18);
-      z-index:1000;
-    }
-    .nav-container.open {
-      right:0;
-    }
-    .nav-container a {
-      display:block;
-      color:#fff;
-      text-decoration:none;
-      padding:1rem 1.25rem;
-      font-weight:700;
-      border-bottom:1px solid rgba(255,255,255,.18);
-    }
-    .nav-container a:hover {
-      background:#2474a9;
-    }
-
     main {
-      padding:24px 16px 8px;
+      padding: 8px 16px;
       text-align:center;
       max-width:1100px;
       margin:0 auto;
     }
+
+    /* ===== APP GRID – NO WHITE BOUNDARIES ===== */
     .apps {
-      display:grid;
-      gap:16px;
-      grid-template-columns:repeat(4,1fr);
-      padding:8px 0 4px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 4px 0;
     }
-    @media (max-width: 900px){
-      .apps{
-        grid-template-columns:repeat(3,1fr);
-      }
+    @media (max-width: 900px) {
+      .apps { grid-template-columns: repeat(3, 1fr); }
     }
-    @media (max-width: 600px){
-      .apps{
-        grid-template-columns:repeat(3,1fr);
-        gap:14px;
-      }
+    @media (max-width: 600px) {
+      .apps { grid-template-columns: repeat(3, 1fr); gap: 6px; }
     }
-    @media (max-width: 420px){
-      .apps{
-        grid-template-columns:repeat(3,1fr);
-        gap:12px;
-      }
+    @media (max-width: 420px) {
+      .apps { grid-template-columns: repeat(3, 1fr); gap: 4px; }
     }
+
     .app {
-      text-decoration:none;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:8px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: transparent;
+      border: none;
+      padding: 4px;
+      cursor: pointer;
+      transition: transform 0.15s ease;
     }
+    .app:hover {
+      transform: translateY(-2px);
+    }
+    .app:active {
+      transform: scale(0.95);
+    }
+
     .icon {
-      width:84px;
-      height:84px;
-      border-radius:22px;
-      display:grid;
-      place-items:center;
-      font-size:34px;
-      color:#fff;
-      box-shadow:0 12px 24px rgba(0,0,0,.18), inset 0 0 0 1px rgba(255,255,255,.25);
-      transition: transform .12s ease, box-shadow .12s ease;
-      background: linear-gradient(160deg,#338eda,#0b64c0);
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      color: #fff;
+      background: linear-gradient(160deg, #338eda, #0b64c0);
+      box-shadow: 0 4px 12px rgba(11, 100, 192, 0.3);
+      transition: all 0.2s ease;
     }
-    @media (max-width:420px){
-      .icon{
-        width:74px;
-        height:74px;
-        font-size:28px;
-        border-radius:20px;
-      }
+    .app:hover .icon {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(11, 100, 192, 0.4);
     }
-    .icon.alt1{ background:linear-gradient(160deg,#ef4444,#b91c1c);}
-    .icon.alt2{ background:linear-gradient(160deg,#f59e0b,#d97706);}
-    .icon.alt3{ background:linear-gradient(160deg,#10b981,#059669);}
-    .icon.alt4{ background:linear-gradient(160deg,#8b5cf6,#6d28d9);}
-    .icon.alt5{ background:linear-gradient(160deg,#ec4899,#db2777);}
-    .icon.alt6{ background:linear-gradient(160deg,#0ea5e9,#0369a1);}
-    .icon.alt7{ background:linear-gradient(160deg,#14b8a6,#0d9488);}
-    .icon.alt8{ background:linear-gradient(160deg,#eab308,#ca8a04);}
-    .icon.alt9{ background:linear-gradient(160deg,#475569,#334155);}
-    .icon.alt10{ background:linear-gradient(160deg,#f97316,#ea580c);}
-    .icon.alt11{ background:linear-gradient(160deg,#22c55e,#15803d);}
-    .icon.alt12{ background:linear-gradient(160deg,#a855f7,#7e22ce);}
-    .icon.alt13{ background:linear-gradient(160deg,#60a5fa,#2563eb);}
-    .app:active .icon{
-      transform:scale(.96);
-      box-shadow:0 6px 16px rgba(0,0,0,.18);
+
+    /* Color variants */
+    .icon.alt1 { background: linear-gradient(160deg, #ef4444, #b91c1c); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
+    .app:hover .icon.alt1 { box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4); }
+    .icon.alt2 { background: linear-gradient(160deg, #f59e0b, #d97706); box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3); }
+    .app:hover .icon.alt2 { box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); }
+    .icon.alt3 { background: linear-gradient(160deg, #10b981, #059669); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+    .app:hover .icon.alt3 { box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
+    .icon.alt4 { background: linear-gradient(160deg, #8b5cf6, #6d28d9); box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3); }
+    .app:hover .icon.alt4 { box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4); }
+    .icon.alt5 { background: linear-gradient(160deg, #ec4899, #db2777); box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3); }
+    .app:hover .icon.alt5 { box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4); }
+    .icon.alt6 { background: linear-gradient(160deg, #0ea5e9, #0369a1); box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3); }
+    .app:hover .icon.alt6 { box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4); }
+    .icon.alt7 { background: linear-gradient(160deg, #14b8a6, #0d9488); box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3); }
+    .app:hover .icon.alt7 { box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4); }
+    .icon.alt8 { background: linear-gradient(160deg, #eab308, #ca8a04); box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3); }
+    .app:hover .icon.alt8 { box-shadow: 0 6px 20px rgba(234, 179, 8, 0.4); }
+    .icon.alt9 { background: linear-gradient(160deg, #475569, #334155); box-shadow: 0 4px 12px rgba(71, 85, 105, 0.3); }
+    .app:hover .icon.alt9 { box-shadow: 0 6px 20px rgba(71, 85, 105, 0.4); }
+    .icon.alt10 { background: linear-gradient(160deg, #f97316, #ea580c); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
+    .app:hover .icon.alt10 { box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
+    .icon.alt11 { background: linear-gradient(160deg, #22c55e, #15803d); box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3); }
+    .app:hover .icon.alt11 { box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4); }
+    .icon.alt12 { background: linear-gradient(160deg, #a855f7, #7e22ce); box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3); }
+    .app:hover .icon.alt12 { box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4); }
+    .icon.alt13 { background: linear-gradient(160deg, #60a5fa, #2563eb); box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); }
+    .app:hover .icon.alt13 { box-shadow: 0 6px 20px rgba(96, 165, 250, 0.4); }
+
+    .label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1e293b;
+      text-align: center;
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(2px);
+      padding: 0 4px;
+      border-radius: 4px;
     }
-    .label{
-      font-size:12.5px;
-      line-height:1.1;
-      color:#0f172a;
-      text-align:center;
-      width:92px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      font-weight:700;
+    @media (max-width: 420px) {
+      .label { font-size: 10px; }
+      .icon { width: 52px; height: 52px; font-size: 24px; border-radius: 12px; }
+      .app { padding: 2px; }
     }
-    @media (max-width:420px){
-      .label{
-        width:80px;
-        font-size:12px;
-      }
-    }
+
+    /* Calendar widget – no white background */
     .widget {
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:18px;
-      box-shadow:0 10px 22px rgba(0,0,0,.08);
-      padding:12px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      padding: 12px;
       display:flex;
       flex-direction:column;
       gap:8px;
@@ -491,7 +526,8 @@
       content:"🎥";
     }
     .motto {
-      background:#e3eef9;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(4px);
       padding:1.25rem;
       margin:1rem auto 1.25rem;
       border-radius:12px;
@@ -499,13 +535,16 @@
       font-weight:600;
       color:#0f3057;
       max-width:1100px;
+      border: 1px solid rgba(255,255,255,0.3);
     }
     footer {
-      background:#0f3057;
+      background: rgba(15, 48, 87, 0.9);
+      backdrop-filter: blur(4px);
       color:#ccc;
       text-align:center;
       padding:1rem;
       font-size:.9rem;
+      border-top: 2px solid rgba(197, 165, 114, 0.3);
     }
     @keyframes lion-dance {
       0%,100%{transform:translateY(0) rotate(0) scale(1)}
@@ -536,7 +575,7 @@
       overflow:hidden;
     }
 
-    /* Bar Bites admin styles */
+    /* Bar Bites admin */
     #bb-admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;z-index:2000}
     #bb-admin{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:2001}
     #bb-card{width:min(820px,92vw); max-height:86vh; overflow:auto; background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; box-shadow:0 30px 80px rgba(0,0,0,.28); padding:18px; font:600 14px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#0f172a;}
@@ -568,28 +607,27 @@
   </div>
 
   <header>
-    <div class="menu-icon" onclick="toggleMenu()" aria-label="Toggle menu">☰</div>
     <img id="heroImg" src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" alt="LDC LEGAL COMPANION" loading="eager" decoding="async" fetchpriority="high" />
+    <!-- HERO NAVIGATION – centered, text only, professional -->
+    <nav class="hero-nav" aria-label="Quick navigation">
+      <a href="laws.html">Laws</a>
+      <a href="Fullcases.html">Cases</a>
+      <a href="caseslandone.html">Summaries</a>
+      <a href="workshop.html">Workshops</a>
+      <a href="Documents.html">Documents</a>
+      <a href="IndividualAssessment.html">I.A</a>
+      <a href="exams.html">Exams</a>
+      <a href="oral-exams.html">Oral</a>
+      <a href="category-b.html">Cat B</a>
+      <a href="trial-advocacy.html">Advocacy</a>
+      <a href="audio.html">Audio</a>
+      <a href="Discussions.html">Discuss</a>
+      <a href="barbites.html">Bar Bites</a>
+      <a href="services.html">Services</a>
+    </nav>
   </header>
 
-  <nav id="navMenu" class="nav-container" aria-label="Primary">
-    <a href="laws.html">Laws</a>
-    <a href="Fullcases.html">Cases</a>
-    <a href="caseslandone.html">Case Summaries</a>
-    <a href="workshop.html">Workshops</a>
-    <a href="Documents.html">Documents</a>
-    <a href="IndividualAssessment.html">I.A</a>
-    <a href="exams.html">Exams</a>
-    <a href="oral-exams.html">Oral Exams</a>
-    <a href="category-b.html">Category B</a>
-    <a href="trial-advocacy.html">Trial Advocacy</a>
-    <a href="audio.html">Audio</a>
-    <a href="Discussions.html">Online Discussions</a>
-    <a href="barbites.html">Bar Bites</a>
-    <a href="services.html">Legal Services</a>
-  </nav>
-
-  <!-- LEX BUTTON (dancing, with live badge) -->
+  <!-- LEX BUTTON -->
   <div class="lex-icon lex-dancing" id="lexIcon">
     <i class="fas fa-gavel"></i> Lex
     <div id="lexBadge" class="lex-badge" style="display:none;">0</div>
@@ -626,20 +664,62 @@
         </div>
       </div>
 
-      <a class="app" href="laws.html"><div class="icon">📜</div><span class="label">Laws</span></a>
-      <a class="app" href="Fullcases.html"><div class="icon alt1">📚</div><span class="label">Cases</span></a>
-      <a class="app" href="caseslandone.html"><div class="icon alt2">🧾</div><span class="label">Case Summaries</span></a>
-      <a class="app" href="IndividualAssessment.html"><div class="icon alt3">📝</div><span class="label">I.A</span></a>
-      <a class="app" href="workshop.html"><div class="icon alt4">🛠️</div><span class="label">Workshops</span></a>
-      <a class="app" href="Documents.html"><div class="icon alt5">📄</div><span class="label">Documents</span></a>
-      <a class="app" href="exams.html"><div class="icon alt6">🧪</div><span class="label">Exams</span></a>
-      <a class="app" href="oral-exams.html"><div class="icon alt7">🗣️</div><span class="label">Oral Exams</span></a>
-      <a class="app" href="category-b.html"><div class="icon alt8">🧭</div><span class="label">Category B</span></a>
-      <a class="app" href="trial-advocacy.html"><div class="icon alt9">⚖️</div><span class="label">Trial Advocacy</span></a>
-      <a class="app" href="audio.html"><div class="icon alt10">🎧</div><span class="label">Audio</span></a>
-      <a class="app" href="barbites.html"><div class="icon alt11">🦁</div><span class="label">Bar Bites</span></a>
-      <a class="app" href="Discussions.html"><div class="icon alt12">💬</div><span class="label">Discussions</span></a>
-      <a class="app" href="services.html"><div class="icon alt13">👩‍⚖️</div><span class="label">Legal Services</span></a>
+      <a class="app" href="laws.html">
+        <div class="icon">📜</div>
+        <span class="label">Laws</span>
+      </a>
+      <a class="app" href="Fullcases.html">
+        <div class="icon alt1">📚</div>
+        <span class="label">Cases</span>
+      </a>
+      <a class="app" href="caseslandone.html">
+        <div class="icon alt2">🧾</div>
+        <span class="label">Case Summaries</span>
+      </a>
+      <a class="app" href="IndividualAssessment.html">
+        <div class="icon alt3">📝</div>
+        <span class="label">I.A</span>
+      </a>
+      <a class="app" href="workshop.html">
+        <div class="icon alt4">🛠️</div>
+        <span class="label">Workshops</span>
+      </a>
+      <a class="app" href="Documents.html">
+        <div class="icon alt5">📄</div>
+        <span class="label">Documents</span>
+      </a>
+      <a class="app" href="exams.html">
+        <div class="icon alt6">🧪</div>
+        <span class="label">Exams</span>
+      </a>
+      <a class="app" href="oral-exams.html">
+        <div class="icon alt7">🗣️</div>
+        <span class="label">Oral Exams</span>
+      </a>
+      <a class="app" href="category-b.html">
+        <div class="icon alt8">🧭</div>
+        <span class="label">Category B</span>
+      </a>
+      <a class="app" href="trial-advocacy.html">
+        <div class="icon alt9">⚖️</div>
+        <span class="label">Trial Advocacy</span>
+      </a>
+      <a class="app" href="audio.html">
+        <div class="icon alt10">🎧</div>
+        <span class="label">Audio</span>
+      </a>
+      <a class="app" href="barbites.html">
+        <div class="icon alt11">🦁</div>
+        <span class="label">Bar Bites</span>
+      </a>
+      <a class="app" href="Discussions.html">
+        <div class="icon alt12">💬</div>
+        <span class="label">Discussions</span>
+      </a>
+      <a class="app" href="services.html">
+        <div class="icon alt13">👩‍⚖️</div>
+        <span class="label">Legal Services</span>
+      </a>
     </div>
   </main>
 
@@ -684,15 +764,6 @@
   // ------------------------------
   // SITE SCRIPTS
   // ------------------------------
-  function toggleMenu(){
-    const menu = document.getElementById('navMenu');
-    if (menu) menu.classList.toggle('open');
-  }
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('#navMenu a').forEach(link => {
-      link.addEventListener('click', () => document.getElementById('navMenu')?.classList.remove('open'));
-    });
-  });
 
   // Mini date
   (function(){
@@ -705,7 +776,7 @@
     if(miniDow) miniDow.textContent = days[d.getDay()];
   })();
 
-  // ========== HERO SLIDESHOW – only original colour images ==========
+  // ========== HERO SLIDESHOW ==========
   const HERO_IMAGES = [
     { src: "https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg", alt: "LDC LEGAL COMPANION" },
     { src: "https://i.postimg.cc/28k9C3Nw/younglawyer.png",      alt: "Young Lawyer" },
@@ -717,7 +788,6 @@
     const img = document.getElementById("heroImg");
     if(!img) return;
 
-    // Preload all images
     HERO_IMAGES.forEach(i => { const p = new Image(); p.src = i.src; });
 
     let currentIndex = 0;
