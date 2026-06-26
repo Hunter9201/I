@@ -49,10 +49,30 @@
       font-family:'Poppins',sans-serif;
       background:#f7f9fc;
       color:#333;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    /* WATERMARK – using one of the newly uploaded images, clearly visible */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://i.postimg.cc/nMHqkXWf/Whats-App-Image-2026-06-19-at-17-25-14.jpg');
+      background-repeat: repeat;
+      background-size: 220px 220px;
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
     }
 
     #main-content {
       display: block;
+      position: relative;
+      z-index: 1;
     }
 
     header {
@@ -68,6 +88,7 @@
       opacity:1;
       background:#0b64c0;
       max-height:70vh;
+      object-fit: cover;
     }
     .hero-fade-out{
       opacity:0;
@@ -827,30 +848,53 @@
     if(miniDow) miniDow.textContent = days[d.getDay()];
   })();
 
-  // Hero slideshow
+  // ========== HERO SLIDESHOW – only original colour images ==========
   const HERO_IMAGES = [
     { src: "https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg", alt: "LDC LEGAL COMPANION" },
     { src: "https://i.postimg.cc/28k9C3Nw/younglawyer.png",      alt: "Young Lawyer" },
     { src: "https://i.postimg.cc/xdQqJrj9/books.jpg",            alt: "Law books" },
     { src: "https://i.postimg.cc/bJCvBsxv/lib.jpg",              alt: "Library shelves" }
   ];
+
   (function setupHeroSlideshow(){
     const img = document.getElementById("heroImg");
     if(!img) return;
+
+    // Preload all images
     HERO_IMAGES.forEach(i => { const p = new Image(); p.src = i.src; });
-    let i = 0; const DURATION = 5000; let timerId;
+
+    let currentIndex = 0;
+    const DURATION = 5000;
+    let timerId;
+
     function swap() {
-      i = (i + 1) % HERO_IMAGES.length;
+      currentIndex = (currentIndex + 1) % HERO_IMAGES.length;
+      const next = HERO_IMAGES[currentIndex];
       img.classList.add("hero-fade-out");
-      const next = HERO_IMAGES[i];
-      const onLoad = () => { img.removeEventListener("load", onLoad); requestAnimationFrame(() => img.classList.remove("hero-fade-out")); };
-      img.addEventListener("load", onLoad);
-      img.alt = next.alt || ""; img.src = next.src;
+      setTimeout(() => {
+        img.src = next.src;
+        img.alt = next.alt || "";
+        img.onload = function() {
+          img.classList.remove("hero-fade-out");
+          img.onload = null;
+        };
+        setTimeout(() => {
+          img.classList.remove("hero-fade-out");
+        }, 300);
+      }, 300);
     }
+
     function start(){ if(!timerId) timerId = setInterval(swap, DURATION); }
     function stop(){ clearInterval(timerId); timerId = null; }
+
     document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
-    if (!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) start();
+
+    if (!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setTimeout(start, 1000);
+    }
+
+    img.src = HERO_IMAGES[0].src;
+    img.alt = HERO_IMAGES[0].alt;
   })();
 
   // Simple chat UI
@@ -1005,7 +1049,6 @@
 
   function openLexModal() {
     lexModalElem.classList.add('active');
-    // Show iframe and hide loading after a short delay
     if (lexIframe.style.display === 'none') {
       lexIframe.style.display = 'block';
       lexLoading.style.display = 'none';
@@ -1019,14 +1062,10 @@
   lexModalElem.addEventListener('click', (e) => {
     if (e.target === lexModalElem) closeLexModal();
   });
-  // Preload iframe on hover or page load? We'll just ensure it loads when modal opens.
-  // But for better UX, load iframe in background after page load.
   window.addEventListener('load', () => {
-    // Preload iframe silently
-    lexIframe.src = lexIframe.src; // ensures loading, but we keep display none initially
+    lexIframe.src = lexIframe.src; 
   });
 
-  // Fetch total active stories from GitHub JSON (public raw)
   async function fetchUpdateCount() {
     try {
       const url = 'https://raw.githubusercontent.com/hunter9201/I/main/lex_data.json';
@@ -1058,11 +1097,9 @@
     } else if (count === 0) {
       lexBadgeElem.style.display = 'none';
     } else {
-      // Keep existing or show ? maybe keep as is
       if (lexBadgeElem.textContent === '0') lexBadgeElem.style.display = 'none';
     }
   }
-  // Update badge immediately and every 30 seconds
   updateBadge();
   setInterval(updateBadge, 30000);
 </script>
