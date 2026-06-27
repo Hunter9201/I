@@ -1,1109 +1,1430 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>THE LION HUNTER – Legal Portal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="google-site-verification" content="google47c9c1017e180e8f" />
-  <meta name="description" content="The Lion Hunter – A jungle-themed portal for legal clarity, advocacy training, and nonstop discussion. Built for LDC students, designed for pride." />
-  <meta name="keywords" content="The Lion Hunter, Lion Hunter, legal education, LDC Uganda, advocacy, case summaries, jungle platform, Arthur Solutions" />
-  <meta property="og:title" content="The Lion Hunter" />
-  <meta property="og:description" content="Empowering the pride through immersive learning and nonstop discussion." />
-  <meta property="og:image" content="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" />
-  <link rel="icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1" type="image/jpeg" sizes="any">
-  <link rel="shortcut icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1" type="image/jpeg">
-  <link rel="apple-touch-icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1">
+    <meta charset="UTF-8" />
+    <title>THE LION HUNTER – Legal Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="google-site-verification" content="google47c9c1017e180e8f" />
+    <meta name="description" content="The Lion Hunter – A jungle-themed portal for legal clarity, advocacy training, and nonstop discussion. Built for LDC students, designed for pride." />
+    <meta name="keywords" content="The Lion Hunter, Lion Hunter, legal education, LDC Uganda, advocacy, case summaries, jungle platform, Arthur Solutions" />
+    <meta property="og:title" content="The Lion Hunter" />
+    <meta property="og:description" content="Empowering the pride through immersive learning and nonstop discussion." />
+    <meta property="og:image" content="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" />
+    <link rel="icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1" type="image/jpeg" sizes="any">
+    <link rel="shortcut icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1" type="image/jpeg">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/k4QT4G8c/Lion.jpg?v=1">
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCLCFN2CV4"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-KCLCFN2CV4');
-  </script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KCLCFN2CV4">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-  <!-- Microsoft Clarity -->
-  <script>
-    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "srhjtupxnp");
-  </script>
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-KCLCFN2CV4');
+    </script>
 
-  <!-- Tailwind (chat only) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
-  <!-- Font Awesome for Lex icon -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Microsoft Clarity -->
+    <script>
+        (function(c, l, a, r, i, t, y) {
+            c[a] = c[a] || function() { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r);
+            t.async = 1;
+            t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "srhjtupxnp");
+    </script>
 
-  <style>
-    :root{
-      --brand:#0f3057;
-      --ink:#0f172a;
-      --muted:#64748b;
-      --line:#e5e7eb;
-      --card:#ffffff;
-      --brand2:#2e8bc0;
-    }
+    <!-- Tailwind (chat only) -->
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Font Awesome for Lex icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    body {
-      margin:0;
-      font-family:'Poppins',sans-serif;
-      background:#f7f9fc;
-      color:#333;
-      position: relative;
-      min-height: 100vh;
-    }
+    <style>
+        :root {
+            --brand: #0f3057;
+            --ink: #0f172a;
+            --muted: #64748b;
+            --line: #e5e7eb;
+            --card: #ffffff;
+            --brand2: #2e8bc0;
+            --gold: #c5a572;
+        }
 
-    /* WATERMARK – more visible (opacity 0.4) */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: url('https://i.postimg.cc/nMHqkXWf/Whats-App-Image-2026-06-19-at-17-25-14.jpg');
-      background-repeat: repeat;
-      background-size: 220px 220px;
-      opacity: 0.4;
-      pointer-events: none;
-      z-index: 0;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    #main-content {
-      display: block;
-      position: relative;
-      z-index: 1;
-    }
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #f7f9fc;
+            color: #333;
+            position: relative;
+            min-height: 100vh;
+        }
 
-    header {
-      position:relative;
-      text-align:center;
-      background:#0b64c0;
-    }
-    header img#heroImg {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: opacity .6s ease-in-out;
-      opacity: 1;
-      background: #0b64c0;
-    }
-    .hero-fade-out{
-      opacity:0;
-    }
-    @media (prefers-reduced-motion: reduce){
-      header img#heroImg{
-        transition:none;
-      }
-    }
+        /* WATERMARK – more visible (opacity 0.4) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.postimg.cc/nMHqkXWf/Whats-App-Image-2026-06-19-at-17-25-14.jpg');
+            background-repeat: repeat;
+            background-size: 220px 220px;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-    /* PROFESSIONAL NAV OVERLAY – more transparent */
-    .hero-nav {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      width: 100%;
-      transform: translateY(-50%);
-      background: rgba(10, 28, 47, 0.75);
-      backdrop-filter: blur(4px);
-      padding: 16px 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      gap: 12px 28px;
-      border-top: 2px solid rgba(197, 165, 114, 0.4);
-      border-bottom: 2px solid rgba(197, 165, 114, 0.4);
-      box-sizing: border-box;
-      z-index: 10;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-    }
-    .hero-nav a {
-      color: #f0f4f8;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 600;
-      padding: 6px 10px;
-      border-radius: 4px;
-      transition: background 0.2s, color 0.2s;
-      white-space: nowrap;
-      letter-spacing: 0.5px;
-    }
-    .hero-nav a:hover {
-      background: rgba(197, 165, 114, 0.2);
-      color: #ffffff;
-    }
-    @media (max-width: 768px) {
-      .hero-nav {
-        padding: 12px 12px;
-        gap: 8px 16px;
-        top: 45%;
-      }
-      .hero-nav a {
-        font-size: 13px;
-        padding: 4px 6px;
-      }
-    }
-    @media (max-width: 480px) {
-      .hero-nav {
-        padding: 8px 6px;
-        gap: 4px 10px;
-        top: 40%;
-      }
-      .hero-nav a {
-        font-size: 10px;
-        padding: 3px 4px;
-        letter-spacing: 0.2px;
-      }
-    }
+        #main-content {
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
 
-    #calendar-alert {
-      background:linear-gradient(to right,#283e51,#4b79a1);
-      color:#fff;
-      border-radius:12px;
-      margin:8px auto 12px;
-      width:95%;
-      max-width:1100px;
-      padding:12px 16px;
-      font-size:.95rem;
-      font-weight:600;
-      box-shadow:0 2px 8px rgba(0,0,0,.15);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    #calendar-alert a {
-      background:#ffeb3b;
-      color:#222;
-      padding:8px 12px;
-      text-decoration:none;
-      border-radius:10px;
-      font-weight:800;
-      box-shadow:0 1px 4px rgba(0,0,0,.2);
-    }
+        /* ===== NEW HEADER – no hero image ===== */
+        .site-header {
+            background: #0b64c0;
+            padding: 0;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
 
-    /* ===== LEX BUTTON ===== */
-    .lex-icon {
-      position: fixed;
-      top: 16px;
-      left: 16px;
-      z-index: 1002;
-      background: #1e4a6e;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      gap: 3px;
-      border: 2px solid white;
-      transition: transform 0.1s ease;
-    }
-    .lex-icon i {
-      font-size: 22px;
-      color: #f5b042;
-    }
-    .lex-icon:hover {
-      transform: scale(1.05);
-      background: #0f3b35;
-    }
-    @keyframes lexDance {
-      0% { transform: translateY(0px) rotate(0deg); }
-      20% { transform: translateY(-6px) rotate(-5deg); }
-      40% { transform: translateY(3px) rotate(3deg); }
-      60% { transform: translateY(-3px) rotate(-2deg); }
-      80% { transform: translateY(2px) rotate(1deg); }
-      100% { transform: translateY(0px) rotate(0deg); }
-    }
-    .lex-dancing {
-      animation: lexDance 1.2s ease-in-out infinite;
-    }
-    .lex-badge {
-      position: absolute;
-      top: -6px;
-      right: -6px;
-      background: #ef4444;
-      color: white;
-      border-radius: 30px;
-      padding: 2px 6px;
-      font-size: 11px;
-      font-weight: bold;
-      min-width: 20px;
-      text-align: center;
-      box-shadow: 0 0 0 2px white;
-    }
+        /* Top bar: calendar alert + View Calendar */
+        .header-top {
+            background: linear-gradient(135deg, #1a3a5c, #0b64c0);
+            padding: 8px 16px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px 12px;
+            border-bottom: 2px solid rgba(197, 165, 114, 0.3);
+        }
+        .header-top .alert-text {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            flex: 1 1 auto;
+        }
+        .header-top .alert-text .sub {
+            font-weight: 300;
+            font-size: 0.7rem;
+            color: #d4e4f5;
+            margin-left: 2px;
+        }
+        .header-top .alert-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .btn-calendar {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #ffeb3b;
+            color: #1a2a3a;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.15s, box-shadow 0.15s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-calendar:hover {
+            transform: scale(1.04);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+        }
 
-    /* Lex modal */
-    .lex-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      visibility: hidden;
-      opacity: 0;
-      transition: 0.2s;
-    }
-    .lex-modal.active {
-      visibility: visible;
-      opacity: 1;
-    }
-    .lex-modal-card {
-      background: white;
-      width: 90%;
-      max-width: 520px;
-      max-height: 85vh;
-      border-radius: 32px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-    .lex-modal-header {
-      padding: 1rem 1.5rem;
-      background: #f8fafc;
-      border-bottom: 1px solid #eef2f6;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: 600;
-      color: #0f172a;
-    }
-    .lex-close-btn {
-      background: none;
-      border: none;
-      font-size: 1.6rem;
-      cursor: pointer;
-      color: #5b6e8c;
-    }
-    .lex-iframe {
-      width: 100%;
-      height: 500px;
-      border: none;
-    }
-    .lex-loading {
-      text-align: center;
-      padding: 2rem;
-      color: #1e4a6e;
-      font-weight: 500;
-    }
-    @media (max-width: 550px) {
-      .lex-iframe {
-        height: 400px;
-      }
-    }
+        /* Nav bar – all links wrap to new lines, no horizontal scroll */
+        .nav-bar {
+            background: rgba(10, 28, 47, 0.92);
+            backdrop-filter: blur(4px);
+            padding: 6px 8px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 2px 6px;
+            border-top: 1px solid rgba(197, 165, 114, 0.2);
+        }
+        .nav-bar a {
+            color: #f0f4f8;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 8px;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+            letter-spacing: 0.2px;
+            display: inline-block;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+        .nav-bar a:hover {
+            background: rgba(197, 165, 114, 0.2);
+            color: #ffffff;
+        }
+        .nav-bar a:active {
+            background: rgba(197, 165, 114, 0.35);
+        }
 
-    main {
-      padding: 8px 16px;
-      text-align:center;
-      max-width:1100px;
-      margin:0 auto;
-    }
+        @media (max-width: 768px) {
+            .header-top {
+                padding: 6px 10px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 4px;
+            }
+            .header-top .alert-text {
+                font-size: 0.8rem;
+                justify-content: center;
+            }
+            .header-top .alert-actions {
+                justify-content: center;
+            }
+            .nav-bar {
+                padding: 4px 6px;
+                gap: 2px 4px;
+            }
+            .nav-bar a {
+                font-size: 10px;
+                padding: 4px 6px;
+            }
+        }
+        @media (max-width: 480px) {
+            .header-top .alert-text {
+                font-size: 0.7rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .header-top .alert-text .sub {
+                font-size: 0.6rem;
+            }
+            .btn-calendar {
+                font-size: 0.65rem;
+                padding: 3px 8px;
+            }
+            .nav-bar a {
+                font-size: 9px;
+                padding: 3px 4px;
+            }
+        }
 
-    /* ===== APP GRID – NO WHITE BOUNDARIES ===== */
-    .apps {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      padding: 4px 0;
-    }
-    @media (max-width: 900px) {
-      .apps { grid-template-columns: repeat(3, 1fr); }
-    }
-    @media (max-width: 600px) {
-      .apps { grid-template-columns: repeat(3, 1fr); gap: 6px; }
-    }
-    @media (max-width: 420px) {
-      .apps { grid-template-columns: repeat(3, 1fr); gap: 4px; }
-    }
+        /* ===== LEX BUTTON ===== */
+        .lex-icon {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 1002;
+            background: #1e4a6e;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            gap: 2px;
+            border: 2px solid white;
+            transition: transform 0.1s ease;
+        }
+        .lex-icon i {
+            font-size: 20px;
+            color: #f5b042;
+        }
+        .lex-icon:hover {
+            transform: scale(1.05);
+            background: #0f3b35;
+        }
+        @keyframes lexDance {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            20% {
+                transform: translateY(-6px) rotate(-5deg);
+            }
+            40% {
+                transform: translateY(3px) rotate(3deg);
+            }
+            60% {
+                transform: translateY(-3px) rotate(-2deg);
+            }
+            80% {
+                transform: translateY(2px) rotate(1deg);
+            }
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+        .lex-dancing {
+            animation: lexDance 1.2s ease-in-out infinite;
+        }
+        .lex-stopped {
+            animation: none !important;
+            transform: none !important;
+        }
+        .lex-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #ef4444;
+            color: white;
+            border-radius: 30px;
+            padding: 2px 6px;
+            font-size: 10px;
+            font-weight: bold;
+            min-width: 18px;
+            text-align: center;
+            box-shadow: 0 0 0 2px white;
+        }
 
-    .app {
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      background: transparent;
-      border: none;
-      padding: 4px;
-      cursor: pointer;
-      transition: transform 0.15s ease;
-    }
-    .app:hover {
-      transform: translateY(-2px);
-    }
-    .app:active {
-      transform: scale(0.95);
-    }
+        /* Lex modal */
+        .lex-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: 0.2s;
+        }
+        .lex-modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        .lex-modal-card {
+            background: white;
+            width: 90%;
+            max-width: 520px;
+            max-height: 85vh;
+            border-radius: 32px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .lex-modal-header {
+            padding: 1rem 1.5rem;
+            background: #f8fafc;
+            border-bottom: 1px solid #eef2f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .lex-close-btn {
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: #5b6e8c;
+        }
+        .lex-iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+        .lex-loading {
+            text-align: center;
+            padding: 2rem;
+            color: #1e4a6e;
+            font-weight: 500;
+        }
+        @media (max-width: 550px) {
+            .lex-iframe {
+                height: 400px;
+            }
+        }
 
-    .icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      font-size: 30px;
-      color: #fff;
-      background: linear-gradient(160deg, #338eda, #0b64c0);
-      box-shadow: 0 4px 12px rgba(11, 100, 192, 0.3);
-      transition: all 0.2s ease;
-    }
-    .app:hover .icon {
-      transform: scale(1.05);
-      box-shadow: 0 6px 20px rgba(11, 100, 192, 0.4);
-    }
+        /* ===== MAIN ===== */
+        main {
+            padding: 6px 12px;
+            text-align: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
-    /* Color variants */
-    .icon.alt1 { background: linear-gradient(160deg, #ef4444, #b91c1c); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
-    .app:hover .icon.alt1 { box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4); }
-    .icon.alt2 { background: linear-gradient(160deg, #f59e0b, #d97706); box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3); }
-    .app:hover .icon.alt2 { box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4); }
-    .icon.alt3 { background: linear-gradient(160deg, #10b981, #059669); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
-    .app:hover .icon.alt3 { box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
-    .icon.alt4 { background: linear-gradient(160deg, #8b5cf6, #6d28d9); box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3); }
-    .app:hover .icon.alt4 { box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4); }
-    .icon.alt5 { background: linear-gradient(160deg, #ec4899, #db2777); box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3); }
-    .app:hover .icon.alt5 { box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4); }
-    .icon.alt6 { background: linear-gradient(160deg, #0ea5e9, #0369a1); box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3); }
-    .app:hover .icon.alt6 { box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4); }
-    .icon.alt7 { background: linear-gradient(160deg, #14b8a6, #0d9488); box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3); }
-    .app:hover .icon.alt7 { box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4); }
-    .icon.alt8 { background: linear-gradient(160deg, #eab308, #ca8a04); box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3); }
-    .app:hover .icon.alt8 { box-shadow: 0 6px 20px rgba(234, 179, 8, 0.4); }
-    .icon.alt9 { background: linear-gradient(160deg, #475569, #334155); box-shadow: 0 4px 12px rgba(71, 85, 105, 0.3); }
-    .app:hover .icon.alt9 { box-shadow: 0 6px 20px rgba(71, 85, 105, 0.4); }
-    .icon.alt10 { background: linear-gradient(160deg, #f97316, #ea580c); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
-    .app:hover .icon.alt10 { box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
-    .icon.alt11 { background: linear-gradient(160deg, #22c55e, #15803d); box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3); }
-    .app:hover .icon.alt11 { box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4); }
-    .icon.alt12 { background: linear-gradient(160deg, #a855f7, #7e22ce); box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3); }
-    .app:hover .icon.alt12 { box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4); }
-    .icon.alt13 { background: linear-gradient(160deg, #60a5fa, #2563eb); box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3); }
-    .app:hover .icon.alt13 { box-shadow: 0 6px 20px rgba(96, 165, 250, 0.4); }
+        /* ===== APP GRID ===== */
+        .apps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            padding: 4px 0;
+        }
+        @media (max-width: 900px) {
+            .apps {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .apps {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 4px;
+            }
+        }
+        @media (max-width: 420px) {
+            .apps {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 3px;
+            }
+        }
 
-    .label {
-      font-size: 12px;
-      font-weight: 600;
-      color: #1e293b;
-      text-align: center;
-      line-height: 1.2;
-      letter-spacing: 0.01em;
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(2px);
-      padding: 0 4px;
-      border-radius: 4px;
-    }
-    @media (max-width: 420px) {
-      .label { font-size: 10px; }
-      .icon { width: 52px; height: 52px; font-size: 24px; border-radius: 12px; }
-      .app { padding: 2px; }
-    }
+        .app {
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            background: transparent;
+            border: none;
+            padding: 3px;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+        .app:hover {
+            transform: translateY(-2px);
+        }
+        .app:active {
+            transform: scale(0.95);
+        }
 
-    /* Calendar widget – no white background */
-    .widget {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 18px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.08);
-      padding: 12px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      align-items:stretch;
-      justify-content:space-between;
-    }
-    .widget.calendar {
-      grid-column: span 2;
-      grid-row: span 2;
-    }
-    @media (max-width:400px){
-      .widget.calendar{
-        grid-column: 1 / -1;
-        grid-row:auto;
-      }
-    }
-    .w-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:8px;
-    }
-    .w-title{
-      font-weight:800;
-      color:var(--ink);
-      font-size:14px;
-    }
-    .w-badge{
-      font-size:12px;
-      background:#eef6ff;
-      color:#0b64c0;
-      padding:4px 8px;
-      border-radius:999px;
-      border:1px solid #d8e9ff;
-    }
-    .w-date{
-      font-size:28px;
-      font-weight:800;
-      color:#0b64c0;
-      letter-spacing:.5px;
-    }
-    .w-sub{
-      font-size:12px;
-      color:var(--muted);
-      margin-top:-2px;
-    }
-    .w-events{
-      font-size:12.5px;
-      color:var(--ink);
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      max-height:180px;
-      overflow:auto;
-      padding-right:4px;
-    }
-    .ev{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .ev-time{
-      min-width:72px;
-      font-variant-numeric:tabular-nums;
-      color:#0b64c0;
-      font-weight:800;
-    }
-    .ev-title{
-      flex:1;
-    }
-    .ev-actions{
-      display:flex;
-      gap:6px;
-    }
-    .w-actions{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:4px;
-    }
-    .btn {
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 10px;
-      border-radius:10px;
-      background:var(--brand2);
-      color:#fff;
-      font-weight:800;
-      text-decoration:none;
-      border:1px solid #1e5f8a;
-      font-size:12px;
-    }
-    .btn:hover{
-      filter:brightness(1.05);
-      text-decoration:none;
-    }
-    .btn.meet{
-      background:#16a34a;
-      border-color:#15803d;
-    }
-    .btn.meet::before{
-      content:"🎥";
-    }
-    .motto {
-      background: rgba(255,255,255,0.8);
-      backdrop-filter: blur(4px);
-      padding:1.25rem;
-      margin:1rem auto 1.25rem;
-      border-radius:12px;
-      font-size:1.05rem;
-      font-weight:600;
-      color:#0f3057;
-      max-width:1100px;
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-    footer {
-      background: rgba(15, 48, 87, 0.9);
-      backdrop-filter: blur(4px);
-      color:#ccc;
-      text-align:center;
-      padding:1rem;
-      font-size:.9rem;
-      border-top: 2px solid rgba(197, 165, 114, 0.3);
-    }
-    @keyframes lion-dance {
-      0%,100%{transform:translateY(0) rotate(0) scale(1)}
-      25%{transform:translateY(-8px) rotate(-3deg) scale(1.05)}
-      50%{transform:translateY(0) rotate(3deg) scale(1.02)}
-      75%{transform:translateY(-4px) rotate(2deg) scale(1.04)}
-    }
-    @keyframes lion-shake {
-      0%,100%{transform:translateX(0) rotate(0)}
-      15%,45%,75%{transform:translateX(-5px) rotate(-3deg)}
-      30%,60%,90%{transform:translateX(5px) rotate(3deg)}
-    }
-    .lion-dancing {
-      animation: lion-dance 1.8s ease-in-out infinite alternate;
-    }
-    .lion-stopped {
-      animation:none !important;
-      transform:none !important;
-    }
-    .lion-shake {
-      animation: lion-shake .5s ease-in-out 1;
-    }
-    .mini-agenda {
-      width:100%;
-      height:160px;
-      border:0;
-      border-radius:8px;
-      overflow:hidden;
-    }
+        .icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            font-size: 26px;
+            color: #fff;
+            background: linear-gradient(160deg, #338eda, #0b64c0);
+            box-shadow: 0 4px 12px rgba(11, 100, 192, 0.3);
+            transition: all 0.2s ease;
+        }
+        .app:hover .icon {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(11, 100, 192, 0.4);
+        }
 
-    /* Bar Bites admin */
-    #bb-admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(2px);display:none;z-index:2000}
-    #bb-admin{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:2001}
-    #bb-card{width:min(820px,92vw); max-height:86vh; overflow:auto; background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; box-shadow:0 30px 80px rgba(0,0,0,.28); padding:18px; font:600 14px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#0f172a;}
-    #bb-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
-    #bb-head h3{margin:0;font-size:18px;font-weight:800;color:#0b64c0}
-    #bb-close{background:#111827;color:#fff;border:0;border-radius:10px;padding:8px 10px;cursor:pointer}
-    #bb-note{font-size:12.5px;color:#64748b;margin:4px 0 10px}
-    #bb-pin-box{display:flex;gap:8px;align-items:center;margin:8px 0 14px}
-    #bb-pin{flex:1;border:1px solid #e5e7eb;border-radius:10px;padding:10px 12px;font-weight:700;letter-spacing:3px}
-    #bb-enter{background:#0ea5e9;color:#fff;border:1px solid #0b79b7;border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer}
-    #bb-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
-    .bb-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid #1e5f8a;background:#2e8bc0;color:#fff;text-decoration:none;font-weight:800;cursor:pointer}
-    .bb-btn.alt{background:#16a34a;border-color:#15803d}
-    .bb-hidden{display:none !important}
-    #bb-uploader{border:1px dashed #cbd5e1;border-radius:12px;padding:14px;margin:10px 0}
-    #bb-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
-    .bb-item{border:1px solid #e5e7eb;border-radius:12px;padding:10px;background:#f9fafb}
-    .bb-item video{width:100%;border-radius:8px;background:#000}
-    .bb-item a{font-size:12px;word-break:break-all}
-    progress{width:100%;height:10px}
-  </style>
+        .icon.alt1 {
+            background: linear-gradient(160deg, #ef4444, #b91c1c);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+        .app:hover .icon.alt1 {
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+        }
+        .icon.alt2 {
+            background: linear-gradient(160deg, #f59e0b, #d97706);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+        .app:hover .icon.alt2 {
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+        .icon.alt3 {
+            background: linear-gradient(160deg, #10b981, #059669);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        .app:hover .icon.alt3 {
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+        .icon.alt4 {
+            background: linear-gradient(160deg, #8b5cf6, #6d28d9);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+        .app:hover .icon.alt4 {
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        }
+        .icon.alt5 {
+            background: linear-gradient(160deg, #ec4899, #db2777);
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+        }
+        .app:hover .icon.alt5 {
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+        }
+        .icon.alt6 {
+            background: linear-gradient(160deg, #0ea5e9, #0369a1);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+        .app:hover .icon.alt6 {
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+        }
+        .icon.alt7 {
+            background: linear-gradient(160deg, #14b8a6, #0d9488);
+            box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3);
+        }
+        .app:hover .icon.alt7 {
+            box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4);
+        }
+        .icon.alt8 {
+            background: linear-gradient(160deg, #eab308, #ca8a04);
+            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
+        }
+        .app:hover .icon.alt8 {
+            box-shadow: 0 6px 20px rgba(234, 179, 8, 0.4);
+        }
+        .icon.alt9 {
+            background: linear-gradient(160deg, #475569, #334155);
+            box-shadow: 0 4px 12px rgba(71, 85, 105, 0.3);
+        }
+        .app:hover .icon.alt9 {
+            box-shadow: 0 6px 20px rgba(71, 85, 105, 0.4);
+        }
+        .icon.alt10 {
+            background: linear-gradient(160deg, #f97316, #ea580c);
+            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+        }
+        .app:hover .icon.alt10 {
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+        }
+        .icon.alt11 {
+            background: linear-gradient(160deg, #22c55e, #15803d);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+        .app:hover .icon.alt11 {
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+        }
+        .icon.alt12 {
+            background: linear-gradient(160deg, #a855f7, #7e22ce);
+            box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+        }
+        .app:hover .icon.alt12 {
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+        }
+        .icon.alt13 {
+            background: linear-gradient(160deg, #60a5fa, #2563eb);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.3);
+        }
+        .app:hover .icon.alt13 {
+            box-shadow: 0 6px 20px rgba(96, 165, 250, 0.4);
+        }
+
+        .label {
+            font-size: 10px;
+            font-weight: 600;
+            color: #1e293b;
+            text-align: center;
+            line-height: 1.2;
+            letter-spacing: 0.01em;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(2px);
+            padding: 0 3px;
+            border-radius: 4px;
+        }
+        @media (max-width: 420px) {
+            .label {
+                font-size: 9px;
+            }
+            .icon {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+                border-radius: 10px;
+            }
+            .app {
+                padding: 2px;
+            }
+        }
+
+        /* ===== SMALLER CALENDAR WIDGET ===== */
+        .widget {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: stretch;
+            justify-content: space-between;
+        }
+        .widget.calendar {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        @media (max-width: 400px) {
+            .widget.calendar {
+                grid-column: 1 / -1;
+                grid-row: auto;
+            }
+        }
+        .w-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4px;
+        }
+        .w-title {
+            font-weight: 800;
+            color: var(--ink);
+            font-size: 12px;
+        }
+        .w-badge {
+            font-size: 9px;
+            background: #eef6ff;
+            color: #0b64c0;
+            padding: 2px 6px;
+            border-radius: 999px;
+            border: 1px solid #d8e9ff;
+            font-weight: 700;
+        }
+        .w-date {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0b64c0;
+            letter-spacing: .3px;
+            line-height: 1.2;
+        }
+        .w-sub {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: -2px;
+        }
+        .w-events {
+            font-size: 10.5px;
+            color: var(--ink);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-height: 120px;
+            overflow: auto;
+            padding-right: 2px;
+        }
+        .ev {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .ev-time {
+            min-width: 60px;
+            font-variant-numeric: tabular-nums;
+            color: #0b64c0;
+            font-weight: 800;
+            font-size: 10px;
+        }
+        .ev-title {
+            flex: 1;
+            font-size: 10px;
+        }
+        .w-actions {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 8px;
+            background: var(--brand2);
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            border: 1px solid #1e5f8a;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+        .btn:hover {
+            filter: brightness(1.05);
+            text-decoration: none;
+        }
+
+        .mini-agenda {
+            width: 100%;
+            height: 120px;
+            border: 0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .motto {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(4px);
+            padding: 1rem;
+            margin: 0.5rem auto 1rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0f3057;
+            max-width: 1100px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .motto h2 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        footer {
+            background: rgba(15, 48, 87, 0.9);
+            backdrop-filter: blur(4px);
+            color: #ccc;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 0.8rem;
+            border-top: 2px solid rgba(197, 165, 114, 0.3);
+        }
+
+        @keyframes lion-dance {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0) scale(1)
+            }
+            25% {
+                transform: translateY(-8px) rotate(-3deg) scale(1.05)
+            }
+            50% {
+                transform: translateY(0) rotate(3deg) scale(1.02)
+            }
+            75% {
+                transform: translateY(-4px) rotate(2deg) scale(1.04)
+            }
+        }
+        @keyframes lion-shake {
+            0%,
+            100% {
+                transform: translateX(0) rotate(0)
+            }
+            15%,
+            45%,
+            75% {
+                transform: translateX(-5px) rotate(-3deg)
+            }
+            30%,
+            60%,
+            90% {
+                transform: translateX(5px) rotate(3deg)
+            }
+        }
+        .lion-dancing {
+            animation: lion-dance 1.8s ease-in-out infinite alternate;
+        }
+        .lion-stopped {
+            animation: none !important;
+            transform: none !important;
+        }
+        .lion-shake {
+            animation: lion-shake .5s ease-in-out 1;
+        }
+
+        /* Bar Bites admin */
+        #bb-admin-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .45);
+            backdrop-filter: blur(2px);
+            display: none;
+            z-index: 2000
+        }
+        #bb-admin {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001
+        }
+        #bb-card {
+            width: min(820px, 92vw);
+            max-height: 86vh;
+            overflow: auto;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, .28);
+            padding: 18px;
+            font: 600 14px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            color: #0f172a;
+        }
+        #bb-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px
+        }
+        #bb-head h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 800;
+            color: #0b64c0
+        }
+        #bb-close {
+            background: #111827;
+            color: #fff;
+            border: 0;
+            border-radius: 10px;
+            padding: 8px 10px;
+            cursor: pointer
+        }
+        #bb-note {
+            font-size: 12.5px;
+            color: #64748b;
+            margin: 4px 0 10px
+        }
+        #bb-pin-box {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin: 8px 0 14px
+        }
+        #bb-pin {
+            flex: 1;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-weight: 700;
+            letter-spacing: 3px
+        }
+        #bb-enter {
+            background: #0ea5e9;
+            color: #fff;
+            border: 1px solid #0b79b7;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-weight: 800;
+            cursor: pointer
+        }
+        #bb-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 8px 0 14px
+        }
+        .bb-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid #1e5f8a;
+            background: #2e8bc0;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            cursor: pointer
+        }
+        .bb-btn.alt {
+            background: #16a34a;
+            border-color: #15803d
+        }
+        .bb-hidden {
+            display: none !important
+        }
+        #bb-uploader {
+            border: 1px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 14px;
+            margin: 10px 0
+        }
+        #bb-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px
+        }
+        .bb-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 10px;
+            background: #f9fafb
+        }
+        .bb-item video {
+            width: 100%;
+            border-radius: 8px;
+            background: #000
+        }
+        .bb-item a {
+            font-size: 12px;
+            word-break: break-all
+        }
+        progress {
+            width: 100%;
+            height: 10px
+        }
+    </style>
 </head>
 <body>
 
-<div id="main-content">
-  <div id="calendar-alert">
-    <div>📅 Check out for a discussion<br><small>Lion Hunt | Nonstop Discussions</small></div>
-    <a href="Discussions.html" rel="noopener">View Calendar</a>
-  </div>
+    <div id="main-content">
 
-  <header>
-    <img id="heroImg" src="https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg" alt="LDC LEGAL COMPANION" loading="eager" decoding="async" fetchpriority="high" />
-    <!-- HERO NAVIGATION – centered, text only, professional -->
-    <nav class="hero-nav" aria-label="Quick navigation">
-      <a href="laws.html">Laws</a>
-      <a href="Fullcases.html">Cases</a>
-      <a href="caseslandone.html">Summaries</a>
-      <a href="workshop.html">Workshops</a>
-      <a href="Documents.html">Documents</a>
-      <a href="IndividualAssessment.html">I.A</a>
-      <a href="exams.html">Exams</a>
-      <a href="oral-exams.html">Oral</a>
-      <a href="category-b.html">Cat B</a>
-      <a href="trial-advocacy.html">Advocacy</a>
-      <a href="audio.html">Audio</a>
-      <a href="Discussions.html">Discuss</a>
-      <a href="barbites.html">Bar Bites</a>
-      <a href="services.html">Services</a>
-    </nav>
-  </header>
+        <!-- ===== NEW HEADER – no hero image ===== -->
+        <header class="site-header">
 
-  <!-- LEX BUTTON -->
-  <div class="lex-icon lex-dancing" id="lexIcon">
-    <i class="fas fa-gavel"></i> Lex
-    <div id="lexBadge" class="lex-badge" style="display:none;">0</div>
-  </div>
+            <!-- Top row: calendar alert + View Calendar -->
+            <div class="header-top">
+                <div class="alert-text">
+                    <span>📅</span>
+                    <span>Check out for a discussion</span>
+                    <span class="sub">| Lion Hunt · Nonstop Discussions</span>
+                </div>
+                <div class="alert-actions">
+                    <a href="Discussions.html" class="btn-calendar" rel="noopener">
+                        <span>📆</span> View Calendar
+                    </a>
+                </div>
+            </div>
 
-  <!-- LEX MODAL -->
-  <div id="lexModal" class="lex-modal">
-    <div class="lex-modal-card">
-      <div class="lex-modal-header">
-        <span><i class="fas fa-gavel"></i> Lawyer Stories · Lex Updates</span>
-        <button class="lex-close-btn" id="lexCloseModal">&times;</button>
-      </div>
-      <div id="lexIframeContainer">
-        <div id="lexLoading" class="lex-loading">🦁 Loading stories...</div>
-        <iframe id="lexIframe" class="lex-iframe" src="https://hunter9201.github.io/LEX/" title="Lex Stories Widget" style="display:none;"></iframe>
-      </div>
-    </div>
-  </div>
+            <!-- Navigation bar – all links wrap, no sliding -->
+            <nav class="nav-bar" aria-label="Main navigation">
+                <a href="laws.html">Laws</a>
+                <a href="Fullcases.html">Cases</a>
+                <a href="caseslandone.html">Summaries</a>
+                <a href="workshop.html">Workshops</a>
+                <a href="Documents.html">Documents</a>
+                <a href="IndividualAssessment.html">I.A</a>
+                <a href="exams.html">Exams</a>
+                <a href="oral-exams.html">Oral</a>
+                <a href="category-b.html">Cat B</a>
+                <a href="trial-advocacy.html">Advocacy</a>
+                <a href="audio.html">Audio</a>
+                <a href="Discussions.html">Discuss</a>
+                <a href="barbites.html">Bar Bites</a>
+                <a href="services.html">Services</a>
+            </nav>
 
-  <main>
-    <div class="apps" aria-label="App grid">
-      <div class="widget calendar" aria-label="Calendar widget">
-        <div class="w-head">
-          <div class="w-title">Today</div>
-          <div class="w-badge">Lion Hunt</div>
+        </header>
+
+        <!-- LEX BUTTON -->
+        <div class="lex-icon lex-dancing" id="lexIcon">
+            <i class="fas fa-gavel"></i> Lex
+            <div id="lexBadge" class="lex-badge" style="display:none;">0</div>
         </div>
-        <div class="w-date" id="miniDate">—</div>
-        <div class="w-sub" id="miniDow">—</div>
-        <div class="w-events" id="miniEvents">
-          <div class="ev"><span class="ev-time">--:--</span><span class="ev-title">Loading today’s events…</span></div>
+
+        <!-- LEX MODAL -->
+        <div id="lexModal" class="lex-modal">
+            <div class="lex-modal-card">
+                <div class="lex-modal-header">
+                    <span><i class="fas fa-gavel"></i> Lawyer Stories · Lex Updates</span>
+                    <button class="lex-close-btn" id="lexCloseModal">&times;</button>
+                </div>
+                <div id="lexIframeContainer">
+                    <div id="lexLoading" class="lex-loading">🦁 Loading stories...</div>
+                    <iframe id="lexIframe" class="lex-iframe" src="https://hunter9201.github.io/LEX/" title="Lex Stories Widget" style="display:none;"></iframe>
+                </div>
+            </div>
         </div>
-        <div class="w-actions">
-          <a class="btn" href="Discussions.html" rel="noopener">Join next session</a>
+
+        <main>
+            <div class="apps" aria-label="App grid">
+                <div class="widget calendar" aria-label="Calendar widget">
+                    <div class="w-head">
+                        <div class="w-title">Today</div>
+                        <div class="w-badge">Lion Hunt</div>
+                    </div>
+                    <div class="w-date" id="miniDate">—</div>
+                    <div class="w-sub" id="miniDow">—</div>
+                    <div class="w-events" id="miniEvents">
+                        <div class="ev"><span class="ev-time">--:--</span><span class="ev-title">Loading today’s events…</span></div>
+                    </div>
+                    <div class="w-actions">
+                        <a class="btn" href="Discussions.html" rel="noopener">Join next session</a>
+                    </div>
+                </div>
+
+                <a class="app" href="laws.html">
+                    <div class="icon">📜</div>
+                    <span class="label">Laws</span>
+                </a>
+                <a class="app" href="Fullcases.html">
+                    <div class="icon alt1">📚</div>
+                    <span class="label">Cases</span>
+                </a>
+                <a class="app" href="caseslandone.html">
+                    <div class="icon alt2">🧾</div>
+                    <span class="label">Case Summaries</span>
+                </a>
+                <a class="app" href="IndividualAssessment.html">
+                    <div class="icon alt3">📝</div>
+                    <span class="label">I.A</span>
+                </a>
+                <a class="app" href="workshop.html">
+                    <div class="icon alt4">🛠️</div>
+                    <span class="label">Workshops</span>
+                </a>
+                <a class="app" href="Documents.html">
+                    <div class="icon alt5">📄</div>
+                    <span class="label">Documents</span>
+                </a>
+                <a class="app" href="exams.html">
+                    <div class="icon alt6">🧪</div>
+                    <span class="label">Exams</span>
+                </a>
+                <a class="app" href="oral-exams.html">
+                    <div class="icon alt7">🗣️</div>
+                    <span class="label">Oral Exams</span>
+                </a>
+                <a class="app" href="category-b.html">
+                    <div class="icon alt8">🧭</div>
+                    <span class="label">Category B</span>
+                </a>
+                <a class="app" href="trial-advocacy.html">
+                    <div class="icon alt9">⚖️</div>
+                    <span class="label">Trial Advocacy</span>
+                </a>
+                <a class="app" href="audio.html">
+                    <div class="icon alt10">🎧</div>
+                    <span class="label">Audio</span>
+                </a>
+                <a class="app" href="barbites.html">
+                    <div class="icon alt11">🦁</div>
+                    <span class="label">Bar Bites</span>
+                </a>
+                <a class="app" href="Discussions.html">
+                    <div class="icon alt12">💬</div>
+                    <span class="label">Discussions</span>
+                </a>
+                <a class="app" href="services.html">
+                    <div class="icon alt13">👩‍⚖️</div>
+                    <span class="label">Legal Services</span>
+                </a>
+            </div>
+        </main>
+
+        <div class="motto">
+            <h2>If others can, then with God, I must.<br />This pen is my tool, this paper is my battle — and I won’t stop until the law bows to clarity.</h2>
         </div>
-      </div>
 
-      <a class="app" href="laws.html">
-        <div class="icon">📜</div>
-        <span class="label">Laws</span>
-      </a>
-      <a class="app" href="Fullcases.html">
-        <div class="icon alt1">📚</div>
-        <span class="label">Cases</span>
-      </a>
-      <a class="app" href="caseslandone.html">
-        <div class="icon alt2">🧾</div>
-        <span class="label">Case Summaries</span>
-      </a>
-      <a class="app" href="IndividualAssessment.html">
-        <div class="icon alt3">📝</div>
-        <span class="label">I.A</span>
-      </a>
-      <a class="app" href="workshop.html">
-        <div class="icon alt4">🛠️</div>
-        <span class="label">Workshops</span>
-      </a>
-      <a class="app" href="Documents.html">
-        <div class="icon alt5">📄</div>
-        <span class="label">Documents</span>
-      </a>
-      <a class="app" href="exams.html">
-        <div class="icon alt6">🧪</div>
-        <span class="label">Exams</span>
-      </a>
-      <a class="app" href="oral-exams.html">
-        <div class="icon alt7">🗣️</div>
-        <span class="label">Oral Exams</span>
-      </a>
-      <a class="app" href="category-b.html">
-        <div class="icon alt8">🧭</div>
-        <span class="label">Category B</span>
-      </a>
-      <a class="app" href="trial-advocacy.html">
-        <div class="icon alt9">⚖️</div>
-        <span class="label">Trial Advocacy</span>
-      </a>
-      <a class="app" href="audio.html">
-        <div class="icon alt10">🎧</div>
-        <span class="label">Audio</span>
-      </a>
-      <a class="app" href="barbites.html">
-        <div class="icon alt11">🦁</div>
-        <span class="label">Bar Bites</span>
-      </a>
-      <a class="app" href="Discussions.html">
-        <div class="icon alt12">💬</div>
-        <span class="label">Discussions</span>
-      </a>
-      <a class="app" href="services.html">
-        <div class="icon alt13">👩‍⚖️</div>
-        <span class="label">Legal Services</span>
-      </a>
+        <footer>
+            &copy; 2025 Lion Hunt. Built for the Bar Hunters. Designed for excellence.
+        </footer>
+
+        <!-- Floating Chat Button -->
+        <button id="lion-chat-button" class="lion-dancing rounded-full fixed bottom-6 left-6 w-14 h-14 bg-yellow-400 shadow-lg text-white text-3xl flex items-center justify-center" title="Chat">🦁</button>
+        <div id="lion-chat-container" class="fixed left-6 bottom-20 flex flex-col bg-white border-2 border-yellow-400 rounded-lg shadow-xl overflow-hidden max-h-0 w-72 transition-[max-height] duration-300">
+            <div class="bg-yellow-400 text-white font-bold p-3 text-center">Lion Hunt Bot</div>
+            <div id="lion-chat-messages" class="flex flex-col gap-2 p-3 overflow-y-auto" style="max-height: 260px;"></div>
+            <div class="flex gap-2 p-3 border-t border-yellow-200">
+                <textarea id="lion-user-input" class="flex-1 border rounded-md p-2 text-sm" rows="1" placeholder="Type a message..."></textarea>
+                <button id="lion-send-btn" class="px-3 py-2 bg-yellow-400 text-white rounded-md">Send</button>
+            </div>
+        </div>
+
+        <!-- ConnectyCube widget -->
+        <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin>
+        </script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin>
+        </script>
+        <script src="https://unpkg.com/connectycube@4/dist/connectycube.min.js">
+        </script>
+        <script src="https://unpkg.com/@connectycube/chat-widget@latest/dist/index.umd.js">
+        </script>
+        <script>
+            (function() {
+                const chatWidgetContainer = document.createElement('div');
+                chatWidgetContainer.id = 'ConnectyCube_chat-widget';
+                document.body.appendChild(chatWidgetContainer);
+                const props = { appId: 9313, authKey: '1C7B8D6C-7CB7-4B0B-9E50-68E6291E3D84', userId: '45', userName: 'Lion',
+                    showOnlineUsersTab: false, splitView: true };
+                if (window.ReactDOM && window.ConnectyCubeChatWidget) {
+                    ReactDOM.createRoot(chatWidgetContainer).render(React.createElement(ConnectyCubeChatWidget, props));
+                }
+            })();
+        </script>
     </div>
-  </main>
 
-  <div class="motto">
-    <h2>If others can, then with God, I must.<br />This pen is my tool, this paper is my battle — and I won’t stop until the law bows to clarity.</h2>
-  </div>
+    <script>
+        // ------------------------------
+        // SITE SCRIPTS
+        // ------------------------------
 
-  <footer>
-    &copy; 2025 Lion Hunt. Built for the Bar Hunters. Designed for excellence.
-  </footer>
+        // Mini date
+        (function() {
+            const d = new Date();
+            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const miniDate = document.getElementById('miniDate');
+            const miniDow = document.getElementById('miniDow');
+            if (miniDate) miniDate.textContent = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+            if (miniDow) miniDow.textContent = days[d.getDay()];
+        })();
 
-  <!-- Floating Chat Button -->
-  <button id="lion-chat-button" class="lion-dancing rounded-full fixed bottom-6 left-6 w-14 h-14 bg-yellow-400 shadow-lg text-white text-3xl flex items-center justify-center" title="Chat">🦁</button>
-  <div id="lion-chat-container" class="fixed left-6 bottom-20 flex flex-col bg-white border-2 border-yellow-400 rounded-lg shadow-xl overflow-hidden max-h-0 w-72 transition-[max-height] duration-300">
-    <div class="bg-yellow-400 text-white font-bold p-3 text-center">Lion Hunt Bot</div>
-    <div id="lion-chat-messages" class="flex flex-col gap-2 p-3 overflow-y-auto" style="max-height: 260px;"></div>
-    <div class="flex gap-2 p-3 border-t border-yellow-200">
-      <textarea id="lion-user-input" class="flex-1 border rounded-md p-2 text-sm" rows="1" placeholder="Type a message..."></textarea>
-      <button id="lion-send-btn" class="px-3 py-2 bg-yellow-400 text-white rounded-md">Send</button>
-    </div>
-  </div>
+        // Simple chat UI
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnChat = document.getElementById('lion-chat-button');
+            const container = document.getElementById('lion-chat-container');
+            const messagesDiv = document.getElementById('lion-chat-messages');
+            const input = document.getElementById('lion-user-input');
+            const sendBtn = document.getElementById('lion-send-btn');
+            if (!btnChat || !container) return;
+            let messages = JSON.parse(localStorage.getItem('lionChat') || '[]');
+            const saveHistory = () => localStorage.setItem('lionChat', JSON.stringify(messages));
+            const scrollBottom = () => { if (messagesDiv) messagesDiv.scrollTop = messagesDiv.scrollHeight; };
 
-  <!-- ConnectyCube widget -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/connectycube@4/dist/connectycube.min.js"></script>
-  <script src="https://unpkg.com/@connectycube/chat-widget@latest/dist/index.umd.js"></script>
-  <script>
-    (function(){
-      const chatWidgetContainer = document.createElement('div');
-      chatWidgetContainer.id = 'ConnectyCube_chat-widget';
-      document.body.appendChild(chatWidgetContainer);
-      const props = { appId: 9313, authKey: '1C7B8D6C-7CB7-4B0B-9E50-68E6291E3D84', userId: '45', userName: 'Lion', showOnlineUsersTab: false, splitView: true };
-      if (window.ReactDOM && window.ConnectyCubeChatWidget) {
-        ReactDOM.createRoot(chatWidgetContainer).render(React.createElement(ConnectyCubeChatWidget, props));
-      }
-    })();
-  </script>
-</div>
-
-<script>
-  // ------------------------------
-  // SITE SCRIPTS
-  // ------------------------------
-
-  // Mini date
-  (function(){
-    const d = new Date();
-    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    const miniDate = document.getElementById('miniDate');
-    const miniDow = document.getElementById('miniDow');
-    if(miniDate) miniDate.textContent = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-    if(miniDow) miniDow.textContent = days[d.getDay()];
-  })();
-
-  // ========== HERO SLIDESHOW ==========
-  const HERO_IMAGES = [
-    { src: "https://i.ibb.co/zVxt3D2Y/LDC-LEGAL-COMPANION.jpg", alt: "LDC LEGAL COMPANION" },
-    { src: "https://i.postimg.cc/28k9C3Nw/younglawyer.png",      alt: "Young Lawyer" },
-    { src: "https://i.postimg.cc/xdQqJrj9/books.jpg",            alt: "Law books" },
-    { src: "https://i.postimg.cc/bJCvBsxv/lib.jpg",              alt: "Library shelves" }
-  ];
-
-  (function setupHeroSlideshow(){
-    const img = document.getElementById("heroImg");
-    if(!img) return;
-
-    HERO_IMAGES.forEach(i => { const p = new Image(); p.src = i.src; });
-
-    let currentIndex = 0;
-    const DURATION = 5000;
-    let timerId;
-
-    function swap() {
-      currentIndex = (currentIndex + 1) % HERO_IMAGES.length;
-      const next = HERO_IMAGES[currentIndex];
-      img.classList.add("hero-fade-out");
-      setTimeout(() => {
-        img.src = next.src;
-        img.alt = next.alt || "";
-        img.onload = function() {
-          img.classList.remove("hero-fade-out");
-          img.onload = null;
-        };
-        setTimeout(() => {
-          img.classList.remove("hero-fade-out");
-        }, 300);
-      }, 300);
-    }
-
-    function start(){ if(!timerId) timerId = setInterval(swap, DURATION); }
-    function stop(){ clearInterval(timerId); timerId = null; }
-
-    document.addEventListener("visibilitychange", () => document.hidden ? stop() : start());
-
-    if (!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
-      setTimeout(start, 1000);
-    }
-
-    img.src = HERO_IMAGES[0].src;
-    img.alt = HERO_IMAGES[0].alt;
-  })();
-
-  // Simple chat UI
-  document.addEventListener('DOMContentLoaded', () => {
-    const btnChat = document.getElementById('lion-chat-button');
-    const container = document.getElementById('lion-chat-container');
-    const messagesDiv = document.getElementById('lion-chat-messages');
-    const input = document.getElementById('lion-user-input');
-    const sendBtn = document.getElementById('lion-send-btn');
-    if (!btnChat || !container) return;
-    let messages = JSON.parse(localStorage.getItem('lionChat') || '[]');
-    const saveHistory = () => localStorage.setItem('lionChat', JSON.stringify(messages));
-    const scrollBottom = () => { if(messagesDiv) messagesDiv.scrollTop = messagesDiv.scrollHeight; };
-    function appendMsg(content, role) {
-      const msg = document.createElement('div');
-      msg.className = role === 'user'
-        ? 'self-end bg-yellow-400 text-white px-3 py-1 rounded-l-lg rounded-br-lg max-w-[85%] whitespace-pre-wrap'
-        : 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
-      msg.textContent = content;
-      messagesDiv?.appendChild(msg);
-      scrollBottom();
-    }
-    messages.forEach(m => appendMsg(m.content, m.role));
-    let openFlag = false;
-    btnChat.addEventListener('click', () => {
-      if (btnChat.classList.contains('lion-dancing')) {
-        btnChat.classList.remove('lion-dancing');
-        btnChat.classList.add('lion-stopped','lion-shake');
-        btnChat.addEventListener('animationend', () => btnChat.classList.remove('lion-shake'), { once:true });
-        container.classList.add('open'); container.style.maxHeight = '400px'; input?.focus();
-        openFlag = true;
-      } else {
-        openFlag = !openFlag;
-        container.classList.toggle('open');
-        container.style.maxHeight = openFlag ? '400px' : '0';
-        if (!openFlag) btnChat.classList.add('lion-dancing');
-        else input?.focus();
-      }
-    });
-    sendBtn?.addEventListener('click', async () => {
-      const text = input?.value.trim();
-      if (!text) return;
-      messages.push({role:'user', content:text}); saveHistory(); appendMsg(text,'user');
-      if(input) input.value = ''; if(sendBtn) sendBtn.disabled = true;
-      const aiBubble = document.createElement('div');
-      aiBubble.className = 'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
-      messagesDiv?.appendChild(aiBubble); scrollBottom();
-      setTimeout(() => {
-        const reply = "Roar! 🦁 Service is not available yet — coming soon!";
-        aiBubble.textContent = reply;
-        messages.push({role:'assistant', content:reply}); saveHistory(); if(sendBtn) sendBtn.disabled = false;
-      }, 400);
-    });
-    input?.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendBtn?.click(); } });
-  });
-
-  // Mini calendar iframe
-  (async function loadTodaysEvents(){
-    const CAL_ID  = "lionhunter920@gmail.com"; const TIMEZONE = "Africa/Kampala";
-    const eventsBox = document.getElementById('miniEvents');
-    function ymdInTZ(tz, date){
-      const parts = new Intl.DateTimeFormat('en-CA',{ timeZone: tz, year:'numeric', month:'2-digit', day:'2-digit'}).formatToParts(date);
-      const get = t => parts.find(p => p.type === t).value;
-      return { y: +get('year'), m: +get('month'), d: +get('day') };
-    }
-    function addDaysUTC(y,m,d,days){
-      const dt = new Date(Date.UTC(y, m-1, d)); dt.setUTCDate(dt.getUTCDate()+days);
-      return { y: dt.getUTCFullYear(), m: dt.getUTCMonth()+1, d: dt.getUTCDate() };
-    }
-    function yyyymmdd(obj){ return `${obj.y}${String(obj.m).padStart(2,'0')}${String(obj.d).padStart(2,'0')}`; }
-    const todayParts = ymdInTZ(TIMEZONE, new Date());
-    const tomorrow = addDaysUTC(todayParts.y, todayParts.m, todayParts.d, 1);
-    const startStr = yyyymmdd(todayParts), endStr = yyyymmdd(tomorrow);
-    const embedParams = new URLSearchParams({ src: CAL_ID, ctz: TIMEZONE, mode: "AGENDA", dates: `${startStr}/${endStr}`, showTitle: "0", showNav: "0", showDate: "0", showPrint: "0", showTabs: "0", showCalendars: "0", showTz: "0", wkst: "1", bgcolor: "#ffffff" });
-    const iframe = document.createElement('iframe'); iframe.className = 'mini-agenda'; iframe.loading = 'lazy'; iframe.title = 'Today’s agenda'; iframe.referrerPolicy = 'no-referrer-when-downgrade'; iframe.src = `https://calendar.google.com/calendar/embed?${embedParams.toString()}`;
-    if(eventsBox) eventsBox.replaceWith(iframe);
-  })();
-
-  // Gate certain links until Sept 2025
-  (function(){
-    const RELEASE_ISO = '2025-09-01T00:00:00+03:00';
-    const targets = [
-      { rx: /(^|\/)(workshop|workshops)(\.html)?([?#]|$)/i, name: 'Workshops' },
-      { rx: /(^|\/)documents?(\.html)?([?#]|$)/i, name: 'Documents' },
-      { rx: /(^|\/)exams?(\.html)?([?#]|$)/i, name: 'Exams' },
-      { rx: /(^|\/)oral([-_ ]?exams?)?(\.html)?([?#]|$)/i, name: 'Oral Exams' },
-      { rx: /(^|\/)category[-_ ]?b(\.html)?([?#]|$)/i, name: 'Category B' },
-      { rx: /(^|\/)trial[-_ ]?advocacy(\.html)?([?#]|$)/i, name: 'Trial Advocacy' },
-      { rx: /(^|\/)audio(s|apps)?(\.html)?([?#]|$)/i, name: 'Audio' }
-    ];
-    function nowInKampala(){ return new Date(new Date().toLocaleString('en-US', { timeZone: 'Africa/Kampala' })); }
-    function beforeRelease(){ return nowInKampala() < new Date(RELEASE_ISO); }
-    function releaseText(){ return '1 September 2025 (Africa/Kampala)'; }
-    function shouldCheck(href){ if (!href) return false; if (href.startsWith('#') || href.startsWith('mailto:')) return false; if (/^https?:\/\//i.test(href)) return false; return true; }
-    function toast(msg){
-      let box = document.getElementById('lh-toast-box');
-      if (!box){ box = document.createElement('div'); box.id = 'lh-toast-box'; Object.assign(box.style, { position:'fixed', top:'14px', right:'14px', zIndex:'9999', display:'flex', flexDirection:'column', gap:'8px' }); document.body.appendChild(box); }
-      const t = document.createElement('div'); Object.assign(t.style, { background:'#111827', color:'#f8fafc', border:'1px solid #334155', padding:'10px 12px', borderRadius:'10px', boxShadow:'0 10px 22px rgba(0,0,0,.25)', font:'600 12.5px system-ui', maxWidth:'320px', opacity:'1', transition:'opacity .3s' });
-      t.textContent = msg; box.appendChild(t); setTimeout(()=>{ t.style.opacity='0'; setTimeout(()=>t.remove(), 300); }, 2600);
-    }
-    function intercept(ev, name){ ev.preventDefault(); toast(`“${name}” is under review and will be ready by ${releaseText()}.`); }
-    function hook(){
-      if (!beforeRelease()) return;
-      document.querySelectorAll('a[href]').forEach(a=>{
-        if (a.__lhGate) return;
-        const href = a.getAttribute('href');
-        if (!shouldCheck(href)) return;
-        const match = targets.find(t => t.rx.test(href));
-        if (match){ a.__lhGate = true; a.addEventListener('click', (ev)=>intercept(ev, match.name)); }
-      });
-    }
-    document.addEventListener('DOMContentLoaded', hook);
-    const mo = new MutationObserver(hook);
-    mo.observe(document.documentElement, { childList:true, subtree:true });
-  })();
-
-  // Bar Bites admin (shortened)
-  (function(){
-    const PIN = "1998";
-    const link = Array.from(document.querySelectorAll('a[href]')).find(a => /barbites\.html(\?|#|$)/i.test(a.getAttribute('href')||'') || a.textContent.trim().toLowerCase()==='bar bites');
-    const overlay = document.getElementById('bb-admin-overlay');
-    const modal   = document.getElementById('bb-admin');
-    const pinBox  = document.getElementById('bb-pin');
-    const pinErr  = document.getElementById('bb-pin-err');
-    const enter   = document.getElementById('bb-enter');
-    const panel   = document.getElementById('bb-panel');
-    const closeBtn= document.getElementById('bb-close');
-    function open(){ if(overlay) overlay.style.display='block'; if(modal) modal.classList.remove('bb-hidden'); pinBox?.focus(); }
-    function close(){ if(overlay) overlay.style.display='none'; if(modal) modal.classList.add('bb-hidden'); }
-    if(overlay) overlay.addEventListener('click', close);
-    if(closeBtn) closeBtn.addEventListener('click', close);
-    document.addEventListener('keydown', e => { if(e.key==='Escape') close(); });
-    if(link){ link.addEventListener('click', (e)=>{ e.preventDefault(); open(); }); }
-    function unlock(){
-      if(pinBox?.value.trim()===PIN){
-        document.getElementById('bb-pin-gate')?.classList.add('bb-hidden');
-        if(panel) panel.classList.remove('bb-hidden');
-        window.__initBarBitesUploader && window.__initBarBitesUploader();
-      } else { if(pinErr) pinErr.style.display='block'; setTimeout(()=>{ if(pinErr) pinErr.style.display='none'; },1500); pinBox?.select(); }
-    }
-    if(enter) enter.addEventListener('click', unlock);
-    if(pinBox) pinBox.addEventListener('keydown', e=>{ if(e.key==='Enter') unlock(); });
-  })();
-
-  // ========== LEX MODAL TOGGLE & LIVE BADGE FETCH ==========
-  const lexIconElem = document.getElementById('lexIcon');
-  const lexModalElem = document.getElementById('lexModal');
-  const lexCloseElem = document.getElementById('lexCloseModal');
-  const lexBadgeElem = document.getElementById('lexBadge');
-  const lexIframe = document.getElementById('lexIframe');
-  const lexLoading = document.getElementById('lexLoading');
-
-  function openLexModal() {
-    lexModalElem.classList.add('active');
-    if (lexIframe.style.display === 'none') {
-      lexIframe.style.display = 'block';
-      lexLoading.style.display = 'none';
-    }
-  }
-  function closeLexModal() {
-    lexModalElem.classList.remove('active');
-  }
-  if (lexIconElem) lexIconElem.addEventListener('click', openLexModal);
-  if (lexCloseElem) lexCloseElem.addEventListener('click', closeLexModal);
-  lexModalElem.addEventListener('click', (e) => {
-    if (e.target === lexModalElem) closeLexModal();
-  });
-  window.addEventListener('load', () => {
-    lexIframe.src = lexIframe.src; 
-  });
-
-  async function fetchUpdateCount() {
-    try {
-      const url = 'https://raw.githubusercontent.com/hunter9201/I/main/lex_data.json';
-      const response = await fetch(url, { cache: 'no-store' });
-      if (!response.ok) throw new Error('Failed to fetch');
-      const data = await response.json();
-      if (data && Array.isArray(data.updates)) {
-        const now = Date.now();
-        let total = 0;
-        for (const lawyerUpdates of data.updates) {
-          if (Array.isArray(lawyerUpdates.updates)) {
-            total += lawyerUpdates.updates.filter(up => new Date(up.expiresAt).getTime() > now).length;
-          }
-        }
-        return total;
-      }
-      return 0;
-    } catch (err) {
-      console.warn('Could not fetch Lex update count:', err);
-      return null;
-    }
-  }
-
-  async function updateBadge() {
-    const count = await fetchUpdateCount();
-    if (count !== null && count > 0) {
-      lexBadgeElem.textContent = count;
-      lexBadgeElem.style.display = 'block';
-    } else if (count === 0) {
-      lexBadgeElem.style.display = 'none';
-    } else {
-      if (lexBadgeElem.textContent === '0') lexBadgeElem.style.display = 'none';
-    }
-  }
-  updateBadge();
-  setInterval(updateBadge, 30000);
-</script>
-
-<!-- Firebase Storage Uploader (Bar Bites) -->
-<script type="module">
-  import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-  import { getStorage, ref, listAll, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyABgKrFpiFqC9gndXaK09MvhAVhZHAGk78",
-    authDomain: "lionhunterwebpush.firebaseapp.com",
-    projectId: "lionhunterwebpush",
-    storageBucket: "lionhunterwebpush.appspot.com",
-    messagingSenderId: "803161144360",
-    appId: "1:803161144360:web:6d64c6c5c275d894a4891d",
-    measurementId: "G-GTJFDE1592"
-  };
-  const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const storage = getStorage(app);
-  const $ = (id)=>document.getElementById(id);
-  const filesInput   = $('bb-files');
-  const uploadBtn    = $('bb-upload');
-  const refreshBtn   = $('bb-refresh');
-  const queueCountEl = $('bb-queue-count');
-  const progWrap     = $('bb-progress-wrap');
-  const progEl       = $('bb-prog');
-  const progPct      = $('bb-prog-pct');
-  const progName     = $('bb-prog-name');
-  const listEl       = $('bb-list');
-  const msgEl        = $('bb-msg');
-  let queue = [];
-  function setQueueInfo(){ if(queueCountEl) queueCountEl.textContent = queue.length; }
-  filesInput?.addEventListener('change', (e)=>{ queue = Array.from(e.target.files||[]); setQueueInfo(); });
-  async function ensureAuth(){ try { await signInAnonymously(auth); } catch(e){ console.warn(e); } }
-  function humanSize(n){ if(!n && n!==0) return '—'; const u = ['B','KB','MB','GB']; let i=0; while(n>=1024 && i<u.length-1){ n/=1024; i++; } return `${n.toFixed(1)} ${u[i]}`; }
-  async function doUpload(){
-    if (!queue.length){ if(msgEl) msgEl.textContent = 'Select one or more videos first.'; return; }
-    await ensureAuth();
-    for (const file of queue){
-      try{
-        if(progWrap) progWrap.classList.remove('bb-hidden');
-        if(progEl) progEl.value = 0; if(progPct) progPct.textContent='0%'; if(progName) progName.textContent = `${file.name} (${humanSize(file.size)})`;
-        const safeName = file.name.replace(/[^\w.\-]/g,'_');
-        const path = `bar-bites/${Date.now()}_${safeName}`;
-        const task = uploadBytesResumable(ref(storage, path), file, { contentType: file.type });
-        await new Promise((res,rej)=>{
-          task.on('state_changed',
-            (snap)=>{ const pct = Math.round((snap.bytesTransferred/snap.totalBytes)*100); if(progEl) progEl.value = pct; if(progPct) progPct.textContent = pct+'%'; },
-            (err)=>rej(err),
-            ()=>res()
-          );
+            function appendMsg(content, role) {
+                const msg = document.createElement('div');
+                msg.className = role === 'user' ?
+                    'self-end bg-yellow-400 text-white px-3 py-1 rounded-l-lg rounded-br-lg max-w-[85%] whitespace-pre-wrap' :
+                    'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
+                msg.textContent = content;
+                messagesDiv?.appendChild(msg);
+                scrollBottom();
+            }
+            messages.forEach(m => appendMsg(m.content, m.role));
+            let openFlag = false;
+            btnChat.addEventListener('click', () => {
+                if (btnChat.classList.contains('lion-dancing')) {
+                    btnChat.classList.remove('lion-dancing');
+                    btnChat.classList.add('lion-stopped', 'lion-shake');
+                    btnChat.addEventListener('animationend', () => btnChat.classList.remove('lion-shake'), { once: true });
+                    container.classList.add('open');
+                    container.style.maxHeight = '400px';
+                    input?.focus();
+                    openFlag = true;
+                } else {
+                    openFlag = !openFlag;
+                    container.classList.toggle('open');
+                    container.style.maxHeight = openFlag ? '400px' : '0';
+                    if (!openFlag) btnChat.classList.add('lion-dancing');
+                    else input?.focus();
+                }
+            });
+            sendBtn?.addEventListener('click', async () => {
+                const text = input?.value.trim();
+                if (!text) return;
+                messages.push({ role: 'user', content: text });
+                saveHistory();
+                appendMsg(text, 'user');
+                if (input) input.value = '';
+                if (sendBtn) sendBtn.disabled = true;
+                const aiBubble = document.createElement('div');
+                aiBubble.className =
+                    'self-start bg-gray-100 text-gray-800 px-3 py-1 rounded-r-lg rounded-bl-lg max-w-[85%] whitespace-pre-wrap';
+                messagesDiv?.appendChild(aiBubble);
+                scrollBottom();
+                setTimeout(() => {
+                    const reply = "Roar! 🦁 Service is not available yet — coming soon!";
+                    aiBubble.textContent = reply;
+                    messages.push({ role: 'assistant', content: reply });
+                    saveHistory();
+                    if (sendBtn) sendBtn.disabled = false;
+                }, 400);
+            });
+            input?.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault();
+                    sendBtn?.click(); } });
         });
-        const url = await getDownloadURL(task.snapshot.ref);
-        if(msgEl) msgEl.textContent = 'Uploaded ✓';
-        await renderList();
-      }catch(err){ console.error(err); if(msgEl) msgEl.textContent = 'Upload failed: ' + (err?.message || err); }
-      finally{ if(progWrap) progWrap.classList.add('bb-hidden'); }
-    }
-    queue = []; if(filesInput) filesInput.value=''; setQueueInfo();
-  }
-  async function renderList(){
-    try{
-      await ensureAuth();
-      const folder = ref(storage, 'bar-bites');
-      const { items } = await listAll(folder);
-      if (!items.length){ if(listEl) listEl.innerHTML = `<div class="bb-item">No videos yet.</div>`; return; }
-      items.sort((a,b)=> b.name.localeCompare(a.name));
-      const urls = await Promise.all(items.map(i=>getDownloadURL(i)));
-      if(listEl) listEl.innerHTML = urls.map((u)=>`<div class="bb-item"><video controls preload="metadata" src="${u}"></video><div style="margin-top:6px"><a href="${u}" target="_blank" rel="noopener">Open video link</a></div></div>`).join('');
-    }catch(err){ console.warn(err); if(listEl) listEl.innerHTML = `<div class="bb-item">Couldn’t load videos. Check Firebase Storage.</div>`; }
-  }
-  uploadBtn?.addEventListener('click', doUpload);
-  refreshBtn?.addEventListener('click', renderList);
-  window.__initBarBitesUploader = async function(){ try{ await ensureAuth(); renderList(); }catch(e){ console.warn(e); } };
-</script>
+
+        // Mini calendar iframe
+        (async function loadTodaysEvents() {
+            const CAL_ID = "lionhunter920@gmail.com";
+            const TIMEZONE = "Africa/Kampala";
+            const eventsBox = document.getElementById('miniEvents');
+
+            function ymdInTZ(tz, date) {
+                const parts = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit',
+                        day: '2-digit' }).formatToParts(date);
+                const get = t => parts.find(p => p.type === t).value;
+                return { y: +get('year'), m: +get('month'), d: +get('day') };
+            }
+
+            function addDaysUTC(y, m, d, days) {
+                const dt = new Date(Date.UTC(y, m - 1, d));
+                dt.setUTCDate(dt.getUTCDate() + days);
+                return { y: dt.getUTCFullYear(), m: dt.getUTCMonth() + 1, d: dt.getUTCDate() };
+            }
+
+            function yyyymmdd(obj) { return `${obj.y}${String(obj.m).padStart(2,'0')}${String(obj.d).padStart(2,'0')}`; }
+            const todayParts = ymdInTZ(TIMEZONE, new Date());
+            const tomorrow = addDaysUTC(todayParts.y, todayParts.m, todayParts.d, 1);
+            const startStr = yyyymmdd(todayParts),
+                endStr = yyyymmdd(tomorrow);
+            const embedParams = new URLSearchParams({ src: CAL_ID, ctz: TIMEZONE, mode: "AGENDA",
+                dates: `${startStr}/${endStr}`, showTitle: "0", showNav: "0", showDate: "0", showPrint: "0",
+                showTabs: "0", showCalendars: "0", showTz: "0", wkst: "1", bgcolor: "#ffffff" });
+            const iframe = document.createElement('iframe');
+            iframe.className = 'mini-agenda';
+            iframe.loading = 'lazy';
+            iframe.title = 'Today’s agenda';
+            iframe.referrerPolicy = 'no-referrer-when-downgrade';
+            iframe.src = `https://calendar.google.com/calendar/embed?${embedParams.toString()}`;
+            if (eventsBox) eventsBox.replaceWith(iframe);
+        })();
+
+        // Gate certain links until Sept 2025
+        (function() {
+            const RELEASE_ISO = '2025-09-01T00:00:00+03:00';
+            const targets = [
+                { rx: /(^|\/)(workshop|workshops)(\.html)?([?#]|$)/i, name: 'Workshops' },
+                { rx: /(^|\/)documents?(\.html)?([?#]|$)/i, name: 'Documents' },
+                { rx: /(^|\/)exams?(\.html)?([?#]|$)/i, name: 'Exams' },
+                { rx: /(^|\/)oral([-_ ]?exams?)?(\.html)?([?#]|$)/i, name: 'Oral Exams' },
+                { rx: /(^|\/)category[-_ ]?b(\.html)?([?#]|$)/i, name: 'Category B' },
+                { rx: /(^|\/)trial[-_ ]?advocacy(\.html)?([?#]|$)/i, name: 'Trial Advocacy' },
+                { rx: /(^|\/)audio(s|apps)?(\.html)?([?#]|$)/i, name: 'Audio' }
+            ];
+
+            function nowInKampala() { return new Date(new Date().toLocaleString('en-US', { timeZone: 'Africa/Kampala' })); }
+
+            function beforeRelease() { return nowInKampala() < new Date(RELEASE_ISO); }
+
+            function releaseText() { return '1 September 2025 (Africa/Kampala)'; }
+
+            function shouldCheck(href) { if (!href) return false; if (href.startsWith('#') || href.startsWith(
+                    'mailto:')) return false; if (/^https?:\/\//i.test(href)) return false; return true; }
+
+            function toast(msg) {
+                let box = document.getElementById('lh-toast-box');
+                if (!box) { box = document.createElement('div');
+                    box.id = 'lh-toast-box';
+                    Object.assign(box.style, { position: 'fixed', top: '14px', right: '14px', zIndex: '9999',
+                        display: 'flex', flexDirection: 'column', gap: '8px' });
+                    document.body.appendChild(box); }
+                const t = document.createElement('div');
+                Object.assign(t.style, { background: '#111827', color: '#f8fafc', border: '1px solid #334155',
+                    padding: '10px 12px', borderRadius: '10px', boxShadow: '0 10px 22px rgba(0,0,0,.25)',
+                    font: '600 12.5px system-ui', maxWidth: '320px', opacity: '1', transition: 'opacity .3s' });
+                t.textContent = msg;
+                box.appendChild(t);
+                setTimeout(() => { t.style.opacity = '0';
+                    setTimeout(() => t.remove(), 300); }, 2600);
+            }
+
+            function intercept(ev, name) { ev.preventDefault();
+                toast(`“${name}” is under review and will be ready by ${releaseText()}.`); }
+
+            function hook() {
+                if (!beforeRelease()) return;
+                document.querySelectorAll('a[href]').forEach(a => {
+                    if (a.__lhGate) return;
+                    const href = a.getAttribute('href');
+                    if (!shouldCheck(href)) return;
+                    const match = targets.find(t => t.rx.test(href));
+                    if (match) { a.__lhGate = true;
+                        a.addEventListener('click', (ev) => intercept(ev, match.name)); }
+                });
+            }
+            document.addEventListener('DOMContentLoaded', hook);
+            const mo = new MutationObserver(hook);
+            mo.observe(document.documentElement, { childList: true, subtree: true });
+        })();
+
+        // Bar Bites admin (shortened)
+        (function() {
+            const PIN = "1998";
+            const link = Array.from(document.querySelectorAll('a[href]')).find(a => /barbites\.html(\?|#|$)/i.test(a
+                .getAttribute('href') || '') || a.textContent.trim().toLowerCase() === 'bar bites');
+            const overlay = document.getElementById('bb-admin-overlay');
+            const modal = document.getElementById('bb-admin');
+            const pinBox = document.getElementById('bb-pin');
+            const pinErr = document.getElementById('bb-pin-err');
+            const enter = document.getElementById('bb-enter');
+            const panel = document.getElementById('bb-panel');
+            const closeBtn = document.getElementById('bb-close');
+
+            function open() { if (overlay) overlay.style.display = 'block'; if (modal) modal.classList.remove('bb-hidden');
+                pinBox?.focus(); }
+
+            function close() { if (overlay) overlay.style.display = 'none'; if (modal) modal.classList.add('bb-hidden'); }
+            if (overlay) overlay.addEventListener('click', close);
+            if (closeBtn) closeBtn.addEventListener('click', close);
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+            if (link) { link.addEventListener('click', (e) => { e.preventDefault();
+                    open(); }); }
+
+            function unlock() {
+                if (pinBox?.value.trim() === PIN) {
+                    document.getElementById('bb-pin-gate')?.classList.add('bb-hidden');
+                    if (panel) panel.classList.remove('bb-hidden');
+                    window.__initBarBitesUploader && window.__initBarBitesUploader();
+                } else { if (pinErr) pinErr.style.display = 'block';
+                    setTimeout(() => { if (pinErr) pinErr.style.display = 'none'; }, 1500);
+                    pinBox?.select(); }
+            }
+            if (enter) enter.addEventListener('click', unlock);
+            if (pinBox) pinBox.addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
+        })();
+
+        // ========== LEX MODAL TOGGLE & LIVE BADGE FETCH ==========
+        const lexIconElem = document.getElementById('lexIcon');
+        const lexModalElem = document.getElementById('lexModal');
+        const lexCloseElem = document.getElementById('lexCloseModal');
+        const lexBadgeElem = document.getElementById('lexBadge');
+        const lexIframe = document.getElementById('lexIframe');
+        const lexLoading = document.getElementById('lexLoading');
+
+        function openLexModal() {
+            lexModalElem.classList.add('active');
+            if (lexIframe.style.display === 'none') {
+                lexIframe.style.display = 'block';
+                lexLoading.style.display = 'none';
+            }
+        }
+
+        function closeLexModal() {
+            lexModalElem.classList.remove('active');
+        }
+        if (lexIconElem) lexIconElem.addEventListener('click', openLexModal);
+        if (lexCloseElem) lexCloseElem.addEventListener('click', closeLexModal);
+        lexModalElem.addEventListener('click', (e) => {
+            if (e.target === lexModalElem) closeLexModal();
+        });
+        window.addEventListener('load', () => {
+            lexIframe.src = lexIframe.src;
+        });
+
+        async function fetchUpdateCount() {
+            try {
+                const url = 'https://raw.githubusercontent.com/hunter9201/I/main/lex_data.json';
+                const response = await fetch(url, { cache: 'no-store' });
+                if (!response.ok) throw new Error('Failed to fetch');
+                const data = await response.json();
+                if (data && Array.isArray(data.updates)) {
+                    const now = Date.now();
+                    let total = 0;
+                    for (const lawyerUpdates of data.updates) {
+                        if (Array.isArray(lawyerUpdates.updates)) {
+                            total += lawyerUpdates.updates.filter(up => new Date(up.expiresAt).getTime() > now).length;
+                        }
+                    }
+                    return total;
+                }
+                return 0;
+            } catch (err) {
+                console.warn('Could not fetch Lex update count:', err);
+                return null;
+            }
+        }
+
+        async function updateBadge() {
+            const count = await fetchUpdateCount();
+            if (count !== null && count > 0) {
+                lexBadgeElem.textContent = count;
+                lexBadgeElem.style.display = 'block';
+            } else if (count === 0) {
+                lexBadgeElem.style.display = 'none';
+            } else {
+                if (lexBadgeElem.textContent === '0') lexBadgeElem.style.display = 'none';
+            }
+        }
+        updateBadge();
+        setInterval(updateBadge, 30000);
+    </script>
+
+    <!-- Firebase Storage Uploader (Bar Bites) -->
+    <script type="module">
+        import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+        import { getStorage, ref, listAll, uploadBytesResumable, getDownloadURL } from
+        "https://www.gstatic.com/firebasejs/12.0.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyABgKrFpiFqC9gndXaK09MvhAVhZHAGk78",
+            authDomain: "lionhunterwebpush.firebaseapp.com",
+            projectId: "lionhunterwebpush",
+            storageBucket: "lionhunterwebpush.appspot.com",
+            messagingSenderId: "803161144360",
+            appId: "1:803161144360:web:6d64c6c5c275d894a4891d",
+            measurementId: "G-GTJFDE1592"
+        };
+        const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const storage = getStorage(app);
+        const $ = (id) => document.getElementById(id);
+        const filesInput = $('bb-files');
+        const uploadBtn = $('bb-upload');
+        const refreshBtn = $('bb-refresh');
+        const queueCountEl = $('bb-queue-count');
+        const progWrap = $('bb-progress-wrap');
+        const progEl = $('bb-prog');
+        const progPct = $('bb-prog-pct');
+        const progName = $('bb-prog-name');
+        const listEl = $('bb-list');
+        const msgEl = $('bb-msg');
+        let queue = [];
+
+        function setQueueInfo() { if (queueCountEl) queueCountEl.textContent = queue.length; }
+        filesInput?.addEventListener('change', (e) => { queue = Array.from(e.target.files || []);
+            setQueueInfo(); });
+
+        async function ensureAuth() { try { await signInAnonymously(auth); } catch (e) { console.warn(e); } }
+
+        function humanSize(n) { if (!n && n !== 0) return '—'; const u = ['B', 'KB', 'MB', 'GB']; let i = 0; while (n >=
+                1024 && i < u.length - 1) { n /= 1024;
+                i++; } return `${n.toFixed(1)} ${u[i]}`; }
+
+        async function doUpload() {
+            if (!queue.length) { if (msgEl) msgEl.textContent = 'Select one or more videos first.'; return; }
+            await ensureAuth();
+            for (const file of queue) {
+                try {
+                    if (progWrap) progWrap.classList.remove('bb-hidden');
+                    if (progEl) progEl.value = 0;
+                    if (progPct) progPct.textContent = '0%';
+                    if (progName) progName.textContent = `${file.name} (${humanSize(file.size)})`;
+                    const safeName = file.name.replace(/[^\w.\-]/g, '_');
+                    const path = `bar-bites/${Date.now()}_${safeName}`;
+                    const task = uploadBytesResumable(ref(storage, path), file, { contentType: file.type });
+                    await new Promise((res, rej) => {
+                        task.on('state_changed',
+                            (snap) => { const pct = Math.round((snap.bytesTransferred / snap.totalBytes) *
+                                    100); if (progEl) progEl.value = pct; if (progPct) progPct.textContent =
+                                    pct + '%'; },
+                            (err) => rej(err),
+                            () => res()
+                        );
+                    });
+                    const url = await getDownloadURL(task.snapshot.ref);
+                    if (msgEl) msgEl.textContent = 'Uploaded ✓';
+                    await renderList();
+                } catch (err) { console.error(err); if (msgEl) msgEl.textContent = 'Upload failed: ' + (err
+                        ?.message || err); } finally { if (progWrap) progWrap.classList.add('bb-hidden'); }
+            }
+            queue = [];
+            if (filesInput) filesInput.value = '';
+            setQueueInfo();
+        }
+
+        async function renderList() {
+            try {
+                await ensureAuth();
+                const folder = ref(storage, 'bar-bites');
+                const { items } = await listAll(folder);
+                if (!items.length) { if (listEl) listEl.innerHTML =
+                    `<div class="bb-item">No videos yet.</div>`; return; }
+                items.sort((a, b) => b.name.localeCompare(a.name));
+                const urls = await Promise.all(items.map(i => getDownloadURL(i)));
+                if (listEl) listEl.innerHTML = urls.map((u) =>
+                    `<div class="bb-item"><video controls preload="metadata" src="${u}"></video><div style="margin-top:6px"><a href="${u}" target="_blank" rel="noopener">Open video link</a></div></div>`
+                    ).join('');
+            } catch (err) { console.warn(err); if (listEl) listEl.innerHTML =
+                    `<div class="bb-item">Couldn’t load videos. Check Firebase Storage.</div>`; }
+        }
+        uploadBtn?.addEventListener('click', doUpload);
+        refreshBtn?.addEventListener('click', renderList);
+        window.__initBarBitesUploader = async function() { try { await ensureAuth();
+                renderList(); } catch (e) { console.warn(e); } };
+    </script>
 </body>
 </html>
