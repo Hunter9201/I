@@ -518,6 +518,11 @@
             background: linear-gradient(145deg, #5a9fd4, #3182ce);
             box-shadow: 0 6px 14px rgba(90, 159, 212, 0.25);
         }
+        /* New icon for Articles */
+        .icon.alt14 {
+            background: linear-gradient(145deg, #f6ad55, #dd6b20);
+            box-shadow: 0 6px 14px rgba(221, 107, 32, 0.25);
+        }
 
         /* LABEL with text-shadow for readability over watermark */
         .label {
@@ -694,6 +699,157 @@
             color: var(--primary-dark);
             letter-spacing: 0.2px;
             line-height: 1.6;
+        }
+
+        /* ----- ARTICLES SECTION (NEW) ----- */
+        .articles-section {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(4px);
+            border-radius: var(--radius-sm);
+            padding: 1.2rem 1.5rem;
+            margin: 1.2rem 0 0.8rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(201, 162, 75, 0.15);
+            transition: box-shadow 0.2s;
+        }
+        .articles-section:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .articles-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px 16px;
+            border-bottom: 2px solid rgba(201, 162, 75, 0.25);
+            padding-bottom: 10px;
+            margin-bottom: 16px;
+        }
+        .articles-header h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .articles-header h3 i {
+            color: var(--gold);
+        }
+        .articles-header .badge-new {
+            background: var(--gold);
+            color: var(--primary-dark);
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 14px;
+            border-radius: 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 18px;
+        }
+        @media (max-width: 500px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .article-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(2px);
+            border-radius: var(--radius-sm);
+            padding: 16px 18px;
+            border-left: 4px solid var(--gold);
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-left-color: var(--primary-light);
+        }
+        .article-card .art-tag {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gold);
+            background: rgba(201, 162, 75, 0.15);
+            padding: 2px 12px;
+            border-radius: 40px;
+            align-self: flex-start;
+        }
+        .article-card .art-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            line-height: 1.3;
+            margin: 2px 0;
+        }
+        .article-card .art-title a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .article-card .art-title a:hover {
+            color: var(--gold);
+        }
+        .article-card .art-meta {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .article-card .art-meta i {
+            margin-right: 3px;
+            color: var(--gold);
+        }
+        .article-card .art-summary {
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            line-height: 1.5;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+        .article-card .art-readmore {
+            margin-top: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            align-self: flex-start;
+        }
+        .article-card .art-readmore:hover {
+            color: var(--gold);
+            gap: 10px;
+        }
+
+        .articles-empty {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .articles-empty i {
+            font-size: 2.4rem;
+            color: var(--gold-light);
+            display: block;
+            margin-bottom: 10px;
         }
 
         /* ----- FOOTER ----- */
@@ -884,7 +1040,7 @@
                 </div>
             </div>
 
-            <!-- Navigation bar – Bigger, More Visible Tabs -->
+            <!-- Navigation bar – Bigger, More Visible Tabs (added "Articles") -->
             <nav class="nav-bar" aria-label="Main navigation">
                 <a href="laws.html">Laws</a>
                 <a href="Fullcases.html">Cases</a>
@@ -900,6 +1056,8 @@
                 <a href="Discussions.html">Discuss</a>
                 <a href="barbites.html">Bar Bites</a>
                 <a href="services.html">Services</a>
+                <!-- NEW: Articles tab -->
+                <a href="#articles-section">Articles</a>
             </nav>
         </header>
 
@@ -1000,8 +1158,37 @@
                     <div class="icon alt13">👩‍⚖️</div>
                     <span class="label">Legal Services</span>
                 </a>
+                <!-- NEW: Articles app icon -->
+                <a class="app" href="#articles-section">
+                    <div class="icon alt14">📰</div>
+                    <span class="label">Articles</span>
+                </a>
             </div>
         </main>
+
+        <!-- ===== ARTICLES SECTION ===== -->
+        <section class="articles-section" id="articles-section">
+            <div class="articles-header">
+                <h3><i class="fas fa-newspaper"></i> Latest Articles</h3>
+                <span class="badge-new"><i class="fas fa-feather-alt"></i> Fresh insights</span>
+            </div>
+
+            <div class="articles-grid" id="articlesGrid">
+                <!-- Article cards will be injected by JavaScript below -->
+                <!-- Fallback content in case JS fails -->
+                <div class="articles-empty">
+                    <i class="fas fa-pen-fancy"></i>
+                    <p>Loading articles…</p>
+                </div>
+            </div>
+
+            <!-- Optional: "View all" link -->
+            <div style="text-align:right; margin-top:14px;">
+                <a href="#articles-section" style="font-size:0.8rem; font-weight:700; color:var(--primary-light); text-decoration:none; display:inline-flex; align-items:center; gap:6px; transition:gap 0.2s;">
+                    <i class="fas fa-arrow-right"></i> Browse all articles
+                </a>
+            </div>
+        </section>
 
         <!-- MOTTO -->
         <div class="motto">
@@ -1310,6 +1497,130 @@
         }
         updateBadge();
         setInterval(updateBadge, 30000);
+
+        // ================================================================
+        // ARTICLES DATA & RENDERER — PUT YOUR ARTICLES HERE
+        // ================================================================
+        (function() {
+            // ─── ARTICLE DATA ──────────────────────────────────────────────
+            // Add, remove, or edit articles in this array.
+            // Each article object:
+            //   id        : unique identifier (string or number)
+            //   title     : article headline
+            //   tag       : optional category/label (e.g. "Opinion", "Case Review", "Advocacy")
+            //   date      : display date (e.g. "27 June 2026")
+            //   author    : author name (optional)
+            //   summary   : short excerpt (max ~140 chars)
+            //   link      : full article URL (optional; if empty, "#" is used)
+            //   featured  : boolean (if true, card gets a subtle accent)
+            const articles = [{
+                id: 1,
+                title: "The Art of Cross-Examination: Lessons from the Savannah",
+                tag: "Advocacy",
+                date: "27 June 2026",
+                author: "Arthur M.",
+                summary: "Master the techniques that turn a courtroom into a hunting ground. Discover how to trap, pivot, and strike with precision.",
+                link: "#",
+                featured: true
+            }, {
+                id: 2,
+                title: "Decoding the Ugandan Land Law: A Practical Guide",
+                tag: "Legal Analysis",
+                date: "25 June 2026",
+                author: "Sarah K.",
+                summary: "Land disputes are the lion's share of Ugandan litigation. This article breaks down the key statutes and recent judicial trends.",
+                link: "#",
+                featured: false
+            }, {
+                id: 3,
+                title: "Ethical Dilemmas in Criminal Defense",
+                tag: "Ethics",
+                date: "22 June 2026",
+                author: "Dr. James O.",
+                summary: "Balancing zealous advocacy with professional integrity — a must-read for every defense lawyer navigating the wild.",
+                link: "#",
+                featured: false
+            }, {
+                id: 4,
+                title: "From Paper to Practice: Building a Strong Legal Argument",
+                tag: "Skill Building",
+                date: "20 June 2026",
+                author: "Grace N.",
+                summary: "Learn how to structure persuasive submissions that judges remember. Practical tips from seasoned practitioners.",
+                link: "#",
+                featured: false
+            }, {
+                id: 5,
+                title: "The Future of Legal Tech in East Africa",
+                tag: "Innovation",
+                date: "18 June 2026",
+                author: "Team Lion Hunt",
+                summary: "AI, automation, and digital case management — how technology is reshaping the legal landscape in the region.",
+                link: "#",
+                featured: false
+            }, {
+                id: 6,
+                title: "Winning the Moot: Strategies for LDC Students",
+                tag: "Mooting",
+                date: "15 June 2026",
+                author: "Brian W.",
+                summary: "From research to oral delivery, this guide gives you the edge in mooting competitions. Roar with confidence.",
+                link: "#",
+                featured: false
+            }];
+
+            // ─── RENDER FUNCTION ──────────────────────────────────────────
+            function renderArticles() {
+                const grid = document.getElementById('articlesGrid');
+                if (!grid) return;
+
+                if (!articles || articles.length === 0) {
+                    grid.innerHTML = `
+                        <div class="articles-empty">
+                            <i class="fas fa-pen-fancy"></i>
+                            <p>No articles yet. Check back soon!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let html = '';
+                for (const art of articles) {
+                    const featuredClass = art.featured ? ' border-l-4 border-l-amber-500' : '';
+                    const linkTarget = art.link && art.link !== '#' ? art.link : '#';
+                    html += `
+                        <div class="article-card${featuredClass}">
+                            ${art.tag ? `<span class="art-tag"><i class="fas fa-tag"></i> ${art.tag}</span>` : ''}
+                            <div class="art-title">
+                                <a href="${linkTarget}" ${art.link && art.link !== '#' ? 'target="_blank" rel="noopener"' : ''}>
+                                    ${art.title}
+                                </a>
+                            </div>
+                            <div class="art-meta">
+                                <span><i class="far fa-calendar-alt"></i> ${art.date || ''}</span>
+                                ${art.author ? `<span><i class="far fa-user"></i> ${art.author}</span>` : ''}
+                            </div>
+                            ${art.summary ? `<div class="art-summary">${art.summary}</div>` : ''}
+                            <a href="${linkTarget}" class="art-readmore" ${art.link && art.link !== '#' ? 'target="_blank" rel="noopener"' : ''}>
+                                Read more <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    `;
+                }
+
+                grid.innerHTML = html;
+            }
+
+            // ─── INIT ──────────────────────────────────────────────────────
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', renderArticles);
+            } else {
+                renderArticles();
+            }
+
+            // Expose the articles array globally so you can easily modify it from the console or dev tools.
+            window.__lionArticles = articles;
+        })();
     </script>
 
     <!-- Firebase Storage Uploader (Bar Bites) -->
