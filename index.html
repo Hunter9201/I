@@ -211,6 +211,16 @@
             transform: scale(0.94);
         }
 
+        /* highlight Articles tab */
+        .nav-bar a[href="articles.html"] {
+            border-color: var(--gold);
+            background: rgba(201, 162, 75, 0.15);
+            box-shadow: 0 0 20px rgba(201, 162, 75, 0.15);
+        }
+        .nav-bar a[href="articles.html"]:hover {
+            background: rgba(201, 162, 75, 0.35);
+        }
+
         @media (max-width: 768px) {
             .header-top {
                 flex-direction: column;
@@ -425,7 +435,6 @@
             }
         }
 
-        /* REMOVED BOUNDARIES: background, border, shadow, backdrop */
         .app {
             text-decoration: none;
             display: flex;
@@ -448,7 +457,6 @@
             transform: scale(0.94);
         }
 
-        /* ORIGINAL ICON SIZE */
         .icon {
             width: 56px;
             height: 56px;
@@ -518,13 +526,12 @@
             background: linear-gradient(145deg, #5a9fd4, #3182ce);
             box-shadow: 0 6px 14px rgba(90, 159, 212, 0.25);
         }
-        /* New icon for Articles */
+        /* Articles icon */
         .icon.alt14 {
             background: linear-gradient(145deg, #f6ad55, #dd6b20);
             box-shadow: 0 6px 14px rgba(221, 107, 32, 0.25);
         }
 
-        /* LABEL with text-shadow for readability over watermark */
         .label {
             font-size: 11px;
             font-weight: 600;
@@ -551,7 +558,7 @@
             }
         }
 
-        /* ----- CALENDAR WIDGET (Slightly transparent to show watermark) ----- */
+        /* ----- CALENDAR WIDGET ----- */
         .widget {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(4px);
@@ -682,7 +689,7 @@
             background: rgba(255, 255, 255, 0.5);
         }
 
-        /* ----- MOTTO (Slightly more opaque for contrast) ----- */
+        /* ----- MOTTO ----- */
         .motto {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(4px);
@@ -701,7 +708,7 @@
             line-height: 1.6;
         }
 
-        /* ----- ARTICLES SECTION (NEW) ----- */
+        /* ----- ARTICLES SECTION (fetched from remote) ----- */
         .articles-section {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(4px);
@@ -850,6 +857,39 @@
             color: var(--gold-light);
             display: block;
             margin-bottom: 10px;
+        }
+
+        /* Loading spinner */
+        .loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 0;
+            gap: 12px;
+            color: var(--primary-light);
+            font-weight: 600;
+        }
+        .loader i {
+            font-size: 1.8rem;
+            animation: spin 1.2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #b91c1c;
+            background: #fee2e2;
+            padding: 0.8rem 1.2rem;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Featured variant */
+        .article-card.border-l-4.border-l-amber-500 {
+            border-left-color: #f59e0b;
         }
 
         /* ----- FOOTER ----- */
@@ -1023,10 +1063,10 @@
 
     <div id="main-content">
 
-        <!-- ===== HEADER (No Hero Image) ===== -->
+        <!-- ===== HEADER ===== -->
         <header class="site-header">
 
-            <!-- Top bar: calendar alert + View Calendar -->
+            <!-- Top bar -->
             <div class="header-top">
                 <div class="alert-text">
                     <i class="fas fa-calendar-alt"></i>
@@ -1040,7 +1080,7 @@
                 </div>
             </div>
 
-            <!-- Navigation bar – Bigger, More Visible Tabs (added "Articles") -->
+            <!-- Navigation – Articles now links to articles.html -->
             <nav class="nav-bar" aria-label="Main navigation">
                 <a href="laws.html">Laws</a>
                 <a href="Fullcases.html">Cases</a>
@@ -1056,8 +1096,7 @@
                 <a href="Discussions.html">Discuss</a>
                 <a href="barbites.html">Bar Bites</a>
                 <a href="services.html">Services</a>
-                <!-- NEW: Articles tab -->
-                <a href="#articles-section">Articles</a>
+                <a href="articles.html">Articles</a>
             </nav>
         </header>
 
@@ -1101,7 +1140,7 @@
                     </div>
                 </div>
 
-                <!-- App links (No Boundaries) -->
+                <!-- App links -->
                 <a class="app" href="laws.html">
                     <div class="icon">📜</div>
                     <span class="label">Laws</span>
@@ -1158,15 +1197,15 @@
                     <div class="icon alt13">👩‍⚖️</div>
                     <span class="label">Legal Services</span>
                 </a>
-                <!-- NEW: Articles app icon -->
-                <a class="app" href="#articles-section">
+                <!-- Articles app icon now links to articles.html -->
+                <a class="app" href="articles.html">
                     <div class="icon alt14">📰</div>
                     <span class="label">Articles</span>
                 </a>
             </div>
         </main>
 
-        <!-- ===== ARTICLES SECTION ===== -->
+        <!-- ===== ARTICLES SECTION – fetched from remote ===== -->
         <section class="articles-section" id="articles-section">
             <div class="articles-header">
                 <h3><i class="fas fa-newspaper"></i> Latest Articles</h3>
@@ -1174,17 +1213,15 @@
             </div>
 
             <div class="articles-grid" id="articlesGrid">
-                <!-- Article cards will be injected by JavaScript below -->
-                <!-- Fallback content in case JS fails -->
-                <div class="articles-empty">
-                    <i class="fas fa-pen-fancy"></i>
-                    <p>Loading articles…</p>
+                <!-- Loading state -->
+                <div class="loader" id="loadingIndicator">
+                    <i class="fas fa-spinner"></i> Loading articles…
                 </div>
             </div>
 
-            <!-- Optional: "View all" link -->
+            <!-- "Browse all" link points to articles.html -->
             <div style="text-align:right; margin-top:14px;">
-                <a href="#articles-section" style="font-size:0.8rem; font-weight:700; color:var(--primary-light); text-decoration:none; display:inline-flex; align-items:center; gap:6px; transition:gap 0.2s;">
+                <a href="articles.html" style="font-size:0.8rem; font-weight:700; color:var(--primary-light); text-decoration:none; display:inline-flex; align-items:center; gap:6px; transition:gap 0.2s;">
                     <i class="fas fa-arrow-right"></i> Browse all articles
                 </a>
             </div>
@@ -1499,86 +1536,19 @@
         setInterval(updateBadge, 30000);
 
         // ================================================================
-        // ARTICLES DATA & RENDERER — PUT YOUR ARTICLES HERE
+        // ARTICLES FETCH – pulls from the same remote source as articles.html
         // ================================================================
         (function() {
-            // ─── ARTICLE DATA ──────────────────────────────────────────────
-            // Add, remove, or edit articles in this array.
-            // Each article object:
-            //   id        : unique identifier (string or number)
-            //   title     : article headline
-            //   tag       : optional category/label (e.g. "Opinion", "Case Review", "Advocacy")
-            //   date      : display date (e.g. "27 June 2026")
-            //   author    : author name (optional)
-            //   summary   : short excerpt (max ~140 chars)
-            //   link      : full article URL (optional; if empty, "#" is used)
-            //   featured  : boolean (if true, card gets a subtle accent)
-            const articles = [{
-                id: 1,
-                title: "The Art of Cross-Examination: Lessons from the Savannah",
-                tag: "Advocacy",
-                date: "27 June 2026",
-                author: "Arthur M.",
-                summary: "Master the techniques that turn a courtroom into a hunting ground. Discover how to trap, pivot, and strike with precision.",
-                link: "#",
-                featured: true
-            }, {
-                id: 2,
-                title: "Decoding the Ugandan Land Law: A Practical Guide",
-                tag: "Legal Analysis",
-                date: "25 June 2026",
-                author: "Sarah K.",
-                summary: "Land disputes are the lion's share of Ugandan litigation. This article breaks down the key statutes and recent judicial trends.",
-                link: "#",
-                featured: false
-            }, {
-                id: 3,
-                title: "Ethical Dilemmas in Criminal Defense",
-                tag: "Ethics",
-                date: "22 June 2026",
-                author: "Dr. James O.",
-                summary: "Balancing zealous advocacy with professional integrity — a must-read for every defense lawyer navigating the wild.",
-                link: "#",
-                featured: false
-            }, {
-                id: 4,
-                title: "From Paper to Practice: Building a Strong Legal Argument",
-                tag: "Skill Building",
-                date: "20 June 2026",
-                author: "Grace N.",
-                summary: "Learn how to structure persuasive submissions that judges remember. Practical tips from seasoned practitioners.",
-                link: "#",
-                featured: false
-            }, {
-                id: 5,
-                title: "The Future of Legal Tech in East Africa",
-                tag: "Innovation",
-                date: "18 June 2026",
-                author: "Team Lion Hunt",
-                summary: "AI, automation, and digital case management — how technology is reshaping the legal landscape in the region.",
-                link: "#",
-                featured: false
-            }, {
-                id: 6,
-                title: "Winning the Moot: Strategies for LDC Students",
-                tag: "Mooting",
-                date: "15 June 2026",
-                author: "Brian W.",
-                summary: "From research to oral delivery, this guide gives you the edge in mooting competitions. Roar with confidence.",
-                link: "#",
-                featured: false
-            }];
+            const ARTICLES_API = "https://hunter9201.github.io/Articles-Admin/";
+            const grid = document.getElementById('articlesGrid');
+            const loadingEl = document.getElementById('loadingIndicator');
 
-            // ─── RENDER FUNCTION ──────────────────────────────────────────
-            function renderArticles() {
-                const grid = document.getElementById('articlesGrid');
-                if (!grid) return;
-
+            function renderArticles(articles) {
                 if (!articles || articles.length === 0) {
                     grid.innerHTML = `
                         <div class="articles-empty">
                             <i class="fas fa-pen-fancy"></i>
-                            <p>No articles yet. Check back soon!</p>
+                            <p>No articles available right now. Check back soon!</p>
                         </div>
                     `;
                     return;
@@ -1586,40 +1556,59 @@
 
                 let html = '';
                 for (const art of articles) {
-                    const featuredClass = art.featured ? ' border-l-4 border-l-amber-500' : '';
-                    const linkTarget = art.link && art.link !== '#' ? art.link : '#';
+                    const title = art.title || art.headline || 'Untitled';
+                    const tag = art.tag || art.category || art.topic || '';
+                    const date = art.date || art.published || art.pubDate || '';
+                    const author = art.author || art.byline || '';
+                    const summary = art.summary || art.excerpt || art.description || '';
+                    const link = art.link || art.url || art.href || '#';
+                    const featured = art.featured === true || art.pinned === true;
+
+                    const featuredClass = featured ? ' border-l-4 border-l-amber-500' : '';
+
                     html += `
                         <div class="article-card${featuredClass}">
-                            ${art.tag ? `<span class="art-tag"><i class="fas fa-tag"></i> ${art.tag}</span>` : ''}
+                            ${tag ? `<span class="art-tag"><i class="fas fa-tag"></i> ${tag}</span>` : ''}
                             <div class="art-title">
-                                <a href="${linkTarget}" ${art.link && art.link !== '#' ? 'target="_blank" rel="noopener"' : ''}>
-                                    ${art.title}
+                                <a href="${link}" ${link !== '#' ? 'target="_blank" rel="noopener"' : ''}>
+                                    ${title}
                                 </a>
                             </div>
                             <div class="art-meta">
-                                <span><i class="far fa-calendar-alt"></i> ${art.date || ''}</span>
-                                ${art.author ? `<span><i class="far fa-user"></i> ${art.author}</span>` : ''}
+                                ${date ? `<span><i class="far fa-calendar-alt"></i> ${date}</span>` : ''}
+                                ${author ? `<span><i class="far fa-user"></i> ${author}</span>` : ''}
                             </div>
-                            ${art.summary ? `<div class="art-summary">${art.summary}</div>` : ''}
-                            <a href="${linkTarget}" class="art-readmore" ${art.link && art.link !== '#' ? 'target="_blank" rel="noopener"' : ''}>
+                            ${summary ? `<div class="art-summary">${summary}</div>` : ''}
+                            <a href="${link}" class="art-readmore" ${link !== '#' ? 'target="_blank" rel="noopener"' : ''}>
                                 Read more <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
                     `;
                 }
-
                 grid.innerHTML = html;
             }
 
-            // ─── INIT ──────────────────────────────────────────────────────
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', renderArticles);
-            } else {
-                renderArticles();
+            async function fetchArticles() {
+                try {
+                    const response = await fetch(ARTICLES_API, {
+                        cache: 'no-store'
+                    });
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    const data = await response.json();
+                    let articles = Array.isArray(data) ? data : (data.articles || data.items || []);
+                    renderArticles(articles);
+                } catch (error) {
+                    console.warn('Failed to fetch articles:', error);
+                    grid.innerHTML = `
+                        <div class="error-message">
+                            <i class="fas fa-exclamation-triangle"></i> 
+                            Could not load articles. Please try again later.
+                        </div>
+                    `;
+                }
             }
 
-            // Expose the articles array globally so you can easily modify it from the console or dev tools.
-            window.__lionArticles = articles;
+            fetchArticles();
         })();
     </script>
 
