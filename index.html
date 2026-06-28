@@ -894,7 +894,7 @@
         }
 
         /* ================================================================
-           FULL ARTICLE MODAL – like the admin preview
+           FULL ARTICLE MODAL – with author image+name side‑by‑side
            ================================================================ */
         .article-modal-overlay {
             position: fixed;
@@ -970,20 +970,46 @@
         .article-modal-header .modal-close-btn:hover {
             color: #fff;
         }
+
         .article-modal-body {
             padding: 1.5rem;
             overflow-y: auto;
             flex: 1;
         }
-        .article-modal-body .modal-author-image {
+
+        /* Author section: image + name side‑by‑side */
+        .modal-author-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 18px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(201, 162, 75, 0.2);
+        }
+        .modal-author-image {
             width: 56px;
             height: 56px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid var(--gold);
-            margin-bottom: 12px;
+            flex-shrink: 0;
         }
-        .article-modal-body .modal-tag {
+        .modal-author-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .modal-author-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary-dark);
+        }
+        .modal-author-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .modal-tag {
             display: inline-block;
             font-size: 0.6rem;
             font-weight: 700;
@@ -995,27 +1021,28 @@
             border-radius: 40px;
             margin-bottom: 12px;
         }
-        .article-modal-body .modal-full-content {
+
+        .modal-full-content {
             font-size: 0.95rem;
             line-height: 1.8;
             color: var(--text-dark);
             white-space: pre-wrap;
         }
-        .article-modal-body .modal-full-content p {
+        .modal-full-content p {
             margin-bottom: 1rem;
         }
-        .article-modal-body .modal-full-content h1,
-        .article-modal-body .modal-full-content h2,
-        .article-modal-body .modal-full-content h3 {
+        .modal-full-content h1,
+        .modal-full-content h2,
+        .modal-full-content h3 {
             margin: 1.2rem 0 0.6rem;
             color: var(--primary-dark);
         }
-        .article-modal-body .modal-full-content ul,
-        .article-modal-body .modal-full-content ol {
+        .modal-full-content ul,
+        .modal-full-content ol {
             padding-left: 1.5rem;
             margin-bottom: 1rem;
         }
-        .article-modal-body .modal-full-content blockquote {
+        .modal-full-content blockquote {
             border-left: 4px solid var(--gold);
             padding-left: 1rem;
             margin: 1rem 0;
@@ -1037,6 +1064,13 @@
             }
             .article-modal-body {
                 padding: 1rem;
+            }
+            .modal-author-section {
+                gap: 10px;
+            }
+            .modal-author-image {
+                width: 44px;
+                height: 44px;
             }
         }
 
@@ -1269,7 +1303,7 @@
             </div>
         </div>
 
-        <!-- FULL ARTICLE MODAL -->
+        <!-- FULL ARTICLE MODAL (updated with author name next to image) -->
         <div class="article-modal-overlay" id="articleModal">
             <div class="article-modal-card">
                 <div class="article-modal-header">
@@ -1284,7 +1318,14 @@
                     <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
                 </div>
                 <div class="article-modal-body" id="modalBody">
-                    <img id="modalAuthorImg" class="modal-author-image" style="display:none;" alt="Author image">
+                    <!-- Author section: image + name side by side -->
+                    <div class="modal-author-section" id="modalAuthorSection" style="display:none;">
+                        <img id="modalAuthorImg" class="modal-author-image" alt="Author image">
+                        <div class="modal-author-info">
+                            <div class="modal-author-name" id="modalAuthorName">Author Name</div>
+                            <div class="modal-author-label">Author</div>
+                        </div>
+                    </div>
                     <div id="modalFullContent" class="modal-full-content"></div>
                 </div>
             </div>
@@ -1708,13 +1749,15 @@
             const ARTICLES_API = "https://raw.githubusercontent.com/hunter9201/I/main/articles.json";
             const grid = document.getElementById('articlesGrid');
 
-            // Modal elements
+            // Modal elements (updated)
             const modal = document.getElementById('articleModal');
             const modalTitle = document.getElementById('modalTitle');
             const modalDate = document.getElementById('modalDate');
             const modalAuthor = document.getElementById('modalAuthor');
             const modalTagDisplay = document.getElementById('modalTagDisplay');
+            const modalAuthorSection = document.getElementById('modalAuthorSection');
             const modalAuthorImg = document.getElementById('modalAuthorImg');
+            const modalAuthorName = document.getElementById('modalAuthorName');
             const modalFullContent = document.getElementById('modalFullContent');
             const modalCloseBtn = document.getElementById('modalCloseBtn');
 
@@ -1729,7 +1772,7 @@
                 const dateStr = article.date || article.published || article.pubDate || '';
                 modalDate.innerHTML = `<i class="far fa-calendar-alt"></i> ${dateStr}`;
 
-                // Set author
+                // Set author in header
                 const authorStr = article.author || article.byline || '';
                 modalAuthor.innerHTML = `<i class="far fa-user"></i> ${authorStr}`;
 
@@ -1742,19 +1785,27 @@
                     modalTagDisplay.style.display = 'none';
                 }
 
-                // Set author image
+                // Set author image + name (side by side)
                 const imgSrc = article.authorImage || '';
-                if (imgSrc) {
-                    modalAuthorImg.src = imgSrc;
-                    modalAuthorImg.style.display = 'block';
+                const hasImage = imgSrc && imgSrc.length > 0;
+                const hasName = authorStr && authorStr.length > 0;
+
+                if (hasImage || hasName) {
+                    modalAuthorSection.style.display = 'flex';
+                    if (hasImage) {
+                        modalAuthorImg.src = imgSrc;
+                        modalAuthorImg.style.display = 'block';
+                    } else {
+                        modalAuthorImg.style.display = 'none';
+                    }
+                    modalAuthorName.textContent = hasName ? authorStr : 'Anonymous';
                 } else {
-                    modalAuthorImg.style.display = 'none';
+                    modalAuthorSection.style.display = 'none';
                 }
 
                 // Set full content
                 const content = article.content || article.body || article.fullContent || '';
                 if (content) {
-                    // Convert newlines to <br> for proper display, but preserve paragraphs
                     const formatted = content.split('\n').filter(p => p.trim()).join('\n\n');
                     modalFullContent.innerHTML = formatted
                         .split('\n\n')
@@ -1788,7 +1839,7 @@
             });
 
             function renderArticles(articles) {
-                articlesData = articles; // Store for modal access
+                articlesData = articles;
 
                 if (!articles || articles.length === 0) {
                     grid.innerHTML = `
@@ -1810,7 +1861,6 @@
                     const featured = art.featured === true || art.pinned === true;
                     const featuredClass = featured ? ' border-l-4 border-l-amber-500' : '';
 
-                    // Use a data attribute to store the index for modal lookup
                     const idx = articles.indexOf(art);
 
                     html += `
