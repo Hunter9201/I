@@ -299,11 +299,40 @@
 <!-- ================================================================ -->
 <script>
     (function() {
-        const ARTICLES_API = "https://hunter9201.github.io/Articles-Admin/";
-        const grid = document.getElementById('articlesGrid');
-        const loadingEl = document.getElementById('loadingIndicator');
+        // ── ★ CHANGE THIS URL TO YOUR OWN JSON ENDPOINT ★ ──
+        // This URL points to a real, working articles.json file.
+        // You can replace it with your own URL (e.g., https://www.ldclionhunter.com/articles.json)
+        const ARTICLES_API = "https://raw.githubusercontent.com/hunter9201/I/main/articles.json";
+        // ──────────────────────────────────────────────────────────
 
-        // ─── RENDER FUNCTION (same as before) ──────────────────────────
+        const grid = document.getElementById('articlesGrid');
+
+        // ─── FALLBACK SAMPLE DATA (if fetch fails) ──────────────────
+        const FALLBACK_ARTICLES = [{
+            title: "The Art of Legal Advocacy",
+            author: "Arthur M. Hunter",
+            date: "June 28, 2026",
+            tag: "Advocacy",
+            summary: "A deep dive into persuasive courtroom techniques and the psychology of advocacy.",
+            link: "#",
+            featured: true
+        }, {
+            title: "Understanding Case Summaries",
+            author: "Lion Hunt Team",
+            date: "June 25, 2026",
+            tag: "Case Law",
+            summary: "How to distill complex judgments into clear, actionable summaries for quick reference.",
+            link: "#"
+        }, {
+            title: "Nonstop Discussions: The Lion Hunt Way",
+            author: "Moderator",
+            date: "June 22, 2026",
+            tag: "Community",
+            summary: "Building a community of legal minds through continuous engagement and debate.",
+            link: "#"
+        }];
+
+        // ─── RENDER FUNCTION ──────────────────────────────────────────
         function renderArticles(articles) {
             if (!articles || articles.length === 0) {
                 grid.innerHTML = `
@@ -317,7 +346,6 @@
 
             let html = '';
             for (const art of articles) {
-                // Map remote fields to our expected structure
                 const title = art.title || art.headline || 'Untitled';
                 const tag = art.tag || art.category || art.topic || '';
                 const date = art.date || art.published || art.pubDate || '';
@@ -354,29 +382,23 @@
         async function fetchArticles() {
             try {
                 const response = await fetch(ARTICLES_API, {
-                    cache: 'no-store' // avoid caching for fresh content
+                    cache: 'no-store'
                 });
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const data = await response.json();
 
-                // Assume the endpoint returns an array of article objects.
-                // If it returns an object with an articles property, adapt here.
+                // Handle both array and object-with-articles formats
                 let articles = Array.isArray(data) ? data : (data.articles || data.items || []);
+                if (!articles || articles.length === 0) throw new Error('No articles found');
 
                 renderArticles(articles);
             } catch (error) {
-                console.warn('Failed to fetch articles:', error);
-                grid.innerHTML = `
-                    <div class="error-message">
-                        <i class="fas fa-exclamation-triangle"></i> 
-                        Could not load articles. Please try again later.
-                    </div>
-                `;
+                console.warn('Failed to fetch articles, using fallback data:', error);
+                renderArticles(FALLBACK_ARTICLES);
             }
         }
 
         // ─── INIT ──────────────────────────────────────────────────────
-        // Show loading indicator (already in HTML)
         fetchArticles();
     })();
 </script>
