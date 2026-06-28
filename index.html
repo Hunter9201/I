@@ -211,7 +211,6 @@
             transform: scale(0.94);
         }
 
-        /* highlight Articles tab */
         .nav-bar a[href="articles.html"] {
             border-color: var(--gold);
             background: rgba(201, 162, 75, 0.15);
@@ -526,7 +525,6 @@
             background: linear-gradient(145deg, #5a9fd4, #3182ce);
             box-shadow: 0 6px 14px rgba(90, 159, 212, 0.25);
         }
-        /* Articles icon */
         .icon.alt14 {
             background: linear-gradient(145deg, #f6ad55, #dd6b20);
             box-shadow: 0 6px 14px rgba(221, 107, 32, 0.25);
@@ -859,7 +857,6 @@
             margin-bottom: 10px;
         }
 
-        /* Loading spinner */
         .loader {
             display: flex;
             justify-content: center;
@@ -887,7 +884,6 @@
             font-weight: 500;
         }
 
-        /* Featured variant */
         .article-card.border-l-4.border-l-amber-500 {
             border-left-color: #f59e0b;
         }
@@ -1080,7 +1076,7 @@
                 </div>
             </div>
 
-            <!-- Navigation – Articles now links to articles.html -->
+            <!-- Navigation -->
             <nav class="nav-bar" aria-label="Main navigation">
                 <a href="laws.html">Laws</a>
                 <a href="Fullcases.html">Cases</a>
@@ -1197,7 +1193,6 @@
                     <div class="icon alt13">👩‍⚖️</div>
                     <span class="label">Legal Services</span>
                 </a>
-                <!-- Articles app icon now links to articles.html -->
                 <a class="app" href="articles.html">
                     <div class="icon alt14">📰</div>
                     <span class="label">Articles</span>
@@ -1205,7 +1200,7 @@
             </div>
         </main>
 
-        <!-- ===== ARTICLES SECTION – fetched from remote ===== -->
+        <!-- ===== ARTICLES SECTION ===== -->
         <section class="articles-section" id="articles-section">
             <div class="articles-header">
                 <h3><i class="fas fa-newspaper"></i> Latest Articles</h3>
@@ -1213,13 +1208,11 @@
             </div>
 
             <div class="articles-grid" id="articlesGrid">
-                <!-- Loading state -->
                 <div class="loader" id="loadingIndicator">
                     <i class="fas fa-spinner"></i> Loading articles…
                 </div>
             </div>
 
-            <!-- "Browse all" link points to articles.html -->
             <div style="text-align:right; margin-top:14px;">
                 <a href="articles.html" style="font-size:0.8rem; font-weight:700; color:var(--primary-light); text-decoration:none; display:inline-flex; align-items:center; gap:6px; transition:gap 0.2s;">
                     <i class="fas fa-arrow-right"></i> Browse all articles
@@ -1536,12 +1529,11 @@
         setInterval(updateBadge, 30000);
 
         // ================================================================
-        // ARTICLES FETCH – pulls from the same remote source as articles.html
+        // ARTICLES FETCH – pulls from hunter9201/I/articles.json
         // ================================================================
         (function() {
-            const ARTICLES_API = "https://hunter9201.github.io/Articles-Admin/";
+            const ARTICLES_API = "https://raw.githubusercontent.com/hunter9201/I/main/articles.json";
             const grid = document.getElementById('articlesGrid');
-            const loadingEl = document.getElementById('loadingIndicator');
 
             function renderArticles(articles) {
                 if (!articles || articles.length === 0) {
