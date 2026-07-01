@@ -518,5 +518,25 @@
     "procedure": "",
     "locusClassicus": "",
     "filingFees": ""
+  },
+  {
+    "id": 27,
+    "title": "Written statement of Defence",
+    "description": "Pleading document: Written statement of Defence.pdf",
+    "filename": "Written statement of Defence.pdf",
+    "documentType": "Draft Pleading",
+    "caseNumber": "",
+    "parties": "",
+    "court": "",
+    "documentDate": "2026-07-01",
+    "size": "0.12",
+    "pages": "?",
+    "year": 2026,
+    "date": "2026-07-01T11:04:39.039Z",
+    "category": "other",
+    "url": "https://hunter9201.github.io/I/Written%20statement%20of%20Defence.pdf",
+    "procedure": "",
+    "locusClassicus": "",
+    "filingFees": "1500 ug shs"
   }
 ]
